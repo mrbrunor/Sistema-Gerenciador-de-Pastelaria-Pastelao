@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.au.pojo.Pedido" table="pedido" catalog="sistemapastelao">
+        <id name="idPedido" type="java.lang.Integer">
+            <column name="idPedido" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="caixa" class="com.au.pojo.Caixa" fetch="select">
+            <column name="idCaixa" not-null="true" />
+        </many-to-one>
+        <property name="numPedido" type="int">
+            <column name="numPedido" not-null="true" />
+        </property>
+        <property name="dataPedido" type="date">
+            <column name="dataPedido" length="10" not-null="true" />
+        </property>
+        <property name="horaPedido" type="time">
+            <column name="horaPedido" length="8" not-null="true" />
+        </property>
+        <property name="subTotPedido" type="double">
+            <column name="subTotPedido" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="descPedido" type="double">
+            <column name="descPedido" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="totPedido" type="double">
+            <column name="totPedido" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="formaPagtoPedido" type="string">
+            <column name="formaPagtoPedido" length="40" not-null="true" />
+        </property>
+        <property name="estadoPedido" type="string">
+            <column name="estadoPedido" length="20" not-null="true" />
+        </property>
+        <set name="itempedidos" table="itempedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPedido" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Itempedido" />
+        </set>
+    </class>
+</hibernate-mapping>

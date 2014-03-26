@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.au.pojo.Notafiscal" table="notafiscal" catalog="sistemapastelao">
+        <id name="idNota" type="java.lang.Integer">
+            <column name="idNota" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="despesa" class="com.au.pojo.Despesa" fetch="select">
+            <column name="idDesp" not-null="true" />
+        </many-to-one>
+        <many-to-one name="fornecedor" class="com.au.pojo.Fornecedor" fetch="select">
+            <column name="idForn" not-null="true" />
+        </many-to-one>
+        <property name="dataNota" type="date">
+            <column name="dataNota" length="10" not-null="true" />
+        </property>
+        <property name="horaNota" type="time">
+            <column name="horaNota" length="8" not-null="true" />
+        </property>
+        <property name="subTotNota" type="double">
+            <column name="subTotNota" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="descNota" type="double">
+            <column name="descNota" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="totNota" type="double">
+            <column name="totNota" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="notaingredientes" table="notaingrediente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idNota" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Notaingrediente" />
+        </set>
+        <set name="notaprodutos" table="notaproduto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idNota" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Notaproduto" />
+        </set>
+    </class>
+</hibernate-mapping>

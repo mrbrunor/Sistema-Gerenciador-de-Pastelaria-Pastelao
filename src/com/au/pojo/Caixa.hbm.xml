@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.au.pojo.Caixa" table="caixa" catalog="sistemapastelao">
+        <id name="idCaixa" type="java.lang.Integer">
+            <column name="idCaixa" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="funcionario" class="com.au.pojo.Funcionario" fetch="select">
+            <column name="idFunc" not-null="true" />
+        </many-to-one>
+        <property name="fundoCaixa" type="double">
+            <column name="fundoCaixa" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dataCaixa" type="date">
+            <column name="dataCaixa" length="10" not-null="true" />
+        </property>
+        <property name="aberturaCaixa" type="time">
+            <column name="aberturaCaixa" length="8" not-null="true" />
+        </property>
+        <property name="fechamentoCaixa" type="time">
+            <column name="fechamentoCaixa" length="8" />
+        </property>
+        <property name="estaAberto" type="boolean">
+            <column name="estaAberto" not-null="true" />
+        </property>
+        <property name="totalCaixa" type="double">
+            <column name="totalCaixa" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="pedidos" table="pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCaixa" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Pedido" />
+        </set>
+        <set name="despesas" table="despesa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCaixa" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Despesa" />
+        </set>
+    </class>
+</hibernate-mapping>

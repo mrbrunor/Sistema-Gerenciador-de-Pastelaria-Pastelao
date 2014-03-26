@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.au.pojo.Despesa" table="despesa" catalog="sistemapastelao">
+        <id name="idDesp" type="java.lang.Integer">
+            <column name="idDesp" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="caixa" class="com.au.pojo.Caixa" fetch="select">
+            <column name="idCaixa" not-null="true" />
+        </many-to-one>
+        <property name="dataDesp" type="date">
+            <column name="dataDesp" length="10" not-null="true" />
+        </property>
+        <property name="descDesp" type="string">
+            <column name="descDesp" length="100" not-null="true" />
+        </property>
+        <property name="valorDesp" type="double">
+            <column name="valorDesp" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="retirada" type="boolean">
+            <column name="retirada" not-null="true" />
+        </property>
+        <set name="notafiscals" table="notafiscal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDesp" not-null="true" />
+            </key>
+            <one-to-many class="com.au.pojo.Notafiscal" />
+        </set>
+    </class>
+</hibernate-mapping>

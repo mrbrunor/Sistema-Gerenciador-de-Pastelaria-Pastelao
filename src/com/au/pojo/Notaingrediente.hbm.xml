@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.au.pojo.Notaingrediente" table="notaingrediente" catalog="sistemapastelao">
+        <composite-id name="id" class="com.au.pojo.NotaingredienteId">
+            <key-property name="idIng" type="int">
+                <column name="idIng" />
+            </key-property>
+            <key-property name="idNota" type="int">
+                <column name="idNota" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="notafiscal" class="com.au.pojo.Notafiscal" update="false" insert="false" fetch="select">
+            <column name="idNota" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ingrediente" class="com.au.pojo.Ingrediente" update="false" insert="false" fetch="select">
+            <column name="idIng" not-null="true" />
+        </many-to-one>
+        <property name="qtdNota" type="int">
+            <column name="qtdNota" not-null="true" />
+        </property>
+        <property name="valorNota" type="double">
+            <column name="valorNota" precision="22" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
