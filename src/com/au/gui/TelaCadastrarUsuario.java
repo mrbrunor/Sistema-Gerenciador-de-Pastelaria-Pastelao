@@ -49,6 +49,22 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
      */
     public TelaCadastrarUsuario() {
         initComponents();
+        campoNome.setDocument(new LimitaDigitos((250),"[^a-z|^A-Z|^ ]"));
+        campoNascAno.setDocument(new LimitaDigitos((4),"[^0-9]"));
+        campoNascMes.setDocument(new LimitaDigitos((2),"[^0-9]"));
+        campoNascDia.setDocument(new LimitaDigitos((2),"[^0-9]"));
+        campoRg.setDocument(new LimitaDigitos((15),"[^0-9|^.|^a-z|^A-Z\\-]"));
+        campoEmail.setDocument(new LimitaDigitos((150),"[^0-9|^.|^_|^@|^a-z|^A-Z\\-]"));
+        campoCelular.setDocument(new LimitaDigitos((15),"[^0-9|^()\\-]"));
+        campoTelefone.setDocument(new LimitaDigitos((15),"[^0-9|^()\\-]"));
+        campoAdmAno.setDocument(new LimitaDigitos((4),"[^0-9]"));
+        campoAdmMes.setDocument(new LimitaDigitos((2),"[^0-9]"));
+        campoAdmDia.setDocument(new LimitaDigitos((2),"[^0-9]"));
+        campoSalario.setDocument(new LimitaDigitos((7),"[^0-9|^.]"));
+        campoUser.setDocument(new LimitaDigitos((50),"[^0-9|^.|^a-z|^A-Z|^_\\-]"));
+        campoPass.setDocument(new LimitaDigitos((50),"[^0-9|^a-z|^A-Z]"));
+        campoPass2.setDocument(new LimitaDigitos((50),"[^0-9|^a-z|^A-Z]"));
+        
     }
 
     /**
@@ -76,12 +92,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         caixaSelecaoSexo = new javax.swing.JComboBox();
         campoNome = new javax.swing.JTextField();
         campoRg = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter rg= new javax.swing.text.MaskFormatter("###############"); 
-            campoRg = new javax.swing.JFormattedTextField(rg); 
-        } 
-        catch (Exception e){ 
-        }
         campoCpf = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##"); 
@@ -91,40 +101,10 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         }
         campoEmail = new javax.swing.JTextField();
         campoTelefone = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter telefone= new javax.swing.text.MaskFormatter("###############"); 
-            campoTelefone = new javax.swing.JFormattedTextField(telefone); 
-        } 
-        catch (Exception e){ 
-        }
         campoCelular = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter celular= new javax.swing.text.MaskFormatter("###############"); 
-            campoCelular = new javax.swing.JFormattedTextField(celular); 
-        } 
-        catch (Exception e){ 
-        }
         campoNascDia = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter dia= new javax.swing.text.MaskFormatter("##"); 
-            campoNascDia = new javax.swing.JFormattedTextField(dia); 
-        } 
-        catch (Exception e){ 
-        }
         campoNascMes = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter mes= new javax.swing.text.MaskFormatter("##"); 
-            campoNascMes = new javax.swing.JFormattedTextField(mes); 
-        } 
-        catch (Exception e){ 
-        }
         campoNascAno = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter ano= new javax.swing.text.MaskFormatter("####"); 
-            campoNascAno = new javax.swing.JFormattedTextField(ano); 
-        } 
-        catch (Exception e){ 
-        }
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();

@@ -312,9 +312,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoRg">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter rg= new javax.swing.text.MaskFormatter(&quot;###############&quot;); &#xd;&#xa;campoRg = new javax.swing.JFormattedTextField(rg); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCpf">
           <AuxValues>
@@ -327,29 +324,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTelefoneActionPerformed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter telefone= new javax.swing.text.MaskFormatter(&quot;###############&quot;); &#xd;&#xa;campoTelefone = new javax.swing.JFormattedTextField(telefone); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCelular">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter celular= new javax.swing.text.MaskFormatter(&quot;###############&quot;); &#xd;&#xa;campoCelular = new javax.swing.JFormattedTextField(celular); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascDia">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter dia= new javax.swing.text.MaskFormatter(&quot;##&quot;); &#xd;&#xa;campoNascDia = new javax.swing.JFormattedTextField(dia); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascMes">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter mes= new javax.swing.text.MaskFormatter(&quot;##&quot;); &#xd;&#xa;campoNascMes = new javax.swing.JFormattedTextField(mes); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascAno">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter ano= new javax.swing.text.MaskFormatter(&quot;####&quot;); &#xd;&#xa;campoNascAno = new javax.swing.JFormattedTextField(ano); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
