@@ -361,6 +361,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="botaoCadastrar" min="-2" max="-2" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -372,41 +376,44 @@
                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="47" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="campoPass" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="caixaSelecaoNivel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoPass2" min="-2" pref="272" max="-2" attributes="0"/>
-                                  <Component id="caixaSelecaoAtivo" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="campoUser" max="32767" attributes="0"/>
+                              <Component id="campoSalario" max="32767" attributes="0"/>
+                              <Component id="campoPass" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="caixaSelecaoNivel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="caixaSelecaoAtivo" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="campoAdmDia" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="campoAdmMes" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="campoAdmAno" min="-2" pref="60" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="129" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="campoUser" max="32767" attributes="0"/>
-                          <Component id="campoSalario" min="-2" pref="273" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="campoAdmDia" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="campoAdmMes" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="campoAdmAno" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="campoPass2" min="-2" pref="272" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="botaoEnviar" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -453,7 +460,7 @@
                       <Component id="caixaSelecaoAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="botaoEnviar" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCadastrar" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -492,10 +499,6 @@
         <Component class="javax.swing.JTextField" name="campoSalario">
         </Component>
         <Component class="javax.swing.JTextField" name="campoUser">
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoPass">
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoPass2">
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaSelecaoNivel">
           <Properties>
@@ -540,12 +543,25 @@
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdmAno">
         </Component>
-        <Component class="javax.swing.JButton" name="botaoEnviar">
+        <Component class="javax.swing.JButton" name="botaoCadastrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoEnviarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="campoPass">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="campoPass2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jPasswordField2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPass2FocusLost"/>
           </Events>
         </Component>
       </SubComponents>

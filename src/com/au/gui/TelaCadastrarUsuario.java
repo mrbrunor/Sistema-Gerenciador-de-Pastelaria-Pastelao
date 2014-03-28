@@ -26,16 +26,13 @@ package com.au.gui;
 
 import com.au.pojo.Funcionario;
 import com.au.util.HibernateUtil;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import org.hibernate.Session;
 
 /**
@@ -64,6 +61,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         campoUser.setDocument(new LimitaDigitos((50),"[^0-9|^.|^a-z|^A-Z|^_\\-]"));
         campoPass.setDocument(new LimitaDigitos((50),"[^0-9|^a-z|^A-Z]"));
         campoPass2.setDocument(new LimitaDigitos((50),"[^0-9|^a-z|^A-Z]"));
+        botaoCadastrar.setEnabled(false);
         
     }
 
@@ -116,8 +114,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         campoSalario = new javax.swing.JTextField();
         campoUser = new javax.swing.JTextField();
-        campoPass = new javax.swing.JTextField();
-        campoPass2 = new javax.swing.JTextField();
         caixaSelecaoNivel = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         caixaSelecaoAtivo = new javax.swing.JComboBox();
@@ -126,7 +122,9 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         campoAdmDia = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         campoAdmAno = new javax.swing.JTextField();
-        botaoEnviar = new javax.swing.JButton();
+        botaoCadastrar = new javax.swing.JButton();
+        campoPass = new javax.swing.JPasswordField();
+        campoPass2 = new javax.swing.JPasswordField();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuEditar = new javax.swing.JMenu();
@@ -317,10 +315,19 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel13.setText("/");
 
-        botaoEnviar.setText("Cadastrar");
-        botaoEnviar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoEnviarActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
+
+        campoPass.setText("jPasswordField1");
+
+        campoPass2.setText("jPasswordField2");
+        campoPass2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoPass2FocusLost(evt);
             }
         });
 
@@ -328,6 +335,9 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botaoCadastrar))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,34 +348,35 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(campoPass, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(caixaSelecaoNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(caixaSelecaoAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(campoUser)
-                        .addComponent(campoSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(campoAdmDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoAdmMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoAdmAno, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoUser)
+                            .addComponent(campoSalario)
+                            .addComponent(campoPass)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(caixaSelecaoNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(caixaSelecaoAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(campoAdmDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoAdmMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoAdmAno, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 129, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botaoEnviar))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +414,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(caixaSelecaoAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoEnviar))
+                .addComponent(botaoCadastrar))
         );
 
         menuArquivo.setText("Arquivo");
@@ -469,7 +480,13 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             return null;
         }        
     }
-    private void botaoEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEnviarActionPerformed
+    private void validaCampos(){
+        if(campoNome.getText().equals("")){
+            if(campoNome.getText().equals("")){
+        }
+    }
+
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         
         Funcionario funcionario = new Funcionario();
         funcionario.setNomeFunc(campoNome.getText());
@@ -488,7 +505,10 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         funcionario.setDtAdmFunc(montaData(campoAdmAno.getText(), campoAdmMes.getText(),campoAdmDia.getText()));
         funcionario.setSalFunc( Double.parseDouble(campoSalario.getText()));
         funcionario.setUserFunc(campoUser.getText());
-        funcionario.setPassFunc(campoPass.getText());
+        
+        HexSha hexSha = new HexSha(String.valueOf(campoPass.getPassword()));
+        funcionario.setPassFunc(hexSha.ConvertSha());
+        
         if(caixaSelecaoNivel.getSelectedItem() == "Administrador"){
             funcionario.setNivelFunc(1);
         }
@@ -506,7 +526,22 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         s.beginTransaction();
         s.save(funcionario); //INSERT
         s.getTransaction().commit();
-    }//GEN-LAST:event_botaoEnviarActionPerformed
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void campoPass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPass2FocusLost
+        String pass, pass2;
+        
+        pass = String.valueOf(campoPass.getPassword());
+        pass2 = String.valueOf(campoPass2.getPassword());
+        
+        if(pass.equals(pass2)){
+           botaoCadastrar.setEnabled(true);
+        }
+        else{
+           botaoCadastrar.setEnabled(false);
+           campoPass2.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_campoPass2FocusLost
 
     /**
      * @param args the command line arguments
@@ -542,7 +577,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton botaoEnviar;
+    private javax.swing.JButton botaoCadastrar;
     private javax.swing.JComboBox caixaSelecaoAtivo;
     private javax.swing.JComboBox caixaSelecaoNivel;
     private javax.swing.JComboBox caixaSelecaoSexo;
@@ -556,8 +591,8 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField campoNascDia;
     private javax.swing.JTextField campoNascMes;
     private javax.swing.JTextField campoNome;
-    private javax.swing.JTextField campoPass;
-    private javax.swing.JTextField campoPass2;
+    private javax.swing.JPasswordField campoPass;
+    private javax.swing.JPasswordField campoPass2;
     private javax.swing.JTextField campoRg;
     private javax.swing.JTextField campoSalario;
     private javax.swing.JTextField campoTelefone;

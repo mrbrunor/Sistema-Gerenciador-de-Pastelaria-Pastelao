@@ -24,8 +24,11 @@
 
 package com.au.teste;
 
+import com.au.gui.HexSha;
+import com.au.pojo.Funcionario;
 import com.au.pojo.Ingrediente;
 import com.au.util.HibernateUtil;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -34,11 +37,11 @@ import org.hibernate.Session;
  * @author BrunoRicardo
  */
 public class Test {
-    public static void main(String[] args){
+    public static void main(String[] args) throws NoSuchAlgorithmException{
         Ingrediente ingrediente = new Ingrediente();
         ingrediente.setDescIng("Queijo");
         ingrediente.setValorIng(15);
-        
+        /*
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         s.beginTransaction();
         //s.save(ingrediente); //INSERT
@@ -50,7 +53,16 @@ public class Test {
         //}
         
         s.getTransaction().commit();
+        */
         
+        Funcionario funcionario = new Funcionario();
+        funcionario.setPassFunc("91520680");
+        
+        HexSha hexSha = new HexSha(funcionario.getPassFunc());
+        
+        funcionario.setPassFunc(hexSha.ConvertSha());
+        
+        System.out.println(funcionario.getPassFunc());
         
         
     }
