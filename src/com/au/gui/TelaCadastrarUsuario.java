@@ -483,6 +483,8 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void validaCampos(){
         if(campoNome.getText().equals("")){
             if(campoNome.getText().equals("")){
+                
+            }
         }
     }
 
