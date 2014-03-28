@@ -64,6 +64,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         botaoCadastrar.setEnabled(false);
         
     }
+    int validaForm[] = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,16 +191,73 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 caixaSelecaoSexoActionPerformed(evt);
             }
         });
+        caixaSelecaoSexo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                caixaSelecaoSexoFocusLost(evt);
+            }
+        });
 
         campoNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoNomeActionPerformed(evt);
             }
         });
+        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFocusLost(evt);
+            }
+        });
+
+        campoRg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoRgFocusLost(evt);
+            }
+        });
+
+        campoCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCpfFocusLost(evt);
+            }
+        });
+
+        campoEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEmailFocusLost(evt);
+            }
+        });
 
         campoTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoTelefoneActionPerformed(evt);
+            }
+        });
+        campoTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoTelefoneFocusLost(evt);
+            }
+        });
+
+        campoCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCelularFocusLost(evt);
+            }
+        });
+
+        campoNascDia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNascDiaFocusLost(evt);
+            }
+        });
+
+        campoNascMes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNascMesFocusLost(evt);
+            }
+        });
+
+        campoNascAno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNascAnoFocusLost(evt);
             }
         });
 
@@ -305,15 +363,55 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Nivel:");
 
+        campoSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoSalarioFocusLost(evt);
+            }
+        });
+
+        campoUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoUserFocusLost(evt);
+            }
+        });
+
         caixaSelecaoNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Funcionário", "Administrador" }));
+        caixaSelecaoNivel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                caixaSelecaoNivelFocusLost(evt);
+            }
+        });
 
         jLabel3.setText("Ativo");
 
         caixaSelecaoAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
+        caixaSelecaoAtivo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                caixaSelecaoAtivoFocusLost(evt);
+            }
+        });
 
         jLabel8.setText("/");
 
+        campoAdmMes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoAdmMesFocusLost(evt);
+            }
+        });
+
+        campoAdmDia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoAdmDiaFocusLost(evt);
+            }
+        });
+
         jLabel13.setText("/");
+
+        campoAdmAno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoAdmAnoFocusLost(evt);
+            }
+        });
 
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -323,6 +421,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         });
 
         campoPass.setText("jPasswordField1");
+        campoPass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoPassFocusLost(evt);
+            }
+        });
 
         campoPass2.setText("jPasswordField2");
         campoPass2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -480,12 +583,13 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             return null;
         }        
     }
-    private void validaCampos(){
-        if(campoNome.getText().equals("")){
-            if(campoNome.getText().equals("")){
-                
+    private boolean validaCampos(){
+        for(int i=0; i<validaForm.length; i++){
+            if(validaForm[i] == 0){
+                return false;
             }
         }
+        return true;
     }
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
@@ -536,14 +640,162 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         pass = String.valueOf(campoPass.getPassword());
         pass2 = String.valueOf(campoPass2.getPassword());
         
-        if(pass.equals(pass2)){
-           botaoCadastrar.setEnabled(true);
+        if (!String.valueOf(campoPass2.getPassword()).equals("")){
+            validaForm[16]=1;
         }
-        else{
-           botaoCadastrar.setEnabled(false);
+        else validaForm[16]=0;
+        if(!pass.equals(pass2)){
            campoPass2.setForeground(Color.red);
+           validaForm[16]=0;
         }
+        else campoPass2.setForeground(Color.black);
+        
+        botaoCadastrar.setEnabled(validaCampos());
     }//GEN-LAST:event_campoPass2FocusLost
+
+    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
+        if (!campoNome.getText().equals("")){
+            validaForm[0]=1;
+        }
+        else validaForm[0]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoNomeFocusLost
+
+    private void campoNascDiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascDiaFocusLost
+        if (!campoNascDia.getText().equals("")){
+            validaForm[1]=1;
+        }
+        else validaForm[1]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoNascDiaFocusLost
+
+    private void campoNascMesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascMesFocusLost
+        if (!campoNascMes.getText().equals("")){
+            validaForm[2]=1;
+        }
+        else validaForm[2]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoNascMesFocusLost
+
+    private void campoNascAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascAnoFocusLost
+        if (!campoNascAno.getText().equals("")){
+            validaForm[3]=1;
+        }
+        else validaForm[3]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoNascAnoFocusLost
+
+    private void caixaSelecaoSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoSexoFocusLost
+        if (!caixaSelecaoSexo.getSelectedItem().equals("Selecione")){
+            validaForm[4]=1;
+        }
+        else validaForm[4]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_caixaSelecaoSexoFocusLost
+
+    private void campoRgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRgFocusLost
+        if (!campoRg.getText().equals("")){
+            validaForm[5]=1;
+        }
+        else validaForm[5]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoRgFocusLost
+
+    private void campoCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFocusLost
+        if (!campoCpf.getText().equals("")){
+            validaForm[6]=1;
+        }
+        else validaForm[6]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoCpfFocusLost
+
+    private void campoEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusLost
+        if (!campoEmail.getText().equals("")){
+            validaForm[7]=1;
+        }
+        else validaForm[7]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoEmailFocusLost
+
+    private void campoTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFocusLost
+        if (!campoTelefone.getText().equals("")){
+            validaForm[8]=1;
+        }
+        else validaForm[8]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoTelefoneFocusLost
+
+    private void campoCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFocusLost
+        if (!campoCelular.getText().equals("")){
+            validaForm[9]=1;
+        }
+        else validaForm[9]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoCelularFocusLost
+
+    private void campoAdmDiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmDiaFocusLost
+        if (!campoAdmDia.getText().equals("")){
+            validaForm[10]=1;
+        }
+        else validaForm[10]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoAdmDiaFocusLost
+
+    private void campoAdmMesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmMesFocusLost
+        if (!campoAdmMes.getText().equals("")){
+            validaForm[11]=1;
+        }
+        else validaForm[11]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoAdmMesFocusLost
+
+    private void campoAdmAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmAnoFocusLost
+        if (!campoAdmAno.getText().equals("")){
+            validaForm[12]=1;
+        }
+        else validaForm[12]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoAdmAnoFocusLost
+
+    private void campoSalarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSalarioFocusLost
+        if (!campoSalario.getText().equals("")){
+            validaForm[13]=1;
+        }
+        else validaForm[13]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoSalarioFocusLost
+
+    private void campoUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUserFocusLost
+        if (!campoUser.getText().equals("")){
+            validaForm[14]=1;
+        }
+        else validaForm[14]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoUserFocusLost
+
+    private void campoPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPassFocusLost
+        if (!String.valueOf(campoPass.getPassword()).equals("")){
+            validaForm[15]=1;
+        }
+        else validaForm[15]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_campoPassFocusLost
+
+    private void caixaSelecaoNivelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoNivelFocusLost
+        if (!caixaSelecaoNivel.getSelectedItem().equals("Selecione")){
+            validaForm[17]=1;
+        }
+        else validaForm[17]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_caixaSelecaoNivelFocusLost
+
+    private void caixaSelecaoAtivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoFocusLost
+        if (!caixaSelecaoAtivo.getSelectedItem().equals("Selecione")){
+            validaForm[18]=1;
+        }
+        else validaForm[18]=0;
+        botaoCadastrar.setEnabled(validaCampos());
+    }//GEN-LAST:event_caixaSelecaoAtivoFocusLost
 
     /**
      * @param args the command line arguments

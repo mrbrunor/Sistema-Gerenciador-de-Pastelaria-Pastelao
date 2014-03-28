@@ -304,34 +304,58 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caixaSelecaoSexoActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="caixaSelecaoSexoFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNome">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNomeActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoRg">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoRgFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCpf">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCpfFocusLost"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter(&quot;###.###.###-##&quot;); &#xd;&#xa;campoCpf = new javax.swing.JFormattedTextField(cpf); &#xd;&#xa;} &#xd;&#xa;catch (Exception e){ &#xd;&#xa;} "/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoEmail">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEmailFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoTelefone">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTelefoneActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoTelefoneFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCelular">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCelularFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascDia">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNascDiaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascMes">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNascMesFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNascAno">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNascAnoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -497,8 +521,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoSalario">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoSalarioFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoUser">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoUserFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaSelecaoNivel">
           <Properties>
@@ -510,6 +540,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="caixaSelecaoNivelFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -526,6 +559,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="caixaSelecaoAtivoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -533,8 +569,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdmMes">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoAdmMesFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdmDia">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoAdmDiaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -542,6 +584,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdmAno">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoAdmAnoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCadastrar">
           <Properties>
@@ -555,6 +600,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="jPasswordField1"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPassFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoPass2">
           <Properties>
