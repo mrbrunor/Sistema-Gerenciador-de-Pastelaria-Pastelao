@@ -62,7 +62,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         campoUser.setDocument(new LimitaDigitos((50), "[^0-9|^.|^a-z|^A-Z|^_\\-]"));
         campoPass.setDocument(new LimitaDigitos((50), "[^0-9|^a-z|^A-Z]"));
         campoPass2.setDocument(new LimitaDigitos((50), "[^0-9|^a-z|^A-Z]"));
-        //botaoCadastrar.setEnabled(false);
+        campoNome.requestFocus();
 
     }
     int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -210,18 +210,33 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             }
         });
 
+        campoRg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoRgActionPerformed(evt);
+            }
+        });
         campoRg.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoRgFocusLost(evt);
             }
         });
 
+        campoCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCpfActionPerformed(evt);
+            }
+        });
         campoCpf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoCpfFocusLost(evt);
             }
         });
 
+        campoEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoEmailActionPerformed(evt);
+            }
+        });
         campoEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoEmailFocusLost(evt);
@@ -239,24 +254,44 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             }
         });
 
+        campoCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCelularActionPerformed(evt);
+            }
+        });
         campoCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoCelularFocusLost(evt);
             }
         });
 
+        campoNascDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNascDiaActionPerformed(evt);
+            }
+        });
         campoNascDia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoNascDiaFocusLost(evt);
             }
         });
 
+        campoNascMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNascMesActionPerformed(evt);
+            }
+        });
         campoNascMes.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoNascMesFocusLost(evt);
             }
         });
 
+        campoNascAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNascAnoActionPerformed(evt);
+            }
+        });
         campoNascAno.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoNascAnoFocusLost(evt);
@@ -365,12 +400,22 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Nivel:");
 
+        campoSalario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoSalarioActionPerformed(evt);
+            }
+        });
         campoSalario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoSalarioFocusLost(evt);
             }
         });
 
+        campoUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoUserActionPerformed(evt);
+            }
+        });
         campoUser.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoUserFocusLost(evt);
@@ -378,6 +423,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         });
 
         caixaSelecaoNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Funcionário", "Administrador" }));
+        caixaSelecaoNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoNivelActionPerformed(evt);
+            }
+        });
         caixaSelecaoNivel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 caixaSelecaoNivelFocusLost(evt);
@@ -387,6 +437,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         jLabel3.setText("Ativo");
 
         caixaSelecaoAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
+        caixaSelecaoAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoAtivoActionPerformed(evt);
+            }
+        });
         caixaSelecaoAtivo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 caixaSelecaoAtivoFocusLost(evt);
@@ -395,12 +450,22 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel8.setText("/");
 
+        campoAdmMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoAdmMesActionPerformed(evt);
+            }
+        });
         campoAdmMes.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoAdmMesFocusLost(evt);
             }
         });
 
+        campoAdmDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoAdmDiaActionPerformed(evt);
+            }
+        });
         campoAdmDia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoAdmDiaFocusLost(evt);
@@ -409,6 +474,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel13.setText("/");
 
+        campoAdmAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoAdmAnoActionPerformed(evt);
+            }
+        });
         campoAdmAno.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoAdmAnoFocusLost(evt);
@@ -423,6 +493,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         });
 
         campoPass.setText("jPasswordField1");
+        campoPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPassActionPerformed(evt);
+            }
+        });
         campoPass.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoPassFocusLost(evt);
@@ -430,6 +505,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         });
 
         campoPass2.setText("jPasswordField2");
+        campoPass2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPass2ActionPerformed(evt);
+            }
+        });
         campoPass2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoPass2FocusLost(evt);
@@ -561,15 +641,15 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
-        // TODO add your handling code here:
+        campoNascDia.requestFocus();
     }//GEN-LAST:event_campoNomeActionPerformed
 
     private void campoTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTelefoneActionPerformed
-        // TODO add your handling code here:
+        campoCelular.requestFocus();
     }//GEN-LAST:event_campoTelefoneActionPerformed
 
     private void caixaSelecaoSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoSexoActionPerformed
-        // TODO add your handling code here:
+        campoRg.requestFocus();
     }//GEN-LAST:event_caixaSelecaoSexoActionPerformed
     private Date montaData(String ano, String mes, String dia) {
         String dataConcatenada = ano + "-" + mes + "-" + dia;
@@ -675,6 +755,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             campoPass2.setForeground(Color.red);
             validaForm[16] = 0;
         } else {
+            campoPass2.setForeground(Color.black);
             campoPass2.setBorder(border2);
         }
     }//GEN-LAST:event_campoPass2FocusLost
@@ -840,6 +921,70 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             validaForm[18] = 0;
         }
     }//GEN-LAST:event_caixaSelecaoAtivoFocusLost
+
+    private void campoNascDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascDiaActionPerformed
+        campoNascMes.requestFocus();
+    }//GEN-LAST:event_campoNascDiaActionPerformed
+
+    private void campoNascMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascMesActionPerformed
+        campoNascAno.requestFocus();
+    }//GEN-LAST:event_campoNascMesActionPerformed
+
+    private void campoRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoRgActionPerformed
+        campoCpf.requestFocus();
+    }//GEN-LAST:event_campoRgActionPerformed
+
+    private void campoCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCpfActionPerformed
+        campoEmail.requestFocus();
+    }//GEN-LAST:event_campoCpfActionPerformed
+
+    private void campoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailActionPerformed
+        campoTelefone.requestFocus();
+    }//GEN-LAST:event_campoEmailActionPerformed
+
+    private void campoCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCelularActionPerformed
+        campoAdmDia.requestFocus();
+    }//GEN-LAST:event_campoCelularActionPerformed
+
+    private void campoAdmDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAdmDiaActionPerformed
+        campoAdmMes.requestFocus();
+    }//GEN-LAST:event_campoAdmDiaActionPerformed
+
+    private void campoAdmMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAdmMesActionPerformed
+        campoAdmAno.requestFocus();
+    }//GEN-LAST:event_campoAdmMesActionPerformed
+
+    private void campoAdmAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAdmAnoActionPerformed
+        campoSalario.requestFocus();
+    }//GEN-LAST:event_campoAdmAnoActionPerformed
+
+    private void campoSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSalarioActionPerformed
+        campoUser.requestFocus();
+    }//GEN-LAST:event_campoSalarioActionPerformed
+
+    private void campoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUserActionPerformed
+        campoPass.requestFocus();
+    }//GEN-LAST:event_campoUserActionPerformed
+
+    private void campoPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPassActionPerformed
+        campoPass2.requestFocus();
+    }//GEN-LAST:event_campoPassActionPerformed
+
+    private void campoPass2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPass2ActionPerformed
+        caixaSelecaoNivel.requestFocus();
+    }//GEN-LAST:event_campoPass2ActionPerformed
+
+    private void campoNascAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascAnoActionPerformed
+        caixaSelecaoSexo.requestFocus();
+    }//GEN-LAST:event_campoNascAnoActionPerformed
+
+    private void caixaSelecaoNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoNivelActionPerformed
+        caixaSelecaoAtivo.requestFocus();
+    }//GEN-LAST:event_caixaSelecaoNivelActionPerformed
+
+    private void caixaSelecaoAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoActionPerformed
+        botaoCadastrar.requestFocus();
+    }//GEN-LAST:event_caixaSelecaoAtivoActionPerformed
 
     /**
      * @param args the command line arguments
