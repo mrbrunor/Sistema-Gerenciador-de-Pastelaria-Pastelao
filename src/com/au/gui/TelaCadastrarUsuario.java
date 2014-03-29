@@ -66,6 +66,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
     }
     int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -674,14 +675,14 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             campoPass2.setForeground(Color.red);
             validaForm[16] = 0;
         } else {
-            campoPass2.setBorder(null);
+            campoPass2.setBorder(border2);
         }
     }//GEN-LAST:event_campoPass2FocusLost
 
     private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
         if (!campoNome.getText().equals("")) {
             validaForm[0] = 1;
-            campoNome.setBorder(null);
+            campoNome.setBorder(border2);
         } else {
             validaForm[0] = 0;
         }
@@ -690,7 +691,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoNascDiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascDiaFocusLost
         if (!campoNascDia.getText().equals("")) {
             validaForm[1] = 1;
-            campoNascDia.setBorder(null);
+            campoNascDia.setBorder(border2);
         } else {
             validaForm[1] = 0;
         }
@@ -699,7 +700,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoNascMesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascMesFocusLost
         if (!campoNascMes.getText().equals("")) {
             validaForm[2] = 1;
-            campoNascMes.setBorder(null);
+            campoNascMes.setBorder(border2);
         } else {
             validaForm[2] = 0;
         }
@@ -708,7 +709,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoNascAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNascAnoFocusLost
         if (!campoNascAno.getText().equals("")) {
             validaForm[3] = 1;
-            campoNascAno.setBorder(null);
+            campoNascAno.setBorder(border2);
         } else {
             validaForm[3] = 0;
         }
@@ -717,7 +718,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void caixaSelecaoSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoSexoFocusLost
         if (!caixaSelecaoSexo.getSelectedItem().equals("Selecione")) {
             validaForm[4] = 1;
-            caixaSelecaoSexo.setBorder(null);
+            caixaSelecaoSexo.setBorder(border2);
         } else {
             validaForm[4] = 0;
         }
@@ -726,7 +727,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoRgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRgFocusLost
         if (!campoRg.getText().equals("")) {
             validaForm[5] = 1;
-            campoRg.setBorder(null);
+            campoRg.setBorder(border2);
         } else {
             validaForm[5] = 0;
         }
@@ -735,7 +736,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFocusLost
         if (!campoCpf.getText().equals("")) {
             validaForm[6] = 1;
-            campoCpf.setBorder(null);
+            campoCpf.setBorder(border2);
         } else {
             validaForm[6] = 0;
         }
@@ -744,7 +745,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusLost
         if (!campoEmail.getText().equals("")) {
             validaForm[7] = 1;
-            campoEmail.setBorder(null);
+            campoEmail.setBorder(border2);
         } else {
             validaForm[7] = 0;
         }
@@ -753,7 +754,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFocusLost
         if (!campoTelefone.getText().equals("")) {
             validaForm[8] = 1;
-            campoTelefone.setBorder(null);
+            campoTelefone.setBorder(border2);
         } else {
             validaForm[8] = 0;
         }
@@ -762,7 +763,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFocusLost
         if (!campoCelular.getText().equals("")) {
             validaForm[9] = 1;
-            campoCelular.setBorder(null);
+            campoCelular.setBorder(border2);
         } else {
             validaForm[9] = 0;
         }
@@ -771,7 +772,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoAdmDiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmDiaFocusLost
         if (!campoAdmDia.getText().equals("")) {
             validaForm[10] = 1;
-            campoAdmDia.setBorder(null);
+            campoAdmDia.setBorder(border2);
         } else {
             validaForm[10] = 0;
         }
@@ -780,7 +781,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoAdmMesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmMesFocusLost
         if (!campoAdmMes.getText().equals("")) {
             validaForm[11] = 1;
-            campoAdmMes.setBorder(null);
+            campoAdmMes.setBorder(border2);
         } else {
             validaForm[11] = 0;
         }
@@ -789,7 +790,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoAdmAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdmAnoFocusLost
         if (!campoAdmAno.getText().equals("")) {
             validaForm[12] = 1;
-            campoAdmAno.setBorder(null);
+            campoAdmAno.setBorder(border2);
         } else {
             validaForm[12] = 0;
         }
@@ -798,7 +799,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoSalarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSalarioFocusLost
         if (!campoSalario.getText().equals("")) {
             validaForm[13] = 1;
-            campoSalario.setBorder(null);
+            campoSalario.setBorder(border2);
         } else {
             validaForm[13] = 0;
         }
@@ -807,7 +808,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUserFocusLost
         if (!campoUser.getText().equals("")) {
             validaForm[14] = 1;
-            campoUser.setBorder(null);
+            campoUser.setBorder(border2);
         } else {
             validaForm[14] = 0;
         }
@@ -816,7 +817,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void campoPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPassFocusLost
         if (!String.valueOf(campoPass.getPassword()).equals("")) {
             validaForm[15] = 1;
-            campoPass.setBorder(null);
+            campoPass.setBorder(border2);
         } else {
             validaForm[15] = 0;
         }
@@ -825,7 +826,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void caixaSelecaoNivelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoNivelFocusLost
         if (!caixaSelecaoNivel.getSelectedItem().equals("Selecione")) {
             validaForm[17] = 1;
-            caixaSelecaoNivel.setBorder(null);
+            caixaSelecaoNivel.setBorder(border2);
         } else {
             validaForm[17] = 0;
         }
@@ -834,7 +835,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void caixaSelecaoAtivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoFocusLost
         if (!caixaSelecaoAtivo.getSelectedItem().equals("Selecione")) {
             validaForm[18] = 1;
-            caixaSelecaoAtivo.setBorder(null);
+            caixaSelecaoAtivo.setBorder(border2);
         } else {
             validaForm[18] = 0;
         }
