@@ -23,12 +23,14 @@
  */
 package com.au.gui;
 
+import com.au.bean.CustomComboBox;
 import com.au.dao.FornecedorDao;
 import com.au.pojo.Fornecedor;
 import com.au.pojo.Produto;
 import com.au.util.HibernateUtil;
 import java.awt.Color;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import org.hibernate.Session;
@@ -38,14 +40,20 @@ import org.hibernate.Session;
  * @author tiago_000
  */
 public class TelaCadastraProduto extends javax.swing.JFrame {
-    
+
+    List<Fornecedor> listaResForn = new ArrayList<>();
+    FornecedorDao fornDao = new FornecedorDao();
+    int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0};
+    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
+    CustomComboBox[] fornComboBox = null;
+
     /**
      * Creates new form TelaCadastrarUsuario
      */
     public TelaCadastraProduto() {
         initComponents();
         campoId.setDocument(new LimitaDigitos((250), "[^0-9]"));
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ |^~]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^0-9|^ |^~]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9|^.]"));
         campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
@@ -53,19 +61,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoBarras.setVisible(false);
         textoQtd.setVisible(false);
         textoBarras.setVisible(false);
-        FornecedorDao fornDao = new FornecedorDao();
-        //List list = fornDao.listFornecedores();
-        
-        vector.addElement("Casa,1");
-        
         campoId.requestFocus();
-        
-        
 
     }
-    Vector vector = new Vector();
-    int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0};
-    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,7 +92,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoNome = new javax.swing.JTextField();
         textoValor = new javax.swing.JLabel();
         botaoCadastrar = new javax.swing.JButton();
-        caixaSelecaoForn = new javax.swing.JComboBox(vector);
+        caixaSelecaoForn = new javax.swing.JComboBox(getItems());
         textoTipo = new javax.swing.JLabel();
         radioInd = new javax.swing.JRadioButton();
         radioPrep = new javax.swing.JRadioButton();
@@ -215,7 +213,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         });
 
-        caixaSelecaoForn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Noite" }));
         caixaSelecaoForn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caixaSelecaoFornActionPerformed(evt);
@@ -372,10 +369,20 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private void campoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdActionPerformed
         campoNome.requestFocus();
     }//GEN-LAST:event_campoIdActionPerformed
-    
-    
 
-    
+    private CustomComboBox[] getItems() {
+        listaResForn = fornDao.getLista();
+        System.out.println("Chegou aqui");
+        CustomComboBox[] oItems = new CustomComboBox[listaResForn.size()];
+        System.out.println("Qtd Lista " + listaResForn.size());
+        for (int i = 0; i < listaResForn.size(); i++) {
+            oItems[i] = new CustomComboBox(listaResForn.get(i).getNomeForn(), listaResForn.get(i).getIdForn());
+            System.out.println("ID " + oItems[i].getId());
+        }
+
+        return oItems;
+    }
+
     private boolean validaCampos() {
         for (int i = 0; i < validaForm.length; i++) {
             if (validaForm[i] == 0) {
@@ -417,7 +424,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_campoQtdActionPerformed
 
     private void campoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBarrasActionPerformed
-        
+
     }//GEN-LAST:event_campoBarrasActionPerformed
 
     private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
@@ -447,40 +454,50 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_campoNomeFocusLost
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        if (validaCampos()) {
+        if (true) {
             Produto produto = new Produto();
             Fornecedor fornecedor = new Fornecedor();
-            
+
             produto.setIdProd(Integer.parseInt(campoId.getText()));
             produto.setDescProd(campoNome.getText());
             produto.setValorProd(Double.valueOf(campoValor.getText()));
             produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
-            fornecedor.setNomeForn((String)caixaSelecaoForn.getSelectedItem());
-            
-            fornecedor.setIdForn(1);
+            CustomComboBox ob=(CustomComboBox) caixaSelecaoForn.getSelectedItem();
+            fornecedor.setNomeForn(ob.getNome());            
+            fornecedor.setIdForn(ob.getId());
             produto.setFornecedor(fornecedor);
             produto.setCodBarras(campoBarras.getText());
-            if(radioInd.getSelectedObjects() == null){
+            if (radioInd.getSelectedObjects() == null) {
                 produto.setEindustrializado(false);
-            }
-            else{
+            } else {
                 produto.setEindustrializado(true);
             }
-            
+
             Session s = HibernateUtil.getSessionFactory().getCurrentSession();
             s.beginTransaction();
             s.save(produto); //INSERT
             s.getTransaction().commit();
-        }
-        else{
+        } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
-            if(validaForm[0]==0) campoId.setBorder(border);
-            if(validaForm[1]==0) campoNome.setBorder(border);
-            if(validaForm[2]==0) campoValor.setBorder(border);
-            if(validaForm[3]==0) campoQtd.setBorder(border);
-            if(validaForm[4]==0) caixaSelecaoForn.setBorder(border);
-            if(validaForm[5]==0) campoBarras.setBorder(border);
-            if(validaForm[6]==0){
+            if (validaForm[0] == 0) {
+                campoId.setBorder(border);
+            }
+            if (validaForm[1] == 0) {
+                campoNome.setBorder(border);
+            }
+            if (validaForm[2] == 0) {
+                campoValor.setBorder(border);
+            }
+            if (validaForm[3] == 0) {
+                campoQtd.setBorder(border);
+            }
+            if (validaForm[4] == 0) {
+                caixaSelecaoForn.setBorder(border);
+            }
+            if (validaForm[5] == 0) {
+                campoBarras.setBorder(border);
+            }
+            if (validaForm[6] == 0) {
                 //radioInd.
                 //radioPrep.setBorder(border);
             }
@@ -511,10 +528,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_radioIndActionPerformed
 
     private void radioPrepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioPrepFocusLost
-        if(radioPrep.isSelected() || radioInd.isSelected()){
+        if (radioPrep.isSelected() || radioInd.isSelected()) {
             validaForm[6] = 1;
-        }
-        else{
+        } else {
             validaForm[6] = 0;
         }
     }//GEN-LAST:event_radioPrepFocusLost
@@ -529,10 +545,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_radioPrepActionPerformed
 
     private void radioIndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioIndFocusLost
-        if(radioPrep.isSelected() || radioInd.isSelected()){
+        if (radioPrep.isSelected() || radioInd.isSelected()) {
             validaForm[6] = 1;
-        }
-        else{
+        } else {
             validaForm[6] = 0;
         }
     }//GEN-LAST:event_radioIndFocusLost
@@ -568,8 +583,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;

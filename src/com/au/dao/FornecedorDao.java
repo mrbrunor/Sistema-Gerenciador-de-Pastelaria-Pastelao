@@ -24,8 +24,18 @@
 
 package com.au.dao;
 
+import com.au.bd.FabricaConexao;
+import com.au.pojo.Fornecedor;
 import com.au.util.HibernateUtil;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -34,17 +44,50 @@ import org.hibernate.Session;
  * @author BrunoRicardo
  */
 public class FornecedorDao {
-    Session s = null;    
+    Session s = null;  
+    Connection conexao = null;
     
     public FornecedorDao(){
-        this.s = HibernateUtil.getSessionFactory().getCurrentSession();
+        //this.s = HibernateUtil.getSessionFactory().getCurrentSession();
+        conexao = new FabricaConexao().getConexao();
     }
     
-    public List listFornecedores(){
+    public Iterator listFornecedores(){
         s.beginTransaction();
-        Query query = s.createQuery("SELECT f.nomeForn FROM Fornecedor as f");
-        List list = query.list();
+        Query query = s.createQuery("FROM Fornecedor");
+        Iterator list;
+        list = query.iterate();
         System.out.println(list);
         return list;
-    }    
+    }
+    
+    public List<Fornecedor> getLista(){
+        String sql = "SELECT * FROM Fornecedor";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Fornecedor> listaResForn = new ArrayList<>();
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            res = stmt.executeQuery();                        
+            
+            while(res.next()){
+                System.out.println("Entrou While res.next()"
+                        + "");
+                Fornecedor novoForn = new Fornecedor();
+                novoForn.setNomeForn(res.getString("nomeForn"));
+                novoForn.setIdForn(res.getInt("idForn"));
+                listaResForn.add(novoForn);
+            }
+            res.close();
+            stmt.close();
+            conexao.close();
+        }    
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Lista Vazia " + listaResForn.isEmpty());
+        System.out.println("Qtd Lista " + listaResForn.size());
+        return listaResForn;
+    }
 }
