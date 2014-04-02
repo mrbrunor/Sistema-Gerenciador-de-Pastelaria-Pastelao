@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="sistemapastelao"/>
+  <schema-selection match-catalog="SistemaPastelao"/>
+  <table-filter match-name="itempedido"/>
+  <table-filter match-name="notaproduto"/>
   <table-filter match-name="ingrediente"/>
   <table-filter match-name="caixa"/>
-  <table-filter match-name="notaproduto"/>
   <table-filter match-name="pedido"/>
-  <table-filter match-name="estoque"/>
   <table-filter match-name="receita"/>
-  <table-filter match-name="despesa"/>
-  <table-filter match-name="itempedido"/>
   <table-filter match-name="produto"/>
   <table-filter match-name="notaingrediente"/>
+  <table-filter match-name="despesa"/>
+  <table-filter match-name="fornecedor"/>
   <table-filter match-name="funcionario"/>
   <table-filter match-name="notafiscal"/>
-  <table-filter match-name="fornecedor"/>
 </hibernate-reverse-engineering>

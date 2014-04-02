@@ -971,19 +971,19 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_campoPassActionPerformed
 
     private void campoPass2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPass2ActionPerformed
-        caixaSelecaoNivel.requestFocus();
+        
     }//GEN-LAST:event_campoPass2ActionPerformed
 
     private void campoNascAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascAnoActionPerformed
-        caixaSelecaoSexo.requestFocus();
+        
     }//GEN-LAST:event_campoNascAnoActionPerformed
 
     private void caixaSelecaoNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoNivelActionPerformed
-        caixaSelecaoAtivo.requestFocus();
+        
     }//GEN-LAST:event_caixaSelecaoNivelActionPerformed
 
     private void caixaSelecaoAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoActionPerformed
-        botaoCadastrar.requestFocus();
+        
     }//GEN-LAST:event_caixaSelecaoAtivoActionPerformed
 
     /**

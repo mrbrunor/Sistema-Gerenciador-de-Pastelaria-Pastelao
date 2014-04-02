@@ -22,29 +22,45 @@
  * THE SOFTWARE.
  */
 
-package com.au.dao;
-
-import com.au.util.HibernateUtil;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
+package com.au.teste;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class FornecedorDao {
-    Session s = null;    
-    
-    public FornecedorDao(){
-        this.s = HibernateUtil.getSessionFactory().getCurrentSession();
-    }
-    
-    public List listFornecedores(){
-        s.beginTransaction();
-        Query query = s.createQuery("SELECT f.nomeForn FROM Fornecedor as f");
-        List list = query.list();
-        System.out.println(list);
-        return list;
-    }    
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+class Testing extends JFrame
+{
+  Beer[] beers = {new Beer("Budweiser",1.50),new Beer("Millers",2.00), new Beer("Coors",5.00)};
+  JComboBox cbo = new JComboBox(beers);
+ 
+  public Testing()
+  {
+    setLocation(400,300);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    cbo.setEditable(true);
+    JPanel jp = new JPanel();
+    jp.add(cbo);
+    getContentPane().add(jp);
+    pack();
+    cbo.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent ae){
+        JOptionPane.showMessageDialog(getContentPane(),"Value = "+((Beer)cbo.getSelectedItem()).value);
+      }
+    });
+  }
+  public static void main(String[] args){new Testing().setVisible(true);}
 }
+class Beer
+{
+  String name;
+  double value;
+  public Beer(String n, double v)
+  {
+    name = n; value = v;
+  }
+  public String toString(){return name;}
+}
+

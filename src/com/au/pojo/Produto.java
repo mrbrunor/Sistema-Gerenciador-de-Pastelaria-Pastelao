@@ -1,5 +1,5 @@
 package com.au.pojo;
-// Generated 26/03/2014 01:12:55 by Hibernate Tools 3.6.0
+// Generated 30/03/2014 04:22:00 by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class Produto  implements java.io.Serializable {
      private double valorProd;
      private int qtdProd;
      private String codBarras;
-     private Set estoques = new HashSet(0);
+     private boolean eindustrializado;
      private Set itempedidos = new HashSet(0);
      private Set ingredientes = new HashSet(0);
      private Set notaprodutos = new HashSet(0);
@@ -26,21 +26,22 @@ public class Produto  implements java.io.Serializable {
     }
 
 	
-    public Produto(int idProd, Fornecedor fornecedor, String descProd, double valorProd, int qtdProd) {
+    public Produto(int idProd, Fornecedor fornecedor, String descProd, double valorProd, int qtdProd, boolean eindustrializado) {
         this.idProd = idProd;
         this.fornecedor = fornecedor;
         this.descProd = descProd;
         this.valorProd = valorProd;
         this.qtdProd = qtdProd;
+        this.eindustrializado = eindustrializado;
     }
-    public Produto(int idProd, Fornecedor fornecedor, String descProd, double valorProd, int qtdProd, String codBarras, Set estoques, Set itempedidos, Set ingredientes, Set notaprodutos) {
+    public Produto(int idProd, Fornecedor fornecedor, String descProd, double valorProd, int qtdProd, String codBarras, boolean eindustrializado, Set itempedidos, Set ingredientes, Set notaprodutos) {
        this.idProd = idProd;
        this.fornecedor = fornecedor;
        this.descProd = descProd;
        this.valorProd = valorProd;
        this.qtdProd = qtdProd;
        this.codBarras = codBarras;
-       this.estoques = estoques;
+       this.eindustrializado = eindustrializado;
        this.itempedidos = itempedidos;
        this.ingredientes = ingredientes;
        this.notaprodutos = notaprodutos;
@@ -88,12 +89,12 @@ public class Produto  implements java.io.Serializable {
     public void setCodBarras(String codBarras) {
         this.codBarras = codBarras;
     }
-    public Set getEstoques() {
-        return this.estoques;
+    public boolean isEindustrializado() {
+        return this.eindustrializado;
     }
     
-    public void setEstoques(Set estoques) {
-        this.estoques = estoques;
+    public void setEindustrializado(boolean eindustrializado) {
+        this.eindustrializado = eindustrializado;
     }
     public Set getItempedidos() {
         return this.itempedidos;

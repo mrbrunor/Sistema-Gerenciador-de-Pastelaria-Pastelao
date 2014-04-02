@@ -22,29 +22,31 @@
  * THE SOFTWARE.
  */
 
-package com.au.dao;
-
-import com.au.util.HibernateUtil;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
+package com.au.gui;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class FornecedorDao {
-    Session s = null;    
-    
-    public FornecedorDao(){
-        this.s = HibernateUtil.getSessionFactory().getCurrentSession();
+public class ComboItem {
+    private String value;
+    private String label;
+
+    public ComboItem(String value, String label) {
+        this.value = value;
+        this.label = label;
     }
-    
-    public List listFornecedores(){
-        s.beginTransaction();
-        Query query = s.createQuery("SELECT f.nomeForn FROM Fornecedor as f");
-        List list = query.list();
-        System.out.println(list);
-        return list;
-    }    
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    @Override
+    public String toString() {
+        return label;
+    }
 }

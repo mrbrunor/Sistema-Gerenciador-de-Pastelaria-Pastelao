@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/03/2014 01:12:56 by Hibernate Tools 3.6.0 -->
+<!-- Generated 30/03/2014 04:22:01 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="com.au.pojo.Notaproduto" table="notaproduto" catalog="sistemapastelao">
         <composite-id name="id" class="com.au.pojo.NotaprodutoId">

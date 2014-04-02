@@ -4,14 +4,13 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistemapastelao?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SistemaPastelao?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">java</property>
     <property name="hibernate.connection.password">123456</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <mapping resource="com/au/pojo/Notafiscal.hbm.xml"/>
-    <mapping resource="com/au/pojo/Estoque.hbm.xml"/>
     <mapping resource="com/au/pojo/Despesa.hbm.xml"/>
     <mapping resource="com/au/pojo/Pedido.hbm.xml"/>
     <mapping resource="com/au/pojo/Caixa.hbm.xml"/>
