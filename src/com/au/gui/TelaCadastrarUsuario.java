@@ -32,6 +32,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import org.hibernate.Session;
@@ -67,6 +69,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }
     int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
+    Border border = BorderFactory.createLineBorder(Color.red, 1);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -824,10 +827,15 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_campoCpfFocusLost
 
     private void campoEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusLost
-        if (!campoEmail.getText().equals("")) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");  
+        Matcher m = p.matcher(campoEmail.getText());  
+        
+        
+        if (m.matches()){//(!campoEmail.getText().equals("")) {
             validaForm[7] = 1;
             campoEmail.setBorder(border2);
         } else {
+            campoEmail.setBorder(border);
             validaForm[7] = 0;
         }
     }//GEN-LAST:event_campoEmailFocusLost

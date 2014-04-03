@@ -23,14 +23,9 @@
  */
 package com.au.gui;
 
-import com.au.bean.CustomComboBox;
-import com.au.dao.FornecedorDao;
-import com.au.pojo.Fornecedor;
-import com.au.pojo.Produto;
+import com.au.pojo.Ingrediente;
 import com.au.util.HibernateUtil;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import org.hibernate.Session;
@@ -39,30 +34,22 @@ import org.hibernate.Session;
  *
  * @author tiago_000
  */
-public class TelaCadastraProduto extends javax.swing.JFrame {
+public class TelaCadastraIngrediente extends javax.swing.JFrame {
 
-    List<Fornecedor> listaResForn = new ArrayList<>();
-    FornecedorDao fornDao = new FornecedorDao();
-    int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0};
+    int validaForm[] = new int[]{1, 0, 0};
     Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
     Border border = BorderFactory.createLineBorder(Color.gray, 1);
-    CustomComboBox[] fornComboBox = null;
-
     /**
      * Creates new form TelaCadastrarUsuario
      */
-    public TelaCadastraProduto() {
+    public TelaCadastraIngrediente() {
         initComponents();
         campoId.setDocument(new LimitaDigitos((250), "[^0-9]"));
+        campoId.setEditable(false);
         campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^0-9|^ |^~]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9|^.]"));
-        campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
-        campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
-        campoQtd.setVisible(false);
-        campoBarras.setVisible(false);
-        textoQtd.setVisible(false);
-        textoBarras.setVisible(false);
-        campoId.requestFocus();
+        campoNome.requestFocus();
+
     }
 
     /**
@@ -75,39 +62,28 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         painelSuperior = new javax.swing.JPanel();
         textoAdicionarProduto = new javax.swing.JLabel();
         textoIconeNovoUsuario = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
         painelDadosProduto = new javax.swing.JPanel();
         textoId = new javax.swing.JLabel();
-        textoFornecedor = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
         textoNome = new javax.swing.JLabel();
         campoValor = new javax.swing.JTextField();
         campoNome = new javax.swing.JTextField();
         textoValor = new javax.swing.JLabel();
         botaoCadastrar = new javax.swing.JButton();
-        caixaSelecaoForn = new javax.swing.JComboBox(getItems());
-        textoTipo = new javax.swing.JLabel();
-        radioInd = new javax.swing.JRadioButton();
-        radioPrep = new javax.swing.JRadioButton();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuEditar = new javax.swing.JMenu();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         textoAdicionarProduto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoAdicionarProduto.setText("Adicionar Novo Produto");
+        textoAdicionarProduto.setText("Adicionar Novo Ingrediente");
 
         textoIconeNovoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_user-64.png"))); // NOI18N
 
@@ -139,11 +115,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelDadosProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Produto"));
+        painelDadosProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Ingrediente"));
 
-        textoId.setText("Id Produto:");
-
-        textoFornecedor.setText("Fornecedor:");
+        textoId.setText("Id Ingrediente:");
 
         campoId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +130,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         });
 
-        textoNome.setText("Nome Produto:");
+        textoNome.setText("Nome Ingrediente:");
 
         campoValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +154,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         });
 
-        textoValor.setText("Valor Produto:");
+        textoValor.setText("Valor Ingrediente:");
 
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -189,80 +163,27 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         });
 
-        caixaSelecaoForn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoFornActionPerformed(evt);
-            }
-        });
-        caixaSelecaoForn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                caixaSelecaoFornFocusLost(evt);
-            }
-        });
-
-        textoTipo.setText("Tipo Produto:");
-
-        buttonGroup1.add(radioInd);
-        radioInd.setText("Industrializado");
-        radioInd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioIndActionPerformed(evt);
-            }
-        });
-        radioInd.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                radioIndFocusLost(evt);
-            }
-        });
-
-        buttonGroup1.add(radioPrep);
-        radioPrep.setText("Preparado");
-        radioPrep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioPrepActionPerformed(evt);
-            }
-        });
-        radioPrep.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                radioPrepFocusLost(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelDadosProdutoLayout = new javax.swing.GroupLayout(painelDadosProduto);
         painelDadosProduto.setLayout(painelDadosProdutoLayout);
         painelDadosProdutoLayout.setHorizontalGroup(
             painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosProdutoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoCadastrar)
+                .addContainerGap())
             .addGroup(painelDadosProdutoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoTipo)
-                            .addComponent(textoFornecedor)
-                            .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(caixaSelecaoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                                        .addComponent(radioInd)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(radioPrep))
-                                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                        .addGap(314, 314, 314)
-                        .addComponent(botaoCadastrar)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(textoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         painelDadosProdutoLayout.setVerticalGroup(
             painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,18 +200,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoValor))
-                .addGap(5, 5, 5)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoTipo)
-                    .addComponent(radioInd)
-                    .addComponent(radioPrep))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caixaSelecaoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoFornecedor))
-                .addGap(298, 298, 298)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoCadastrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         menuArquivo.setText("Arquivo");
@@ -305,10 +217,10 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelDadosProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -319,9 +231,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(painelDadosProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
 
         pack();
@@ -331,21 +243,8 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoNome.requestFocus();
     }//GEN-LAST:event_campoIdActionPerformed
 
-    private CustomComboBox[] getItems() {
-        listaResForn = fornDao.listFornecedores();//fornDao.getLista();
-        System.out.println("Chegou aqui");
-        CustomComboBox[] oItems = new CustomComboBox[listaResForn.size()];
-        System.out.println("Qtd Lista " + listaResForn.size());
-        for (int i = 0; i < listaResForn.size(); i++) {
-            oItems[i] = new CustomComboBox(listaResForn.get(i).getNomeForn(), listaResForn.get(i).getIdForn());
-            System.out.println("ID " + oItems[i].getId());
-        }
-
-        return oItems;
-    }
-
     private boolean validaCampos() {
-        for (int i = 0; i < validaForm.length; i++) {
+        for (int i = 1; i < validaForm.length; i++) {
             if (validaForm[i] == 0) {
                 return false;
             }
@@ -354,17 +253,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }
 
     private void campoIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoIdFocusLost
-        if (!campoId.getText().equals("")) {
-            validaForm[0] = 1;
-            campoId.setBorder(border2);
-        } else {
-            validaForm[0] = 0;
-            campoId.setBorder(border);
-        }
+          
     }//GEN-LAST:event_campoIdFocusLost
 
     private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
-        campoQtd.requestFocus();
+        
     }//GEN-LAST:event_campoValorActionPerformed
 
     private void campoValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusLost
@@ -393,27 +286,14 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (validaCampos()) {
-            Produto produto = new Produto();
-            Fornecedor fornecedor = new Fornecedor();
-
-            produto.setIdProd(Integer.parseInt(campoId.getText()));
-            produto.setDescProd(campoNome.getText());
-            produto.setValorProd(Double.valueOf(campoValor.getText()));
-            produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
-            CustomComboBox ob=(CustomComboBox) caixaSelecaoForn.getSelectedItem();
-            fornecedor.setNomeForn(ob.getNome());            
-            fornecedor.setIdForn(ob.getId());
-            produto.setFornecedor(fornecedor);
-            produto.setCodBarras(campoBarras.getText());
-            if (radioInd.getSelectedObjects() == null) {
-                produto.setEindustrializado(false);
-            } else {
-                produto.setEindustrializado(true);
-            }
-
+            Ingrediente ingrediente = new Ingrediente();
+                        
+            ingrediente.setDescIng(campoNome.getText());
+            ingrediente.setValorIng(Double.valueOf(campoValor.getText()));
+            
             Session s = HibernateUtil.getSessionFactory().getCurrentSession();
             s.beginTransaction();
-            s.save(produto); //INSERT
+            s.save(ingrediente); //INSERT
             s.getTransaction().commit();
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
@@ -425,75 +305,10 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
             if (validaForm[2] == 0) {
                 campoValor.setBorder(border);
-            }
-            if (validaForm[3] == 0) {
-                campoQtd.setBorder(border);
-            }
-            if (validaForm[4] == 0) {
-                caixaSelecaoForn.setBorder(border);
-            }
-            if (validaForm[5] == 0) {
-                campoBarras.setBorder(border);
-            }
-            if (validaForm[6] == 0) {
-                //radioInd.
-                //radioPrep.setBorder(border);
-            }
+            }            
         }
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
-
-    private void caixaSelecaoFornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoFornFocusLost
-        if (!caixaSelecaoForn.getSelectedItem().equals("")) {
-            validaForm[4] = 1;
-            caixaSelecaoForn.setBorder(border2);
-        } else {
-            validaForm[4] = 0;
-            caixaSelecaoForn.setBorder(border);
-        }
-    }//GEN-LAST:event_caixaSelecaoFornFocusLost
-
-    private void caixaSelecaoFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoFornActionPerformed
-        campoBarras.requestFocus();
-    }//GEN-LAST:event_caixaSelecaoFornActionPerformed
-
-    private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
-        /*campoQtd.setText("");S
-        campoBarras.setText("");
-        campoQtd.setVisible(true);
-        campoBarras.setVisible(true);
-        textoQtd.setVisible(true);
-        textoBarras.setVisible(true);*/
-        //painelPreparado.setVisible(false);
-        //painelIndustrializado.setVisible(true);
-    }//GEN-LAST:event_radioIndActionPerformed
-
-    private void radioPrepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioPrepFocusLost
-        if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[6] = 1;
-        } else {
-            validaForm[6] = 0;
-        }
-    }//GEN-LAST:event_radioPrepFocusLost
-
-    private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
-       // painelIndustrializado.setVisible(false);
-       // painelPreparado.setVisible(true);
-        /*campoQtd.setText(null);
-        campoBarras.setText(null);
-        campoQtd.setVisible(false);
-        campoBarras.setVisible(false);
-        textoQtd.setVisible(false);
-        textoBarras.setVisible(false);*/
-    }//GEN-LAST:event_radioPrepActionPerformed
-
-    private void radioIndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioIndFocusLost
-        if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[6] = 1;
-        } else {
-            validaForm[6] = 0;
-        }
-    }//GEN-LAST:event_radioIndFocusLost
 
     /**
      * @param args the command line arguments
@@ -509,20 +324,20 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastraIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastraIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastraIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastraIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastraProduto().setVisible(true);
+                new TelaCadastraIngrediente().setVisible(true);
             }
         });
     }
@@ -532,25 +347,18 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox caixaSelecaoForn;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelDadosProduto;
     private javax.swing.JPanel painelSuperior;
-    private javax.swing.JRadioButton radioInd;
-    private javax.swing.JRadioButton radioPrep;
     private javax.swing.JLabel textoAdicionarProduto;
-    private javax.swing.JLabel textoFornecedor;
     private javax.swing.JLabel textoIconeNovoUsuario;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
-    private javax.swing.JLabel textoTipo;
     private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables
 }

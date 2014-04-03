@@ -48,17 +48,22 @@ public class FornecedorDao {
     Connection conexao = null;
     
     public FornecedorDao(){
-        //this.s = HibernateUtil.getSessionFactory().getCurrentSession();
+        this.s = HibernateUtil.getSessionFactory().getCurrentSession();
         conexao = new FabricaConexao().getConexao();
     }
     
-    public Iterator listFornecedores(){
+    public List<Fornecedor> listFornecedores(){
+        System.out.println("Inicio do metodo");
+        List<Fornecedor> listaResForn = new ArrayList<>();
         s.beginTransaction();
         Query query = s.createQuery("FROM Fornecedor");
-        Iterator list;
-        list = query.iterate();
-        System.out.println(list);
-        return list;
+        List list;
+        list = query.list();
+        for(int i=0; i<list.size(); i++){
+            System.out.println(list.get(i));
+            listaResForn.add((Fornecedor)list.get(i));
+        }
+        return listaResForn;
     }
     
     public List<Fornecedor> getLista(){
