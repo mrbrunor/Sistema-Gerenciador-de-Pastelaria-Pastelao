@@ -197,7 +197,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="textoId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Id Ingrediente:"/>
+            <Property name="text" type="java.lang.String" value="ID do Ingrediente:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoId">

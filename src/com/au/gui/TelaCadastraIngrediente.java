@@ -115,7 +115,7 @@ public class TelaCadastraIngrediente extends javax.swing.JFrame {
 
         painelDadosIngrediente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Ingrediente"));
 
-        textoId.setText("Id Ingrediente:");
+        textoId.setText("ID do Ingrediente:");
 
         campoId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
