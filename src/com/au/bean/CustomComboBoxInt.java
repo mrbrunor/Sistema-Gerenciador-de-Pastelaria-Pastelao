@@ -21,42 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-package com.au.dao;
-
-import com.au.bd.FabricaConexao;
-import com.au.pojo.Ingrediente;
-import com.au.util.HibernateUtil;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
+package com.au.bean;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class IngredienteDao {
-    Session ss = null;
-    Connection conexao = null;
-    
-    public IngredienteDao(){
-        this.ss = HibernateUtil.getSessionFactory().getCurrentSession();
-        conexao = new FabricaConexao().getConexao();
+public class CustomComboBoxInt {
+
+    String nome;
+    int id;
+
+    public CustomComboBoxInt(String nome, int id) {
+        this.nome = nome;
+        this.id = id;
     }
-    
-    public List<Ingrediente> listIngredientes(){
-        System.out.println("Inicio do metodo");
-        List<Ingrediente> listaResForn = new ArrayList<>();
-        ss.beginTransaction();
-        Query query = ss.createQuery("FROM Ingrediente");
-        List list;
-        list = query.list();
-        for(int i=0; i<list.size(); i++){
-            System.out.println(list.get(i));
-            listaResForn.add((Ingrediente)list.get(i));
-        }
-        return listaResForn;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }
