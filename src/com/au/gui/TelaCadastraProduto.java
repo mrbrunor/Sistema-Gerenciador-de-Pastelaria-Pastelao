@@ -47,7 +47,8 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     boolean inicializaIngredientes = false;
     FornecedorDao fornDao = new FornecedorDao();
     IngredienteDao ingDao = new IngredienteDao();
-    int validaForm[] = new int[]{0, 0, 0, 0, 0, 0, 0};
+    int validaForm[] = new int[]{0, 0, 0, 0, 0};
+    int validaQtd = 0;
     Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
     Border border = BorderFactory.createLineBorder(Color.red, 1);
 
@@ -497,6 +498,23 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoNome.requestFocus();
     }//GEN-LAST:event_campoIdActionPerformed
 
+    public Produto populaProd() {
+        Produto produto = new Produto();
+        produto.setIdProd(Integer.parseInt(campoId.getText()));
+        produto.setDescProd(campoNome.getText());
+        produto.setValorProd(Double.valueOf(campoValor.getText()));
+        produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
+        if (radioInd.getSelectedObjects() == null) {
+            produto.setEIndustrializado(false);
+        } else {
+            produto.setEIndustrializado(true);
+        }
+        CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoForn.getSelectedItem();
+        produto.setIdForn(ob.getId());
+        produto.setCodBarras(campoBarras.getText());
+        return produto;
+    }
+
     private CustomComboBoxInt[] getForns() {
         listaResForn = fornDao.getLista();
         System.out.println("Chegou aqui");
@@ -609,23 +627,19 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (validaCampos()) {
-            Produto produto = new Produto();
-            ProdutoDao prodDao = new ProdutoDao();
-
-            produto.setIdProd(Integer.parseInt(campoId.getText()));
-            produto.setDescProd(campoNome.getText());
-            produto.setValorProd(Double.valueOf(campoValor.getText()));
-            produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
-            CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoForn.getSelectedItem();
-            produto.setIdForn(ob.getId());
-            produto.setCodBarras(campoBarras.getText());
-            if (radioInd.getSelectedObjects() == null) {
-                produto.setEIndustrializado(false);
-            } else {
-                produto.setEIndustrializado(true);
+            if (radioInd.getSelectedObjects() != null) {
+                if (validaQtd == 1) {
+                    Produto produto = new Produto();
+                    produto = populaProd();
+                    ProdutoDao prodDao = new ProdutoDao();
+                    prodDao.addProduto(produto);
+                } else {
+                    campoQtd.setBorder(border);
+                }
+            } else if (radioPrep.getSelectedObjects() != null) {
+                //Validar os Ingredientes.... MAS COMO???
+                System.out.println("HAHA chegou lá, agora faça a Lógica de Adicionar a receita :D");
             }
-
-            prodDao.addProduto(produto);
 
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
@@ -639,36 +653,30 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 campoValor.setBorder(border);
             }
             if (validaForm[3] == 0) {
-                campoQtd.setBorder(border);
-            }
-            if (validaForm[4] == 0) {
-                caixaSelecaoForn.setBorder(border);
-            }
-            if (validaForm[5] == 0) {
-                campoBarras.setBorder(border);
-            }
-            if (validaForm[6] == 0) {
                 radioInd.setBorder(border);
                 radioInd.setBorderPainted(true);
                 radioPrep.setBorder(border);
                 radioPrep.setBorderPainted(true);
+            }
+            if (validaForm[4] == 0) {
+                caixaSelecaoForn.setBorder(border);
             }
         }
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void caixaSelecaoFornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoFornFocusLost
-        if (!caixaSelecaoForn.getSelectedItem().equals("")) {
+        if (caixaSelecaoForn.getSelectedIndex() != -1) {
             validaForm[4] = 1;
             caixaSelecaoForn.setBorder(border2);
         } else {
-            validaForm[4] = 0;
-            caixaSelecaoForn.setBorder(border);
+            validaForm[4] = 0;           
+            caixaSelecaoForn.setBorder(border);            
         }
     }//GEN-LAST:event_caixaSelecaoFornFocusLost
 
     private void caixaSelecaoFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoFornActionPerformed
-        campoBarras.requestFocus();
+        caixaSelecaoForn.setBorder(border2);
     }//GEN-LAST:event_caixaSelecaoFornActionPerformed
 
     private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
@@ -680,13 +688,13 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
     private void radioPrepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioPrepFocusLost
         if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[6] = 1;
+            validaForm[3] = 1;
             radioInd.setBorder(border);
             radioInd.setBorderPainted(false);
             radioPrep.setBorder(border);
             radioPrep.setBorderPainted(false);
         } else {
-            validaForm[6] = 0;
+            validaForm[3] = 0;
             radioInd.setBorder(border);
             radioInd.setBorderPainted(true);
             radioPrep.setBorder(border);
@@ -697,20 +705,21 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
         modificaEstadoInd(false);
         modificaEstadoPrep(true);
+        campoQtd.setBorder(border2);
         radioInd.setBorderPainted(false);
         radioPrep.setBorderPainted(false);
     }//GEN-LAST:event_radioPrepActionPerformed
 
     private void radioIndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioIndFocusLost
         if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[6] = 1;
+            validaForm[3] = 1;
             radioInd.setBorder(border);
-            radioInd.setBorderPainted(false);            
+            radioInd.setBorderPainted(false);
         } else {
-            validaForm[6] = 0;
+            validaForm[3] = 0;
             radioInd.setBorder(border);
             radioInd.setBorderPainted(true);
-            
+
         }
     }//GEN-LAST:event_radioIndFocusLost
 
@@ -736,7 +745,13 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_caixaIng1ActionPerformed
 
     private void campoQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoQtdFocusLost
-        // TODO add your handling code here:
+        if (!campoQtd.getText().equals("")) {
+            validaQtd = 1;
+            campoQtd.setBorder(border2);
+        } else {
+            validaQtd = 0;
+            campoQtd.setBorder(border);
+        }
     }//GEN-LAST:event_campoQtdFocusLost
 
     private void caixaIng3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng3ActionPerformed
