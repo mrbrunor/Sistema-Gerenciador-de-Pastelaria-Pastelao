@@ -25,38 +25,73 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
-import com.au.pojo.Ingrediente;
-import com.au.util.HibernateUtil;
+import com.au.bean.Ingrediente;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author BrunoRicardo
  */
 public class IngredienteDao {
-    Session ss = null;
     Connection conexao = null;
     
     public IngredienteDao(){
-        this.ss = HibernateUtil.getSessionFactory().getCurrentSession();
         conexao = new FabricaConexao().getConexao();
     }
     
-    public List<Ingrediente> listIngredientes(){
-        System.out.println("Inicio do metodo");
-        List<Ingrediente> listaResForn = new ArrayList<>();
-        ss.beginTransaction();
-        Query query = ss.createQuery("FROM Ingrediente");
-        List list;
-        list = query.list();
-        for(int i=0; i<list.size(); i++){
-            System.out.println(list.get(i));
-            listaResForn.add((Ingrediente)list.get(i));
+    public boolean addIngrediente(Ingrediente novoIng){
+        String sql = "INSERT INTO Ingrediente(descIng,valorIng) values(?,?)";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoIng.getDescIng());
+            stmt.setDouble(2, novoIng.getValorIng());
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
         }
-        return listaResForn;
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+        
+    
+    public List<Ingrediente> getLista(){
+        String sql = "SELECT * FROM Ingrediente";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Ingrediente> listaResIng = new ArrayList<>();
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            res = stmt.executeQuery();                        
+            
+            while(res.next()){
+                System.out.println("Entrou While res.next() Ingrediente");
+                Ingrediente novoIng = new Ingrediente();
+                novoIng.setDescIng(res.getString("descIng"));
+                novoIng.setIdIng(res.getInt("idIng"));
+                listaResIng.add(novoIng);
+            }
+            res.close();
+            stmt.close();
+            conexao.close();
+        }    
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Lista Vazia " + listaResIng.isEmpty());
+        System.out.println("Qtd Lista " + listaResIng.size());
+        return listaResIng;
     }
 }

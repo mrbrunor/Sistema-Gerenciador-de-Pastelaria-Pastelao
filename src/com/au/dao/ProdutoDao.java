@@ -24,10 +24,48 @@
 
 package com.au.dao;
 
+import com.au.bd.FabricaConexao;
+import com.au.bean.Produto;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author BrunoRicardo
  */
 public class ProdutoDao {
+    Connection conexao = null;
+    
+    public ProdutoDao(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public boolean addProduto(Produto novoProd){
+        String sql = "INSERT INTO Produto(idProd,descProd,valorProd,qtdProd,idForn,codBarras,eIndustrializado) values(?,?,?,?,?,?,?)";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novoProd.getIdProd());
+            stmt.setString(2, novoProd.getDescProd());
+            stmt.setDouble(3, novoProd.getValorProd());
+            stmt.setInt(4, novoProd.getQtdProd());
+            stmt.setInt(5, novoProd.getIdForn());
+            stmt.setString(6, novoProd.getCodBarras());
+            stmt.setBoolean(7, novoProd.getEIndustrializado());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
     
 }

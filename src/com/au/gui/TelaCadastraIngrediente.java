@@ -23,13 +23,11 @@
  */
 package com.au.gui;
 
-import com.au.pojo.Ingrediente;
-import com.au.util.HibernateUtil;
+import com.au.bean.Ingrediente;
+import com.au.dao.IngredienteDao;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import org.hibernate.Session;
-
 /**
  *
  * @author tiago_000
@@ -284,15 +282,14 @@ public class TelaCadastraIngrediente extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (validaCampos()) {
+            IngredienteDao ingDao = new IngredienteDao();
             Ingrediente ingrediente = new Ingrediente();
                         
             ingrediente.setDescIng(campoNome.getText());
             ingrediente.setValorIng(Double.valueOf(campoValor.getText()));
             
-            Session s = HibernateUtil.getSessionFactory().getCurrentSession();
-            s.beginTransaction();
-            s.save(ingrediente); //INSERT
-            s.getTransaction().commit();
+            ingDao.addIngrediente(ingrediente);
+            
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
             if (validaForm[0] == 0) {

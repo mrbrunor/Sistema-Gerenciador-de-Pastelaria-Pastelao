@@ -24,10 +24,54 @@
 
 package com.au.dao;
 
+import com.au.bd.FabricaConexao;
+import com.au.bean.Funcionario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author BrunoRicardo
  */
-public class FuncionarioDao {
+public class FuncionarioDao {Connection conexao = null;
+    
+    public FuncionarioDao(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public boolean addFuncionario(Funcionario novoFunc){
+        String sql = "INSERT INTO Funcionario(nomeFunc,nascFunc,sexoFunc,rgFunc,cpfFunc,mailFunc,foneFunc,celFunc,dtAdmFunc,salFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoFunc.getNomeFunc());
+            stmt.setDate(2, novoFunc.getNascFunc());
+            stmt.setString(3, novoFunc.getSexoFunc());
+            stmt.setString(4, novoFunc.getRgFunc());
+            stmt.setString(5, novoFunc.getCpfFunc());
+            stmt.setString(6, novoFunc.getMailFunc());
+            stmt.setString(7, novoFunc.getFoneFunc());
+            stmt.setString(8, novoFunc.getCelFunc());
+            stmt.setDate(9, novoFunc.getDtAdmFunc());
+            stmt.setDouble(10, novoFunc.getSalFunc());
+            stmt.setString(11, novoFunc.getUserFunc());
+            stmt.setString(12, novoFunc.getPassFunc());
+            stmt.setInt(13, novoFunc.getNivelFunc());
+            stmt.setBoolean(14, novoFunc.isEstaAtivo());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
     
 }

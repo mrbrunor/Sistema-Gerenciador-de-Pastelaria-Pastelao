@@ -29,19 +29,20 @@ package com.au.bean;
  * @author BrunoRicardo
  */
 public class Produto {
-    private int idProduto;
+    private int idProd;
     private String descProd;
     private double valorProd;
     private int qtdProd;
     private int idForn;
     private String codBarras;
+    private boolean eIndustrializado;
 
-    public int getIdProduto() {
-        return idProduto;
+    public int getIdProd() {
+        return idProd;
     }
 
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
+    public void setIdProd(int idProd) {
+        this.idProd = idProd;
     }
 
     public String getDescProd() {
@@ -83,5 +84,15 @@ public class Produto {
     public void setCodBarras(String codBarras) {
         this.codBarras = codBarras;
     }
+
+    public boolean getEIndustrializado() {
+        return eIndustrializado;
+    }
+
+    public void setEIndustrializado(boolean eIndustrializado) {
+        this.eIndustrializado = eIndustrializado;
+    }
     
+    
+
 }

@@ -23,8 +23,8 @@
  */
 package com.au.gui;
 
-import com.au.pojo.Funcionario;
-import com.au.util.HibernateUtil;
+import com.au.bean.Funcionario;
+import com.au.dao.FuncionarioDao;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -36,7 +36,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import org.hibernate.Session;
 
 /**
  *
@@ -682,6 +681,8 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         if (validaCampos()) {
             Funcionario funcionario = new Funcionario();
+            FuncionarioDao funcDao = new FuncionarioDao();
+
             funcionario.setNomeFunc(campoNome.getText());
             funcionario.setNascFunc(montaData(campoNascAno.getText(), campoNascMes.getText(), campoNascDia.getText()));
             if (caixaSelecaoSexo.getSelectedItem() == "Feminino") {
@@ -712,32 +713,66 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 funcionario.setEstaAtivo(false);
             }
 
-            Session s = HibernateUtil.getSessionFactory().getCurrentSession();
-            s.beginTransaction();
-            s.save(funcionario); //INSERT
-            s.getTransaction().commit();
-        }
-        else{
+            funcDao.addFuncionario(funcionario);
+        } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
-            if(validaForm[0]==0) campoNome.setBorder(border);
-            if(validaForm[1]==0) campoNascDia.setBorder(border);
-            if(validaForm[2]==0) campoNascMes.setBorder(border);
-            if(validaForm[3]==0) campoNascAno.setBorder(border);
-            if(validaForm[4]==0) caixaSelecaoSexo.setBorder(border);
-            if(validaForm[5]==0) campoRg.setBorder(border);
-            if(validaForm[6]==0) campoCpf.setBorder(border);
-            if(validaForm[7]==0) campoEmail.setBorder(border);
-            if(validaForm[8]==0) campoTelefone.setBorder(border);
-            if(validaForm[9]==0) campoCelular.setBorder(border);
-            if(validaForm[10]==0) campoAdmDia.setBorder(border);
-            if(validaForm[11]==0) campoAdmMes.setBorder(border);
-            if(validaForm[12]==0) campoAdmAno.setBorder(border);
-            if(validaForm[13]==0) campoSalario.setBorder(border);
-            if(validaForm[14]==0) campoUser.setBorder(border);
-            if(validaForm[15]==0) campoPass.setBorder(border);
-            if(validaForm[16]==0) campoPass2.setBorder(border);
-            if(validaForm[17]==0) caixaSelecaoNivel.setBorder(border);
-            if(validaForm[18]==0) caixaSelecaoAtivo.setBorder(border);
+            if (validaForm[0] == 0) {
+                campoNome.setBorder(border);
+            }
+            if (validaForm[1] == 0) {
+                campoNascDia.setBorder(border);
+            }
+            if (validaForm[2] == 0) {
+                campoNascMes.setBorder(border);
+            }
+            if (validaForm[3] == 0) {
+                campoNascAno.setBorder(border);
+            }
+            if (validaForm[4] == 0) {
+                caixaSelecaoSexo.setBorder(border);
+            }
+            if (validaForm[5] == 0) {
+                campoRg.setBorder(border);
+            }
+            if (validaForm[6] == 0) {
+                campoCpf.setBorder(border);
+            }
+            if (validaForm[7] == 0) {
+                campoEmail.setBorder(border);
+            }
+            if (validaForm[8] == 0) {
+                campoTelefone.setBorder(border);
+            }
+            if (validaForm[9] == 0) {
+                campoCelular.setBorder(border);
+            }
+            if (validaForm[10] == 0) {
+                campoAdmDia.setBorder(border);
+            }
+            if (validaForm[11] == 0) {
+                campoAdmMes.setBorder(border);
+            }
+            if (validaForm[12] == 0) {
+                campoAdmAno.setBorder(border);
+            }
+            if (validaForm[13] == 0) {
+                campoSalario.setBorder(border);
+            }
+            if (validaForm[14] == 0) {
+                campoUser.setBorder(border);
+            }
+            if (validaForm[15] == 0) {
+                campoPass.setBorder(border);
+            }
+            if (validaForm[16] == 0) {
+                campoPass2.setBorder(border);
+            }
+            if (validaForm[17] == 0) {
+                caixaSelecaoNivel.setBorder(border);
+            }
+            if (validaForm[18] == 0) {
+                caixaSelecaoAtivo.setBorder(border);
+            }
         }
 
 
@@ -827,11 +862,10 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_campoCpfFocusLost
 
     private void campoEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusLost
-        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");  
-        Matcher m = p.matcher(campoEmail.getText());  
-        
-        
-        if (m.matches()){//(!campoEmail.getText().equals("")) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(campoEmail.getText());
+
+        if (m.matches()) {//(!campoEmail.getText().equals("")) {
             validaForm[7] = 1;
             campoEmail.setBorder(border2);
         } else {
@@ -979,19 +1013,19 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_campoPassActionPerformed
 
     private void campoPass2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPass2ActionPerformed
-        
+
     }//GEN-LAST:event_campoPass2ActionPerformed
 
     private void campoNascAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascAnoActionPerformed
-        
+
     }//GEN-LAST:event_campoNascAnoActionPerformed
 
     private void caixaSelecaoNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoNivelActionPerformed
-        
+
     }//GEN-LAST:event_caixaSelecaoNivelActionPerformed
 
     private void caixaSelecaoAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoActionPerformed
-        
+
     }//GEN-LAST:event_caixaSelecaoAtivoActionPerformed
 
     /**

@@ -23,21 +23,18 @@
  */
 package com.au.gui;
 
-import com.au.bean.CustomComboBoxDouble;
 import com.au.bean.CustomComboBoxInt;
+import com.au.bean.Fornecedor;
+import com.au.bean.Ingrediente;
+import com.au.bean.Produto;
 import com.au.dao.FornecedorDao;
 import com.au.dao.IngredienteDao;
-import com.au.pojo.Fornecedor;
-import com.au.pojo.Ingrediente;
-import com.au.pojo.Produto;
-import com.au.util.HibernateUtil;
+import com.au.dao.ProdutoDao;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import org.hibernate.Session;
-
 /**
  *
  * @author tiago_000
@@ -104,12 +101,12 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoQtd = new javax.swing.JTextField();
         campoBarras = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox(getIngs());
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
         jCheckBox5 = new javax.swing.JCheckBox();
+        jComboBox1 = new javax.swing.JComboBox(getIngs());
         jComboBox2 = new javax.swing.JComboBox(getIngs());
         jComboBox3 = new javax.swing.JComboBox(getIngs());
         jComboBox4 = new javax.swing.JComboBox(getIngs());
@@ -168,7 +165,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         textoValor.setText("Valor Produto:");
 
-        caixaSelecaoForn.setModel(null);
         caixaSelecaoForn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caixaSelecaoFornActionPerformed(evt);
@@ -344,8 +340,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
 
-        jComboBox1.setModel(null);
-
         jCheckBox1.setText("Ingrediente 1");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,14 +360,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         jCheckBox5.setText("Ingrediente 5");
 
-        jComboBox2.setModel(null);
-
-        jComboBox3.setModel(null);
-
-        jComboBox4.setModel(null);
-
-        jComboBox5.setModel(null);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -382,37 +368,41 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jCheckBox5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jCheckBox4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jCheckBox3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox2))
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -461,7 +451,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(botaoCadastrar))
-                        .addGap(0, 556, Short.MAX_VALUE)))
+                        .addGap(0, 589, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -488,7 +478,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_campoIdActionPerformed
 
     private CustomComboBoxInt[] getForns() {
-        listaResForn = fornDao.listFornecedores();//fornDao.getLista();
+        listaResForn = fornDao.getLista();
         System.out.println("Chegou aqui");
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResForn.size()];
         System.out.println("Qtd Lista " + listaResForn.size());
@@ -500,11 +490,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         return oItems;
     }
 
-    private CustomComboBoxDouble[] getIngs() {
-        listaResIng = ingDao.listIngredientes();
-        CustomComboBoxDouble[] oItems = new CustomComboBoxDouble[listaResIng.size()];
+    private CustomComboBoxInt[] getIngs() {
+        listaResIng = ingDao.getLista();
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
         for (int i = 0; i < listaResIng.size(); i++) {
-            oItems[i] = new CustomComboBoxDouble(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
+            oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
         }
         return oItems;
     }
@@ -559,27 +549,23 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (validaCampos()) {
             Produto produto = new Produto();
-            Fornecedor fornecedor = new Fornecedor();
-
+            ProdutoDao prodDao = new ProdutoDao();
+            
             produto.setIdProd(Integer.parseInt(campoId.getText()));
             produto.setDescProd(campoNome.getText());
             produto.setValorProd(Double.valueOf(campoValor.getText()));
             produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
             CustomComboBoxInt ob=(CustomComboBoxInt) caixaSelecaoForn.getSelectedItem();
-            fornecedor.setNomeForn(ob.getNome());            
-            fornecedor.setIdForn(ob.getId());
-            produto.setFornecedor(fornecedor);
+            produto.setIdForn(ob.getId());
             produto.setCodBarras(campoBarras.getText());
             if (radioInd.getSelectedObjects() == null) {
-                produto.setEindustrializado(false);
+                produto.setEIndustrializado(false);
             } else {
-                produto.setEindustrializado(true);
+                produto.setEIndustrializado(true);
             }
 
-            Session s = HibernateUtil.getSessionFactory().getCurrentSession();
-            s.beginTransaction();
-            s.save(produto); //INSERT
-            s.getTransaction().commit();
+            prodDao.addProduto(produto);
+                    
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
             if (validaForm[0] == 0) {

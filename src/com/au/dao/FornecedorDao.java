@@ -25,8 +25,7 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
-import com.au.pojo.Fornecedor;
-import com.au.util.HibernateUtil;
+import com.au.bean.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,34 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 /**
  *
  * @author BrunoRicardo
  */
 public class FornecedorDao {
-    Session s = null;  
     Connection conexao = null;
     
     public FornecedorDao(){
-        this.s = HibernateUtil.getSessionFactory().getCurrentSession();
         conexao = new FabricaConexao().getConexao();
-    }
-    
-    public List<Fornecedor> listFornecedores(){
-        System.out.println("Inicio do metodo");
-        List<Fornecedor> listaResForn = new ArrayList<>();
-        s.beginTransaction();
-        Query query = s.createQuery("FROM Fornecedor");
-        List list;
-        list = query.list();
-        for(int i=0; i<list.size(); i++){
-            System.out.println(list.get(i));
-            listaResForn.add((Fornecedor)list.get(i));
-        }
-        return listaResForn;
     }
     
     public List<Fornecedor> getLista(){
