@@ -24,10 +24,20 @@
 
 package com.au.dao;
 
+import com.au.bd.FabricaConexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author BrunoRicardo
  */
 public class ItemPedidoDao {
+    Connection conexao = null;
     
+    public ItemPedidoDao(){
+        conexao = new FabricaConexao().getConexao();
+    }
 }

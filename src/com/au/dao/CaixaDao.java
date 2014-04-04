@@ -24,10 +24,20 @@
 
 package com.au.dao;
 
+import com.au.bd.FabricaConexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author BrunoRicardo
  */
-public class CaixaDao {
+public class CaixaDao {     
+    Connection conexao = null;
     
+    public CaixaDao(){
+        conexao = new FabricaConexao().getConexao();
+    }
 }
