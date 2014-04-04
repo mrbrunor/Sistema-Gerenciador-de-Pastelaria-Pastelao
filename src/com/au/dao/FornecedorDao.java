@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
@@ -34,28 +33,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author BrunoRicardo
  */
 public class FornecedorDao {
+
     Connection conexao = null;
-    
-    public FornecedorDao(){
+
+    public FornecedorDao() {
         conexao = new FabricaConexao().getConexao();
     }
-    
-    public List<Fornecedor> getLista(){
+
+    public boolean addFornecedor(Fornecedor novoForn) {
+        String sql = "INSERT INTO Fornecedor(nomeForn, cnpjForn, mailForn, foneForn, celForn) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoForn.getNomeForn());
+            stmt.setString(2, novoForn.getCnpjForn());
+            stmt.setString(3, novoForn.getMailForn());
+            stmt.setString(4, novoForn.getFoneForn());
+            stmt.setString(5, novoForn.getCelForn());
+
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+
+    public List<Fornecedor> getLista() {
         String sql = "SELECT * FROM Fornecedor";
         PreparedStatement stmt;
         ResultSet res;
         List<Fornecedor> listaResForn = new ArrayList<>();
-        
-        try{
+
+        try {
             stmt = conexao.prepareStatement(sql);
-            res = stmt.executeQuery();                        
-            
-            while(res.next()){
+            res = stmt.executeQuery();
+
+            while (res.next()) {
                 System.out.println("Entrou While res.next()"
                         + "");
                 Fornecedor novoForn = new Fornecedor();
@@ -66,8 +89,7 @@ public class FornecedorDao {
             res.close();
             stmt.close();
             conexao.close();
-        }    
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Lista Vazia " + listaResForn.isEmpty());

@@ -24,6 +24,14 @@
 
 package com.au.gui;
 
+import com.au.bean.Fornecedor;
+import com.au.dao.FornecedorDao;
+import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 /**
  *
  * @author tiago_000
@@ -33,8 +41,19 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastrarFornecedor
      */
+    int[] validaForm = {0, 0, 0, 0, 0};
+    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
+    Border border = BorderFactory.createLineBorder(Color.red, 1);
+    
     public TelaCadastrarFornecedor() {
         initComponents();
+        campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ ]"));
+        campoCnpjFornecedor.setDocument(new LimitaDigitos((20), "[^0-9|^.\\-]"));
+        campoEmailFornecedor.setDocument(new LimitaDigitos((150), "[^0-9|^.|^_|^@|^a-z|^A-Z\\-]"));
+        campoCelularFornecedor.setDocument(new LimitaDigitos((15), "[^0-9|^()\\-]"));
+        campoTelefoneFornecedor.setDocument(new LimitaDigitos((15), "[^0-9|^()\\-]"));
+        campoIdFornecedor.setEnabled(false);
+        campoNomeFornecedor.requestFocus();
     }
 
     /**
@@ -110,13 +129,43 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
         textoNomeFornecedor.setText("Nome Completo:");
 
+        campoNomeFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFornecedorFocusLost(evt);
+            }
+        });
+
         textoCnpjFornecedor.setText("CNPJ: ");
+
+        campoCnpjFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCnpjFornecedorFocusLost(evt);
+            }
+        });
 
         textoEmailFornecedor.setText("E-mail:");
 
+        campoEmailFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEmailFornecedorFocusLost(evt);
+            }
+        });
+
         textoTelefoneFornecedor.setText("Telefone:");
 
+        campoTelefoneFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoTelefoneFornecedorFocusLost(evt);
+            }
+        });
+
         textoCelularFornecedor.setText("Celular:");
+
+        campoCelularFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCelularFornecedorFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelDadosFornecedorLayout = new javax.swing.GroupLayout(painelDadosFornecedor);
         painelDadosFornecedor.setLayout(painelDadosFornecedorLayout);
@@ -174,6 +223,11 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
         botaoCadastrarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFornecedor.setText("Cadastrar Fornecedor");
+        botaoCadastrarFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarFornecedorActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         jButton1.setText("Cancelar Cadastro");
@@ -209,6 +263,104 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private boolean validaCampos() {
+        for (int i = 0; i < validaForm.length; i++) {
+            if (validaForm[i] == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void campoNomeFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFornecedorFocusLost
+        if(!campoNomeFornecedor.getText().equals("")){
+            validaForm[0] = 1;
+            campoNomeFornecedor.setBorder(border2);
+        }
+        else{
+            validaForm[0] = 0;
+            campoNomeFornecedor.setBorder(border);
+        }
+    }//GEN-LAST:event_campoNomeFornecedorFocusLost
+
+    private void campoCnpjFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCnpjFornecedorFocusLost
+        if(!campoCnpjFornecedor.getText().equals("")){
+            validaForm[1] = 1;
+            campoCnpjFornecedor.setBorder(border2);
+        }
+        else{
+            validaForm[1] = 0;
+            campoCnpjFornecedor.setBorder(border);
+        }
+    }//GEN-LAST:event_campoCnpjFornecedorFocusLost
+
+    private void campoEmailFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorFocusLost
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(campoEmailFornecedor.getText());
+
+        if (m.matches()) {
+            validaForm[2] = 1;
+            campoEmailFornecedor.setBorder(border2);
+        } else {
+            campoEmailFornecedor.setBorder(border);
+            validaForm[2] = 0;
+        }
+    }//GEN-LAST:event_campoEmailFornecedorFocusLost
+
+    private void campoTelefoneFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFornecedorFocusLost
+        if(!campoTelefoneFornecedor.getText().equals("")){
+            validaForm[3] = 1;
+            campoTelefoneFornecedor.setBorder(border2);
+        }
+        else{
+            validaForm[3] = 0;
+            campoTelefoneFornecedor.setBorder(border);
+        }
+    }//GEN-LAST:event_campoTelefoneFornecedorFocusLost
+
+    private void campoCelularFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFornecedorFocusLost
+        if(!campoCelularFornecedor.getText().equals("")){
+            validaForm[4] = 1;
+            campoCelularFornecedor.setBorder(border2);
+        }
+        else{
+            validaForm[4] = 0;
+            campoCelularFornecedor.setBorder(border);
+        }
+    }//GEN-LAST:event_campoCelularFornecedorFocusLost
+
+    private void botaoCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFornecedorActionPerformed
+        if(validaCampos()){
+            Fornecedor fornecedor = new Fornecedor();
+            FornecedorDao fornDao = new FornecedorDao();
+            
+            fornecedor.setNomeForn(campoNomeFornecedor.getText());
+            fornecedor.setCnpjForn(campoCnpjFornecedor.getText());
+            fornecedor.setMailForn(campoEmailFornecedor.getText());
+            fornecedor.setFoneForn(campoTelefoneFornecedor.getText());
+            fornecedor.setCelForn(campoCelularFornecedor.getText());
+            
+            fornDao.addFornecedor(fornecedor);
+        }
+        else {
+            if(validaForm[0] == 0){
+                campoNomeFornecedor.setBorder(border);
+            }            
+            if(validaForm[1] == 0){
+            campoCnpjFornecedor.setBorder(border);
+            }
+            if(validaForm[2] == 0){
+            campoEmailFornecedor.setBorder(border);
+            }
+            if(validaForm[3] == 0){
+            campoTelefoneFornecedor.setBorder(border);
+            }
+            if(validaForm[4] == 0){
+            campoCelularFornecedor.setBorder(border);
+            }            
+        }
+    }//GEN-LAST:event_botaoCadastrarFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,44 +399,23 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrarFornecedor;
-    private javax.swing.JComboBox caixaSelecaoSexo;
-    private javax.swing.JTextField campoCelular;
     private javax.swing.JTextField campoCelularFornecedor;
     private javax.swing.JTextField campoCnpjFornecedor;
-    private javax.swing.JTextField campoCpf;
-    private javax.swing.JTextField campoEmail;
     private javax.swing.JTextField campoEmailFornecedor;
     private javax.swing.JTextField campoIdFornecedor;
-    private javax.swing.JTextField campoNascAno;
-    private javax.swing.JTextField campoNascDia;
-    private javax.swing.JTextField campoNascMes;
-    private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoNomeFornecedor;
-    private javax.swing.JTextField campoRg;
-    private javax.swing.JTextField campoTelefone;
     private javax.swing.JTextField campoTelefoneFornecedor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel painelDadosFornecedor;
-    private javax.swing.JPanel painelDadosPessoais;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoAdicionarFornecedor;
-    private javax.swing.JLabel textoCelular;
     private javax.swing.JLabel textoCelularFornecedor;
     private javax.swing.JLabel textoCnpjFornecedor;
-    private javax.swing.JLabel textoCpf;
-    private javax.swing.JLabel textoDtNasc;
-    private javax.swing.JLabel textoEmail;
     private javax.swing.JLabel textoEmailFornecedor;
     private javax.swing.JLabel textoIconeNovoFornecedor;
     private javax.swing.JLabel textoIdFornecedor;
-    private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoNomeFornecedor;
     private javax.swing.JLabel textoPreencherDados;
-    private javax.swing.JLabel textoRg;
-    private javax.swing.JLabel textoSexo;
-    private javax.swing.JLabel textoTelefone;
     private javax.swing.JLabel textoTelefoneFornecedor;
     // End of variables declaration//GEN-END:variables
 }
