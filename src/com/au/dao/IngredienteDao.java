@@ -46,6 +46,19 @@ public class IngredienteDao {
         conexao = new FabricaConexao().getConexao();
     }
     
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     public boolean addIngrediente(Ingrediente novoIng){
         String sql = "INSERT INTO Ingrediente(descIng,valorIng) values(?,?)";
         PreparedStatement stmt;

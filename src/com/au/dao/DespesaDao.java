@@ -40,4 +40,16 @@ public class DespesaDao {
     public DespesaDao(){
         conexao = new FabricaConexao().getConexao();
     }
+    
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

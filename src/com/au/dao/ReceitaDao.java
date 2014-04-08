@@ -72,4 +72,39 @@ public class ReceitaDao {
         }
         return resultado;
     }
+    
+    public boolean updateReceita(Receita receita) {
+        String sql = "UPDATE Receita set idIng=? where idProd=? and idIng=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, receita.getIdIng());
+            stmt.setInt(2, receita.getIdProd());
+            stmt.setInt(3, receita.getIdIng());
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    
+    public boolean deleteReceita(Receita receita){
+        String sql = "DELETE FROM Receita where idProd=? and idIng=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, receita.getIdProd());
+            stmt.setInt(2, receita.getIdIng());
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;       
+    }
 }

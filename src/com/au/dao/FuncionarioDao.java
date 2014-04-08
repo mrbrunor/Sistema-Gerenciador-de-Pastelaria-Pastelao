@@ -42,6 +42,18 @@ public class FuncionarioDao {Connection conexao = null;
         conexao = new FabricaConexao().getConexao();
     }
     
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public boolean addFuncionario(Funcionario novoFunc){
         String sql = "INSERT INTO Funcionario(nomeFunc,nascFunc,sexoFunc,rgFunc,cpfFunc,mailFunc,foneFunc,celFunc,dtAdmFunc,salFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;

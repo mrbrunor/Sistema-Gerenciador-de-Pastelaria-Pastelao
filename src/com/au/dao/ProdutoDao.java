@@ -43,6 +43,18 @@ public class ProdutoDao {
         conexao = new FabricaConexao().getConexao();
     }
     
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public boolean addProdutoInd(Produto novoProd){
         String sql = "INSERT INTO Produto(idProd,descProd,valorProd,qtdProd,idForn,codBarras,eIndustrializado) values(?,?,?,?,?,?,?)";
         PreparedStatement stmt;
@@ -79,6 +91,70 @@ public class ProdutoDao {
             stmt.setDouble(3, novoProd.getValorProd());
             stmt.setInt(4, novoProd.getIdForn());
             stmt.setBoolean(5, novoProd.getEIndustrializado());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public boolean updateProdutoInd(Produto produto){
+        String sql = "UPDATE Produto SET descProd=?, valorProd=?, qtdProd=?,idForn=?,codBarras=?,eIndustrializado=?) WHERE idProd=?)";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, produto.getDescProd());
+            stmt.setDouble(2, produto.getValorProd());
+            stmt.setInt(3, produto.getQtdProd());
+            stmt.setInt(4, produto.getIdForn());
+            stmt.setString(5, produto.getCodBarras());
+            stmt.setBoolean(6, produto.getEIndustrializado());
+            stmt.setInt(7, produto.getIdProd());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public boolean updateProdutoPrep(Produto produto){
+        String sql = "UPDATE Produto SET descProd=?, valorProd=?, idForn=?, eIndustrializado=? WHERE idProd=?";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, produto.getDescProd());
+            stmt.setDouble(2, produto.getValorProd());
+            stmt.setInt(3, produto.getIdForn());
+            stmt.setBoolean(4, produto.getEIndustrializado());
+            stmt.setInt(5, produto.getIdProd());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public boolean deleteProdutoPrep(Produto produto){
+        String sql = "DELETE FOM Produto WHERE idProd=?";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, produto.getIdProd());
             
             resultado = stmt.execute();
             stmt.close();

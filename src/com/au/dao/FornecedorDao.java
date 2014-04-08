@@ -45,6 +45,18 @@ public class FornecedorDao {
     public FornecedorDao() {
         conexao = new FabricaConexao().getConexao();
     }
+    
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public boolean addFornecedor(Fornecedor novoForn) {
         String sql = "INSERT INTO Fornecedor(nomeForn, cnpjForn, mailForn, foneForn, celForn) VALUES(?, ?, ?, ?, ?)";
