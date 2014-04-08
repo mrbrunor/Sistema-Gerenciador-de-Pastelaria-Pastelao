@@ -27,9 +27,11 @@ import com.au.bean.CustomComboBoxInt;
 import com.au.bean.Fornecedor;
 import com.au.bean.Ingrediente;
 import com.au.bean.Produto;
+import com.au.bean.Receita;
 import com.au.dao.FornecedorDao;
 import com.au.dao.IngredienteDao;
 import com.au.dao.ProdutoDao;
+import com.au.dao.ReceitaDao;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     FornecedorDao fornDao = new FornecedorDao();
     IngredienteDao ingDao = new IngredienteDao();
     int validaForm[] = new int[]{0, 0, 0, 0, 0};
+    int validaPrep[] = new int[]{0, 0, 0, 0, 0};
     int validaQtd = 0;
     Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
     Border border = BorderFactory.createLineBorder(Color.red, 1);
@@ -359,6 +362,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 caixaIng2ActionPerformed(evt);
             }
         });
+        caixaIng2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                caixaIng2FocusLost(evt);
+            }
+        });
 
         caixaIng3.setText("Ingrediente 3");
         caixaIng3.addActionListener(new java.awt.event.ActionListener() {
@@ -378,6 +386,36 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         caixaIng5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caixaIng5ActionPerformed(evt);
+            }
+        });
+
+        caixaSelecaoIng1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoIng1ActionPerformed(evt);
+            }
+        });
+
+        caixaSelecaoIng2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoIng2ActionPerformed(evt);
+            }
+        });
+
+        caixaSelecaoIng3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoIng3ActionPerformed(evt);
+            }
+        });
+
+        caixaSelecaoIng4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoIng4ActionPerformed(evt);
+            }
+        });
+
+        caixaSelecaoIng5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoIng5ActionPerformed(evt);
             }
         });
 
@@ -498,20 +536,24 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         campoNome.requestFocus();
     }//GEN-LAST:event_campoIdActionPerformed
 
-    public Produto populaProd() {
+    public Produto adicionaProduto() {
         Produto produto = new Produto();
+        ProdutoDao prodDao = new ProdutoDao();
         produto.setIdProd(Integer.parseInt(campoId.getText()));
         produto.setDescProd(campoNome.getText());
         produto.setValorProd(Double.valueOf(campoValor.getText()));
-        produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
-        if (radioInd.getSelectedObjects() == null) {
-            produto.setEIndustrializado(false);
-        } else {
-            produto.setEIndustrializado(true);
-        }
         CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoForn.getSelectedItem();
         produto.setIdForn(ob.getId());
-        produto.setCodBarras(campoBarras.getText());
+
+        if (radioInd.getSelectedObjects() == null) {
+            produto.setEIndustrializado(false);
+            prodDao.addProdutoPrep(produto);
+        } else {
+            produto.setEIndustrializado(true);
+            produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
+            produto.setCodBarras(campoBarras.getText());
+            prodDao.addProdutoInd(produto);
+        }
         return produto;
     }
 
@@ -539,6 +581,75 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         return oItems;
     }
 
+    private void desabilitaPrep(int count) {
+        if (count == 1) {
+            caixaSelecaoIng1.setEnabled(false);
+            caixaSelecaoIng1.setSelectedIndex(-1);
+
+            caixaIng2.setEnabled(false);
+            caixaIng2.setSelected(false);
+            caixaSelecaoIng2.setEnabled(false);
+            caixaSelecaoIng2.setSelectedIndex(-1);
+
+            caixaIng3.setEnabled(false);
+            caixaIng3.setSelected(false);
+            caixaSelecaoIng3.setEnabled(false);
+            caixaSelecaoIng3.setSelectedIndex(-1);
+
+            caixaIng4.setEnabled(false);
+            caixaIng4.setSelected(false);
+            caixaSelecaoIng4.setEnabled(false);
+            caixaSelecaoIng4.setSelectedIndex(-1);
+
+            caixaIng5.setEnabled(false);
+            caixaIng5.setSelected(false);
+            caixaSelecaoIng5.setEnabled(false);
+            caixaSelecaoIng5.setSelectedIndex(-1);
+        } else if (count == 2) {
+            caixaSelecaoIng2.setEnabled(false);
+            caixaSelecaoIng2.setSelectedIndex(-1);
+
+            caixaIng3.setEnabled(false);
+            caixaIng3.setSelected(false);
+            caixaSelecaoIng3.setEnabled(false);
+            caixaSelecaoIng3.setSelectedIndex(-1);
+
+            caixaIng4.setEnabled(false);
+            caixaIng4.setSelected(false);
+            caixaSelecaoIng4.setEnabled(false);
+            caixaSelecaoIng4.setSelectedIndex(-1);
+
+            caixaIng5.setEnabled(false);
+            caixaIng5.setSelected(false);
+            caixaSelecaoIng5.setEnabled(false);
+            caixaSelecaoIng5.setSelectedIndex(-1);
+        } else if (count == 3) {
+            caixaSelecaoIng3.setEnabled(false);
+            caixaSelecaoIng3.setSelectedIndex(-1);
+
+            caixaIng4.setEnabled(false);
+            caixaIng4.setSelected(false);
+            caixaSelecaoIng4.setEnabled(false);
+            caixaSelecaoIng4.setSelectedIndex(-1);
+
+            caixaIng5.setEnabled(false);
+            caixaIng5.setSelected(false);
+            caixaSelecaoIng5.setEnabled(false);
+            caixaSelecaoIng5.setSelectedIndex(-1);
+        } else if (count == 4) {
+            caixaSelecaoIng4.setEnabled(false);
+            caixaSelecaoIng4.setSelectedIndex(-1);
+
+            caixaIng5.setEnabled(false);
+            caixaIng5.setSelected(false);
+            caixaSelecaoIng5.setEnabled(false);
+            caixaSelecaoIng5.setSelectedIndex(-1);
+        } else {
+            caixaSelecaoIng5.setEnabled(false);
+            caixaSelecaoIng5.setSelectedIndex(-1);
+        }
+    }
+
     private void modificaEstadoInd(boolean novoEstado) {
         campoBarras.setEnabled(novoEstado);
         campoQtd.setEnabled(novoEstado);
@@ -562,14 +673,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             caixaIng4.setSelected(novoEstado);
             caixaIng5.setSelected(novoEstado);
         } else {
+            campoQtd.setText("");
+            campoBarras.setText("");
             caixaIng1.setEnabled(novoEstado);
             caixaIng1.setSelected(novoEstado);
             caixaSelecaoIng1.setEnabled(novoEstado);
-            caixaIng2.setEnabled(novoEstado);
-            caixaIng3.setEnabled(novoEstado);
-            caixaIng4.setEnabled(novoEstado);
-            caixaIng5.setEnabled(novoEstado);
-
         }
         caixaSelecaoIng1.setSelectedIndex(-1);
         caixaSelecaoIng2.setSelectedIndex(-1);
@@ -578,9 +686,18 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         caixaSelecaoIng5.setSelectedIndex(-1);
     }
 
-    private boolean validaCampos() {
+    private boolean validaForn() {
         for (int i = 0; i < validaForm.length; i++) {
             if (validaForm[i] == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validaPrep() {
+        for (int i = 0; i < validaPrep.length; i++) {
+            if (validaPrep[i] == 0) {
                 return false;
             }
         }
@@ -626,18 +743,67 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_campoNomeFocusLost
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        if (validaCampos()) {
+        if (validaForn()) {
             if (radioInd.getSelectedObjects() != null) {
                 if (validaQtd == 1) {
                     Produto produto = new Produto();
-                    produto = populaProd();
-                    ProdutoDao prodDao = new ProdutoDao();
-                    prodDao.addProduto(produto);
+                    produto = adicionaProduto();
                 } else {
                     campoQtd.setBorder(border);
                 }
             } else if (radioPrep.getSelectedObjects() != null) {
-                //Validar os Ingredientes.... MAS COMO???
+                if (validaPrep()) {
+                    Produto produto = new Produto();
+                    produto = adicionaProduto();
+
+                    Receita receita = new Receita();
+                    ReceitaDao recDao = new ReceitaDao();
+                    CustomComboBoxInt cx;
+
+                    if (caixaSelecaoIng1.getSelectedIndex() != -1) {
+                        cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        recDao.addReceita(receita);
+                    }
+                    if (caixaSelecaoIng2.getSelectedIndex() != -1) {
+                        cx = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        recDao.addReceita(receita);
+                    }
+                    if (caixaSelecaoIng3.getSelectedIndex() != -1) {
+                        cx = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        recDao.addReceita(receita);
+                    }
+                    if (caixaSelecaoIng4.getSelectedIndex() != -1) {
+                        cx = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        recDao.addReceita(receita);
+                    }
+                    if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+                        cx = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        receita.setIdIng(cx.getId());
+                        receita.setIdProd(produto.getIdProd());
+                        recDao.addReceita(receita);
+                        //CONNECTION CLOSE
+                    } else {
+                        //CONNECTION CLOSE
+                    };
+                } else {
+
+                }
                 System.out.println("HAHA chegou lá, agora faça a Lógica de Adicionar a receita :D");
             }
 
@@ -670,8 +836,8 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             validaForm[4] = 1;
             caixaSelecaoForn.setBorder(border2);
         } else {
-            validaForm[4] = 0;           
-            caixaSelecaoForn.setBorder(border);            
+            validaForm[4] = 0;
+            caixaSelecaoForn.setBorder(border);
         }
     }//GEN-LAST:event_caixaSelecaoFornFocusLost
 
@@ -731,7 +897,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         if (caixaIng2.isSelected()) {
             caixaSelecaoIng2.setEnabled(true);
         } else {
-            caixaSelecaoIng2.setEnabled(false);
+            desabilitaPrep(2);
         }
     }//GEN-LAST:event_caixaIng2ActionPerformed
 
@@ -739,7 +905,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         if (caixaIng1.isSelected()) {
             caixaSelecaoIng1.setEnabled(true);
         } else {
-            caixaSelecaoIng1.setEnabled(false);
+            desabilitaPrep(1);
         }
 
     }//GEN-LAST:event_caixaIng1ActionPerformed
@@ -758,7 +924,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         if (caixaIng3.isSelected()) {
             caixaSelecaoIng3.setEnabled(true);
         } else {
-            caixaSelecaoIng3.setEnabled(false);
+            desabilitaPrep(3);
         }
     }//GEN-LAST:event_caixaIng3ActionPerformed
 
@@ -766,7 +932,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         if (caixaIng4.isSelected()) {
             caixaSelecaoIng4.setEnabled(true);
         } else {
-            caixaSelecaoIng4.setEnabled(false);
+            desabilitaPrep(4);
         }
     }//GEN-LAST:event_caixaIng4ActionPerformed
 
@@ -774,9 +940,170 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         if (caixaIng5.isSelected()) {
             caixaSelecaoIng5.setEnabled(true);
         } else {
-            caixaSelecaoIng5.setEnabled(false);
+            desabilitaPrep(5);
         }
     }//GEN-LAST:event_caixaIng5ActionPerformed
+
+    private void caixaIng2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaIng2FocusLost
+
+    }//GEN-LAST:event_caixaIng2FocusLost
+
+    private void caixaSelecaoIng2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng2ActionPerformed
+        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+        if (caixaSelecaoIng2.getSelectedIndex() == -1) {
+            caixaIng3.setEnabled(false);
+        } else {
+            if (cx.getId() == cx2.getId()) {
+                caixaSelecaoIng2.setBorder(border);
+                validaPrep[1] = 0;
+            } else {
+                //caixaSelecaoIng1.setEnabled(false);
+                caixaSelecaoIng2.setBorder(border2);
+                caixaIng3.setEnabled(true);
+                validaPrep[1] = 1;
+                if (caixaSelecaoIng3.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+                    if (cx2.getId() == cx3.getId()) {
+                        caixaSelecaoIng2.setBorder(border);
+                        validaPrep[1] = 0;
+                    }
+                }
+                if (caixaSelecaoIng4.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+                    if (cx2.getId() == cx4.getId()) {
+                        caixaSelecaoIng2.setBorder(border);
+                        validaPrep[1] = 0;
+                    }
+                }
+                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+                    if (cx2.getId() == cx5.getId()) {
+                        caixaSelecaoIng2.setBorder(border);
+                        validaPrep[1] = 0;
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_caixaSelecaoIng2ActionPerformed
+
+    private void caixaSelecaoIng1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng1ActionPerformed
+        if (caixaSelecaoIng1.getSelectedIndex() == -1) {
+            caixaIng2.setEnabled(false);
+        } else {
+            validaPrep[0] = 1;
+            caixaIng2.setEnabled(true);
+            caixaSelecaoIng1.setBorder(border2);
+            CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+            if (caixaSelecaoIng2.getSelectedIndex() != -1) {
+                CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+                if (cx.getId() == cx2.getId()) {
+                    caixaSelecaoIng1.setBorder(border);
+                    validaPrep[0] = 0;
+                }
+            }
+            if (caixaSelecaoIng3.getSelectedIndex() != -1) {
+                CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+                if (cx.getId() == cx3.getId()) {
+                    caixaSelecaoIng1.setBorder(border);
+                    validaPrep[0] = 0;
+                }
+            }
+            if (caixaSelecaoIng4.getSelectedIndex() != -1) {
+                CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+                if (cx.getId() == cx4.getId()) {
+                    caixaSelecaoIng1.setBorder(border);
+                    validaPrep[0] = 0;
+                }
+            }
+            if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+                CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+                if (cx.getId() == cx5.getId()) {
+                    caixaSelecaoIng1.setBorder(border);
+                    validaPrep[0] = 0;
+                }
+            }
+        }
+    }//GEN-LAST:event_caixaSelecaoIng1ActionPerformed
+
+    private void caixaSelecaoIng3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng3ActionPerformed
+        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+
+        if (caixaSelecaoIng3.getSelectedIndex() == -1) {
+            caixaIng4.setEnabled(false);
+        } else {
+            if (cx3.getId() == cx2.getId() || cx3.getId() == cx.getId()) {
+                caixaSelecaoIng3.setBorder(border);
+                validaPrep[2] = 0;
+            } else {
+                //caixaSelecaoIng2.setEnabled(false);
+                caixaSelecaoIng3.setBorder(border2);
+                caixaIng4.setEnabled(true);
+                validaPrep[2] = 1;
+                if (caixaSelecaoIng4.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+                    if (cx3.getId() == cx4.getId()) {
+                        caixaSelecaoIng3.setBorder(border);
+                        validaPrep[2] = 0;
+                    }
+                }
+                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+                    if (cx3.getId() == cx5.getId()) {
+                        caixaSelecaoIng3.setBorder(border);
+                        validaPrep[2] = 0;
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_caixaSelecaoIng3ActionPerformed
+
+    private void caixaSelecaoIng4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng4ActionPerformed
+        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+        CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+        if (caixaSelecaoIng4.getSelectedIndex() == -1) {
+            caixaIng5.setEnabled(false);
+        } else {
+            if (cx4.getId() == cx3.getId() || cx4.getId() == cx2.getId() || cx4.getId() == cx.getId()) {
+                caixaSelecaoIng4.setBorder(border);
+                validaPrep[3] = 0;
+            } else {
+                //caixaSelecaoIng3.setEnabled(false);
+                caixaSelecaoIng4.setBorder(border2);
+                caixaIng5.setEnabled(true);
+                validaPrep[3] = 1;
+                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+                    if (cx4.getId() == cx5.getId()) {
+                        caixaSelecaoIng4.setBorder(border);
+                        validaPrep[3] = 0;
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_caixaSelecaoIng4ActionPerformed
+
+    private void caixaSelecaoIng5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng5ActionPerformed
+        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
+        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
+        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
+        CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
+        CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
+        if (caixaSelecaoIng5.getSelectedIndex() != -1) {
+            if (cx5.getId() == cx4.getId() || cx5.getId() == cx3.getId() || cx5.getId() == cx2.getId() || cx5.getId() == cx.getId()) {
+                caixaSelecaoIng5.setBorder(border);
+                validaPrep[4] = 0;
+            } else {
+                //caixaSelecaoIng4.setEnabled(false);
+                caixaSelecaoIng5.setBorder(border2);
+                validaPrep[4] = 1;
+            }
+        }
+    }//GEN-LAST:event_caixaSelecaoIng5ActionPerformed
 
     /**
      * @param args the command line arguments

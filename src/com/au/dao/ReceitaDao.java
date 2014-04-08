@@ -21,23 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
+import com.au.bean.Receita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author BrunoRicardo
  */
-public class ReceitaDao {    
+public class ReceitaDao {
+
     Connection conexao = null;
-    
-    public ReceitaDao(){
+
+    public ReceitaDao() {
         conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void abreConnection(){
+        conexao = new FabricaConexao().getConexao();
+    }
+    
+    public void fechaConnection() {
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean addReceita(Receita novaReceita) {
+        String sql = "INSERT INTO Receita(idProd, idIng) values(?,?)";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novaReceita.getIdProd());
+            stmt.setInt(2, novaReceita.getIdIng());
+
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
 }

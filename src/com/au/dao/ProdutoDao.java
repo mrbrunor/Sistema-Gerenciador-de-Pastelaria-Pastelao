@@ -43,7 +43,7 @@ public class ProdutoDao {
         conexao = new FabricaConexao().getConexao();
     }
     
-    public boolean addProduto(Produto novoProd){
+    public boolean addProdutoInd(Produto novoProd){
         String sql = "INSERT INTO Produto(idProd,descProd,valorProd,qtdProd,idForn,codBarras,eIndustrializado) values(?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -67,5 +67,26 @@ public class ProdutoDao {
         }
         return resultado;
     }
-    
+    public boolean addProdutoPrep(Produto novoProd){
+        String sql = "INSERT INTO Produto(idProd,descProd,valorProd,idForn,eIndustrializado) values(?,?,?,?,?)";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novoProd.getIdProd());
+            stmt.setString(2, novoProd.getDescProd());
+            stmt.setDouble(3, novoProd.getValorProd());
+            stmt.setInt(4, novoProd.getIdForn());
+            stmt.setBoolean(5, novoProd.getEIndustrializado());
+            
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
 }
