@@ -87,7 +87,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         textoAdicionarProduto = new javax.swing.JLabel();
         textoIconeNovoProduto = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
-        botaoSalvarProduto = new javax.swing.JButton();
         painelEsquerdo = new javax.swing.JPanel();
         painelDadosProduto = new javax.swing.JPanel();
         textoId = new javax.swing.JLabel();
@@ -122,8 +121,16 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         painelEditarProdutos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        textoCliqueParaEditar = new javax.swing.JLabel();
+        textoProcurarProduto = new javax.swing.JLabel();
+        textoPesquisarProduto = new javax.swing.JTextField();
+        botaoProcurarProduto = new javax.swing.JButton();
+        painelBotoesAdicionar = new javax.swing.JPanel();
         botaoCancelarCadastro = new javax.swing.JButton();
+        botaoCadastrarProduto = new javax.swing.JButton();
+        painelBotoesModificar = new javax.swing.JPanel();
+        botaoExcluirProduto = new javax.swing.JButton();
+        botaoAtualizarProduto = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuEditar = new javax.swing.JMenu();
@@ -169,14 +176,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         .addComponent(textoPreencherDados)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        botaoSalvarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoSalvarProduto.setText("Salvar Produto");
-        botaoSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoSalvarProdutoActionPerformed(evt);
-            }
-        });
 
         painelEsquerdo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Produto"));
 
@@ -263,7 +262,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         });
 
         botaoAdicionarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
-        botaoAdicionarFornecedor.setText("Adicionar Novo Fornecedor");
+        botaoAdicionarFornecedor.setText("Novo Fornecedor");
 
         javax.swing.GroupLayout painelDadosProdutoLayout = new javax.swing.GroupLayout(painelDadosProduto);
         painelDadosProduto.setLayout(painelDadosProdutoLayout);
@@ -442,7 +441,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         });
 
         botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-32.png"))); // NOI18N
-        botaoAdicionarIngrediente.setText("Adicionar novo Ingrediente");
+        botaoAdicionarIngrediente.setText("Novo Ingrediente");
 
         javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
         painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);
@@ -502,8 +501,8 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         .addComponent(caixaSelecaoIng5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(caixaIng5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
-                .addGap(13, 13, 13))
+                .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         painelProdutoPreparadoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {caixaIng1, caixaIng2, caixaIng3, caixaIng4, caixaIng5});
@@ -540,7 +539,12 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTable1);
 
-        jLabel1.setText("Clique no produto desejado na lista para editá-lo no painel ao lado:");
+        textoCliqueParaEditar.setText("Clique no produto desejado na lista para editá-lo no painel ao lado:");
+
+        textoProcurarProduto.setText("Procurar Produto:");
+
+        botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
+        botaoProcurarProduto.setText("Procurar");
 
         javax.swing.GroupLayout painelEditarProdutosLayout = new javax.swing.GroupLayout(painelEditarProdutos);
         painelEditarProdutos.setLayout(painelEditarProdutosLayout);
@@ -549,24 +553,91 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                     .addGroup(painelEditarProdutosLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(textoCliqueParaEditar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelEditarProdutosLayout.createSequentialGroup()
+                        .addComponent(textoProcurarProduto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textoPesquisarProduto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoProcurarProduto)))
                 .addContainerGap())
         );
         painelEditarProdutosLayout.setVerticalGroup(
             painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEditarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoProcurarProduto)
+                    .addComponent(textoPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoProcurarProduto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
 
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarCadastro.setText("Cancelar Cadastro");
+
+        botaoCadastrarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoCadastrarProduto.setText("Cadastrar Produto");
+        botaoCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarProdutoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelBotoesAdicionarLayout = new javax.swing.GroupLayout(painelBotoesAdicionar);
+        painelBotoesAdicionar.setLayout(painelBotoesAdicionarLayout);
+        painelBotoesAdicionarLayout.setHorizontalGroup(
+            painelBotoesAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesAdicionarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoCancelarCadastro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoCadastrarProduto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelBotoesAdicionarLayout.setVerticalGroup(
+            painelBotoesAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesAdicionarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBotoesAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelarCadastro)
+                    .addComponent(botaoCadastrarProduto))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        botaoExcluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
+        botaoExcluirProduto.setText("Excluir Produto");
+
+        botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
+        botaoAtualizarProduto.setText("Atualizar Produto");
+
+        javax.swing.GroupLayout painelBotoesModificarLayout = new javax.swing.GroupLayout(painelBotoesModificar);
+        painelBotoesModificar.setLayout(painelBotoesModificarLayout);
+        painelBotoesModificarLayout.setHorizontalGroup(
+            painelBotoesModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesModificarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoExcluirProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoAtualizarProduto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelBotoesModificarLayout.setVerticalGroup(
+            painelBotoesModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesModificarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBotoesModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoExcluirProduto)
+                    .addComponent(botaoAtualizarProduto))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
 
         menuArquivo.setText("Arquivo");
         barraMenu.add(menuArquivo);
@@ -589,10 +660,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelEditarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoCancelarCadastro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoSalvarProduto)))
+                        .addComponent(painelBotoesModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelBotoesAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -602,12 +672,12 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelEditarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelEditarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoSalvarProduto)
-                    .addComponent(botaoCancelarCadastro))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelBotoesAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelBotoesModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -824,7 +894,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoNomeFocusLost
 
-    private void botaoSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarProdutoActionPerformed
+    private void botaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarProdutoActionPerformed
         if (validaForn()) {
             if (radioInd.getSelectedObjects() != null) {
                 if (validaQtd == 1) {
@@ -911,7 +981,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_botaoSalvarProdutoActionPerformed
+    }//GEN-LAST:event_botaoCadastrarProdutoActionPerformed
 
     private void caixaSelecaoFornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoFornFocusLost
         if (caixaSelecaoForn.getSelectedIndex() != -1) {
@@ -1224,8 +1294,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAdicionarFornecedor;
     private javax.swing.JButton botaoAdicionarIngrediente;
+    private javax.swing.JButton botaoAtualizarProduto;
+    private javax.swing.JButton botaoCadastrarProduto;
     private javax.swing.JButton botaoCancelarCadastro;
-    private javax.swing.JButton botaoSalvarProduto;
+    private javax.swing.JButton botaoExcluirProduto;
+    private javax.swing.JButton botaoProcurarProduto;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox caixaIng1;
     private javax.swing.JCheckBox caixaIng2;
@@ -1243,13 +1316,14 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoQtd;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
+    private javax.swing.JPanel painelBotoesAdicionar;
+    private javax.swing.JPanel painelBotoesModificar;
     private javax.swing.JPanel painelDadosProduto;
     private javax.swing.JPanel painelEditarProdutos;
     private javax.swing.JPanel painelEsquerdo;
@@ -1260,11 +1334,14 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioPrep;
     private javax.swing.JLabel textoAdicionarProduto;
     private javax.swing.JLabel textoBarras;
+    private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoFornecedor;
     private javax.swing.JLabel textoIconeNovoProduto;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;
+    private javax.swing.JTextField textoPesquisarProduto;
     private javax.swing.JLabel textoPreencherDados;
+    private javax.swing.JLabel textoProcurarProduto;
     private javax.swing.JLabel textoQtd;
     private javax.swing.JLabel textoTipo;
     private javax.swing.JLabel textoValor;

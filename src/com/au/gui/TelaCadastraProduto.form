@@ -58,8 +58,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="painelSuperior" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -68,13 +68,12 @@
                       <Component id="painelEditarProdutos" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botaoCancelarCadastro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoSalvarProduto" min="-2" max="-2" attributes="0"/>
+                      <Component id="painelBotoesModificar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="painelBotoesAdicionar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,13 +84,13 @@
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="painelEditarProdutos" max="32767" attributes="0"/>
                   <Component id="painelEsquerdo" max="32767" attributes="0"/>
+                  <Component id="painelEditarProdutos" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botaoSalvarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoCancelarCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="painelBotoesAdicionar" min="-2" max="-2" attributes="0"/>
+                  <Component id="painelBotoesModificar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -163,17 +162,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="botaoSalvarProduto">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Salvar Produto"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSalvarProdutoActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JPanel" name="painelEsquerdo">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -390,7 +378,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Adicionar Novo Fornecedor"/>
+                <Property name="text" type="java.lang.String" value="Novo Fornecedor"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -558,8 +546,8 @@
                           <Component id="caixaIng5" linkSize="5" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoAdicionarIngrediente" pref="38" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <Component id="botaoAdicionarIngrediente" pref="54" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -676,7 +664,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/au/resources/icons/plus-32.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Adicionar novo Ingrediente"/>
+                <Property name="text" type="java.lang.String" value="Novo Ingrediente"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -702,10 +690,17 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" pref="500" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="453" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="textoCliqueParaEditar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="textoProcurarProduto" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="textoPesquisarProduto" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="botaoProcurarProduto" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -716,9 +711,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoProcurarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoPesquisarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoProcurarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoCliqueParaEditar" min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -744,20 +745,122 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="textoCliqueParaEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clique no produto desejado na lista para edit&#xe1;-lo no painel ao lado:"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="textoProcurarProduto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Procurar Produto:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textoPesquisarProduto">
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoProcurarProduto">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Procurar"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="botaoCancelarCadastro">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Cancelar Cadastro"/>
-      </Properties>
-    </Component>
+    <Container class="javax.swing.JPanel" name="painelBotoesAdicionar">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botaoCancelarCadastro" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botaoCadastrarProduto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="botaoCancelarCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoCadastrarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="botaoCancelarCadastro">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cancelar Cadastro"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoCadastrarProduto">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cadastrar Produto"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarProdutoActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="painelBotoesModificar">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botaoExcluirProduto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botaoAtualizarProduto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="botaoExcluirProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoAtualizarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="botaoExcluirProduto">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/delete-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Excluir Produto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoAtualizarProduto">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/refresh-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Atualizar Produto"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
