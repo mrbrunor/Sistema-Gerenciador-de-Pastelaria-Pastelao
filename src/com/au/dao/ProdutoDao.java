@@ -28,7 +28,10 @@ import com.au.bd.FabricaConexao;
 import com.au.bean.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +71,7 @@ public class ProdutoDao {
             stmt.setInt(4, novoProd.getQtdProd());
             stmt.setInt(5, novoProd.getIdForn());
             stmt.setString(6, novoProd.getCodBarras());
-            stmt.setBoolean(7, novoProd.getEIndustrializado());
+            stmt.setBoolean(7, novoProd.iseIndustrializado());
             
             resultado = stmt.execute();
             stmt.close();
@@ -90,7 +93,7 @@ public class ProdutoDao {
             stmt.setString(2, novoProd.getDescProd());
             stmt.setDouble(3, novoProd.getValorProd());
             stmt.setInt(4, novoProd.getIdForn());
-            stmt.setBoolean(5, novoProd.getEIndustrializado());
+            stmt.setBoolean(5, novoProd.iseIndustrializado());
             
             resultado = stmt.execute();
             stmt.close();
@@ -113,7 +116,7 @@ public class ProdutoDao {
             stmt.setInt(3, produto.getQtdProd());
             stmt.setInt(4, produto.getIdForn());
             stmt.setString(5, produto.getCodBarras());
-            stmt.setBoolean(6, produto.getEIndustrializado());
+            stmt.setBoolean(6, produto.iseIndustrializado());
             stmt.setInt(7, produto.getIdProd());
             
             resultado = stmt.execute();
@@ -135,7 +138,7 @@ public class ProdutoDao {
             stmt.setString(1, produto.getDescProd());
             stmt.setDouble(2, produto.getValorProd());
             stmt.setInt(3, produto.getIdForn());
-            stmt.setBoolean(4, produto.getEIndustrializado());
+            stmt.setBoolean(4, produto.iseIndustrializado());
             stmt.setInt(5, produto.getIdProd());
             
             resultado = stmt.execute();
@@ -147,7 +150,7 @@ public class ProdutoDao {
         }
         return resultado;
     }
-    public boolean deleteProdutoPrep(Produto produto){
+    public boolean deleteProduto(Produto produto){
         String sql = "DELETE FOM Produto WHERE idProd=?";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -164,5 +167,37 @@ public class ProdutoDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
+    }
+    
+    public List<Produto> getLista(String pesquisa){
+        String sql = "SELECT * FROM Produto WHERE descProd LIKE ? OR idProd LIKE ?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Produto> listaResProd = new ArrayList<>();
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, pesquisa);
+            stmt.setString(2, pesquisa);
+            res = stmt.executeQuery();                        
+            while(res.next()){
+                Produto novoProd = new Produto();
+                novoProd.setIdProd(res.getInt("idProd"));
+                novoProd.setDescProd(res.getString("descProd"));
+                novoProd.setValorProd(res.getDouble("valorProd"));                
+                novoProd.setQtdProd(res.getInt("qtdProd"));                
+                novoProd.setIdForn(res.getInt("idForn"));                
+                novoProd.setCodBarras(res.getString("codBarras"));                
+                novoProd.seteIndustrializado(res.getBoolean("eIndustrializado"));                
+                listaResProd.add(novoProd);
+            }
+            res.close();
+            stmt.close();
+            conexao.close();
+        }    
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResProd;
     }
 }

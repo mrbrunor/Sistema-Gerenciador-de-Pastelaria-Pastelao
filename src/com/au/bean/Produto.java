@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.bean;
 
 /**
@@ -29,10 +28,11 @@ package com.au.bean;
  * @author BrunoRicardo
  */
 public class Produto {
+
     private int idProd;
     private String descProd;
     private double valorProd;
-    private int qtdProd;
+    private Integer qtdProd;
     private int idForn;
     private String codBarras;
     private boolean eIndustrializado;
@@ -61,11 +61,11 @@ public class Produto {
         this.valorProd = valorProd;
     }
 
-    public int getQtdProd() {
+    public Integer getQtdProd() {
         return qtdProd;
     }
 
-    public void setQtdProd(int qtdProd) {
+    public void setQtdProd(Integer qtdProd) {
         this.qtdProd = qtdProd;
     }
 
@@ -85,14 +85,13 @@ public class Produto {
         this.codBarras = codBarras;
     }
 
-    public boolean getEIndustrializado() {
+    public boolean iseIndustrializado() {
         return eIndustrializado;
     }
 
-    public void setEIndustrializado(boolean eIndustrializado) {
+    public void seteIndustrializado(boolean eIndustrializado) {
         this.eIndustrializado = eIndustrializado;
     }
     
     
-
 }

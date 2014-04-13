@@ -36,7 +36,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -44,8 +51,12 @@ import javax.swing.border.Border;
  */
 public class TelaCadastraProduto extends javax.swing.JFrame {
 
+    DefaultTableModel tmProd = new DefaultTableModel(null, new String[]{"ID", "Descrição", "Valor"});
+
+    ListSelectionModel lsmProd;
     List<Fornecedor> listaResForn = new ArrayList<>();
     List<Ingrediente> listaResIng = new ArrayList<>();
+    List<Produto> produtos;
     boolean inicializaIngredientes = false;
     FornecedorDao fornDao = new FornecedorDao();
     IngredienteDao ingDao = new IngredienteDao();
@@ -68,6 +79,9 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         caixaSelecaoForn.setSelectedIndex(-1);
         modificaEstadoInd(false);
         modificaEstadoPrep(false);
+        tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
+        tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
         campoId.requestFocus();
     }
 
@@ -120,7 +134,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         botaoAdicionarIngrediente = new javax.swing.JButton();
         painelEditarProdutos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaProdutos = new javax.swing.JTable();
         textoCliqueParaEditar = new javax.swing.JLabel();
         textoProcurarProduto = new javax.swing.JLabel();
         textoPesquisarProduto = new javax.swing.JTextField();
@@ -537,7 +551,15 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         painelEditarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Editar Produto Existente"));
 
-        jScrollPane2.setViewportView(jTable1);
+        tabelaProdutos.setModel(tmProd);
+        tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmProd = tabelaProdutos.getSelectionModel();
+        lsmProd.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (! e.getValueIsAdjusting()){
+                    tabelaProdutosLinhaSelecionada(tabelaProdutos); } }
+        });
+        jScrollPane2.setViewportView(tabelaProdutos);
 
         textoCliqueParaEditar.setText("Clique no produto desejado na lista para editá-lo no painel ao lado:");
 
@@ -545,6 +567,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarProduto.setText("Procurar");
+        botaoProcurarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelEditarProdutosLayout = new javax.swing.GroupLayout(painelEditarProdutos);
         painelEditarProdutos.setLayout(painelEditarProdutosLayout);
@@ -617,6 +644,11 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarProduto.setText("Atualizar Produto");
+        botaoAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesModificarLayout = new javax.swing.GroupLayout(painelBotoesModificar);
         painelBotoesModificar.setLayout(painelBotoesModificarLayout);
@@ -698,10 +730,10 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         produto.setIdForn(ob.getId());
 
         if (radioInd.getSelectedObjects() == null) {
-            produto.setEIndustrializado(false);
+            produto.seteIndustrializado(false);
             prodDao.addProdutoPrep(produto);
         } else {
-            produto.setEIndustrializado(true);
+            produto.seteIndustrializado(true);
             produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
             produto.setCodBarras(campoBarras.getText());
             prodDao.addProdutoInd(produto);
@@ -731,6 +763,55 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
             oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
         }
         return oItems;
+    }
+
+    private void tabelaProdutosLinhaSelecionada(JTable tabela) {
+        if (tabela.getSelectedRow() != -1) {
+            campoId.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getIdProd()));
+            campoNome.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getDescProd()));
+            campoValor.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getValorProd()));
+            if (produtos.get(tabela.getSelectedRow()).iseIndustrializado()) {
+                radioInd.setSelected(true);
+                campoQtd.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getQtdProd()));
+                campoBarras.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getCodBarras()));                               
+            }
+            else{
+                radioPrep.setSelected(true);
+            }
+            for(int i=0; listaResForn.size() > i; i++){
+                if(produtos.get(tabela.getSelectedRow()).getIdForn() == listaResForn.get(i).getIdForn()){
+                    caixaSelecaoForn.setSelectedIndex(i);
+                }
+            }
+        } else {
+            //campoAdicionarPedido.setText("");
+        }
+    }
+
+    private void listarProdutos() {
+        ProdutoDao prods = new ProdutoDao();
+        produtos = prods.getLista("%" + textoPesquisarProduto.getText() + "%");
+        for (int i = 0; i < produtos.size(); i++) {
+            System.out.println(produtos.get(i).getDescProd());
+        }
+        mostrarPesquisa(produtos);
+    }
+
+    private void mostrarPesquisa(List<Produto> produtos) {
+        while (tmProd.getRowCount() > 0) {
+            tmProd.removeRow(0);
+        }
+        if (produtos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nenhum Produto Encontrado!");
+        } else {
+            String[] linhasTabela = new String[]{null, null};
+            for (int i = 0; i < produtos.size(); i++) {
+                tmProd.addRow(linhasTabela);
+                tmProd.setValueAt(produtos.get(i).getIdProd(), i, 0);
+                tmProd.setValueAt(produtos.get(i).getDescProd(), i, 1);
+                tmProd.setValueAt(produtos.get(i).getValorProd(), i, 2);
+            }
+        }
     }
 
     private void desabilitaPrep(int count) {
@@ -1257,6 +1338,15 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_caixaSelecaoIng5ActionPerformed
 
+    private void botaoProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarProdutoActionPerformed
+        listarProdutos();
+    }//GEN-LAST:event_botaoProcurarProdutoActionPerformed
+
+    private void botaoAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarProdutoActionPerformed
+        ProdutoDao prodDao = new ProdutoDao();
+        
+    }//GEN-LAST:event_botaoAtualizarProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1318,7 +1408,6 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JTextField campoValor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
@@ -1332,6 +1421,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JRadioButton radioInd;
     private javax.swing.JRadioButton radioPrep;
+    private javax.swing.JTable tabelaProdutos;
     private javax.swing.JLabel textoAdicionarProduto;
     private javax.swing.JLabel textoBarras;
     private javax.swing.JLabel textoCliqueParaEditar;
