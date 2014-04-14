@@ -28,6 +28,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -584,6 +585,14 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
 
     public void setTextoId(JLabel textoId) {
         this.textoId = textoId;
+    }
+
+    public JTable getTabelaPesquisa() {
+        return tabelaPesquisa;
+    }
+
+    public void setTabelaPesquisa(JTable tabelaPesquisa) {
+        this.tabelaPesquisa = tabelaPesquisa;
     }
     
     /**
