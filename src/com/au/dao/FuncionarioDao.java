@@ -74,11 +74,12 @@ public class FuncionarioDao {Connection conexao = null;
             stmt.setString(11, novoFunc.getUserFunc());
             stmt.setString(12, novoFunc.getPassFunc());
             stmt.setInt(13, novoFunc.getNivelFunc());
-            stmt.setBoolean(14, novoFunc.isEstaAtivo());
+            stmt.setInt(14, novoFunc.isEstaAtivo());
             
-            resultado = stmt.execute();
+            stmt.execute();
             stmt.close();
             conexao.close();
+            resultado = true;
         }
         catch (SQLException ex){
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
