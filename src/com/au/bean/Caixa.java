@@ -38,7 +38,7 @@ public class Caixa {
     private Date dataCaixa;
     private Time aberturaCaixa;
     private Time fechamentoCaixa;
-    private boolean estaAberto;
+    private int estaAberto;
     private double totalCaixa;
 
     public int getIdCaixa() {
@@ -89,11 +89,11 @@ public class Caixa {
         this.fechamentoCaixa = fechamentoCaixa;
     }
 
-    public boolean isEstaAberto() {
+    public int getEstaAberto() {
         return estaAberto;
     }
 
-    public void setEstaAberto(boolean estaAberto) {
+    public void setEstaAberto(int estaAberto) {
         this.estaAberto = estaAberto;
     }
 

@@ -128,20 +128,5 @@ public class FuncionarioDao {Connection conexao = null;
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaResFunc;
-    }
-    
-        public static void main(String[] args){
-            List<Funcionario> funcs;
-            FuncionarioDao fdao = new FuncionarioDao();
-                    
-            funcs = fdao.getLista();
-            
-            for(int i=0; i<funcs.size(); i++){
-                
-                System.out.println(funcs.get(i).getNomeFunc());
-                
-            }
-        
-    }
-    
+    }    
 }
