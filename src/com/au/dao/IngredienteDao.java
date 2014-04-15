@@ -42,14 +42,15 @@ import java.util.logging.Logger;
 public class IngredienteDao {
     Connection conexao = null;
     
+    //Construtor
     public IngredienteDao(){
         conexao = new FabricaConexao().getConexao();
     }
-    
+    //Cria Conexão
     public void abreConnection(){
         conexao = new FabricaConexao().getConexao();
     }
-    
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
@@ -58,8 +59,10 @@ public class IngredienteDao {
         }
     }
     
+    //CRUD
     
-    public boolean addIngrediente(Ingrediente novoIng){
+    //CREATE
+    public boolean adicionaIngrediente(Ingrediente novoIng){
         String sql = "INSERT INTO Ingrediente(descIng,valorIng) values(?,?)";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -78,7 +81,7 @@ public class IngredienteDao {
         return resultado;
     }
         
-    
+    //READ
     public List<Ingrediente> getLista(){
         String sql = "SELECT * FROM Ingrediente";
         PreparedStatement stmt;
@@ -106,5 +109,44 @@ public class IngredienteDao {
         System.out.println("Lista Vazia " + listaResIng.isEmpty());
         System.out.println("Qtd Lista " + listaResIng.size());
         return listaResIng;
+    }
+    
+    //UPDATE
+    public boolean atualizaIngrediente(Ingrediente novoIng){
+        String sql = "UPDATE Ingrediente SET descIng=?, valorIng=? WHERE idIng=?";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoIng.getDescIng());
+            stmt.setDouble(2, novoIng.getValorIng());
+            stmt.setInt(3, novoIng.getIdIng());
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+        
+    }//DELETE
+    public boolean deletaIngrediente(Ingrediente novoIng){
+        String sql = "DELETE FROM Ingrediente WHERE idIng=?";
+        PreparedStatement stmt;
+        boolean resultado=false;
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novoIng.getIdIng());
+            resultado = stmt.execute();
+            stmt.close();
+            conexao.close();
+        }
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
 }
