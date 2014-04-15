@@ -41,15 +41,17 @@ import java.util.logging.Logger;
 public class FornecedorDao {
 
     Connection conexao = null;
-
+    
+    //Construtor
     public FornecedorDao() {
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Cria Conexão
     public void abreConnection(){
         conexao = new FabricaConexao().getConexao();
     }
-    
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
@@ -57,7 +59,9 @@ public class FornecedorDao {
             Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    //CRUD
+    
+    //CREATE
     public boolean addFornecedor(Fornecedor novoForn) {
         String sql = "INSERT INTO Fornecedor(nomeForn, cnpjForn, mailForn, foneForn, celForn) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement stmt;
@@ -79,7 +83,8 @@ public class FornecedorDao {
         }
         return resultado;
     }
-
+    
+    //READ
     public List<Fornecedor> getLista() {
         String sql = "SELECT * FROM Fornecedor";
         PreparedStatement stmt;
@@ -107,5 +112,54 @@ public class FornecedorDao {
         System.out.println("Lista Vazia " + listaResForn.isEmpty());
         System.out.println("Qtd Lista " + listaResForn.size());
         return listaResForn;
+    }
+    
+    //UPDATE
+    public boolean atualizaFornecedor(Fornecedor novoFornecedor) {
+        String sql = "UPDATE Fornecedor SET nomeForn=?, cnpjForn=?, mailForn=?, foneForn=?, celForn=? WHERE idForn=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoFornecedor.getNomeForn());
+            stmt.setString(2, novoFornecedor.getCnpjForn());
+            stmt.setString(3, novoFornecedor.getMailForn());
+            stmt.setString(4, novoFornecedor.getFoneForn());
+            stmt.setString(5, novoFornecedor.getCelForn());
+            stmt.setInt(6, novoFornecedor.getIdForn());
+
+            stmt.execute();
+            stmt.close();
+            conexao.close();
+            resultado = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+
+    //DELETE
+    public boolean removeFornecedor(Fornecedor novoFornecedor) {
+        String sql = "DELETE FROM Fornecedor WHERE idForn=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novoFornecedor.getIdForn());
+
+            stmt.execute();
+            stmt.close();
+            conexao.close();
+            resultado = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
 }

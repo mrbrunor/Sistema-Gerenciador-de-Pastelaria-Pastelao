@@ -25,7 +25,6 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
-import com.au.bean.Caixa;
 import com.au.bean.Despesa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
