@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
@@ -39,16 +38,21 @@ import java.util.logging.Logger;
  *
  * @author BrunoRicardo
  */
-public class FuncionarioDao {Connection conexao = null;
-    
-    public FuncionarioDao(){
+public class FuncionarioDao {
+
+    Connection conexao = null;
+
+    //Construtor
+    public FuncionarioDao() {
         conexao = new FabricaConexao().getConexao();
     }
-    
-    public void abreConnection(){
+
+    //Cria Conexão
+    public void abreConnection() {
         conexao = new FabricaConexao().getConexao();
     }
-    
+
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
@@ -56,13 +60,15 @@ public class FuncionarioDao {Connection conexao = null;
             Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public boolean addFuncionario(Funcionario novoFunc){
+
+    //CRUD
+    //CREATE
+    public boolean addFuncionario(Funcionario novoFunc) {
         String sql = "INSERT INTO Funcionario(nomeFunc,nascFunc,sexoFunc,rgFunc,cpfFunc,mailFunc,foneFunc,celFunc,dtAdmFunc,salFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
-        boolean resultado=false;
-        
-        try{
+        boolean resultado = false;
+
+        try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, novoFunc.getNomeFunc());
             stmt.setDate(2, novoFunc.getNascFunc());
@@ -78,55 +84,108 @@ public class FuncionarioDao {Connection conexao = null;
             stmt.setString(12, novoFunc.getPassFunc());
             stmt.setInt(13, novoFunc.getNivelFunc());
             stmt.setInt(14, novoFunc.isEstaAtivo());
-            
+
             stmt.execute();
             stmt.close();
             conexao.close();
             resultado = true;
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
     }
 
-    public List<Funcionario> getLista(){//String pesquisa){
+    //READ
+    public List<Funcionario> getLista() {//String pesquisa){
         String sql = "SELECT * FROM Funcionario"; //WHERE descProd LIKE ? OR idProd LIKE ?";
         PreparedStatement stmt;
         ResultSet res;
         List<Funcionario> listaResFunc = new ArrayList<>();
-        
-        try{
+
+        try {
             stmt = conexao.prepareStatement(sql);
             //stmt.setString(1, pesquisa);
             //stmt.setString(2, pesquisa);
-            res = stmt.executeQuery();                        
-            while(res.next()){
+            res = stmt.executeQuery();
+            while (res.next()) {
                 Funcionario novoFunc = new Funcionario();
                 novoFunc.setIdFunc(res.getInt("idFunc"));
                 novoFunc.setNomeFunc(res.getString("nomeFunc"));
-                novoFunc.setNascFunc(res.getDate("nascFunc"));                
-                novoFunc.setSexoFunc(res.getString("sexoFunc"));                
-                novoFunc.setRgFunc(res.getString("rgFunc"));                
-                novoFunc.setCpfFunc(res.getString("cpfFunc"));                
-                novoFunc.setMailFunc(res.getString("mailFunc"));                
-                novoFunc.setFoneFunc(res.getString("foneFunc"));                
-                novoFunc.setCelFunc(res.getString("celFunc"));                
-                novoFunc.setDtAdmFunc(res.getDate("dtAdmFunc"));                
-                novoFunc.setSalFunc(res.getDouble("salFunc"));                
-                novoFunc.setUserFunc(res.getString("userFunc"));                
-                novoFunc.setPassFunc(res.getString("passFunc"));                
-                novoFunc.setNivelFunc(res.getInt("nivelFunc"));                
-                novoFunc.setEstaAtivo(res.getInt("estaAtivo"));                
+                novoFunc.setNascFunc(res.getDate("nascFunc"));
+                novoFunc.setSexoFunc(res.getString("sexoFunc"));
+                novoFunc.setRgFunc(res.getString("rgFunc"));
+                novoFunc.setCpfFunc(res.getString("cpfFunc"));
+                novoFunc.setMailFunc(res.getString("mailFunc"));
+                novoFunc.setFoneFunc(res.getString("foneFunc"));
+                novoFunc.setCelFunc(res.getString("celFunc"));
+                novoFunc.setDtAdmFunc(res.getDate("dtAdmFunc"));
+                novoFunc.setSalFunc(res.getDouble("salFunc"));
+                novoFunc.setUserFunc(res.getString("userFunc"));
+                novoFunc.setPassFunc("");
+                novoFunc.setNivelFunc(res.getInt("nivelFunc"));
+                novoFunc.setEstaAtivo(res.getInt("estaAtivo"));
                 listaResFunc.add(novoFunc);
             }
             res.close();
             stmt.close();
             conexao.close();
-        }    
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaResFunc;
-    }    
+    }
+
+    //UPDATE
+    public boolean atualizaFuncionario(Funcionario novoFunc) {
+        String sql = "UPDATE Funcionario SET nomeFunc=?, nascFunc=?, sexoFunc=?, rgFunc=?, cpfFunc=?, mailFunc=?, foneFunc=?, celFunc=?, dtAdmFunc=?, salFunc=?, userFunc=?, passFunc=?, nivelFunc=?, estaAtivo=? WHERE idFunc=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, novoFunc.getNomeFunc());
+            stmt.setDate(2, novoFunc.getNascFunc());
+            stmt.setString(3, novoFunc.getSexoFunc());
+            stmt.setString(4, novoFunc.getRgFunc());
+            stmt.setString(5, novoFunc.getCpfFunc());
+            stmt.setString(6, novoFunc.getMailFunc());
+            stmt.setString(7, novoFunc.getFoneFunc());
+            stmt.setString(8, novoFunc.getCelFunc());
+            stmt.setDate(9, novoFunc.getDtAdmFunc());
+            stmt.setDouble(10, novoFunc.getSalFunc());
+            stmt.setString(11, novoFunc.getUserFunc());
+            stmt.setString(12, novoFunc.getPassFunc());
+            stmt.setInt(13, novoFunc.getNivelFunc());
+            stmt.setInt(14, novoFunc.isEstaAtivo());
+            stmt.setInt(15, novoFunc.getIdFunc());
+
+            stmt.execute();
+            stmt.close();
+            conexao.close();
+            resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+
+    //DELETE
+    public boolean deletaFuncionario(Funcionario novoFunc) {
+        String sql = "DELETE FROM Funcionario WHERE idFunc=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novoFunc.getIdFunc());
+
+            stmt.execute();
+            stmt.close();
+            conexao.close();
+            resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
 }
