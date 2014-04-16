@@ -25,7 +25,6 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
-import com.au.bean.Caixa;
 import com.au.bean.ItemPedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,6 +101,7 @@ public class ItemPedidoDao {
                 itemPedido.setIdProd(res.getInt("idProd"));
                 itemPedido.setQtdProd(res.getInt("qtdProd"));
                 itemPedido.setTotProd(res.getDouble("totProd"));
+                listaResItemPedido.add(itemPedido);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -102,6 +102,7 @@ public class DespesaDao {
                 despesa.setValorDesp(res.getDouble("valorDesp"));
                 despesa.setIdCaixa(res.getInt("idCaixa"));
                 despesa.setRetirada(res.getInt("retirada"));
+                listaResDesp.add(despesa);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);

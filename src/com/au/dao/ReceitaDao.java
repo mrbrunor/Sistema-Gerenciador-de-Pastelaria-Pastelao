@@ -27,7 +27,10 @@ import com.au.bd.FabricaConexao;
 import com.au.bean.Receita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,15 +41,18 @@ import java.util.logging.Logger;
 public class ReceitaDao {
 
     Connection conexao = null;
-
+    
+    //Construtor
     public ReceitaDao() {
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Cria Conexão
     public void abreConnection(){
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
@@ -54,7 +60,10 @@ public class ReceitaDao {
             Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    //CRUD
+    
+    //CREATE
     public boolean addReceita(Receita novaReceita) {
         String sql = "INSERT INTO Receita(idProd, idIng) values(?,?)";
         PreparedStatement stmt;
@@ -73,16 +82,39 @@ public class ReceitaDao {
         return resultado;
     }
     
-    public boolean updateReceita(Receita receita) {
+    //READ
+    public List<Receita> getLista() {
+        String sql = "SELECT * FROM Receita";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Receita> listaResReceita = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Receita receita = new Receita();
+                receita.setIdProd(res.getInt("idProd"));
+                receita.setIdIng(res.getInt("idIng"));
+                listaResReceita.add(receita);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResReceita;
+    }
+    
+    //UPDATE
+    public boolean updateReceita(Receita antigaReceita, Receita novaReceita) {
         String sql = "UPDATE Receita set idIng=? where idProd=? and idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, receita.getIdIng());
-            stmt.setInt(2, receita.getIdProd());
-            stmt.setInt(3, receita.getIdIng());
+            stmt.setInt(1, novaReceita.getIdIng());
+            stmt.setInt(2, novaReceita.getIdProd());
+            stmt.setInt(3, antigaReceita.getIdIng());
             resultado = stmt.execute();
             stmt.close();
         } catch (SQLException ex) {
@@ -91,6 +123,7 @@ public class ReceitaDao {
         return resultado;
     }
     
+    //DELETE
     public boolean deleteReceita(Receita receita){
         String sql = "DELETE FROM Receita where idProd=? and idIng=?";
         PreparedStatement stmt;

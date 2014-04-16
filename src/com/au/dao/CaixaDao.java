@@ -108,6 +108,7 @@ public class CaixaDao {
                 caixa.setFechamentoCaixa(res.getTime("fechamentoCaixa"));
                 caixa.setEstaAberto(res.getInt("estaAberto"));
                 caixa.setTotalCaixa(res.getDouble("totalCaixa"));
+                listaResCaixa.add(caixa);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
