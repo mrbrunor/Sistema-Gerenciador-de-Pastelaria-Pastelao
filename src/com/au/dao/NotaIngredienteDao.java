@@ -25,9 +25,13 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
+import com.au.bean.NotaIngrediente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -37,19 +41,110 @@ import java.util.logging.Logger;
 public class NotaIngredienteDao {
     Connection conexao = null;
     
+    //Construtor
     public NotaIngredienteDao(){
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Cria Conexão
     public void abreConnection(){
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotaIngredienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    //CRUD
+    
+    //CREATE
+    public boolean addNotaIngrediente(NotaIngrediente novaNotaIngrediente) {
+        String sql = "INSERT INTO NotaIngrediente(idIng, idNota, qtdNota, valorNota) values(?,?,?,?)";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novaNotaIngrediente.getIdIng());
+            stmt.setInt(2, novaNotaIngrediente.getIdNota());
+            stmt.setInt(3, novaNotaIngrediente.getQtdNota());
+            stmt.setDouble(4, novaNotaIngrediente.getValorNota());
+
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    
+    //READ
+    public List<NotaIngrediente> getLista() {
+        String sql = "SELECT * FROM NotaIngrediente";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<NotaIngrediente> listaResNotaIngrediente = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                NotaIngrediente receita = new NotaIngrediente();
+                receita.setIdIng(res.getInt("idIng"));
+                receita.setIdNota(res.getInt("idNota"));
+                receita.setQtdNota(res.getInt("qtdNota"));
+                receita.setValorNota(res.getInt("valorNota"));
+                listaResNotaIngrediente.add(receita);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResNotaIngrediente;
+    }
+    
+    //UPDATE
+    public boolean atualizaNotaIngrediente(NotaIngrediente antigaNotaIngrediente, NotaIngrediente novaNotaIngrediente) {
+        String sql = "UPDATE NotaIngrediente SET idIng=?, qtdNota=?, valorNota=? WHERE idNota=? AND idIng=? ";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novaNotaIngrediente.getIdIng());
+            stmt.setInt(2, novaNotaIngrediente.getQtdNota());
+            stmt.setDouble(3, novaNotaIngrediente.getValorNota());
+            stmt.setInt(4, antigaNotaIngrediente.getIdNota());
+            stmt.setInt(5, antigaNotaIngrediente.getIdIng());
+
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    
+    //DELETE
+    public boolean deletaNotaIngrediente(NotaIngrediente novaNotaIngrediente) {
+        String sql = "DELETE FROM NotaIngrediente WHERE idNota=? AND idIng=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, novaNotaIngrediente.getIdNota());
+            stmt.setInt(2, novaNotaIngrediente.getIdIng());
+
+            resultado = stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
 }
