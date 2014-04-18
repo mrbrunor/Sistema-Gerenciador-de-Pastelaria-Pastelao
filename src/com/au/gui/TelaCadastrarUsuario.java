@@ -708,9 +708,9 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 funcionario.setNivelFunc(0);
             }
             if (caixaSelecaoAtivo.getSelectedItem() == "Sim") {
-                funcionario.setEstaAtivo(true);
+                funcionario.setEstaAtivo(1);
             } else {
-                funcionario.setEstaAtivo(false);
+                funcionario.setEstaAtivo(0);
             }
 
             funcDao.addFuncionario(funcionario);
