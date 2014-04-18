@@ -42,14 +42,17 @@ import java.util.logging.Logger;
 public class ProdutoDao {
     Connection conexao = null;
     
+    //Construtor
     public ProdutoDao(){
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Cria Conexão
     public void abreConnection(){
         conexao = new FabricaConexao().getConexao();
     }
     
+    //Finaliza Conexão
     public void fechaConnection() {
         try {
             conexao.close();
@@ -58,7 +61,10 @@ public class ProdutoDao {
         }
     }
     
-    public boolean addProdutoInd(Produto novoProd){
+    //CRUD
+    
+    //CREATE
+    public boolean adicionaProdutoInd(Produto novoProd){
         String sql = "INSERT INTO Produto(idProd,descProd,valorProd,qtdProd,idForn,codBarras,eIndustrializado) values(?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -82,6 +88,7 @@ public class ProdutoDao {
         }
         return resultado;
     }
+    
     public boolean addProdutoPrep(Produto novoProd){
         String sql = "INSERT INTO Produto(idProd,descProd,valorProd,idForn,eIndustrializado) values(?,?,?,?,?)";
         PreparedStatement stmt;
@@ -104,6 +111,41 @@ public class ProdutoDao {
         }
         return resultado;
     }
+    
+    //READ
+    public List<Produto> getLista(String pesquisa){
+        String sql = "SELECT * FROM Produto WHERE descProd LIKE ? OR idProd LIKE ?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Produto> listaResProd = new ArrayList<>();
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, pesquisa);
+            stmt.setString(2, pesquisa);
+            res = stmt.executeQuery();                        
+            while(res.next()){
+                Produto novoProd = new Produto();
+                novoProd.setIdProd(res.getInt("idProd"));
+                novoProd.setDescProd(res.getString("descProd"));
+                novoProd.setValorProd(res.getDouble("valorProd"));                
+                novoProd.setQtdProd(res.getInt("qtdProd"));                
+                novoProd.setIdForn(res.getInt("idForn"));                
+                novoProd.setCodBarras(res.getString("codBarras"));                
+                novoProd.seteIndustrializado(res.getBoolean("eIndustrializado"));                
+                listaResProd.add(novoProd);
+            }
+            res.close();
+            stmt.close();
+            conexao.close();
+        }    
+        catch (SQLException ex){
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResProd;
+    }
+    
+    //UPDATE
     public boolean updateProdutoInd(Produto produto){
         String sql = "UPDATE Produto SET descProd=?, valorProd=?, qtdProd=?,idForn=?,codBarras=?,eIndustrializado=?) WHERE idProd=?)";
         PreparedStatement stmt;
@@ -150,6 +192,8 @@ public class ProdutoDao {
         }
         return resultado;
     }
+    
+    //DELETE
     public boolean deleteProduto(Produto produto){
         String sql = "DELETE FOM Produto WHERE idProd=?";
         PreparedStatement stmt;
@@ -167,37 +211,5 @@ public class ProdutoDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
-    }
-    
-    public List<Produto> getLista(String pesquisa){
-        String sql = "SELECT * FROM Produto WHERE descProd LIKE ? OR idProd LIKE ?";
-        PreparedStatement stmt;
-        ResultSet res;
-        List<Produto> listaResProd = new ArrayList<>();
-        
-        try{
-            stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, pesquisa);
-            stmt.setString(2, pesquisa);
-            res = stmt.executeQuery();                        
-            while(res.next()){
-                Produto novoProd = new Produto();
-                novoProd.setIdProd(res.getInt("idProd"));
-                novoProd.setDescProd(res.getString("descProd"));
-                novoProd.setValorProd(res.getDouble("valorProd"));                
-                novoProd.setQtdProd(res.getInt("qtdProd"));                
-                novoProd.setIdForn(res.getInt("idForn"));                
-                novoProd.setCodBarras(res.getString("codBarras"));                
-                novoProd.seteIndustrializado(res.getBoolean("eIndustrializado"));                
-                listaResProd.add(novoProd);
-            }
-            res.close();
-            stmt.close();
-            conexao.close();
-        }    
-        catch (SQLException ex){
-            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listaResProd;
     }
 }
