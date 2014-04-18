@@ -62,8 +62,9 @@ public class FuncionarioDao {
     }
 
     //CRUD
+    
     //CREATE
-    public boolean addFuncionario(Funcionario novoFunc) {
+    public boolean adicionaFuncionario(Funcionario novoFunc) {
         String sql = "INSERT INTO Funcionario(nomeFunc,nascFunc,sexoFunc,rgFunc,cpfFunc,mailFunc,foneFunc,celFunc,dtAdmFunc,salFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;

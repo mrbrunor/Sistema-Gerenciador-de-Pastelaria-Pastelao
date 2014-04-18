@@ -60,6 +60,8 @@ public class NotaProdutoDao {
         }
     }
     
+    //CRUD
+    
     //CREATE
     public boolean adicionaNotaProduto(NotaProduto novaNotaProduto) {
         String sql = "INSERT INTO NotaProduto(idProd, idNota, qtdNota, valorNota) values(?,?,?,?)";

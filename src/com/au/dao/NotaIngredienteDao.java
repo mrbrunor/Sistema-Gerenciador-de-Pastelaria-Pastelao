@@ -63,7 +63,7 @@ public class NotaIngredienteDao {
     //CRUD
     
     //CREATE
-    public boolean addNotaIngrediente(NotaIngrediente novaNotaIngrediente) {
+    public boolean adicionaNotaIngrediente(NotaIngrediente novaNotaIngrediente) {
         String sql = "INSERT INTO NotaIngrediente(idIng, idNota, qtdNota, valorNota) values(?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;

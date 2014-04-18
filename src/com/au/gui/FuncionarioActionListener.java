@@ -85,7 +85,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     private void salvar() {
-        if (funcDao.addFuncionario(formToFuncionario())) {
+        if (funcDao.adicionaFuncionario(formToFuncionario())) {
             JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
         }
         desabilitaBotoesParaSalvar();

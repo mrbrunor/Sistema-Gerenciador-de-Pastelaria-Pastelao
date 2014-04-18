@@ -341,7 +341,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             fornecedor.setFoneForn(campoTelefoneFornecedor.getText());
             fornecedor.setCelForn(campoCelularFornecedor.getText());
             
-            fornDao.addFornecedor(fornecedor);
+            fornDao.adicionaFornecedor(fornecedor);
         }
         else {
             if(validaForm[0] == 0){

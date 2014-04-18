@@ -288,7 +288,7 @@ public class TelaCadastraIngrediente extends javax.swing.JFrame {
             ingrediente.setDescIng(campoNome.getText());
             ingrediente.setValorIng(Double.valueOf(campoValor.getText()));
             
-            ingDao.addIngrediente(ingrediente);
+            ingDao.adicionaIngrediente(ingrediente);
             
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);

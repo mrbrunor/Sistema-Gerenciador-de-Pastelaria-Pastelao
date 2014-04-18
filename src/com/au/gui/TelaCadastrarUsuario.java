@@ -713,7 +713,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 funcionario.setEstaAtivo(0);
             }
 
-            funcDao.addFuncionario(funcionario);
+            funcDao.adicionaFuncionario(funcionario);
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
             if (validaForm[0] == 0) {

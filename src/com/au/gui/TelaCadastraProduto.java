@@ -731,12 +731,12 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
 
         if (radioInd.getSelectedObjects() == null) {
             produto.seteIndustrializado(false);
-            prodDao.addProdutoPrep(produto);
+            prodDao.adicionaProdutoPrep(produto);
         } else {
             produto.seteIndustrializado(true);
             produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
             produto.setCodBarras(campoBarras.getText());
-            prodDao.addProdutoInd(produto);
+            prodDao.adicionaProdutoInd(produto);
         }
         return produto;
     }
@@ -997,7 +997,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
                         receita.setIdIng(cx.getId());
                         receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
+                        recDao.adicionaReceita(receita);
                     }
                     if (caixaSelecaoIng2.getSelectedIndex() != -1) {
                         cx = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
@@ -1005,7 +1005,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         receita.setIdProd(produto.getIdProd());
                         receita.setIdIng(cx.getId());
                         receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
+                        recDao.adicionaReceita(receita);
                     }
                     if (caixaSelecaoIng3.getSelectedIndex() != -1) {
                         cx = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
@@ -1013,7 +1013,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         receita.setIdProd(produto.getIdProd());
                         receita.setIdIng(cx.getId());
                         receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
+                        recDao.adicionaReceita(receita);
                     }
                     if (caixaSelecaoIng4.getSelectedIndex() != -1) {
                         cx = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
@@ -1021,7 +1021,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         receita.setIdProd(produto.getIdProd());
                         receita.setIdIng(cx.getId());
                         receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
+                        recDao.adicionaReceita(receita);
                     }
                     if (caixaSelecaoIng5.getSelectedIndex() != -1) {
                         cx = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
@@ -1029,7 +1029,7 @@ public class TelaCadastraProduto extends javax.swing.JFrame {
                         receita.setIdProd(produto.getIdProd());
                         receita.setIdIng(cx.getId());
                         receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
+                        recDao.adicionaReceita(receita);
                         //CONNECTION CLOSE
                     } else {
                         //CONNECTION CLOSE

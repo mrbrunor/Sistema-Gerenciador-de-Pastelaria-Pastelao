@@ -61,6 +61,7 @@ public class PedidoDao {
     }
     
     //CRUD
+    
     //CREATE    
     public boolean adicionaPedido(Pedido novoPedido) {
         String sql = "INSERT INTO Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, formaPagtoPedido, estadoPedido) VALUES(?,?,?,?,?,?,?,?,?)";

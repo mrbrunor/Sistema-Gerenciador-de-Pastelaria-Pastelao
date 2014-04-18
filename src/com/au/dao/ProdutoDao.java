@@ -89,7 +89,7 @@ public class ProdutoDao {
         return resultado;
     }
     
-    public boolean addProdutoPrep(Produto novoProd){
+    public boolean adicionaProdutoPrep(Produto novoProd){
         String sql = "INSERT INTO Produto(idProd,descProd,valorProd,idForn,eIndustrializado) values(?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -146,7 +146,7 @@ public class ProdutoDao {
     }
     
     //UPDATE
-    public boolean updateProdutoInd(Produto produto){
+    public boolean atualizaProdutoInd(Produto produto){
         String sql = "UPDATE Produto SET descProd=?, valorProd=?, qtdProd=?,idForn=?,codBarras=?,eIndustrializado=?) WHERE idProd=?)";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -170,7 +170,7 @@ public class ProdutoDao {
         }
         return resultado;
     }
-    public boolean updateProdutoPrep(Produto produto){
+    public boolean atualizaProdutoPrep(Produto produto){
         String sql = "UPDATE Produto SET descProd=?, valorProd=?, idForn=?, eIndustrializado=? WHERE idProd=?";
         PreparedStatement stmt;
         boolean resultado=false;
@@ -194,7 +194,7 @@ public class ProdutoDao {
     }
     
     //DELETE
-    public boolean deleteProduto(Produto produto){
+    public boolean deletaProduto(Produto produto){
         String sql = "DELETE FOM Produto WHERE idProd=?";
         PreparedStatement stmt;
         boolean resultado=false;

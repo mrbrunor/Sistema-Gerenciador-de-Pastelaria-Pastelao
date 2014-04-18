@@ -62,7 +62,7 @@ public class FornecedorDao {
     //CRUD
     
     //CREATE
-    public boolean addFornecedor(Fornecedor novoForn) {
+    public boolean adicionaFornecedor(Fornecedor novoForn) {
         String sql = "INSERT INTO Fornecedor(nomeForn, cnpjForn, mailForn, foneForn, celForn) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         boolean resultado = false;
@@ -142,7 +142,7 @@ public class FornecedorDao {
     }
 
     //DELETE
-    public boolean removeFornecedor(Fornecedor novoFornecedor) {
+    public boolean deletaFornecedor(Fornecedor novoFornecedor) {
         String sql = "DELETE FROM Fornecedor WHERE idForn=?";
         PreparedStatement stmt;
         boolean resultado = false;

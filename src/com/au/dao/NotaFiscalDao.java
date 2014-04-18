@@ -61,6 +61,7 @@ public class NotaFiscalDao {
     }
     
     //CRUD
+    
     //CREATE    
     public boolean adicionaNotaFiscal(NotaFiscal novaNotaFiscal) {
         String sql = "INSERT INTO NotaFiscal(idForn, dataNota, horaNota, idDesp, subTotNota, descNota, totNota) values(?,?,?,?,?,?,?,?)";

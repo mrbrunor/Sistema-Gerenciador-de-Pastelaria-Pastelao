@@ -64,7 +64,7 @@ public class ReceitaDao {
     //CRUD
     
     //CREATE
-    public boolean addReceita(Receita novaReceita) {
+    public boolean adicionaReceita(Receita novaReceita) {
         String sql = "INSERT INTO Receita(idProd, idIng) values(?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
@@ -105,7 +105,7 @@ public class ReceitaDao {
     }
     
     //UPDATE
-    public boolean updateReceita(Receita antigaReceita, Receita novaReceita) {
+    public boolean atualizaReceita(Receita antigaReceita, Receita novaReceita) {
         String sql = "UPDATE Receita set idIng=? where idProd=? and idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
@@ -124,7 +124,7 @@ public class ReceitaDao {
     }
     
     //DELETE
-    public boolean deleteReceita(Receita receita){
+    public boolean deletaReceita(Receita receita){
         String sql = "DELETE FROM Receita where idProd=? and idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
