@@ -126,7 +126,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         func.setSalFunc(Double.valueOf(frm.getCampoSalario().getText()));
         func.setUserFunc(frm.getCampoUser().getText());
 
-        HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getText()));
+        HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getPassword()));
         func.setPassFunc(hexSha.ConvertSha());
 
         if (frm.getCaixaNivel().getSelectedItem() == "Administrador") {

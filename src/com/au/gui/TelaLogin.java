@@ -24,17 +24,24 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.LoginActionListener;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author tiago_000
  */
 public class TelaLogin extends javax.swing.JFrame {
+    private LoginActionListener listener;
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        listener = new LoginActionListener(this);
     }
 
     /**
@@ -99,12 +106,6 @@ public class TelaLogin extends javax.swing.JFrame {
         textoSenha.setText("Senha:");
 
         campoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        campoSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoSenhaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -172,10 +173,44 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoSenhaActionPerformed
+    public JPasswordField getCampoSenha() {
+        return campoSenha;
+    }
 
+    public void setCampoSenha(JPasswordField campoSenha) {
+        this.campoSenha = campoSenha;
+    }
+
+    public JTextField getCampoUsuario() {
+        return campoUsuario;
+    }
+
+    public void setCampoUsuario(JTextField campoUsuario) {
+        this.campoUsuario = campoUsuario;
+    }
+
+    public JButton getBotaoEntrarNoSistema() {
+        return botaoEntrarNoSistema;
+    }
+
+    public void setBotaoEntrarNoSistema(JButton botaoEntrarNoSistema) {
+        this.botaoEntrarNoSistema = botaoEntrarNoSistema;
+    }
+
+    public JButton getBotaoEsqueciSenha() {
+        return botaoEsqueciSenha;
+    }
+
+    public void setBotaoEsqueciSenha(JButton botaoEsqueciSenha) {
+        this.botaoEsqueciSenha = botaoEsqueciSenha;
+    }
+    
+    public void limpaCampos(){
+        campoSenha.setText("");
+        campoUsuario.setText("");
+    }
+
+    
     /**
      * @param args the command line arguments
      */

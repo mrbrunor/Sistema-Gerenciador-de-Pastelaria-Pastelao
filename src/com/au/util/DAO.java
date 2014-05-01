@@ -1,93 +1,112 @@
 package com.au.util;
 
+import com.au.modelo.Funcionario;
+import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 public class DAO<T> {
-	
-	private final Class<T> classe;
 
-	public DAO(Class<T> classe) {
-		this.classe = classe;
-	}
+    private final Class<T> classe;
 
-	public void adiciona(T t) {
+    public DAO(Class<T> classe) {
+        this.classe = classe;
+    }
 
-		// consegue a entity manager
-		EntityManager em = new JPAUtil().getEntityManager();
+    public void adiciona(T t) {
 
-		// abre transacao
-		em.getTransaction().begin();
+        // consegue a entity manager
+        EntityManager em = new JPAUtil().getEntityManager();
 
-		// persiste o objeto
-		em.persist(t);
+        // abre transacao
+        em.getTransaction().begin();
 
-		// commita a transacao
-		em.getTransaction().commit();
+        // persiste o objeto
+        em.persist(t);
 
-		// fecha a entity manager
-		em.close();
-	}
+        // commita a transacao
+        em.getTransaction().commit();
 
-	public void remove(T t) {
-		EntityManager em = new JPAUtil().getEntityManager();
-		em.getTransaction().begin();
+        // fecha a entity manager
+        em.close();
+    }
 
-		em.remove(em.merge(t));
+    public void remove(T t) {
+        EntityManager em = new JPAUtil().getEntityManager();
+        em.getTransaction().begin();
 
-		em.getTransaction().commit();
-		em.close();
-	}
+        em.remove(em.merge(t));
 
-	public void atualiza(T t) {
-		EntityManager em = new JPAUtil().getEntityManager();
-		em.getTransaction().begin();
+        em.getTransaction().commit();
+        em.close();
+    }
 
-		em.merge(t);
+    public void atualiza(T t) {
+        EntityManager em = new JPAUtil().getEntityManager();
+        em.getTransaction().begin();
 
-		em.getTransaction().commit();
-		em.close();
-	}
+        em.merge(t);
 
-	public List<T> listaTodos() {
-		EntityManager em = new JPAUtil().getEntityManager();
-		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
-		query.select(query.from(classe));
+        em.getTransaction().commit();
+        em.close();
+    }
 
-		List<T> lista = em.createQuery(query).getResultList();
+    public List<T> listaTodos() {
+        EntityManager em = new JPAUtil().getEntityManager();
+        CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
+        query.select(query.from(classe));
 
-		em.close();
-		return lista;
-	}
+        List<T> lista = em.createQuery(query).getResultList();
 
-	public T buscaPorId(Integer id) {
-		EntityManager em = new JPAUtil().getEntityManager();
-		T instancia = em.find(classe, id);
-		em.close();
-		return instancia;
-	}
+        em.close();
+        return lista;
+    }
 
-	public int contaTodos() {
-		EntityManager em = new JPAUtil().getEntityManager();
-		long result = (Long) em.createQuery("select count(n) from livro n")
-				.getSingleResult();
-		em.close();
+    public T buscaPorId(Integer id) {
+        EntityManager em = new JPAUtil().getEntityManager();
+        T instancia = em.find(classe, id);
+        em.close();
+        return instancia;
+    }
 
-		return (int) result;
-	}
+    public int contaTodos() {
+        EntityManager em = new JPAUtil().getEntityManager();
+        long result = (Long) em.createQuery("select count(n) from livro n")
+                .getSingleResult();
+        em.close();
 
-	public List<T> listaTodosPaginada(int firstResult, int maxResults) {
-		EntityManager em = new JPAUtil().getEntityManager();
-		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
-		query.select(query.from(classe));
+        return (int) result;
+    }
 
-		List<T> lista = em.createQuery(query).setFirstResult(firstResult)
-				.setMaxResults(maxResults).getResultList();
+    public Funcionario buscarLogin(String usuario, String senha) {
+        EntityManager em = new JPAUtil().getEntityManager();
+        Funcionario funcionario = new Funcionario();
 
-		em.close();
-		return lista;
-	}
+        Query q = em.createQuery("from Funcionario f where f.userFunc='" + usuario + "'  and f.passFunc='" + senha + "'");
 
+        List<Funcionario> funcionarios = q.getResultList();
+        
+        if(funcionarios.size() == 0){
+            return null;
+        }
+        for(int i=0; i<funcionarios.size(); i++){
+            funcionario = funcionarios.get(i);
+        }
+
+        return funcionario;
+    }
+
+    public List<T> listaTodosPaginada(int firstResult, int maxResults) {
+        EntityManager em = new JPAUtil().getEntityManager();
+        CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
+        query.select(query.from(classe));
+
+        List<T> lista = em.createQuery(query).setFirstResult(firstResult)
+                .setMaxResults(maxResults).getResultList();
+
+        em.close();
+        return lista;
+    }
 }
