@@ -23,12 +23,13 @@
  */
 package com.au.gui;
 
+import com.au.bean.CustomComboBoxInt;
+import com.au.modelo.Fornecedor;
+import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
 import com.au.util.DAO;
-import com.au.util.HexSha;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -60,12 +61,12 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     public void adicionaListener() {
-        frm.getBotaoAlterar().addActionListener(this);
-        frm.getBotaoCancelar().addActionListener(this);
-        frm.getBotaoExcluir().addActionListener(this);
-        frm.getBotaoIncluir().addActionListener(this);
-        frm.getBotaoSalvar().addActionListener(this);
-
+        frm.getBotaoCadastrarProduto().addActionListener(this);
+        frm.getBotaoCancelarCadastro().addActionListener(this);
+        frm.getBotaoExcluirProduto().addActionListener(this);
+        frm.getBotaoAtualizarProduto().addActionListener(this);
+        frm.getBotaoAdicionarFornecedor().addActionListener(this);
+        frm.getBotaoAdicionarIngrediente().addActionListener(this);
     }
 
     private void habilitaBotoesParaSalvar() {
@@ -77,11 +78,10 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     private void habilitaOuDesabilitaBotoesEdicao(boolean enabled) {
-        frm.getBotaoIncluir().setEnabled(!enabled);
-        frm.getBotaoAlterar().setEnabled(!enabled);
-        frm.getBotaoExcluir().setEnabled(!enabled);
-        frm.getBotaoSalvar().setEnabled(enabled);
-        frm.getBotaoCancelar().setEnabled(enabled);
+        frm.getBotaoCadastrarProduto().setEnabled(!enabled);
+        frm.getBotaoAtualizarProduto().setEnabled(!enabled);
+        frm.getBotaoExcluirProduto().setEnabled(!enabled);
+        frm.getBotaoCancelarCadastro().setEnabled(enabled);
     }
 
     private void incluir() {
@@ -89,9 +89,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     private void salvar() {
-        new DAO<>(Funcionario.class).adiciona(formToFuncionario());
+        new DAO<>(Produto.class).adiciona(formToProduto());
         
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
         
         desabilitaBotoesParaSalvar();
         
@@ -100,84 +100,96 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         inicializaTableModel();
     }
 
-    private Funcionario formToFuncionario() {
-        Date data;
-        Funcionario func = new Funcionario();
-        if (!"".equals(frm.getTextoId().getText())) {
-            func.setIdFunc(Integer.parseInt(frm.getTextoId().getText()));
-        }
-        func.setNomeFunc(frm.getCampoNome().getText());
-        data = new java.sql.Date(frm.getCampoDtNasc().getDate().getTime());
-        func.setNascFunc(data);
-        if (frm.getCaixaSexo().getSelectedItem() == "Feminino") {
-            func.setSexoFunc("F");
-        } else {
-            func.setSexoFunc("M");
-        }
-        func.setRgFunc(frm.getCampoRg().getText());
-        func.setCpfFunc(frm.getCampoCpf().getText());
-        func.setMailFunc(frm.getCampoEmail().getText());
-        func.setFoneFunc(frm.getCampoTelefone().getText());
-        func.setCelFunc(frm.getCampoCelular().getText());
-        data = new java.sql.Date(frm.getCampoDtAdm().getDate().getTime());
-        func.setDtAdmFunc(data);
-        func.setSalFunc(Double.valueOf(frm.getCampoSalario().getText()));
-        func.setUserFunc(frm.getCampoUser().getText());
+    private Produto formToProduto() {
+        Produto produto = new Produto();
         
-        HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getText()));
-        func.setPassFunc(hexSha.ConvertSha());
+        produto.setDescProd(frm.getCampoNome().getText());
+        produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
         
-        if (frm.getCaixaNivel().getSelectedItem() == "Administrador") {
-            func.setNivelFunc(1);
+        CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoForn().getSelectedItem();
+        produto.setFornecedor(new DAO<>(Fornecedor.class).buscaPorId(ob.getId()));
+        
+        if (frm.getRadioInd().isSelected()) {
+            produto.setEIndustrializado((byte)1);
+            produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
+            if("".equals(frm.getCampoBarras().getText())){
+                produto.setCodBarras(null);
+            }
+            else{
+                produto.setCodBarras(frm.getCampoBarras().getText());
+            }            
         } else {
-            func.setNivelFunc(0);
-        }
-        if (frm.getCaixaAtivo().getSelectedItem() == "Não") {
-            func.setEstaAtivo((byte)0);
-        } else {
-            func.setEstaAtivo((byte)1);
-        }
-
-        return func;
+            produto.setQtdProd(null);
+            produto.setCodBarras(null);
+            produto.setEIndustrializado((byte)0);
+            
+            if(frm.getCaixaIng1().isSelected()){
+                ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng1().getSelectedItem();
+                produto.adicionaIngrediente(new DAO<>(Ingrediente.class).buscaPorId(ob.getId()));
+            }
+            if(frm.getCaixaIng2().isSelected()){
+                ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng1().getSelectedItem();
+                produto.adicionaIngrediente(new DAO<>(Ingrediente.class).buscaPorId(ob.getId()));
+            }
+            if(frm.getCaixaIng3().isSelected()){
+                ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng1().getSelectedItem();
+                produto.adicionaIngrediente(new DAO<>(Ingrediente.class).buscaPorId(ob.getId()));
+            }
+            if(frm.getCaixaIng4().isSelected()){
+                ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng1().getSelectedItem();
+                produto.adicionaIngrediente(new DAO<>(Ingrediente.class).buscaPorId(ob.getId()));
+            }
+            if(frm.getCaixaIng5().isSelected()){
+                ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng1().getSelectedItem();
+                produto.adicionaIngrediente(new DAO<>(Ingrediente.class).buscaPorId(ob.getId()));
+            }
+        }   
+        return produto;
     }
 
-    private void funcionarioToForm(Funcionario funcionario) {
-        frm.getTextoId().setText(String.valueOf(funcionario.getIdFunc()));
-        frm.getCampoNome().setText(funcionario.getNomeFunc());
-        frm.getCampoDtNasc().setDate(funcionario.getNascFunc());
-        if (funcionario.getSexoFunc().equals("F")) {
-            frm.getCaixaSexo().setSelectedIndex(1);
-        } else {
-            frm.getCaixaSexo().setSelectedIndex(2);
+    private void produtoToForm(Produto produto) {
+        frm.getCampoId().setText(String.valueOf(produto.getIdProd()));
+        frm.getCampoNome().setText(produto.getDescProd());
+        frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
+        //Fornecedor
+        if(produto.getEIndustrializado() == (byte)1){
+            frm.getRadioInd().setSelected(true);
+            frm.getRadioPrep().setSelected(false);
+            frm.getCampoQtd().setText(String.valueOf(produto.getQtdProd()));
+            frm.getCampoBarras().setText(produto.getCodBarras());
         }
-        frm.getCampoRg().setText(funcionario.getRgFunc());
-        frm.getCampoCpf().setText(funcionario.getCpfFunc());
-        frm.getCampoEmail().setText(funcionario.getMailFunc());
-        frm.getCampoTelefone().setText(funcionario.getFoneFunc());
-        frm.getCampoCelular().setText(funcionario.getCelFunc());
-        frm.getCampoDtAdm().setDate(funcionario.getDtAdmFunc());
-        frm.getCampoSalario().setText(String.valueOf(funcionario.getSalFunc()));
-        frm.getCampoUser().setText(funcionario.getUserFunc());
-        frm.getCampoSenha().setText(funcionario.getPassFunc());
-        frm.getCampoSenha2().setText(funcionario.getPassFunc());
-        if (funcionario.getNivelFunc() == 1) {
-            frm.getCaixaNivel().setSelectedIndex(1);
-        } else {
-            frm.getCaixaNivel().setSelectedIndex(2);
+        else{
+            CustomComboBoxInt ob = null;
+            frm.getRadioPrep().setSelected(true);
+            frm.getRadioInd().setSelected(false);
+            if(!produto.getIngredientes().isEmpty()){
+                if(produto.getIngredientes().size()>=1){
+                    ob.setId(produto.getIngredientes().get(0).getIdIng());
+                    ob.setNome(produto.getIngredientes().get(0).getDescIng());
+                    frm.getCaixaSelecaoIng1().setSelectedItem(ob);
+                }
+                if(produto.getIngredientes().size()>=2){
+                    
+                }
+                if(produto.getIngredientes().size()>=3){
+                    
+                }
+                if(produto.getIngredientes().size()>=4){
+                    
+                }
+                if(produto.getIngredientes().size()>=5){
+                    
+                }
+            }
+            
         }
-        if ((byte)0 == funcionario.getEstaAtivo()) {
-            frm.getCaixaAtivo().setSelectedIndex(1);
-        } else {
-            frm.getCaixaAtivo().setSelectedIndex(2);
-        }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Incluir":
-                incluir();
+            case "Cadastrar":
+                salvar();
                 break;
             case "Alterar":
                 break;
@@ -194,8 +206,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaPesquisa().getSelectedRow());
-        funcionarioToForm(funcionario);
+        Produto produto = tableModel.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
+        produtoToForm(produto);
         
     }
 

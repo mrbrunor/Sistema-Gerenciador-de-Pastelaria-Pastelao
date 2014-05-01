@@ -29,8 +29,6 @@ import com.au.bean.Fornecedor;
 import com.au.bean.Ingrediente;
 import com.au.bean.Produto;
 import com.au.bean.Receita;
-import com.au.dao.FornecedorDao;
-import com.au.dao.IngredienteDao;
 import com.au.dao.ProdutoDao;
 import com.au.dao.ReceitaDao;
 import java.awt.Color;
@@ -46,10 +44,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -57,6 +52,7 @@ import javax.swing.table.TableColumn;
  */
 public class TelaCadastrarProduto extends javax.swing.JFrame {
 
+    private ProdutoActionListener listener;
     DefaultTableModel tmProd = new DefaultTableModel(null, new String[]{"ID", "Descrição", "Valor"});
 
     ListSelectionModel lsmProd;
@@ -64,8 +60,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
     List<Ingrediente> listaResIng = new ArrayList<>();
     List<Produto> produtos;
     boolean inicializaIngredientes = false;
-    FornecedorDao fornDao = new FornecedorDao();
-    IngredienteDao ingDao = new IngredienteDao();
     int validaForm[] = new int[]{0, 0, 0, 0, 0};
     int validaPrep[] = new int[]{0, 0, 0, 0, 0};
     int validaQtd = 0;
@@ -88,7 +82,9 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
-        campoId.requestFocus();
+        
+        listener = new ProdutoActionListener(this);
+        
     }
 
     /**
@@ -139,12 +135,12 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         caixaSelecaoIng5 = new javax.swing.JComboBox(getIngs());
         botaoAdicionarIngrediente = new javax.swing.JButton();
         painelEditarProdutos = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
         textoCliqueParaEditar = new javax.swing.JLabel();
         textoProcurarProduto = new javax.swing.JLabel();
         textoPesquisarProduto = new javax.swing.JTextField();
         botaoProcurarProduto = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaProdutos = new javax.swing.JTable();
         painelBotoesAdicionar = new javax.swing.JPanel();
         botaoCancelarCadastro = new javax.swing.JButton();
         botaoCadastrarProduto = new javax.swing.JButton();
@@ -522,7 +518,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                         .addComponent(caixaSelecaoIng5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(caixaIng5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -558,16 +554,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         painelEditarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Editar Produto Existente"));
 
-        tabelaProdutos.setModel(tmProd);
-        tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmProd = tabelaProdutos.getSelectionModel();
-        lsmProd.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (! e.getValueIsAdjusting()){
-                    tabelaProdutosLinhaSelecionada(tabelaProdutos); } }
-        });
-        jScrollPane2.setViewportView(tabelaProdutos);
-
         textoCliqueParaEditar.setText("Clique no produto desejado na lista para editá-lo no painel ao lado:");
 
         textoProcurarProduto.setText("Procurar Produto:");
@@ -580,6 +566,19 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
             }
         });
 
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaProdutos);
+
         javax.swing.GroupLayout painelEditarProdutosLayout = new javax.swing.GroupLayout(painelEditarProdutos);
         painelEditarProdutos.setLayout(painelEditarProdutosLayout);
         painelEditarProdutosLayout.setHorizontalGroup(
@@ -587,10 +586,9 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
             .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                     .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                         .addComponent(textoCliqueParaEditar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 132, Short.MAX_VALUE))
                     .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                         .addComponent(textoProcurarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -598,6 +596,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarProduto)))
                 .addContainerGap())
+            .addComponent(jScrollPane3)
         );
         painelEditarProdutosLayout.setVerticalGroup(
             painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,9 +608,8 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                     .addComponent(botaoProcurarProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3))
         );
 
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
@@ -723,26 +721,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void limpaCampos(){
-        campoId.setText("");
-        campoBarras.setText("");
-        campoNome.setText("");
-        campoQtd.setText("");
-        campoValor.setText("");
-        radioInd.setSelected(false);
-        radioPrep.setSelected(false);
-        caixaSelecaoForn.setSelectedIndex(-1);
-        caixaSelecaoIng1.setSelectedIndex(-1);
-        caixaSelecaoIng2.setSelectedIndex(-1);
-        caixaSelecaoIng3.setSelectedIndex(-1);
-        caixaSelecaoIng4.setSelectedIndex(-1);
-        caixaSelecaoIng5.setSelectedIndex(-1);
-        caixaIng1.setSelected(false);
-        caixaIng2.setSelected(false);
-        caixaIng3.setSelected(false);
-        caixaIng4.setSelected(false);
-        caixaIng5.setSelected(false);        
-    }
+    
     
     private void campoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdActionPerformed
         campoNome.requestFocus();
@@ -1583,7 +1562,26 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         this.tabelaProdutos = tabelaProdutos;
     }
     
-    
+    public void limpaCampos(){
+        campoId.setText("");
+        campoBarras.setText("");
+        campoNome.setText("");
+        campoQtd.setText("");
+        campoValor.setText("");
+        radioInd.setSelected(false);
+        radioPrep.setSelected(false);
+        caixaSelecaoForn.setSelectedIndex(-1);
+        caixaSelecaoIng1.setSelectedIndex(-1);
+        caixaSelecaoIng2.setSelectedIndex(-1);
+        caixaSelecaoIng3.setSelectedIndex(-1);
+        caixaSelecaoIng4.setSelectedIndex(-1);
+        caixaSelecaoIng5.setSelectedIndex(-1);
+        caixaIng1.setSelected(false);
+        caixaIng2.setSelected(false);
+        caixaIng3.setSelected(false);
+        caixaIng4.setSelected(false);
+        caixaIng5.setSelected(false);        
+    }   
     
     /**
      * @param args the command line arguments
@@ -1645,7 +1643,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JTextField campoQtd;
     private javax.swing.JTextField campoValor;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;

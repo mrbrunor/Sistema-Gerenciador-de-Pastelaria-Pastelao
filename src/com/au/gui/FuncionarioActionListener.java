@@ -41,11 +41,11 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     private final TelaCadastrarFuncionario frm;
     private FuncionarioTableModel tableModel;
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         frm.limpaCampos();
     }
-    
+
     public FuncionarioActionListener(TelaCadastrarFuncionario frm) {
         this.frm = frm;
         adicionaListener();
@@ -90,13 +90,13 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     private void salvar() {
         new DAO<>(Funcionario.class).adiciona(formToFuncionario());
-        
+
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
-        
+
         desabilitaBotoesParaSalvar();
-        
+
         limpaCampos();
-        
+
         inicializaTableModel();
     }
 
@@ -123,19 +123,19 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         func.setDtAdmFunc(data);
         func.setSalFunc(Double.valueOf(frm.getCampoSalario().getText()));
         func.setUserFunc(frm.getCampoUser().getText());
-        
+
         HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getText()));
         func.setPassFunc(hexSha.ConvertSha());
-        
+
         if (frm.getCaixaNivel().getSelectedItem() == "Administrador") {
             func.setNivelFunc(1);
         } else {
             func.setNivelFunc(0);
         }
         if (frm.getCaixaAtivo().getSelectedItem() == "Não") {
-            func.setEstaAtivo((byte)0);
+            func.setEstaAtivo((byte) 0);
         } else {
-            func.setEstaAtivo((byte)1);
+            func.setEstaAtivo((byte) 1);
         }
 
         return func;
@@ -158,14 +158,12 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         frm.getCampoDtAdm().setDate(funcionario.getDtAdmFunc());
         frm.getCampoSalario().setText(String.valueOf(funcionario.getSalFunc()));
         frm.getCampoUser().setText(funcionario.getUserFunc());
-        frm.getCampoSenha().setText(funcionario.getPassFunc());
-        frm.getCampoSenha2().setText(funcionario.getPassFunc());
         if (funcionario.getNivelFunc() == 1) {
             frm.getCaixaNivel().setSelectedIndex(1);
         } else {
             frm.getCaixaNivel().setSelectedIndex(2);
         }
-        if ((byte)0 == funcionario.getEstaAtivo()) {
+        if ((byte) 0 == funcionario.getEstaAtivo()) {
             frm.getCaixaAtivo().setSelectedIndex(1);
         } else {
             frm.getCaixaAtivo().setSelectedIndex(2);
@@ -196,7 +194,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     public void valueChanged(ListSelectionEvent event) {
         Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaPesquisa().getSelectedRow());
         funcionarioToForm(funcionario);
-        
+
     }
 
 }

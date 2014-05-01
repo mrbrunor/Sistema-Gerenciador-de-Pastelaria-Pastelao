@@ -32,7 +32,7 @@ public class Produto implements Serializable {
 	@Column(nullable=false)
 	private byte eIndustrializado;
 
-	private int qtdProd;
+	private Integer qtdProd;
 
 	@Column(nullable=false)
 	private double valorProd;
@@ -98,11 +98,11 @@ public class Produto implements Serializable {
 		this.eIndustrializado = eIndustrializado;
 	}
 
-	public int getQtdProd() {
+	public Integer getQtdProd() {
 		return this.qtdProd;
 	}
 
-	public void setQtdProd(int qtdProd) {
+	public void setQtdProd(Integer qtdProd) {
 		this.qtdProd = qtdProd;
 	}
 
