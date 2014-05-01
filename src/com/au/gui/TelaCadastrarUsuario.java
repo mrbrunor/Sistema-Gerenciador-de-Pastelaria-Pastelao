@@ -25,6 +25,8 @@ package com.au.gui;
 
 import com.au.bean.Funcionario;
 import com.au.dao.FuncionarioDao;
+import com.au.util.HexSha;
+import com.au.util.LimitaDigitos;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -713,7 +715,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 funcionario.setEstaAtivo(0);
             }
 
-            funcDao.adicionaFuncionario(funcionario);
+            //funcDao.adicionaFuncionario(funcionario);
         } else {
             Border border = BorderFactory.createLineBorder(Color.red, 1);
             if (validaForm[0] == 0) {

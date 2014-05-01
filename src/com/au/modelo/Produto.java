@@ -51,7 +51,7 @@ public class Produto implements Serializable {
 	private Fornecedor fornecedor;
 
 	//bi-directional many-to-many association to Ingrediente
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="receita"
 		, joinColumns={

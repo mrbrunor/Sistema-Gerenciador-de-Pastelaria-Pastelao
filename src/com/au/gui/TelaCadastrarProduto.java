@@ -24,27 +24,17 @@
 package com.au.gui;
 
 import com.au.util.LimitaDigitos;
-import com.au.bean.CustomComboBoxInt;
-import com.au.bean.Fornecedor;
-import com.au.bean.Ingrediente;
-import com.au.bean.Produto;
-import com.au.bean.Receita;
-import com.au.dao.ProdutoDao;
-import com.au.dao.ReceitaDao;
-import java.awt.Color;
-import java.util.ArrayList;
+import com.au.gui.listener.ProdutoActionListener;
+import com.au.modelo.Fornecedor;
+import com.au.modelo.Ingrediente;
+import com.au.util.CustomComboBoxInt;
+import com.au.util.DAO;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -53,19 +43,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaCadastrarProduto extends javax.swing.JFrame {
 
     private ProdutoActionListener listener;
-    DefaultTableModel tmProd = new DefaultTableModel(null, new String[]{"ID", "Descrição", "Valor"});
-
-    ListSelectionModel lsmProd;
-    List<Fornecedor> listaResForn = new ArrayList<>();
-    List<Ingrediente> listaResIng = new ArrayList<>();
-    List<Produto> produtos;
-    boolean inicializaIngredientes = false;
-    int validaForm[] = new int[]{0, 0, 0, 0, 0};
-    int validaPrep[] = new int[]{0, 0, 0, 0, 0};
-    int validaQtd = 0;
-    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
-    Border border = BorderFactory.createLineBorder(Color.red, 1);
-
+    
     /**
      * Creates new form TelaCadastrarUsuario
      */
@@ -77,8 +55,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
         caixaSelecaoForn.setSelectedIndex(-1);
-        modificaEstadoInd(false);
-        modificaEstadoPrep(false);
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
@@ -123,16 +99,10 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         campoQtd = new javax.swing.JTextField();
         campoBarras = new javax.swing.JTextField();
         painelProdutoPreparado = new javax.swing.JPanel();
-        caixaIng1 = new javax.swing.JCheckBox();
-        caixaIng2 = new javax.swing.JCheckBox();
-        caixaIng3 = new javax.swing.JCheckBox();
-        caixaIng4 = new javax.swing.JCheckBox();
-        caixaIng5 = new javax.swing.JCheckBox();
-        caixaSelecaoIng1 = new javax.swing.JComboBox(getIngs());
-        caixaSelecaoIng2 = new javax.swing.JComboBox(getIngs());
-        caixaSelecaoIng3 = new javax.swing.JComboBox(getIngs());
-        caixaSelecaoIng4 = new javax.swing.JComboBox(getIngs());
-        caixaSelecaoIng5 = new javax.swing.JComboBox(getIngs());
+        caixaSelecaoIng = new javax.swing.JComboBox(getIngs());
+        botaoNovoIngrediente = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaIngredientes = new javax.swing.JTable();
         botaoAdicionarIngrediente = new javax.swing.JButton();
         painelEditarProdutos = new javax.swing.JPanel();
         textoCliqueParaEditar = new javax.swing.JLabel();
@@ -202,81 +172,18 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         textoFornecedor.setText("Fornecedor:");
 
         campoId.setEnabled(false);
-        campoId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIdActionPerformed(evt);
-            }
-        });
-        campoId.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoIdFocusLost(evt);
-            }
-        });
 
         textoNome.setText("Nome Produto:");
 
-        campoValor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoValorActionPerformed(evt);
-            }
-        });
-        campoValor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoValorFocusLost(evt);
-            }
-        });
-
-        campoNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoNomeActionPerformed(evt);
-            }
-        });
-        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoNomeFocusLost(evt);
-            }
-        });
-
         textoValor.setText("Valor Produto:");
-
-        caixaSelecaoForn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoFornActionPerformed(evt);
-            }
-        });
-        caixaSelecaoForn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                caixaSelecaoFornFocusLost(evt);
-            }
-        });
 
         textoTipo.setText("Tipo Produto:");
 
         buttonGroup1.add(radioInd);
         radioInd.setText("Industrializado");
-        radioInd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioIndActionPerformed(evt);
-            }
-        });
-        radioInd.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                radioIndFocusLost(evt);
-            }
-        });
 
         buttonGroup1.add(radioPrep);
         radioPrep.setText("Preparado");
-        radioPrep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioPrepActionPerformed(evt);
-            }
-        });
-        radioPrep.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                radioPrepFocusLost(evt);
-            }
-        });
 
         botaoAdicionarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
         botaoAdicionarFornecedor.setText("Novo Fornecedor");
@@ -307,7 +214,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(botaoAdicionarFornecedor))
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         painelDadosProdutoLayout.setVerticalGroup(
             painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,17 +250,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         textoBarras.setText("Código Barras");
 
-        campoQtd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoQtdActionPerformed(evt);
-            }
-        });
-        campoQtd.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoQtdFocusLost(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelProdutoIndustrializadoLayout = new javax.swing.GroupLayout(painelProdutoIndustrializado);
         painelProdutoIndustrializado.setLayout(painelProdutoIndustrializadoLayout);
         painelProdutoIndustrializadoLayout.setHorizontalGroup(
@@ -387,144 +283,46 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
 
-        caixaIng1.setText("Ingrediente 1");
-        caixaIng1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaIng1ActionPerformed(evt);
-            }
-        });
+        botaoNovoIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-32.png"))); // NOI18N
+        botaoNovoIngrediente.setText("Novo Ingrediente");
 
-        caixaIng2.setText("Ingrediente 2");
-        caixaIng2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaIng2ActionPerformed(evt);
-            }
-        });
-        caixaIng2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                caixaIng2FocusLost(evt);
-            }
-        });
+        tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        caixaIng3.setText("Ingrediente 3");
-        caixaIng3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaIng3ActionPerformed(evt);
+            },
+            new String [] {
+                "Descrição"
             }
-        });
+        ));
+        jScrollPane2.setViewportView(tabelaIngredientes);
 
-        caixaIng4.setText("Ingrediente 4");
-        caixaIng4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaIng4ActionPerformed(evt);
-            }
-        });
-
-        caixaIng5.setText("Ingrediente 5");
-        caixaIng5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaIng5ActionPerformed(evt);
-            }
-        });
-
-        caixaSelecaoIng1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoIng1ActionPerformed(evt);
-            }
-        });
-
-        caixaSelecaoIng2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoIng2ActionPerformed(evt);
-            }
-        });
-
-        caixaSelecaoIng3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoIng3ActionPerformed(evt);
-            }
-        });
-
-        caixaSelecaoIng4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoIng4ActionPerformed(evt);
-            }
-        });
-
-        caixaSelecaoIng5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaSelecaoIng5ActionPerformed(evt);
-            }
-        });
-
-        botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-32.png"))); // NOI18N
-        botaoAdicionarIngrediente.setText("Novo Ingrediente");
+        botaoAdicionarIngrediente.setText("Adiciona Ingrediente");
 
         javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
         painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);
         painelProdutoPreparadoLayout.setHorizontalGroup(
             painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(caixaIng2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaIng3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaIng4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaIng5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaIng1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(caixaSelecaoIng4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaSelecaoIng5, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaSelecaoIng1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaSelecaoIng2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaSelecaoIng3, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                .addComponent(botaoNovoIngrediente)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
+                .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoAdicionarIngrediente))
         );
         painelProdutoPreparadoLayout.setVerticalGroup(
             painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(caixaSelecaoIng1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(caixaIng1))
-                .addGap(8, 8, 8)
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(caixaSelecaoIng2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(caixaIng2))
-                .addGap(8, 8, 8)
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(caixaSelecaoIng3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(caixaIng3))
-                .addGap(8, 8, 8)
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(caixaSelecaoIng4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(caixaIng4))
-                .addGap(8, 8, 8)
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(caixaSelecaoIng5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(caixaIng5))
+                .addContainerGap()
+                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionarIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoAdicionarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoNovoIngrediente))
         );
-
-        painelProdutoPreparadoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {caixaIng1, caixaIng2, caixaIng3, caixaIng4, caixaIng5});
-
-        painelProdutoPreparadoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {caixaSelecaoIng1, caixaSelecaoIng2, caixaSelecaoIng3, caixaSelecaoIng4, caixaSelecaoIng5});
 
         javax.swing.GroupLayout painelEsquerdoLayout = new javax.swing.GroupLayout(painelEsquerdo);
         painelEsquerdo.setLayout(painelEsquerdoLayout);
@@ -544,12 +342,12 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
             painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsquerdoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelDadosProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelDadosProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelEsquerdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelEditarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Editar Produto Existente"));
@@ -560,11 +358,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarProduto.setText("Procurar");
-        botaoProcurarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoProcurarProdutoActionPerformed(evt);
-            }
-        });
 
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -588,7 +381,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                 .addGroup(painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                         .addComponent(textoCliqueParaEditar)
-                        .addGap(0, 132, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painelEditarProdutosLayout.createSequentialGroup()
                         .addComponent(textoProcurarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -596,7 +389,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarProduto)))
                 .addContainerGap())
-            .addComponent(jScrollPane3)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         painelEditarProdutosLayout.setVerticalGroup(
             painelEditarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,11 +410,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         botaoCadastrarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarProduto.setText("Cadastrar Produto");
-        botaoCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarProdutoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelBotoesAdicionarLayout = new javax.swing.GroupLayout(painelBotoesAdicionar);
         painelBotoesAdicionar.setLayout(painelBotoesAdicionarLayout);
@@ -649,11 +437,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarProduto.setText("Atualizar Produto");
-        botaoAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAtualizarProdutoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelBotoesModificarLayout = new javax.swing.GroupLayout(painelBotoesModificar);
         painelBotoesModificar.setLayout(painelBotoesModificarLayout);
@@ -709,8 +492,10 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelEditarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelEditarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelEsquerdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelBotoesAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -720,639 +505,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
-    
-    private void campoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdActionPerformed
-        campoNome.requestFocus();
-    }//GEN-LAST:event_campoIdActionPerformed
-
-    public Produto adicionaProduto() {
-        Produto produto = new Produto();
-        ProdutoDao prodDao = new ProdutoDao();
-        produto.setIdProd(Integer.parseInt(campoId.getText()));
-        produto.setDescProd(campoNome.getText());
-        produto.setValorProd(Double.valueOf(campoValor.getText()));
-        CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoForn.getSelectedItem();
-        produto.setIdForn(ob.getId());
-
-        if (radioInd.getSelectedObjects() == null) {
-            produto.seteIndustrializado(false);
-            prodDao.addProdutoPrep(produto);
-        } else {
-            produto.seteIndustrializado(true);
-            produto.setQtdProd(Integer.parseInt(campoQtd.getText()));
-            produto.setCodBarras(campoBarras.getText());
-            prodDao.addProdutoInd(produto);
-        }
-        return produto;
-    }
-
-    private CustomComboBoxInt[] getForns() {
-        listaResForn = fornDao.getLista();
-        System.out.println("Chegou aqui");
-        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResForn.size()];
-        System.out.println("Qtd Lista " + listaResForn.size());
-        for (int i = 0; i < listaResForn.size(); i++) {
-            oItems[i] = new CustomComboBoxInt(listaResForn.get(i).getNomeForn(), listaResForn.get(i).getIdForn());
-            System.out.println("ID " + oItems[i].getId());
-        }
-        return oItems;
-    }
-
-    private CustomComboBoxInt[] getIngs() {
-        if (!inicializaIngredientes) {
-            listaResIng = ingDao.getLista();
-            inicializaIngredientes = true;
-        }
-        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
-        for (int i = 0; i < listaResIng.size(); i++) {
-            oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
-        }
-        return oItems;
-    }
-
-    private void tabelaProdutosLinhaSelecionada(JTable tabela) {
-        if (tabela.getSelectedRow() != -1) {
-            campoId.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getIdProd()));
-            campoNome.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getDescProd()));
-            campoValor.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getValorProd()));
-            if (produtos.get(tabela.getSelectedRow()).iseIndustrializado()) {
-                radioInd.setSelected(true);
-                campoQtd.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getQtdProd()));
-                campoBarras.setText(String.valueOf(produtos.get(tabela.getSelectedRow()).getCodBarras()));                               
-            }
-            else{
-                radioPrep.setSelected(true);
-            }
-            for(int i=0; listaResForn.size() > i; i++){
-                if(produtos.get(tabela.getSelectedRow()).getIdForn() == listaResForn.get(i).getIdForn()){
-                    caixaSelecaoForn.setSelectedIndex(i);
-                }
-            }
-        } else {
-            //campoAdicionarPedido.setText("");
-        }
-    }
-
-    private void listarProdutos() {
-        ProdutoDao prods = new ProdutoDao();
-        produtos = prods.getLista("%" + textoPesquisarProduto.getText() + "%");
-        for (int i = 0; i < produtos.size(); i++) {
-            System.out.println(produtos.get(i).getDescProd());
-        }
-        mostrarPesquisa(produtos);
-    }
-
-    private void mostrarPesquisa(List<Produto> produtos) {
-        while (tmProd.getRowCount() > 0) {
-            tmProd.removeRow(0);
-        }
-        if (produtos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum Produto Encontrado!");
-        } else {
-            String[] linhasTabela = new String[]{null, null};
-            for (int i = 0; i < produtos.size(); i++) {
-                tmProd.addRow(linhasTabela);
-                tmProd.setValueAt(produtos.get(i).getIdProd(), i, 0);
-                tmProd.setValueAt(produtos.get(i).getDescProd(), i, 1);
-                tmProd.setValueAt(produtos.get(i).getValorProd(), i, 2);
-            }
-        }
-    }
-
-    private void desabilitaPrep(int count) {
-        if (count == 1) {
-            caixaSelecaoIng1.setEnabled(false);
-            caixaSelecaoIng1.setSelectedIndex(-1);
-
-            caixaIng2.setEnabled(false);
-            caixaIng2.setSelected(false);
-            caixaSelecaoIng2.setEnabled(false);
-            caixaSelecaoIng2.setSelectedIndex(-1);
-
-            caixaIng3.setEnabled(false);
-            caixaIng3.setSelected(false);
-            caixaSelecaoIng3.setEnabled(false);
-            caixaSelecaoIng3.setSelectedIndex(-1);
-
-            caixaIng4.setEnabled(false);
-            caixaIng4.setSelected(false);
-            caixaSelecaoIng4.setEnabled(false);
-            caixaSelecaoIng4.setSelectedIndex(-1);
-
-            caixaIng5.setEnabled(false);
-            caixaIng5.setSelected(false);
-            caixaSelecaoIng5.setEnabled(false);
-            caixaSelecaoIng5.setSelectedIndex(-1);
-        } else if (count == 2) {
-            caixaSelecaoIng2.setEnabled(false);
-            caixaSelecaoIng2.setSelectedIndex(-1);
-
-            caixaIng3.setEnabled(false);
-            caixaIng3.setSelected(false);
-            caixaSelecaoIng3.setEnabled(false);
-            caixaSelecaoIng3.setSelectedIndex(-1);
-
-            caixaIng4.setEnabled(false);
-            caixaIng4.setSelected(false);
-            caixaSelecaoIng4.setEnabled(false);
-            caixaSelecaoIng4.setSelectedIndex(-1);
-
-            caixaIng5.setEnabled(false);
-            caixaIng5.setSelected(false);
-            caixaSelecaoIng5.setEnabled(false);
-            caixaSelecaoIng5.setSelectedIndex(-1);
-        } else if (count == 3) {
-            caixaSelecaoIng3.setEnabled(false);
-            caixaSelecaoIng3.setSelectedIndex(-1);
-
-            caixaIng4.setEnabled(false);
-            caixaIng4.setSelected(false);
-            caixaSelecaoIng4.setEnabled(false);
-            caixaSelecaoIng4.setSelectedIndex(-1);
-
-            caixaIng5.setEnabled(false);
-            caixaIng5.setSelected(false);
-            caixaSelecaoIng5.setEnabled(false);
-            caixaSelecaoIng5.setSelectedIndex(-1);
-        } else if (count == 4) {
-            caixaSelecaoIng4.setEnabled(false);
-            caixaSelecaoIng4.setSelectedIndex(-1);
-
-            caixaIng5.setEnabled(false);
-            caixaIng5.setSelected(false);
-            caixaSelecaoIng5.setEnabled(false);
-            caixaSelecaoIng5.setSelectedIndex(-1);
-        } else {
-            caixaSelecaoIng5.setEnabled(false);
-            caixaSelecaoIng5.setSelectedIndex(-1);
-        }
-    }
-
-    private void modificaEstadoInd(boolean novoEstado) {
-        campoBarras.setEnabled(novoEstado);
-        campoQtd.setEnabled(novoEstado);
-    }
-
-    private void modificaEstadoPrep(boolean novoEstado) {
-        if (!novoEstado) {
-            caixaSelecaoIng1.setEnabled(novoEstado);
-            caixaSelecaoIng2.setEnabled(novoEstado);
-            caixaSelecaoIng3.setEnabled(novoEstado);
-            caixaSelecaoIng4.setEnabled(novoEstado);
-            caixaSelecaoIng5.setEnabled(novoEstado);
-            caixaIng1.setEnabled(novoEstado);
-            caixaIng2.setEnabled(novoEstado);
-            caixaIng3.setEnabled(novoEstado);
-            caixaIng4.setEnabled(novoEstado);
-            caixaIng5.setEnabled(novoEstado);
-            caixaIng1.setSelected(novoEstado);
-            caixaIng2.setSelected(novoEstado);
-            caixaIng3.setSelected(novoEstado);
-            caixaIng4.setSelected(novoEstado);
-            caixaIng5.setSelected(novoEstado);
-        } else {
-            campoQtd.setText("");
-            campoBarras.setText("");
-            caixaIng1.setEnabled(novoEstado);
-            caixaIng1.setSelected(novoEstado);
-            caixaSelecaoIng1.setEnabled(novoEstado);
-        }
-        caixaSelecaoIng1.setSelectedIndex(-1);
-        caixaSelecaoIng2.setSelectedIndex(-1);
-        caixaSelecaoIng3.setSelectedIndex(-1);
-        caixaSelecaoIng4.setSelectedIndex(-1);
-        caixaSelecaoIng5.setSelectedIndex(-1);
-    }
-
-    private boolean validaForn() {
-        for (int i = 0; i < validaForm.length; i++) {
-            if (validaForm[i] == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean validaPrep() {
-        for (int i = 0; i < validaPrep.length; i++) {
-            if (validaPrep[i] == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void campoIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoIdFocusLost
-        if (!campoId.getText().equals("")) {
-            validaForm[0] = 1;
-            campoId.setBorder(border2);
-        } else {
-            validaForm[0] = 0;
-            campoId.setBorder(border);
-        }
-    }//GEN-LAST:event_campoIdFocusLost
-
-    private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
-        campoQtd.requestFocus();
-    }//GEN-LAST:event_campoValorActionPerformed
-
-    private void campoValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusLost
-        if (!campoValor.getText().equals("")) {
-            validaForm[2] = 1;
-            campoValor.setBorder(border2);
-        } else {
-            validaForm[2] = 0;
-            campoValor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoValorFocusLost
-
-    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
-        campoValor.requestFocus();
-    }//GEN-LAST:event_campoNomeActionPerformed
-
-    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
-        if (!campoNome.getText().equals("")) {
-            validaForm[1] = 1;
-            campoNome.setBorder(border2);
-        } else {
-            validaForm[1] = 0;
-            campoNome.setBorder(border);
-        }
-    }//GEN-LAST:event_campoNomeFocusLost
-
-    private void botaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarProdutoActionPerformed
-        if (validaForn()) {
-            if (radioInd.getSelectedObjects() != null) {
-                if (validaQtd == 1) {
-                    Produto produto = new Produto();
-                    produto = adicionaProduto();
-                } else {
-                    campoQtd.setBorder(border);
-                }
-            } else if (radioPrep.getSelectedObjects() != null) {
-                if (validaPrep()) {
-                    Produto produto = new Produto();
-                    produto = adicionaProduto();
-
-                    Receita receita = new Receita();
-                    ReceitaDao recDao = new ReceitaDao();
-                    CustomComboBoxInt cx;
-
-                    if (caixaSelecaoIng1.getSelectedIndex() != -1) {
-                        cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
-                    }
-                    if (caixaSelecaoIng2.getSelectedIndex() != -1) {
-                        cx = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
-                    }
-                    if (caixaSelecaoIng3.getSelectedIndex() != -1) {
-                        cx = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
-                    }
-                    if (caixaSelecaoIng4.getSelectedIndex() != -1) {
-                        cx = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
-                    }
-                    if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-                        cx = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        receita.setIdIng(cx.getId());
-                        receita.setIdProd(produto.getIdProd());
-                        recDao.addReceita(receita);
-                        //CONNECTION CLOSE
-                    } else {
-                        //CONNECTION CLOSE
-                    };
-                } else {
-
-                }
-                System.out.println("HAHA chegou lá, agora faça a Lógica de Adicionar a receita :D");
-            }
-
-        } else {
-            Border border = BorderFactory.createLineBorder(Color.red, 1);
-            if (validaForm[0] == 0) {
-                campoId.setBorder(border);
-            }
-            if (validaForm[1] == 0) {
-                campoNome.setBorder(border);
-            }
-            if (validaForm[2] == 0) {
-                campoValor.setBorder(border);
-            }
-            if (validaForm[3] == 0) {
-                radioInd.setBorder(border);
-                radioInd.setBorderPainted(true);
-                radioPrep.setBorder(border);
-                radioPrep.setBorderPainted(true);
-            }
-            if (validaForm[4] == 0) {
-                caixaSelecaoForn.setBorder(border);
-            }
-        }
-
-    }//GEN-LAST:event_botaoCadastrarProdutoActionPerformed
-
-    private void caixaSelecaoFornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaSelecaoFornFocusLost
-        if (caixaSelecaoForn.getSelectedIndex() != -1) {
-            validaForm[4] = 1;
-            caixaSelecaoForn.setBorder(border2);
-        } else {
-            validaForm[4] = 0;
-            caixaSelecaoForn.setBorder(border);
-        }
-    }//GEN-LAST:event_caixaSelecaoFornFocusLost
-
-    private void caixaSelecaoFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoFornActionPerformed
-        caixaSelecaoForn.setBorder(border2);
-    }//GEN-LAST:event_caixaSelecaoFornActionPerformed
-
-    private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
-        modificaEstadoPrep(false);
-        modificaEstadoInd(true);
-        radioInd.setBorderPainted(false);
-        radioPrep.setBorderPainted(false);
-    }//GEN-LAST:event_radioIndActionPerformed
-
-    private void radioPrepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioPrepFocusLost
-        if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[3] = 1;
-            radioInd.setBorder(border);
-            radioInd.setBorderPainted(false);
-            radioPrep.setBorder(border);
-            radioPrep.setBorderPainted(false);
-        } else {
-            validaForm[3] = 0;
-            radioInd.setBorder(border);
-            radioInd.setBorderPainted(true);
-            radioPrep.setBorder(border);
-            radioPrep.setBorderPainted(true);
-        }
-    }//GEN-LAST:event_radioPrepFocusLost
-
-    private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
-        modificaEstadoInd(false);
-        modificaEstadoPrep(true);
-        campoQtd.setBorder(border2);
-        radioInd.setBorderPainted(false);
-        radioPrep.setBorderPainted(false);
-    }//GEN-LAST:event_radioPrepActionPerformed
-
-    private void radioIndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioIndFocusLost
-        if (radioPrep.isSelected() || radioInd.isSelected()) {
-            validaForm[3] = 1;
-            radioInd.setBorder(border);
-            radioInd.setBorderPainted(false);
-        } else {
-            validaForm[3] = 0;
-            radioInd.setBorder(border);
-            radioInd.setBorderPainted(true);
-
-        }
-    }//GEN-LAST:event_radioIndFocusLost
-
-    private void campoQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoQtdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoQtdActionPerformed
-
-    private void caixaIng2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng2ActionPerformed
-        if (caixaIng2.isSelected()) {
-            caixaSelecaoIng2.setEnabled(true);
-        } else {
-            desabilitaPrep(2);
-        }
-    }//GEN-LAST:event_caixaIng2ActionPerformed
-
-    private void caixaIng1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng1ActionPerformed
-        if (caixaIng1.isSelected()) {
-            caixaSelecaoIng1.setEnabled(true);
-        } else {
-            desabilitaPrep(1);
-        }
-
-    }//GEN-LAST:event_caixaIng1ActionPerformed
-
-    private void campoQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoQtdFocusLost
-        if (!campoQtd.getText().equals("")) {
-            validaQtd = 1;
-            campoQtd.setBorder(border2);
-        } else {
-            validaQtd = 0;
-            campoQtd.setBorder(border);
-        }
-    }//GEN-LAST:event_campoQtdFocusLost
-
-    private void caixaIng3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng3ActionPerformed
-        if (caixaIng3.isSelected()) {
-            caixaSelecaoIng3.setEnabled(true);
-        } else {
-            desabilitaPrep(3);
-        }
-    }//GEN-LAST:event_caixaIng3ActionPerformed
-
-    private void caixaIng4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng4ActionPerformed
-        if (caixaIng4.isSelected()) {
-            caixaSelecaoIng4.setEnabled(true);
-        } else {
-            desabilitaPrep(4);
-        }
-    }//GEN-LAST:event_caixaIng4ActionPerformed
-
-    private void caixaIng5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaIng5ActionPerformed
-        if (caixaIng5.isSelected()) {
-            caixaSelecaoIng5.setEnabled(true);
-        } else {
-            desabilitaPrep(5);
-        }
-    }//GEN-LAST:event_caixaIng5ActionPerformed
-
-    private void caixaIng2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_caixaIng2FocusLost
-
-    }//GEN-LAST:event_caixaIng2FocusLost
-
-    private void caixaSelecaoIng2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng2ActionPerformed
-        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-        if (caixaSelecaoIng2.getSelectedIndex() == -1) {
-            caixaIng3.setEnabled(false);
-        } else {
-            if (cx.getId() == cx2.getId()) {
-                caixaSelecaoIng2.setBorder(border);
-                validaPrep[1] = 0;
-            } else {
-                //caixaSelecaoIng1.setEnabled(false);
-                caixaSelecaoIng2.setBorder(border2);
-                caixaIng3.setEnabled(true);
-                validaPrep[1] = 1;
-                if (caixaSelecaoIng3.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-                    if (cx2.getId() == cx3.getId()) {
-                        caixaSelecaoIng2.setBorder(border);
-                        validaPrep[1] = 0;
-                    }
-                }
-                if (caixaSelecaoIng4.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-                    if (cx2.getId() == cx4.getId()) {
-                        caixaSelecaoIng2.setBorder(border);
-                        validaPrep[1] = 0;
-                    }
-                }
-                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-                    if (cx2.getId() == cx5.getId()) {
-                        caixaSelecaoIng2.setBorder(border);
-                        validaPrep[1] = 0;
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_caixaSelecaoIng2ActionPerformed
-
-    private void caixaSelecaoIng1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng1ActionPerformed
-        if (caixaSelecaoIng1.getSelectedIndex() == -1) {
-            caixaIng2.setEnabled(false);
-        } else {
-            validaPrep[0] = 1;
-            caixaIng2.setEnabled(true);
-            caixaSelecaoIng1.setBorder(border2);
-            CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-            if (caixaSelecaoIng2.getSelectedIndex() != -1) {
-                CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-                if (cx.getId() == cx2.getId()) {
-                    caixaSelecaoIng1.setBorder(border);
-                    validaPrep[0] = 0;
-                }
-            }
-            if (caixaSelecaoIng3.getSelectedIndex() != -1) {
-                CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-                if (cx.getId() == cx3.getId()) {
-                    caixaSelecaoIng1.setBorder(border);
-                    validaPrep[0] = 0;
-                }
-            }
-            if (caixaSelecaoIng4.getSelectedIndex() != -1) {
-                CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-                if (cx.getId() == cx4.getId()) {
-                    caixaSelecaoIng1.setBorder(border);
-                    validaPrep[0] = 0;
-                }
-            }
-            if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-                CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-                if (cx.getId() == cx5.getId()) {
-                    caixaSelecaoIng1.setBorder(border);
-                    validaPrep[0] = 0;
-                }
-            }
-        }
-    }//GEN-LAST:event_caixaSelecaoIng1ActionPerformed
-
-    private void caixaSelecaoIng3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng3ActionPerformed
-        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-
-        if (caixaSelecaoIng3.getSelectedIndex() == -1) {
-            caixaIng4.setEnabled(false);
-        } else {
-            if (cx3.getId() == cx2.getId() || cx3.getId() == cx.getId()) {
-                caixaSelecaoIng3.setBorder(border);
-                validaPrep[2] = 0;
-            } else {
-                //caixaSelecaoIng2.setEnabled(false);
-                caixaSelecaoIng3.setBorder(border2);
-                caixaIng4.setEnabled(true);
-                validaPrep[2] = 1;
-                if (caixaSelecaoIng4.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-                    if (cx3.getId() == cx4.getId()) {
-                        caixaSelecaoIng3.setBorder(border);
-                        validaPrep[2] = 0;
-                    }
-                }
-                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-                    if (cx3.getId() == cx5.getId()) {
-                        caixaSelecaoIng3.setBorder(border);
-                        validaPrep[2] = 0;
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_caixaSelecaoIng3ActionPerformed
-
-    private void caixaSelecaoIng4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng4ActionPerformed
-        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-        CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-        if (caixaSelecaoIng4.getSelectedIndex() == -1) {
-            caixaIng5.setEnabled(false);
-        } else {
-            if (cx4.getId() == cx3.getId() || cx4.getId() == cx2.getId() || cx4.getId() == cx.getId()) {
-                caixaSelecaoIng4.setBorder(border);
-                validaPrep[3] = 0;
-            } else {
-                //caixaSelecaoIng3.setEnabled(false);
-                caixaSelecaoIng4.setBorder(border2);
-                caixaIng5.setEnabled(true);
-                validaPrep[3] = 1;
-                if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-                    CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-                    if (cx4.getId() == cx5.getId()) {
-                        caixaSelecaoIng4.setBorder(border);
-                        validaPrep[3] = 0;
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_caixaSelecaoIng4ActionPerformed
-
-    private void caixaSelecaoIng5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoIng5ActionPerformed
-        CustomComboBoxInt cx = (CustomComboBoxInt) caixaSelecaoIng1.getSelectedItem();
-        CustomComboBoxInt cx2 = (CustomComboBoxInt) caixaSelecaoIng2.getSelectedItem();
-        CustomComboBoxInt cx3 = (CustomComboBoxInt) caixaSelecaoIng3.getSelectedItem();
-        CustomComboBoxInt cx4 = (CustomComboBoxInt) caixaSelecaoIng4.getSelectedItem();
-        CustomComboBoxInt cx5 = (CustomComboBoxInt) caixaSelecaoIng5.getSelectedItem();
-        if (caixaSelecaoIng5.getSelectedIndex() != -1) {
-            if (cx5.getId() == cx4.getId() || cx5.getId() == cx3.getId() || cx5.getId() == cx2.getId() || cx5.getId() == cx.getId()) {
-                caixaSelecaoIng5.setBorder(border);
-                validaPrep[4] = 0;
-            } else {
-                //caixaSelecaoIng4.setEnabled(false);
-                caixaSelecaoIng5.setBorder(border2);
-                validaPrep[4] = 1;
-            }
-        }
-    }//GEN-LAST:event_caixaSelecaoIng5ActionPerformed
-
-    private void botaoProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarProdutoActionPerformed
-        listarProdutos();
-    }//GEN-LAST:event_botaoProcurarProdutoActionPerformed
-
-    private void botaoAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarProdutoActionPerformed
-        ProdutoDao prodDao = new ProdutoDao();
-        
-    }//GEN-LAST:event_botaoAtualizarProdutoActionPerformed
 
     public JButton getBotaoAdicionarFornecedor() {
         return botaoAdicionarFornecedor;
@@ -1402,52 +554,20 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         this.botaoExcluirProduto = botaoExcluirProduto;
     }
 
+    public JButton getBotaoNovoIngrediente() {
+        return botaoNovoIngrediente;
+    }
+
+    public void setBotaoNovoIngrediente(JButton botaoNovoIngrediente) {
+        this.botaoNovoIngrediente = botaoNovoIngrediente;
+    }
+
     public JButton getBotaoProcurarProduto() {
         return botaoProcurarProduto;
     }
 
     public void setBotaoProcurarProduto(JButton botaoProcurarProduto) {
         this.botaoProcurarProduto = botaoProcurarProduto;
-    }
-
-    public JCheckBox getCaixaIng1() {
-        return caixaIng1;
-    }
-
-    public void setCaixaIng1(JCheckBox caixaIng1) {
-        this.caixaIng1 = caixaIng1;
-    }
-
-    public JCheckBox getCaixaIng2() {
-        return caixaIng2;
-    }
-
-    public void setCaixaIng2(JCheckBox caixaIng2) {
-        this.caixaIng2 = caixaIng2;
-    }
-
-    public JCheckBox getCaixaIng3() {
-        return caixaIng3;
-    }
-
-    public void setCaixaIng3(JCheckBox caixaIng3) {
-        this.caixaIng3 = caixaIng3;
-    }
-
-    public JCheckBox getCaixaIng4() {
-        return caixaIng4;
-    }
-
-    public void setCaixaIng4(JCheckBox caixaIng4) {
-        this.caixaIng4 = caixaIng4;
-    }
-
-    public JCheckBox getCaixaIng5() {
-        return caixaIng5;
-    }
-
-    public void setCaixaIng5(JCheckBox caixaIng5) {
-        this.caixaIng5 = caixaIng5;
     }
 
     public JComboBox getCaixaSelecaoForn() {
@@ -1458,44 +578,12 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         this.caixaSelecaoForn = caixaSelecaoForn;
     }
 
-    public JComboBox getCaixaSelecaoIng1() {
-        return caixaSelecaoIng1;
+    public JComboBox getCaixaSelecaoIng() {
+        return caixaSelecaoIng;
     }
 
-    public void setCaixaSelecaoIng1(JComboBox caixaSelecaoIng1) {
-        this.caixaSelecaoIng1 = caixaSelecaoIng1;
-    }
-
-    public JComboBox getCaixaSelecaoIng2() {
-        return caixaSelecaoIng2;
-    }
-
-    public void setCaixaSelecaoIng2(JComboBox caixaSelecaoIng2) {
-        this.caixaSelecaoIng2 = caixaSelecaoIng2;
-    }
-
-    public JComboBox getCaixaSelecaoIng3() {
-        return caixaSelecaoIng3;
-    }
-
-    public void setCaixaSelecaoIng3(JComboBox caixaSelecaoIng3) {
-        this.caixaSelecaoIng3 = caixaSelecaoIng3;
-    }
-
-    public JComboBox getCaixaSelecaoIng4() {
-        return caixaSelecaoIng4;
-    }
-
-    public void setCaixaSelecaoIng4(JComboBox caixaSelecaoIng4) {
-        this.caixaSelecaoIng4 = caixaSelecaoIng4;
-    }
-
-    public JComboBox getCaixaSelecaoIng5() {
-        return caixaSelecaoIng5;
-    }
-
-    public void setCaixaSelecaoIng5(JComboBox caixaSelecaoIng5) {
-        this.caixaSelecaoIng5 = caixaSelecaoIng5;
+    public void setCaixaSelecaoIng(JComboBox caixaSelecaoIng) {
+        this.caixaSelecaoIng = caixaSelecaoIng;
     }
 
     public JTextField getCampoBarras() {
@@ -1554,12 +642,43 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         this.radioPrep = radioPrep;
     }
 
+    public JTable getTabelaIngredientes() {
+        return tabelaIngredientes;
+    }
+
+    public void setTabelaIngredientes(JTable tabelaIngredientes) {
+        this.tabelaIngredientes = tabelaIngredientes;
+    }
+
     public JTable getTabelaProdutos() {
         return tabelaProdutos;
     }
 
     public void setTabelaProdutos(JTable tabelaProdutos) {
         this.tabelaProdutos = tabelaProdutos;
+    }
+
+   
+    
+    private CustomComboBoxInt[] getForns() {
+        List<Fornecedor>listaResForn = new DAO<>(Fornecedor.class).listaTodos();
+        
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResForn.size()];
+        
+        for (int i = 0; i < listaResForn.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResForn.get(i).getNomeForn(), listaResForn.get(i).getIdForn());
+        }
+        return oItems;
+    }
+
+    private CustomComboBoxInt[] getIngs() {
+        List<Ingrediente>listaResIng = new DAO<>(Ingrediente.class).listaTodos();
+        
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
+        for (int i = 0; i < listaResIng.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
+        }
+        return oItems;
     }
     
     public void limpaCampos(){
@@ -1571,18 +690,9 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         radioInd.setSelected(false);
         radioPrep.setSelected(false);
         caixaSelecaoForn.setSelectedIndex(-1);
-        caixaSelecaoIng1.setSelectedIndex(-1);
-        caixaSelecaoIng2.setSelectedIndex(-1);
-        caixaSelecaoIng3.setSelectedIndex(-1);
-        caixaSelecaoIng4.setSelectedIndex(-1);
-        caixaSelecaoIng5.setSelectedIndex(-1);
-        caixaIng1.setSelected(false);
-        caixaIng2.setSelected(false);
-        caixaIng3.setSelected(false);
-        caixaIng4.setSelected(false);
-        caixaIng5.setSelected(false);        
-    }   
-    
+        caixaSelecaoIng.setSelectedIndex(-1);        
+    }     
+ 
     /**
      * @param args the command line arguments
      */
@@ -1624,25 +734,18 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JButton botaoCadastrarProduto;
     private javax.swing.JButton botaoCancelarCadastro;
     private javax.swing.JButton botaoExcluirProduto;
+    private javax.swing.JButton botaoNovoIngrediente;
     private javax.swing.JButton botaoProcurarProduto;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JCheckBox caixaIng1;
-    private javax.swing.JCheckBox caixaIng2;
-    private javax.swing.JCheckBox caixaIng3;
-    private javax.swing.JCheckBox caixaIng4;
-    private javax.swing.JCheckBox caixaIng5;
     private javax.swing.JComboBox caixaSelecaoForn;
-    private javax.swing.JComboBox caixaSelecaoIng1;
-    private javax.swing.JComboBox caixaSelecaoIng2;
-    private javax.swing.JComboBox caixaSelecaoIng3;
-    private javax.swing.JComboBox caixaSelecaoIng4;
-    private javax.swing.JComboBox caixaSelecaoIng5;
+    private javax.swing.JComboBox caixaSelecaoIng;
     private javax.swing.JTextField campoBarras;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoQtd;
     private javax.swing.JTextField campoValor;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuArquivo;
@@ -1657,6 +760,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JRadioButton radioInd;
     private javax.swing.JRadioButton radioPrep;
+    private javax.swing.JTable tabelaIngredientes;
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JLabel textoAdicionarProduto;
     private javax.swing.JLabel textoBarras;
