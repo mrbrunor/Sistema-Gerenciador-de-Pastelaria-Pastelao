@@ -59,9 +59,7 @@ public class DespesaDao {
             Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     //CRUD
-    
     //CREATE    
     public boolean adicionaDespesa(Despesa novaDesp) {
         String sql = "INSERT INTO Despesa(dataDesp,descDesp,valorDesp,idCaixa,retirada) values(?,?,?,?,?)";
@@ -112,7 +110,7 @@ public class DespesaDao {
         return listaResDesp;
     }
 
-    //UPDATE
+//UPDATE
     public boolean atualizaDesp(Despesa novaDespesa) {
         String sql = "UPDATE Despesa SET dataDesp=?, descDesp=?, valorDesp=?, idCaixa=?, retirada=? WHERE idDesp=?";
         PreparedStatement stmt;
@@ -140,7 +138,7 @@ public class DespesaDao {
     }
 
     //DELETE
-    public boolean deletaDespesa(Despesa novaDespesa) {
+    public boolean removeDespesa(Despesa novaDespesa) {
         String sql = "DELETE FROM Despesa WHERE idDesp=?";
         PreparedStatement stmt;
         boolean resultado = false;

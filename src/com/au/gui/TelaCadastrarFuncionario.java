@@ -28,6 +28,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -98,10 +99,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         campoDtAdm = new com.toedter.calendar.JDateChooser();
         campoSalario = new javax.swing.JTextField();
         campoUser = new javax.swing.JTextField();
-        campoSenha = new javax.swing.JTextField();
-        campoSenha2 = new javax.swing.JTextField();
         caixaNivel = new javax.swing.JComboBox();
         caixaAtivo = new javax.swing.JComboBox();
+        campoSenha = new javax.swing.JPasswordField();
+        campoSenha2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -318,25 +319,36 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim", " " }));
 
+        campoSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelDireitoLayout = new javax.swing.GroupLayout(painelDireito);
         painelDireito.setLayout(painelDireitoLayout);
         painelDireitoLayout.setHorizontalGroup(
             painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDireitoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painelDireitoLayout.createSequentialGroup()
-                        .addComponent(textoUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoUser))
-                    .addGroup(painelDireitoLayout.createSequentialGroup()
-                        .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoDtAdm)
-                            .addComponent(textoSalario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoDtAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(campoSalario)))
+                .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelDireitoLayout.createSequentialGroup()
+                            .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoDtAdm)
+                                .addComponent(textoSalario))
+                            .addGap(7, 7, 7)
+                            .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(campoSalario)
+                                .addComponent(campoDtAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                        .addGroup(painelDireitoLayout.createSequentialGroup()
+                            .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoUser)
+                                .addComponent(textoSenha))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoSenha)
+                                .addComponent(campoUser))))
                     .addGroup(painelDireitoLayout.createSequentialGroup()
                         .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoSenha2)
@@ -346,12 +358,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                         .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(caixaAtivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(caixaNivel, 0, 121, Short.MAX_VALUE)
-                            .addComponent(campoSenha2)))
-                    .addGroup(painelDireitoLayout.createSequentialGroup()
-                        .addComponent(textoSenha)
-                        .addGap(61, 61, 61)
-                        .addComponent(campoSenha)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoSenha2))))
+                .addGap(5, 5, 5))
         );
         painelDireitoLayout.setVerticalGroup(
             painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,10 +381,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                     .addComponent(textoSenha)
                     .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoSenha2)
                     .addComponent(campoSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addGroup(painelDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoNivel)
                     .addComponent(caixaNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -400,7 +408,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelDireito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,6 +426,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoSenhaActionPerformed
 
     public JButton getBotaoAlterar() {
         return botaoAlterar;
@@ -547,19 +559,19 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         this.campoSalario = campoSalario;
     }
 
-    public JTextField getCampoSenha() {
+    public JPasswordField getCampoSenha() {
         return campoSenha;
     }
 
-    public void setCampoSenha(JTextField campoSenha) {
+    public void setCampoSenha(JPasswordField campoSenha) {
         this.campoSenha = campoSenha;
     }
 
-    public JTextField getCampoSenha2() {
+    public JPasswordField getCampoSenha2() {
         return campoSenha2;
     }
 
-    public void setCampoSenha2(JTextField campoSenha2) {
+    public void setCampoSenha2(JPasswordField campoSenha2) {
         this.campoSenha2 = campoSenha2;
     }
 
@@ -593,6 +605,24 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
 
     public void setTabelaPesquisa(JTable tabelaPesquisa) {
         this.tabelaPesquisa = tabelaPesquisa;
+    }
+    
+    public void limpaCampos(){
+        campoCelular.setText("");
+        campoCpf.setText("");
+        campoDtAdm.setDate(null);
+        campoDtNasc.setDate(null);
+        campoEmail.setText("");
+        campoNome.setText("");
+        campoRg.setText("");
+        campoSalario.setText("");
+        campoSenha.setText("");
+        campoSenha2.setText("");
+        campoTelefone.setText("");
+        campoUser.setText("");
+        caixaAtivo.setSelectedIndex(0);
+        caixaNivel.setSelectedIndex(0);
+        caixaSexo.setSelectedIndex(0);        
     }
     
     /**
@@ -647,8 +677,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoRg;
     private javax.swing.JTextField campoSalario;
-    private javax.swing.JTextField campoSenha;
-    private javax.swing.JTextField campoSenha2;
+    private javax.swing.JPasswordField campoSenha;
+    private javax.swing.JPasswordField campoSenha2;
     private javax.swing.JTextField campoTelefone;
     private javax.swing.JTextField campoUser;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,0 +1,183 @@
+package com.au.modelo;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * The persistent class for the produto database table.
+ * 
+ */
+@Entity
+@Table(name="produto")
+@NamedQuery(name="Produto.findAll", query="SELECT p FROM Produto p")
+public class Produto implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
+	private int idProd;
+
+	@Column(length=15)
+	private String codBarras;
+
+	@Column(nullable=false, length=100)
+	private String descProd;
+
+	@Column(nullable=false)
+	private byte eIndustrializado;
+
+	private int qtdProd;
+
+	@Column(nullable=false)
+	private double valorProd;
+
+	//bi-directional many-to-one association to Itempedido
+	@OneToMany(mappedBy="produto")
+	private List<Itempedido> itempedidos;
+
+	//bi-directional many-to-one association to Notaproduto
+	@OneToMany(mappedBy="produto")
+	private List<Notaproduto> notaprodutos;
+
+	//bi-directional many-to-one association to Fornecedor
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idForn", nullable=false)
+	private Fornecedor fornecedor;
+
+	//bi-directional many-to-many association to Ingrediente
+	@ManyToMany
+	@JoinTable(
+		name="receita"
+		, joinColumns={
+			@JoinColumn(name="idProd", nullable=false)
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idIng", nullable=false)
+			}
+		)
+	private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+
+	public Produto() {
+	}
+
+	public int getIdProd() {
+		return this.idProd;
+	}
+
+	public void setIdProd(int idProd) {
+		this.idProd = idProd;
+	}
+
+	public String getCodBarras() {
+		return this.codBarras;
+	}
+
+	public void setCodBarras(String codBarras) {
+		this.codBarras = codBarras;
+	}
+
+	public String getDescProd() {
+		return this.descProd;
+	}
+
+	public void setDescProd(String descProd) {
+		this.descProd = descProd;
+	}
+
+	public byte getEIndustrializado() {
+		return this.eIndustrializado;
+	}
+
+	public void setEIndustrializado(byte eIndustrializado) {
+		this.eIndustrializado = eIndustrializado;
+	}
+
+	public int getQtdProd() {
+		return this.qtdProd;
+	}
+
+	public void setQtdProd(int qtdProd) {
+		this.qtdProd = qtdProd;
+	}
+
+	public double getValorProd() {
+		return this.valorProd;
+	}
+
+	public void setValorProd(double valorProd) {
+		this.valorProd = valorProd;
+	}
+
+	public List<Itempedido> getItempedidos() {
+		return this.itempedidos;
+	}
+
+	public void setItempedidos(List<Itempedido> itempedidos) {
+		this.itempedidos = itempedidos;
+	}
+
+	public Itempedido addItempedido(Itempedido itempedido) {
+		getItempedidos().add(itempedido);
+		itempedido.setProduto(this);
+
+		return itempedido;
+	}
+
+	public Itempedido removeItempedido(Itempedido itempedido) {
+		getItempedidos().remove(itempedido);
+		itempedido.setProduto(null);
+
+		return itempedido;
+	}
+
+	public List<Notaproduto> getNotaprodutos() {
+		return this.notaprodutos;
+	}
+
+	public void setNotaprodutos(List<Notaproduto> notaprodutos) {
+		this.notaprodutos = notaprodutos;
+	}
+
+	public Notaproduto addNotaproduto(Notaproduto notaproduto) {
+		getNotaprodutos().add(notaproduto);
+		notaproduto.setProduto(this);
+
+		return notaproduto;
+	}
+
+	public Notaproduto removeNotaproduto(Notaproduto notaproduto) {
+		getNotaprodutos().remove(notaproduto);
+		notaproduto.setProduto(null);
+
+		return notaproduto;
+	}
+
+	public Fornecedor getFornecedor() {
+		return this.fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
+	public List<Ingrediente> getIngredientes() {
+		return this.ingredientes;
+	}
+
+	public void setIngredientes(List<Ingrediente> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
+	
+	public void adicionaIngrediente(Ingrediente ingrediente) {
+		if (!this.ingredientes.contains(ingrediente)) {
+			this.ingredientes.add(ingrediente);
+		}
+	}
+
+}

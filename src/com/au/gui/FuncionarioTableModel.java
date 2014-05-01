@@ -24,7 +24,7 @@
 
 package com.au.gui;
 
-import com.au.bean.Funcionario;
+import com.au.modelo.Funcionario;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

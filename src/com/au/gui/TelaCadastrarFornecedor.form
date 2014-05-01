@@ -207,6 +207,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoIdFornecedor">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoNomeFornecedor">
           <Properties>

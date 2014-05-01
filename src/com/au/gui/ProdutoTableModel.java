@@ -24,7 +24,7 @@
 
 package com.au.gui;
 
-import com.au.bean.Produto;
+import com.au.modelo.Produto;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -38,16 +38,16 @@ public class ProdutoTableModel extends AbstractTableModel{
     private List<Produto> produtos;
     private List<String> colunas;
     
-    public ProdutoTableModel (List<Produto> produtos){
+    public ProdutoTableModel(List<Produto> produtos){
         this.produtos = produtos;
-        colunas = Arrays.asList("ID","Descrição","Valor");
+        colunas = Arrays.asList("Id", "Descrição", "Valor");
     }
-    
+
     @Override
-    public String getColumnName(int column){
+    public String getColumnName(int column) {
         return colunas.get(column);
-    }
-    
+    }       
+
     @Override
     public int getRowCount() {
         return produtos.size();
@@ -67,7 +67,7 @@ public class ProdutoTableModel extends AbstractTableModel{
             case 2: return produto.getValorProd();
         }
         return null;
-    }    
+    }
 
     public List<Produto> getProdutos() {
         return produtos;
@@ -76,4 +76,5 @@ public class ProdutoTableModel extends AbstractTableModel{
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }    
+    
 }

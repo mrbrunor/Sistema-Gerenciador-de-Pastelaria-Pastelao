@@ -24,8 +24,9 @@
 
 package com.au.gui;
 
-import com.au.bean.Fornecedor;
-import com.au.dao.FornecedorDao;
+import com.au.modelo.Fornecedor;
+import com.au.util.DAO;
+import com.au.util.LimitaDigitos;
 import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -126,6 +127,8 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         painelDadosFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do Fornecedor"));
 
         textoIdFornecedor.setText("ID:");
+
+        campoIdFornecedor.setEnabled(false);
 
         textoNomeFornecedor.setText("Nome Completo:");
 
@@ -333,7 +336,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     private void botaoCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFornecedorActionPerformed
         if(validaCampos()){
             Fornecedor fornecedor = new Fornecedor();
-            FornecedorDao fornDao = new FornecedorDao();
             
             fornecedor.setNomeForn(campoNomeFornecedor.getText());
             fornecedor.setCnpjForn(campoCnpjFornecedor.getText());
@@ -341,7 +343,13 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             fornecedor.setFoneForn(campoTelefoneFornecedor.getText());
             fornecedor.setCelForn(campoCelularFornecedor.getText());
             
-            fornDao.adicionaFornecedor(fornecedor);
+            new DAO<>(Fornecedor.class).adiciona(fornecedor);
+            
+            campoNomeFornecedor.setText("");
+            campoCnpjFornecedor.setText("");
+            campoEmailFornecedor.setText("");
+            campoTelefoneFornecedor.setText("");
+            campoCelularFornecedor.setText("");
         }
         else {
             if(validaForm[0] == 0){

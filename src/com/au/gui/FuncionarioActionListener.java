@@ -23,8 +23,9 @@
  */
 package com.au.gui;
 
-import com.au.bean.Funcionario;
-import com.au.dao.FuncionarioDao;
+import com.au.modelo.Funcionario;
+import com.au.util.DAO;
+import com.au.util.HexSha;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -38,10 +39,13 @@ import javax.swing.event.ListSelectionListener;
  */
 public class FuncionarioActionListener implements ActionListener, ListSelectionListener {
 
-    private TelaCadastrarFuncionario frm;
-    private FuncionarioDao funcDao = new FuncionarioDao();
+    private final TelaCadastrarFuncionario frm;
     private FuncionarioTableModel tableModel;
-
+    
+    public void limpaCampos(){
+        frm.limpaCampos();
+    }
+    
     public FuncionarioActionListener(TelaCadastrarFuncionario frm) {
         this.frm = frm;
         adicionaListener();
@@ -49,7 +53,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     public void inicializaTableModel() {
-        tableModel = new FuncionarioTableModel(funcDao.getLista());
+        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).listaTodos());
         frm.getTabelaPesquisa().setModel(tableModel);
         frm.getTabelaPesquisa().getSelectionModel().addListSelectionListener(this);
 
@@ -85,10 +89,15 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     private void salvar() {
-        if (funcDao.adicionaFuncionario(formToFuncionario())) {
-            JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
-        }
+        new DAO<>(Funcionario.class).adiciona(formToFuncionario());
+        
+        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+        
         desabilitaBotoesParaSalvar();
+        
+        limpaCampos();
+        
+        inicializaTableModel();
     }
 
     private Funcionario formToFuncionario() {
@@ -114,16 +123,19 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         func.setDtAdmFunc(data);
         func.setSalFunc(Double.valueOf(frm.getCampoSalario().getText()));
         func.setUserFunc(frm.getCampoUser().getText());
-        func.setPassFunc(frm.getCampoSenha().getText());
+        
+        HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getText()));
+        func.setPassFunc(hexSha.ConvertSha());
+        
         if (frm.getCaixaNivel().getSelectedItem() == "Administrador") {
             func.setNivelFunc(1);
         } else {
             func.setNivelFunc(0);
         }
         if (frm.getCaixaAtivo().getSelectedItem() == "Não") {
-            func.setEstaAtivo(0);
+            func.setEstaAtivo((byte)0);
         } else {
-            func.setEstaAtivo(1);
+            func.setEstaAtivo((byte)1);
         }
 
         return func;
@@ -153,7 +165,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         } else {
             frm.getCaixaNivel().setSelectedIndex(2);
         }
-        if (funcionario.isEstaAtivo() == 0) {
+        if ((byte)0 == funcionario.getEstaAtivo()) {
             frm.getCaixaAtivo().setSelectedIndex(1);
         } else {
             frm.getCaixaAtivo().setSelectedIndex(2);

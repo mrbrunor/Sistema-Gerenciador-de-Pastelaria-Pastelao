@@ -62,7 +62,6 @@ public class CaixaDao {
     }
 
     //CRUD
-    
     //CREATE    
     public boolean adicionaCaixa(Caixa novoCaixa) {
         String sql = "INSERT INTO Caixa(idFunc,fundoCaixa,dataCaixa,aberturaCaixa,fechamentoCaixa,estaAberto,totalCaixa) values(?,?,?,?,?,?,?)";
@@ -147,7 +146,7 @@ public class CaixaDao {
     }
 
     //DELETE
-    public boolean deletaCaixa(Caixa novoCaixa) {
+    public boolean removeCaixa(Caixa novoCaixa) {
         String sql = "DELETE FROM Caixa WHERE idCaixa=?";
         PreparedStatement stmt;
         boolean resultado = false;
