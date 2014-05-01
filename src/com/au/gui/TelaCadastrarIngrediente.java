@@ -64,6 +64,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         textoAdicionarIngrediente = new javax.swing.JLabel();
         textoIconeNovoIngrediente = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
+        painelAdicionarModificarIngredientes = new javax.swing.JPanel();
         painelDadosIngrediente = new javax.swing.JPanel();
         textoId = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
@@ -71,7 +72,19 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         campoValor = new javax.swing.JTextField();
         campoNome = new javax.swing.JTextField();
         textoValor = new javax.swing.JLabel();
-        botaoCadastrar = new javax.swing.JButton();
+        painelProcurarIngredientes = new javax.swing.JPanel();
+        campoPesquisarIngrediente = new javax.swing.JTextField();
+        botaoProcurarIngrediente = new javax.swing.JButton();
+        textoProcurarIngrediente = new javax.swing.JLabel();
+        textoCliqueParaEditar = new javax.swing.JLabel();
+        painelScrollTabela = new javax.swing.JScrollPane();
+        tabelaIngredientes = new javax.swing.JTable();
+        painelBotoes = new javax.swing.JPanel();
+        botaoCancelarIngrediente = new javax.swing.JButton();
+        botaoCadastrarIngrediente = new javax.swing.JButton();
+        botaoLimparCampos = new javax.swing.JButton();
+        botaoAtualizarIngrediente = new javax.swing.JButton();
+        botaoExcluirIngrediente = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuEditar = new javax.swing.JMenu();
@@ -98,7 +111,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoAdicionarIngrediente)
                     .addComponent(textoPreencherDados))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,6 +125,8 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
                         .addComponent(textoPreencherDados)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        painelAdicionarModificarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Ingrediente"));
 
         painelDadosIngrediente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Ingrediente"));
 
@@ -154,34 +169,22 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
 
         textoValor.setText("Valor Ingrediente:");
 
-        botaoCadastrar.setText("Cadastrar");
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelDadosIngredienteLayout = new javax.swing.GroupLayout(painelDadosIngrediente);
         painelDadosIngrediente.setLayout(painelDadosIngredienteLayout);
         painelDadosIngredienteLayout.setHorizontalGroup(
             painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosIngredienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoCadastrar)
-                .addContainerGap())
             .addGroup(painelDadosIngredienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         painelDadosIngredienteLayout.setVerticalGroup(
             painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +199,135 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
                     .addComponent(textoNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosIngredienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoValor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoCadastrar)
+                    .addComponent(textoValor)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout painelAdicionarModificarIngredientesLayout = new javax.swing.GroupLayout(painelAdicionarModificarIngredientes);
+        painelAdicionarModificarIngredientes.setLayout(painelAdicionarModificarIngredientesLayout);
+        painelAdicionarModificarIngredientesLayout.setHorizontalGroup(
+            painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelAdicionarModificarIngredientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelDadosIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+        painelAdicionarModificarIngredientesLayout.setVerticalGroup(
+            painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelAdicionarModificarIngredientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelDadosIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        painelProcurarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Ingrediente Existente"));
+
+        botaoProcurarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
+        botaoProcurarIngrediente.setText("Procurar");
+
+        textoProcurarIngrediente.setText("Procurar Ingrediente:");
+
+        textoCliqueParaEditar.setText("Clique no ingrediente desejado na lista para editá-lo no painel ao lado:");
+
+        tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        painelScrollTabela.setViewportView(tabelaIngredientes);
+
+        javax.swing.GroupLayout painelProcurarIngredientesLayout = new javax.swing.GroupLayout(painelProcurarIngredientes);
+        painelProcurarIngredientes.setLayout(painelProcurarIngredientesLayout);
+        painelProcurarIngredientesLayout.setHorizontalGroup(
+            painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarIngredientesLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(painelScrollTabela))
+                    .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+                        .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+                                .addComponent(textoProcurarIngrediente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoPesquisarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botaoProcurarIngrediente))
+                            .addComponent(textoCliqueParaEditar))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        painelProcurarIngredientesLayout.setVerticalGroup(
+            painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPesquisarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoProcurarIngrediente)
+                    .addComponent(botaoProcurarIngrediente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoCliqueParaEditar)
+                .addGap(18, 18, 18)
+                .addComponent(painelScrollTabela)
+                .addContainerGap())
+        );
+
+        botaoCancelarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarIngrediente.setText("Cancelar Cadastro");
+
+        botaoCadastrarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoCadastrarIngrediente.setText("Cadastrar Ingrediente");
+        botaoCadastrarIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarIngredienteActionPerformed(evt);
+            }
+        });
+
+        botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
+        botaoLimparCampos.setText("Limpar Campos");
+
+        botaoAtualizarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
+        botaoAtualizarIngrediente.setText("Atualizar Ingrediente");
+
+        botaoExcluirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
+        botaoExcluirIngrediente.setText("Excluir Ingrediente");
+
+        javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
+        painelBotoes.setLayout(painelBotoesLayout);
+        painelBotoesLayout.setHorizontalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoLimparCampos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoExcluirIngrediente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoAtualizarIngrediente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCancelarIngrediente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCadastrarIngrediente)
+                .addContainerGap())
+        );
+        painelBotoesLayout.setVerticalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelarIngrediente)
+                    .addComponent(botaoCadastrarIngrediente)
+                    .addComponent(botaoLimparCampos)
+                    .addComponent(botaoAtualizarIngrediente)
+                    .addComponent(botaoExcluirIngrediente))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         menuArquivo.setText("Arquivo");
@@ -215,11 +342,17 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelDadosIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelAdicionarModificarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 107, Short.MAX_VALUE)
+                        .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,8 +360,12 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(painelDadosIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelAdicionarModificarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -280,7 +417,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoNomeFocusLost
 
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+    private void botaoCadastrarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarIngredienteActionPerformed
         if (validaCampos()) {
             Ingrediente ingrediente = new Ingrediente();
                        
@@ -303,8 +440,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
                 campoValor.setBorder(border);
             }            
         }
-
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
+    }//GEN-LAST:event_botaoCadastrarIngredienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,20 +477,33 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoAtualizarIngrediente;
+    private javax.swing.JButton botaoCadastrarIngrediente;
+    private javax.swing.JButton botaoCancelarIngrediente;
+    private javax.swing.JButton botaoExcluirIngrediente;
+    private javax.swing.JButton botaoLimparCampos;
+    private javax.swing.JButton botaoProcurarIngrediente;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoPesquisarIngrediente;
     private javax.swing.JTextField campoValor;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
+    private javax.swing.JPanel painelAdicionarModificarIngredientes;
+    private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosIngrediente;
+    private javax.swing.JPanel painelProcurarIngredientes;
+    private javax.swing.JScrollPane painelScrollTabela;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JTable tabelaIngredientes;
     private javax.swing.JLabel textoAdicionarIngrediente;
+    private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoIconeNovoIngrediente;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
+    private javax.swing.JLabel textoProcurarIngrediente;
     private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables
 }
