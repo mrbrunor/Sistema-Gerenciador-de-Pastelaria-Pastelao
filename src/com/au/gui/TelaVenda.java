@@ -145,7 +145,7 @@ public class TelaVenda extends javax.swing.JFrame {
         textoDigiteParaAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoDigiteParaAdicionar.setText("Digite o código do produto para inserir no pedido:");
 
-        botaoAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_list-32.png"))); // NOI18N
+        botaoAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_list-26.png"))); // NOI18N
         botaoAdicionarItem.setText("Adicionar Item");
         botaoAdicionarItem.setToolTipText("Clique aqui para adicionar o produto ao pedido");
 
@@ -183,7 +183,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPedidoLayout.createSequentialGroup()
                         .addComponent(textoDigiteParaAdicionar)
                         .addGap(18, 18, 18)
-                        .addComponent(campoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addComponent(campoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelPedidoLayout.createSequentialGroup()
@@ -230,7 +230,7 @@ public class TelaVenda extends javax.swing.JFrame {
         textoDigiteParaBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoDigiteParaBuscar.setText("Digite o nome do produto para buscar:");
 
-        botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-32.png"))); // NOI18N
+        botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoBuscar.setText("Buscar");
         botaoBuscar.setToolTipText("Clique aqui para buscar");
 
@@ -253,7 +253,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoBusca)
-                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(botaoBuscar)))
                 .addContainerGap())

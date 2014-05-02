@@ -201,7 +201,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="textoDigiteParaAdicionar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="campoAdicionarItem" pref="134" max="32767" attributes="0"/>
+                          <Component id="campoAdicionarItem" pref="119" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoAdicionarItem" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
@@ -261,7 +261,7 @@
         <Component class="javax.swing.JButton" name="botaoAdicionarItem">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/add_list-32.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/add_list-26.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Adicionar Item"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para adicionar o produto ao pedido"/>
@@ -340,7 +340,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="campoBusca" max="32767" attributes="0"/>
-                              <Component id="textoDigiteParaBuscar" pref="246" max="32767" attributes="0"/>
+                              <Component id="textoDigiteParaBuscar" pref="231" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoBuscar" min="-2" max="-2" attributes="0"/>
@@ -387,7 +387,7 @@
         <Component class="javax.swing.JButton" name="botaoBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/search-32.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para buscar"/>
