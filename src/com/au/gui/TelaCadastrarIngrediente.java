@@ -23,21 +23,18 @@
  */
 package com.au.gui;
 
-import com.au.modelo.Ingrediente;
-import com.au.util.DAO;
+import com.au.gui.listener.IngredienteActionListener;
 import com.au.util.LimitaDigitos;
-import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 /**
  *
  * @author tiago_000
  */
 public class TelaCadastrarIngrediente extends javax.swing.JFrame {
+    private IngredienteActionListener listener;
 
-    int validaForm[] = new int[]{1, 0, 0};
-    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
-    Border border = BorderFactory.createLineBorder(Color.red, 1);
     /**
      * Creates new form TelaCadastrarUsuario
      */
@@ -48,6 +45,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^0-9|^ |^~]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9|^.]"));
         campoNome.requestFocus();
+        listener = new IngredienteActionListener(this);
     }
 
     /**
@@ -132,40 +130,9 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
 
         textoId.setText("ID do Ingrediente:");
 
-        campoId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIdActionPerformed(evt);
-            }
-        });
-        campoId.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoIdFocusLost(evt);
-            }
-        });
+        campoId.setEnabled(false);
 
         textoNome.setText("Nome Ingrediente:");
-
-        campoValor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoValorActionPerformed(evt);
-            }
-        });
-        campoValor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoValorFocusLost(evt);
-            }
-        });
-
-        campoNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoNomeActionPerformed(evt);
-            }
-        });
-        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoNomeFocusLost(evt);
-            }
-        });
 
         textoValor.setText("Valor Ingrediente:");
 
@@ -285,11 +252,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
 
         botaoCadastrarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarIngrediente.setText("Cadastrar Ingrediente");
-        botaoCadastrarIngrediente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarIngredienteActionPerformed(evt);
-            }
-        });
 
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
@@ -372,75 +334,99 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdActionPerformed
-        campoNome.requestFocus();
-    }//GEN-LAST:event_campoIdActionPerformed
-
-    private boolean validaCampos() {
-        for (int i = 1; i < validaForm.length; i++) {
-            if (validaForm[i] == 0) {
-                return false;
-            }
-        }
-        return true;
+    public JButton getBotaoAtualizarIngrediente() {
+        return botaoAtualizarIngrediente;
     }
 
-    private void campoIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoIdFocusLost
-          
-    }//GEN-LAST:event_campoIdFocusLost
+    public void setBotaoAtualizarIngrediente(JButton botaoAtualizarIngrediente) {
+        this.botaoAtualizarIngrediente = botaoAtualizarIngrediente;
+    }
 
-    private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
-        
-    }//GEN-LAST:event_campoValorActionPerformed
+    public JButton getBotaoCadastrarIngrediente() {
+        return botaoCadastrarIngrediente;
+    }
 
-    private void campoValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusLost
-        if (!campoValor.getText().equals("")) {
-            validaForm[2] = 1;
-            campoValor.setBorder(border2);
-        } else {
-            validaForm[2] = 0;
-            campoValor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoValorFocusLost
+    public void setBotaoCadastrarIngrediente(JButton botaoCadastrarIngrediente) {
+        this.botaoCadastrarIngrediente = botaoCadastrarIngrediente;
+    }
 
-    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
-        campoValor.requestFocus();
-    }//GEN-LAST:event_campoNomeActionPerformed
+    public JButton getBotaoCancelarIngrediente() {
+        return botaoCancelarIngrediente;
+    }
 
-    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
-        if (!campoNome.getText().equals("")) {
-            validaForm[1] = 1;
-            campoNome.setBorder(border2);
-        } else {
-            validaForm[1] = 0;
-            campoNome.setBorder(border);
-        }
-    }//GEN-LAST:event_campoNomeFocusLost
+    public void setBotaoCancelarIngrediente(JButton botaoCancelarIngrediente) {
+        this.botaoCancelarIngrediente = botaoCancelarIngrediente;
+    }
 
-    private void botaoCadastrarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarIngredienteActionPerformed
-        if (validaCampos()) {
-            Ingrediente ingrediente = new Ingrediente();
-                       
-            ingrediente.setDescIng(campoNome.getText());
-            ingrediente.setValorIng(Double.valueOf(campoValor.getText()));
-            
-            new DAO<>(Ingrediente.class).adiciona(ingrediente);
-            
-            campoNome.setText("");
-            campoValor.setText("");
-            
-        } else {
-            if (validaForm[0] == 0) {
-                campoId.setBorder(border);
-            }
-            if (validaForm[1] == 0) {
-                campoNome.setBorder(border);
-            }
-            if (validaForm[2] == 0) {
-                campoValor.setBorder(border);
-            }            
-        }
-    }//GEN-LAST:event_botaoCadastrarIngredienteActionPerformed
+    public JButton getBotaoExcluirIngrediente() {
+        return botaoExcluirIngrediente;
+    }
+
+    public void setBotaoExcluirIngrediente(JButton botaoExcluirIngrediente) {
+        this.botaoExcluirIngrediente = botaoExcluirIngrediente;
+    }
+
+    public JButton getBotaoLimparCampos() {
+        return botaoLimparCampos;
+    }
+
+    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
+        this.botaoLimparCampos = botaoLimparCampos;
+    }
+
+    public JButton getBotaoProcurarIngrediente() {
+        return botaoProcurarIngrediente;
+    }
+
+    public void setBotaoProcurarIngrediente(JButton botaoProcurarIngrediente) {
+        this.botaoProcurarIngrediente = botaoProcurarIngrediente;
+    }
+
+    public JTextField getCampoId() {
+        return campoId;
+    }
+
+    public void setCampoId(JTextField campoId) {
+        this.campoId = campoId;
+    }
+
+    public JTextField getCampoNome() {
+        return campoNome;
+    }
+
+    public void setCampoNome(JTextField campoNome) {
+        this.campoNome = campoNome;
+    }
+
+    public JTextField getCampoPesquisarIngrediente() {
+        return campoPesquisarIngrediente;
+    }
+
+    public void setCampoPesquisarIngrediente(JTextField campoPesquisarIngrediente) {
+        this.campoPesquisarIngrediente = campoPesquisarIngrediente;
+    }
+
+    public JTextField getCampoValor() {
+        return campoValor;
+    }
+
+    public void setCampoValor(JTextField campoValor) {
+        this.campoValor = campoValor;
+    }
+
+    public JTable getTabelaIngredientes() {
+        return tabelaIngredientes;
+    }
+
+    public void setTabelaIngredientes(JTable tabelaIngredientes) {
+        this.tabelaIngredientes = tabelaIngredientes;
+    }
+    
+    public void limpaCampos(){
+        campoId.setText("");
+        campoValor.setText("");
+        campoNome.setText("");
+    }
 
     /**
      * @param args the command line arguments

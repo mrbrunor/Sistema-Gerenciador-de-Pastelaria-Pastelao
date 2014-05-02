@@ -43,6 +43,7 @@ import javax.swing.JTextField;
 public class TelaCadastrarProduto extends javax.swing.JFrame {
 
     private ProdutoActionListener listener;
+    private List<Fornecedor>listaResForn;
     
     /**
      * Creates new form TelaCadastrarUsuario
@@ -486,6 +487,14 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public List<Fornecedor> getListaResForn() {
+        return listaResForn;
+    }
+
+    public void setListaResForn(List<Fornecedor> listaResForn) {
+        this.listaResForn = listaResForn;
+    }
+
     public JButton getBotaoAdicionarFornecedor() {
         return botaoAdicionarFornecedor;
     }
@@ -641,7 +650,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
    
     
     private CustomComboBoxInt[] getForns() {
-        List<Fornecedor>listaResForn = new DAO<>(Fornecedor.class).listaTodos();
+        listaResForn = new DAO<>(Fornecedor.class).listaTodos();
         
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResForn.size()];
         

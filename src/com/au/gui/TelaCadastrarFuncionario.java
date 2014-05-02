@@ -340,9 +340,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                     .addComponent(campoRg)
                     .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(campoCelular, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(campoTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(campoCelular)
+                    .addComponent(campoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -406,19 +405,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         campoDtAdm.setDateFormatString("yyyy-MM-dd");
 
         caixaNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Administrador", "Funcionário" }));
-        caixaNivel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caixaNivelActionPerformed(evt);
-            }
-        });
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim", " " }));
-
-        campoSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoSenhaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelDadosEmpregaticiosLayout = new javax.swing.GroupLayout(painelDadosEmpregaticios);
         painelDadosEmpregaticios.setLayout(painelDadosEmpregaticiosLayout);
@@ -542,14 +530,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoSenhaActionPerformed
-
-    private void caixaNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaNivelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_caixaNivelActionPerformed
 
     public JButton getBotaoAlterar() {
         return botaoAlterar;
@@ -742,7 +722,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         campoUser.setText("");
         caixaAtivo.setSelectedIndex(0);
         caixaNivel.setSelectedIndex(0);
-        caixaSexo.setSelectedIndex(0);        
+        caixaSexo.setSelectedIndex(0);
+        textoId.setText("");
     }
     
     /**

@@ -431,10 +431,8 @@
                           <Component id="campoRg" alignment="0" max="32767" attributes="0"/>
                           <Component id="campoEmail" alignment="0" min="-2" pref="266" max="-2" attributes="0"/>
                           <Component id="campoDtNasc" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="campoCelular" alignment="0" max="32767" attributes="0"/>
-                              <Component id="campoTelefone" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="campoCelular" alignment="0" max="32767" attributes="0"/>
+                          <Component id="campoTelefone" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="textoId" min="-2" pref="52" max="-2" attributes="0"/>
@@ -725,9 +723,6 @@
                   </StringArray>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caixaNivelActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="caixaAtivo">
               <Properties>
@@ -742,9 +737,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="campoSenha">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoSenhaActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="campoSenha2">
             </Component>

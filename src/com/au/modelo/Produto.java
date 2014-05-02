@@ -46,7 +46,7 @@ public class Produto implements Serializable {
 	private List<Notaproduto> notaprodutos;
 
 	//bi-directional many-to-one association to Fornecedor
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idForn", nullable=false)
 	private Fornecedor fornecedor;
 

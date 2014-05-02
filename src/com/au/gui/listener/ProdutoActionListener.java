@@ -104,10 +104,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getBotaoCancelarCadastro().setEnabled(enabled);
     }
 
-    private void incluir() {
-        habilitaBotoesParaSalvar();
-    }
-
     private void salvar() {
         new DAO<>(Produto.class).adiciona(formToProduto());
         
@@ -173,6 +169,13 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCampoNome().setText(produto.getDescProd());
         frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
         //Fornecedor
+        List<Fornecedor> fornecedores = frm.getListaResForn();
+        for(int i=0; i<frm.getCaixaSelecaoForn().getItemCount(); i++){
+            if(produto.getFornecedor().getIdForn() == fornecedores.get(i).getIdForn()){
+                frm.getCaixaSelecaoForn().setSelectedIndex(i);
+            }
+        }        
+        //
         if(produto.getEIndustrializado() == (byte)1){
             frm.getRadioInd().setSelected(true);
             frm.getRadioPrep().setSelected(false);
@@ -180,29 +183,11 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             frm.getCampoBarras().setText(produto.getCodBarras());
         }
         else{
-            CustomComboBoxInt ob = null;
             frm.getRadioPrep().setSelected(true);
             frm.getRadioInd().setSelected(false);
-            if(!produto.getIngredientes().isEmpty()){
-                if(produto.getIngredientes().size()>=1){
-                    ob.setId(produto.getIngredientes().get(0).getIdIng());
-                    ob.setNome(produto.getIngredientes().get(0).getDescIng());
-                    frm.getCaixaSelecaoIng().setSelectedItem(ob);
-                }
-                if(produto.getIngredientes().size()>=2){
-                    
-                }
-                if(produto.getIngredientes().size()>=3){
-                    
-                }
-                if(produto.getIngredientes().size()>=4){
-                    
-                }
-                if(produto.getIngredientes().size()>=5){
-                    
-                }
-            }
-            
+            tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
+            frm.getTabelaIngredientes().setModel(tableModelIngredientes);
+            frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         }
     }
 
