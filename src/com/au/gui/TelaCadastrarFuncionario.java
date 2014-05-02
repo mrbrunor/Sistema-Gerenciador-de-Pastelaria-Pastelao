@@ -57,13 +57,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelProcurarFuncionarios = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaPesquisa = new javax.swing.JTable();
-        textoProcurarFuncionario = new javax.swing.JLabel();
-        campoPesquisarFuncionario = new javax.swing.JTextField();
-        botaoProcurarFuncionario = new javax.swing.JButton();
-        textoCliqueParaEditar = new javax.swing.JLabel();
         painelSuperior = new javax.swing.JPanel();
         textoIconeNovoFuncionario = new javax.swing.JLabel();
         textoAdicionarNovoFuncionario = new javax.swing.JLabel();
@@ -75,12 +68,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         botaoSalvar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
-        painelBotoes = new javax.swing.JPanel();
-        botaoCancelarCadastro = new javax.swing.JButton();
-        botaoCadastrarProduto = new javax.swing.JButton();
-        botaoLimparCampos = new javax.swing.JButton();
-        botaoAtualizarProduto = new javax.swing.JButton();
-        botaoExcluirProduto = new javax.swing.JButton();
         painelAdicionarModificarFuncionarios = new javax.swing.JPanel();
         painelDadosPessoais = new javax.swing.JPanel();
         textoNome = new javax.swing.JLabel();
@@ -115,65 +102,24 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         caixaAtivo = new javax.swing.JComboBox();
         campoSenha = new javax.swing.JPasswordField();
         campoSenha2 = new javax.swing.JPasswordField();
+        painelProcurarFuncionarios = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaFuncionarios = new javax.swing.JTable();
+        textoProcurarFuncionario = new javax.swing.JLabel();
+        campoPesquisarFuncionario = new javax.swing.JTextField();
+        botaoProcurarFuncionario = new javax.swing.JButton();
+        textoCliqueParaEditar = new javax.swing.JLabel();
+        painelBotoes = new javax.swing.JPanel();
+        botaoCancelarCadastro = new javax.swing.JButton();
+        botaoCadastrarFuncionario = new javax.swing.JButton();
+        botaoLimparCampos = new javax.swing.JButton();
+        botaoAtualizarFuncionario = new javax.swing.JButton();
+        botaoExcluirFuncionario = new javax.swing.JButton();
+        barraMenu = new javax.swing.JMenuBar();
+        menuArquivo = new javax.swing.JMenu();
+        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        painelProcurarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Funcionário Existente"));
-
-        tabelaPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tabelaPesquisa);
-
-        textoProcurarFuncionario.setText("Procurar Funcionário:");
-
-        botaoProcurarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
-        botaoProcurarFuncionario.setText("Procurar");
-
-        textoCliqueParaEditar.setText("Clique no funcionário desejado na lista para editá-lo no painel ao lado:");
-
-        javax.swing.GroupLayout painelProcurarFuncionariosLayout = new javax.swing.GroupLayout(painelProcurarFuncionarios);
-        painelProcurarFuncionarios.setLayout(painelProcurarFuncionariosLayout);
-        painelProcurarFuncionariosLayout.setHorizontalGroup(
-            painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
-                        .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
-                                .addComponent(textoProcurarFuncionario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoProcurarFuncionario))
-                            .addComponent(textoCliqueParaEditar))
-                        .addGap(0, 9, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        painelProcurarFuncionariosLayout.setVerticalGroup(
-            painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoProcurarFuncionario)
-                    .addComponent(botaoProcurarFuncionario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textoCliqueParaEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -245,51 +191,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                     .addComponent(textoIconeNovoFuncionario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        botaoCancelarCadastro.setText("Cancelar Cadastro");
-
-        botaoCadastrarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoCadastrarProduto.setText("Cadastrar Produto");
-
-        botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
-        botaoLimparCampos.setText("Limpar Campos");
-
-        botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
-        botaoAtualizarProduto.setText("Atualizar Produto");
-
-        botaoExcluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
-        botaoExcluirProduto.setText("Excluir Produto");
-
-        javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
-        painelBotoes.setLayout(painelBotoesLayout);
-        painelBotoesLayout.setHorizontalGroup(
-            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoLimparCampos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoExcluirProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoAtualizarProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoCancelarCadastro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoCadastrarProduto)
-                .addContainerGap())
-        );
-        painelBotoesLayout.setVerticalGroup(
-            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCancelarCadastro)
-                    .addComponent(botaoCadastrarProduto)
-                    .addComponent(botaoLimparCampos)
-                    .addComponent(botaoAtualizarProduto)
-                    .addComponent(botaoExcluirProduto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -497,6 +398,116 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                 .addComponent(painelDadosEmpregaticios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        painelProcurarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Funcionário Existente"));
+
+        tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaFuncionarios);
+
+        textoProcurarFuncionario.setText("Procurar Funcionário:");
+
+        botaoProcurarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
+        botaoProcurarFuncionario.setText("Procurar");
+
+        textoCliqueParaEditar.setText("Clique no funcionário desejado na lista para editá-lo no painel ao lado:");
+
+        javax.swing.GroupLayout painelProcurarFuncionariosLayout = new javax.swing.GroupLayout(painelProcurarFuncionarios);
+        painelProcurarFuncionarios.setLayout(painelProcurarFuncionariosLayout);
+        painelProcurarFuncionariosLayout.setHorizontalGroup(
+            painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
+                        .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
+                                .addComponent(textoProcurarFuncionario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botaoProcurarFuncionario))
+                            .addComponent(textoCliqueParaEditar))
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        painelProcurarFuncionariosLayout.setVerticalGroup(
+            painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoProcurarFuncionario)
+                    .addComponent(botaoProcurarFuncionario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoCliqueParaEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarCadastro.setText("Cancelar Cadastro");
+
+        botaoCadastrarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoCadastrarFuncionario.setText("Cadastrar Funcionário");
+
+        botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
+        botaoLimparCampos.setText("Limpar Campos");
+
+        botaoAtualizarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
+        botaoAtualizarFuncionario.setText("Atualizar Funcionário");
+
+        botaoExcluirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
+        botaoExcluirFuncionario.setText("Excluir Funcionário");
+
+        javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
+        painelBotoes.setLayout(painelBotoesLayout);
+        painelBotoesLayout.setHorizontalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoLimparCampos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoExcluirFuncionario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoAtualizarFuncionario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCancelarCadastro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCadastrarFuncionario)
+                .addContainerGap())
+        );
+        painelBotoesLayout.setVerticalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelarCadastro)
+                    .addComponent(botaoCadastrarFuncionario)
+                    .addComponent(botaoLimparCampos)
+                    .addComponent(botaoAtualizarFuncionario)
+                    .addComponent(botaoExcluirFuncionario))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        menuArquivo.setText("Arquivo");
+        barraMenu.add(menuArquivo);
+
+        menuEditar.setText("Editar");
+        barraMenu.add(menuEditar);
+
+        setJMenuBar(barraMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -700,11 +711,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     }
 
     public JTable getTabelaPesquisa() {
-        return tabelaPesquisa;
+        return tabelaFuncionarios;
     }
 
     public void setTabelaPesquisa(JTable tabelaPesquisa) {
-        this.tabelaPesquisa = tabelaPesquisa;
+        this.tabelaFuncionarios = tabelaPesquisa;
     }
     
     public void limpaCampos(){
@@ -762,13 +773,14 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAlterar;
-    private javax.swing.JButton botaoAtualizarProduto;
-    private javax.swing.JButton botaoCadastrarProduto;
+    private javax.swing.JButton botaoAtualizarFuncionario;
+    private javax.swing.JButton botaoCadastrarFuncionario;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoCancelarCadastro;
     private javax.swing.JButton botaoExcluir;
-    private javax.swing.JButton botaoExcluirProduto;
+    private javax.swing.JButton botaoExcluirFuncionario;
     private javax.swing.JButton botaoIncluir;
     private javax.swing.JButton botaoLimparCampos;
     private javax.swing.JButton botaoProcurarFuncionario;
@@ -792,13 +804,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu menuArquivo;
+    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelAdicionarModificarFuncionarios;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosEmpregaticios;
     private javax.swing.JPanel painelDadosPessoais;
     private javax.swing.JPanel painelProcurarFuncionarios;
     private javax.swing.JPanel painelSuperior;
-    private javax.swing.JTable tabelaPesquisa;
+    private javax.swing.JTable tabelaFuncionarios;
     private javax.swing.JLabel textoAdicionarNovoFuncionario;
     private javax.swing.JLabel textoAtivo;
     private javax.swing.JLabel textoCelular;

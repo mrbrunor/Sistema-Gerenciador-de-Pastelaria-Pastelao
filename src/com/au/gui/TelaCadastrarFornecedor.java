@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
 import com.au.modelo.Fornecedor;
@@ -45,7 +44,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     int[] validaForm = {0, 0, 0, 0, 0};
     Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
     Border border = BorderFactory.createLineBorder(Color.red, 1);
-    
+
     public TelaCadastrarFornecedor() {
         initComponents();
         campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ ]"));
@@ -70,7 +69,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         textoAdicionarFornecedor = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
         textoIconeNovoFornecedor = new javax.swing.JLabel();
-        painelDadosFornecedor = new javax.swing.JPanel();
+        painelAdicionarModificarFornecedor = new javax.swing.JPanel();
         textoIdFornecedor = new javax.swing.JLabel();
         campoIdFornecedor = new javax.swing.JTextField();
         textoNomeFornecedor = new javax.swing.JLabel();
@@ -83,8 +82,22 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         campoTelefoneFornecedor = new javax.swing.JTextField();
         textoCelularFornecedor = new javax.swing.JLabel();
         campoCelularFornecedor = new javax.swing.JTextField();
+        painelProcurarFornecedores = new javax.swing.JPanel();
+        textoProcurarFornecedor = new javax.swing.JLabel();
+        campoPesquisarFornecedor = new javax.swing.JTextField();
+        botaoProcurarFornecedor = new javax.swing.JButton();
+        textoCliqueParaEditar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaFornecedores = new javax.swing.JTable();
+        painelBotoes = new javax.swing.JPanel();
+        botaoCancelarCadastro = new javax.swing.JButton();
         botaoCadastrarFornecedor = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botaoLimparCampos = new javax.swing.JButton();
+        botaoAtualizarFornecedor = new javax.swing.JButton();
+        botaoExcluirFornecedor = new javax.swing.JButton();
+        barraMenu = new javax.swing.JMenuBar();
+        menuArquivo = new javax.swing.JMenu();
+        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Adiconar novo Fornecedor");
@@ -124,7 +137,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelDadosFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do Fornecedor"));
+        painelAdicionarModificarFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Fornecedor"));
 
         textoIdFornecedor.setText("ID:");
 
@@ -170,13 +183,13 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout painelDadosFornecedorLayout = new javax.swing.GroupLayout(painelDadosFornecedor);
-        painelDadosFornecedor.setLayout(painelDadosFornecedorLayout);
-        painelDadosFornecedorLayout.setHorizontalGroup(
-            painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosFornecedorLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelAdicionarModificarFornecedorLayout = new javax.swing.GroupLayout(painelAdicionarModificarFornecedor);
+        painelAdicionarModificarFornecedor.setLayout(painelAdicionarModificarFornecedorLayout);
+        painelAdicionarModificarFornecedorLayout.setHorizontalGroup(
+            painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelAdicionarModificarFornecedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoNomeFornecedor)
                     .addComponent(textoIdFornecedor)
                     .addComponent(textoCnpjFornecedor)
@@ -184,45 +197,104 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                     .addComponent(textoTelefoneFornecedor)
                     .addComponent(textoCelularFornecedor))
                 .addGap(18, 18, 18)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(campoCnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(campoIdFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(campoNomeFornecedor)
                         .addComponent(campoEmailFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                         .addComponent(campoTelefoneFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(campoCelularFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
-        painelDadosFornecedorLayout.setVerticalGroup(
-            painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosFornecedorLayout.createSequentialGroup()
+        painelAdicionarModificarFornecedorLayout.setVerticalGroup(
+            painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelAdicionarModificarFornecedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoIdFornecedor)
                     .addComponent(campoIdFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNomeFornecedor)
                     .addComponent(campoNomeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCnpjFornecedor)
                     .addComponent(campoCnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoEmailFornecedor)
                     .addComponent(campoEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoTelefoneFornecedor)
                     .addComponent(campoTelefoneFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCelularFornecedor)
                     .addComponent(campoCelularFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
+
+        painelProcurarFornecedores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Fornecedor Existente"));
+
+        textoProcurarFornecedor.setText("Procurar Fornecedor:");
+
+        botaoProcurarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
+        botaoProcurarFornecedor.setText("Procurar");
+
+        textoCliqueParaEditar.setText("Clique no fornecedor desejado na lista para editá-lo no painel ao lado:");
+
+        tabelaFornecedores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaFornecedores);
+
+        javax.swing.GroupLayout painelProcurarFornecedoresLayout = new javax.swing.GroupLayout(painelProcurarFornecedores);
+        painelProcurarFornecedores.setLayout(painelProcurarFornecedoresLayout);
+        painelProcurarFornecedoresLayout.setHorizontalGroup(
+            painelProcurarFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarFornecedoresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelProcurarFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(painelProcurarFornecedoresLayout.createSequentialGroup()
+                        .addGroup(painelProcurarFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelProcurarFornecedoresLayout.createSequentialGroup()
+                                .addComponent(textoProcurarFornecedor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoPesquisarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botaoProcurarFornecedor))
+                            .addComponent(textoCliqueParaEditar))
+                        .addGap(0, 25, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        painelProcurarFornecedoresLayout.setVerticalGroup(
+            painelProcurarFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarFornecedoresLayout.createSequentialGroup()
+                .addGroup(painelProcurarFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPesquisarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoProcurarFornecedor)
+                    .addComponent(botaoProcurarFornecedor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoCliqueParaEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarCadastro.setText("Cancelar Cadastro");
 
         botaoCadastrarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFornecedor.setText("Cadastrar Fornecedor");
@@ -232,8 +304,52 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        jButton1.setText("Cancelar Cadastro");
+        botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
+        botaoLimparCampos.setText("Limpar Campos");
+
+        botaoAtualizarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
+        botaoAtualizarFornecedor.setText("Atualizar Fornecedor");
+
+        botaoExcluirFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
+        botaoExcluirFornecedor.setText("Excluir Fornecedor");
+
+        javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
+        painelBotoes.setLayout(painelBotoesLayout);
+        painelBotoesLayout.setHorizontalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoLimparCampos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoExcluirFornecedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoAtualizarFornecedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCancelarCadastro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCadastrarFornecedor)
+                .addContainerGap())
+        );
+        painelBotoesLayout.setVerticalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelarCadastro)
+                    .addComponent(botaoCadastrarFornecedor)
+                    .addComponent(botaoLimparCampos)
+                    .addComponent(botaoAtualizarFornecedor)
+                    .addComponent(botaoExcluirFornecedor))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        menuArquivo.setText("Arquivo");
+        barraMenu.add(menuArquivo);
+
+        menuEditar.setText("Editar");
+        barraMenu.add(menuEditar);
+
+        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,12 +358,12 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelDadosFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelAdicionarModificarFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCadastrarFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(painelProcurarFornecedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -255,13 +371,12 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(painelDadosFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCadastrarFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(painelProcurarFornecedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelAdicionarModificarFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -275,24 +390,22 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
     private void campoNomeFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFornecedorFocusLost
-        if(!campoNomeFornecedor.getText().equals("")){
+        if (!campoNomeFornecedor.getText().equals("")) {
             validaForm[0] = 1;
             campoNomeFornecedor.setBorder(border2);
-        }
-        else{
+        } else {
             validaForm[0] = 0;
             campoNomeFornecedor.setBorder(border);
         }
     }//GEN-LAST:event_campoNomeFornecedorFocusLost
 
     private void campoCnpjFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCnpjFornecedorFocusLost
-        if(!campoCnpjFornecedor.getText().equals("")){
+        if (!campoCnpjFornecedor.getText().equals("")) {
             validaForm[1] = 1;
             campoCnpjFornecedor.setBorder(border2);
-        }
-        else{
+        } else {
             validaForm[1] = 0;
             campoCnpjFornecedor.setBorder(border);
         }
@@ -312,61 +425,58 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_campoEmailFornecedorFocusLost
 
     private void campoTelefoneFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFornecedorFocusLost
-        if(!campoTelefoneFornecedor.getText().equals("")){
+        if (!campoTelefoneFornecedor.getText().equals("")) {
             validaForm[3] = 1;
             campoTelefoneFornecedor.setBorder(border2);
-        }
-        else{
+        } else {
             validaForm[3] = 0;
             campoTelefoneFornecedor.setBorder(border);
         }
     }//GEN-LAST:event_campoTelefoneFornecedorFocusLost
 
     private void campoCelularFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFornecedorFocusLost
-        if(!campoCelularFornecedor.getText().equals("")){
+        if (!campoCelularFornecedor.getText().equals("")) {
             validaForm[4] = 1;
             campoCelularFornecedor.setBorder(border2);
-        }
-        else{
+        } else {
             validaForm[4] = 0;
             campoCelularFornecedor.setBorder(border);
         }
     }//GEN-LAST:event_campoCelularFornecedorFocusLost
 
     private void botaoCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFornecedorActionPerformed
-        if(validaCampos()){
+        if (validaCampos()) {
             Fornecedor fornecedor = new Fornecedor();
-            
+
             fornecedor.setNomeForn(campoNomeFornecedor.getText());
             fornecedor.setCnpjForn(campoCnpjFornecedor.getText());
             fornecedor.setMailForn(campoEmailFornecedor.getText());
             fornecedor.setFoneForn(campoTelefoneFornecedor.getText());
             fornecedor.setCelForn(campoCelularFornecedor.getText());
-            
+
             new DAO<>(Fornecedor.class).adiciona(fornecedor);
-            
+
             campoNomeFornecedor.setText("");
             campoCnpjFornecedor.setText("");
             campoEmailFornecedor.setText("");
             campoTelefoneFornecedor.setText("");
             campoCelularFornecedor.setText("");
-        }
-        else {
-            if(validaForm[0] == 0){
+        } else {
+            if (validaForm[0] == 0) {
                 campoNomeFornecedor.setBorder(border);
-            }            
-            if(validaForm[1] == 0){
-            campoCnpjFornecedor.setBorder(border);
             }
-            if(validaForm[2] == 0){
-            campoEmailFornecedor.setBorder(border);
+            if (validaForm[1] == 0) {
+                campoCnpjFornecedor.setBorder(border);
             }
-            if(validaForm[3] == 0){
-            campoTelefoneFornecedor.setBorder(border);
+            if (validaForm[2] == 0) {
+                campoEmailFornecedor.setBorder(border);
             }
-            if(validaForm[4] == 0){
-            campoCelularFornecedor.setBorder(border);
-            }            
+            if (validaForm[3] == 0) {
+                campoTelefoneFornecedor.setBorder(border);
+            }
+            if (validaForm[4] == 0) {
+                campoCelularFornecedor.setBorder(border);
+            }
         }
     }//GEN-LAST:event_botaoCadastrarFornecedorActionPerformed
 
@@ -406,24 +516,38 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton botaoAtualizarFornecedor;
     private javax.swing.JButton botaoCadastrarFornecedor;
+    private javax.swing.JButton botaoCancelarCadastro;
+    private javax.swing.JButton botaoExcluirFornecedor;
+    private javax.swing.JButton botaoLimparCampos;
+    private javax.swing.JButton botaoProcurarFornecedor;
     private javax.swing.JTextField campoCelularFornecedor;
     private javax.swing.JTextField campoCnpjFornecedor;
     private javax.swing.JTextField campoEmailFornecedor;
     private javax.swing.JTextField campoIdFornecedor;
     private javax.swing.JTextField campoNomeFornecedor;
+    private javax.swing.JTextField campoPesquisarFornecedor;
     private javax.swing.JTextField campoTelefoneFornecedor;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel painelDadosFornecedor;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menuArquivo;
+    private javax.swing.JMenu menuEditar;
+    private javax.swing.JPanel painelAdicionarModificarFornecedor;
+    private javax.swing.JPanel painelBotoes;
+    private javax.swing.JPanel painelProcurarFornecedores;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JTable tabelaFornecedores;
     private javax.swing.JLabel textoAdicionarFornecedor;
     private javax.swing.JLabel textoCelularFornecedor;
+    private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoCnpjFornecedor;
     private javax.swing.JLabel textoEmailFornecedor;
     private javax.swing.JLabel textoIconeNovoFornecedor;
     private javax.swing.JLabel textoIdFornecedor;
     private javax.swing.JLabel textoNomeFornecedor;
     private javax.swing.JLabel textoPreencherDados;
+    private javax.swing.JLabel textoProcurarFornecedor;
     private javax.swing.JLabel textoTelefoneFornecedor;
     // End of variables declaration//GEN-END:variables
 }
