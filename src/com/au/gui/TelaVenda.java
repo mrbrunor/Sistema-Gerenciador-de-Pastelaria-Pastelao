@@ -24,6 +24,7 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.VendaActionListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,12 +34,14 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaVenda extends javax.swing.JFrame {
+    private VendaActionListener listener;
 
     /**
      * Creates new form TelaVenda
      */
     public TelaVenda() {
         initComponents();
+        listener = new VendaActionListener(this);
     }
     
     /**
