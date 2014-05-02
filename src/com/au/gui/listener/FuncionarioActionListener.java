@@ -105,8 +105,8 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     private Funcionario formToFuncionario() {
         Date data;
         Funcionario func = new Funcionario();
-        if (!"".equals(frm.getTextoId().getText())) {
-            func.setIdFunc(Integer.parseInt(frm.getTextoId().getText()));
+        if (!"".equals(frm.getCampoId().getText())) {
+            func.setIdFunc(Integer.parseInt(frm.getCampoId().getText()));
         }
         func.setNomeFunc(frm.getCampoNome().getText());
         data = new java.sql.Date(frm.getCampoDtNasc().getDate().getTime());
@@ -144,7 +144,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     private void funcionarioToForm(Funcionario funcionario) {
-        frm.getTextoId().setText(String.valueOf(funcionario.getIdFunc()));
+        frm.getCampoId().setText(String.valueOf(funcionario.getIdFunc()));
         frm.getCampoNome().setText(funcionario.getNomeFunc());
         frm.getCampoDtNasc().setDate(funcionario.getNascFunc());
         if (funcionario.getSexoFunc().equals("F")) {

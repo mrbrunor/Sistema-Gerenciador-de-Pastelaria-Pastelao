@@ -24,6 +24,10 @@
 
 package com.au.gui;
 
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Tiago
@@ -36,7 +40,7 @@ public class TelaVenda extends javax.swing.JFrame {
     public TelaVenda() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,62 +50,240 @@ public class TelaVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPainelSuperior = new javax.swing.JPanel();
-        jTextoIconeUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jBarraMenuSuperior = new javax.swing.JMenuBar();
-        jMenuArquivo = new javax.swing.JMenu();
-        jOpcaoSair = new javax.swing.JMenuItem();
-        jMenuEditar = new javax.swing.JMenu();
+        painelSuperior = new javax.swing.JPanel();
+        textoFotoFuncionario = new javax.swing.JLabel();
+        textoNomeFuncionario = new javax.swing.JLabel();
+        textoData = new javax.swing.JLabel();
+        textoHora = new javax.swing.JLabel();
+        botaoAlternarUsuario = new javax.swing.JButton();
+        botaoFecharCaixa = new javax.swing.JButton();
+        painelPedido = new javax.swing.JPanel();
+        textoDigiteParaAdicionar = new javax.swing.JLabel();
+        botaoAdicionarItem = new javax.swing.JButton();
+        campoAdicionarItem = new javax.swing.JTextField();
+        botaoFecharPedido = new javax.swing.JButton();
+        botaoCancelarPedido = new javax.swing.JButton();
+        painelScrollTabelaPedido = new javax.swing.JScrollPane();
+        tabelaPedido = new javax.swing.JTable();
+        botaoExcluirItem = new javax.swing.JButton();
+        painelBusca = new javax.swing.JPanel();
+        textoDigiteParaBuscar = new javax.swing.JLabel();
+        campoBusca = new javax.swing.JTextField();
+        botaoBuscar = new javax.swing.JButton();
+        painelScrollTabelaBusca = new javax.swing.JScrollPane();
+        tabelaBusca = new javax.swing.JTable();
+        botaoAdicionarAoPedido = new javax.swing.JButton();
+        barraMenu = new javax.swing.JMenuBar();
+        menuArquivo = new javax.swing.JMenu();
+        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Vendas - Sistema Pastelão");
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setTitle("Sistema Pastelão - Vendas");
 
-        jTextoIconeUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/user-64.png"))); // NOI18N
+        painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Nome do Operador de Caixa provavelmente Longo PAAA CARAAA!@#%");
+        textoFotoFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/user-64.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPainelSuperiorLayout = new javax.swing.GroupLayout(jPainelSuperior);
-        jPainelSuperior.setLayout(jPainelSuperiorLayout);
-        jPainelSuperiorLayout.setHorizontalGroup(
-            jPainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelSuperiorLayout.createSequentialGroup()
+        textoNomeFuncionario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        textoNomeFuncionario.setText("Fulano de Tal");
+
+        textoData.setText("DATA");
+        textoData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        textoHora.setText("HORA");
+
+        botaoAlternarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/change_user-32.png"))); // NOI18N
+        botaoAlternarUsuario.setText("Trocar Usuário");
+
+        botaoFecharCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
+        botaoFecharCaixa.setText("Fechar Caixa");
+        botaoFecharCaixa.setToolTipText("Clique aqui para fechar o caixa");
+
+        javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
+        painelSuperior.setLayout(painelSuperiorLayout);
+        painelSuperiorLayout.setHorizontalGroup(
+            painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextoIconeUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelSuperiorLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(textoNomeFuncionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoData))
+                    .addGroup(painelSuperiorLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoAlternarUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoFecharCaixa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoHora)))
+                .addContainerGap())
         );
-        jPainelSuperiorLayout.setVerticalGroup(
-            jPainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPainelSuperiorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextoIconeUsuario))
+        painelSuperiorLayout.setVerticalGroup(
+            painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSuperiorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelSuperiorLayout.createSequentialGroup()
+                        .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoData)
+                            .addComponent(textoNomeFuncionario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoHora)
+                            .addComponent(botaoAlternarUsuario)
+                            .addComponent(botaoFecharCaixa))
+                        .addGap(0, 7, Short.MAX_VALUE))
+                    .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jMenuArquivo.setText("Arquivo");
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pedido"));
 
-        jOpcaoSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jOpcaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-26.png"))); // NOI18N
-        jOpcaoSair.setText("Fechar Aplicativo");
-        jOpcaoSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jOpcaoSairActionPerformed(evt);
+        textoDigiteParaAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoDigiteParaAdicionar.setText("Digite o código do produto para inserir no pedido:");
+
+        botaoAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_list-32.png"))); // NOI18N
+        botaoAdicionarItem.setText("Adicionar Item");
+        botaoAdicionarItem.setToolTipText("Clique aqui para adicionar o produto ao pedido");
+
+        botaoFecharPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoFecharPedido.setText("Fechar Pedido");
+        botaoFecharPedido.setToolTipText("Clique aqui para finalizar o pedido e selecionar a forma de pagamento");
+
+        botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarPedido.setText("Cancelar Pedido");
+        botaoCancelarPedido.setToolTipText("Clique aqui para cancelar o pedido atual");
+
+        tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
             }
-        });
-        jMenuArquivo.add(jOpcaoSair);
+        ));
+        painelScrollTabelaPedido.setViewportView(tabelaPedido);
 
-        jBarraMenuSuperior.add(jMenuArquivo);
+        botaoExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
+        botaoExcluirItem.setToolTipText("Clique aqui para excluir este item do pedido");
 
-        jMenuEditar.setText("Editar");
-        jBarraMenuSuperior.add(jMenuEditar);
+        javax.swing.GroupLayout painelPedidoLayout = new javax.swing.GroupLayout(painelPedido);
+        painelPedido.setLayout(painelPedidoLayout);
+        painelPedidoLayout.setHorizontalGroup(
+            painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPedidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPedidoLayout.createSequentialGroup()
+                        .addComponent(textoDigiteParaAdicionar)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelPedidoLayout.createSequentialGroup()
+                        .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoExcluirItem))
+                    .addGroup(painelPedidoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoCancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoFecharPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
 
-        setJMenuBar(jBarraMenuSuperior);
+        painelPedidoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botaoCancelarPedido, botaoFecharPedido});
+
+        painelPedidoLayout.setVerticalGroup(
+            painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPedidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoDigiteParaAdicionar)
+                    .addComponent(campoAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelPedidoLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(botaoExcluirItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelPedidoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoFecharPedido)
+                    .addComponent(botaoCancelarPedido))
+                .addContainerGap())
+        );
+
+        painelPedidoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoAdicionarItem, botaoCancelarPedido, botaoFecharPedido});
+
+        painelBusca.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Busca"));
+
+        textoDigiteParaBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoDigiteParaBuscar.setText("Digite o nome do produto para buscar:");
+
+        botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-32.png"))); // NOI18N
+        botaoBuscar.setText("Buscar");
+        botaoBuscar.setToolTipText("Clique aqui para buscar");
+
+        painelScrollTabelaBusca.setViewportView(tabelaBusca);
+
+        botaoAdicionarAoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
+        botaoAdicionarAoPedido.setToolTipText("Clique aqui para adicionar este item ao pedido");
+
+        javax.swing.GroupLayout painelBuscaLayout = new javax.swing.GroupLayout(painelBusca);
+        painelBusca.setLayout(painelBuscaLayout);
+        painelBuscaLayout.setHorizontalGroup(
+            painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBuscaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelBuscaLayout.createSequentialGroup()
+                        .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoAdicionarAoPedido))
+                    .addGroup(painelBuscaLayout.createSequentialGroup()
+                        .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoBusca)
+                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoBuscar)))
+                .addContainerGap())
+        );
+        painelBuscaLayout.setVerticalGroup(
+            painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBuscaLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelBuscaLayout.createSequentialGroup()
+                        .addComponent(textoDigiteParaBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addGroup(painelBuscaLayout.createSequentialGroup()
+                        .addComponent(botaoAdicionarAoPedido)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        menuArquivo.setText("Arquivo");
+        barraMenu.add(menuArquivo);
+
+        menuEditar.setText("Editar");
+        barraMenu.add(menuEditar);
+
+        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,36 +291,136 @@ public class TelaVenda extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPainelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(painelBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(650, Short.MAX_VALUE))
+                .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jOpcaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOpcaoSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jOpcaoSairActionPerformed
+    public JButton getBotaoAdicionarAoPedido() {
+        return botaoAdicionarAoPedido;
+    }
 
+    public void setBotaoAdicionarAoPedido(JButton botaoAdicionarAoPedido) {
+        this.botaoAdicionarAoPedido = botaoAdicionarAoPedido;
+    }
+
+    public JButton getBotaoAdicionarItem() {
+        return botaoAdicionarItem;
+    }
+
+    public void setBotaoAdicionarItem(JButton botaoAdicionarItem) {
+        this.botaoAdicionarItem = botaoAdicionarItem;
+    }
+
+    public JButton getBotaoAlternarUsuario() {
+        return botaoAlternarUsuario;
+    }
+
+    public void setBotaoAlternarUsuario(JButton botaoAlternarUsuario) {
+        this.botaoAlternarUsuario = botaoAlternarUsuario;
+    }
+
+    public JButton getBotaoBuscar() {
+        return botaoBuscar;
+    }
+
+    public void setBotaoBuscar(JButton botaoBuscar) {
+        this.botaoBuscar = botaoBuscar;
+    }
+
+    public JButton getBotaoCancelarPedido() {
+        return botaoCancelarPedido;
+    }
+
+    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
+        this.botaoCancelarPedido = botaoCancelarPedido;
+    }
+
+    public JButton getBotaoExcluirItem() {
+        return botaoExcluirItem;
+    }
+
+    public void setBotaoExcluirItem(JButton botaoExcluirItem) {
+        this.botaoExcluirItem = botaoExcluirItem;
+    }
+
+    public JButton getBotaoFecharCaixa() {
+        return botaoFecharCaixa;
+    }
+
+    public void setBotaoFecharCaixa(JButton botaoFecharCaixa) {
+        this.botaoFecharCaixa = botaoFecharCaixa;
+    }
+
+    public JButton getBotaoFecharPedido() {
+        return botaoFecharPedido;
+    }
+
+    public void setBotaoFecharPedido(JButton botaoFecharPedido) {
+        this.botaoFecharPedido = botaoFecharPedido;
+    }
+
+    public JTextField getCampoAdicionarItem() {
+        return campoAdicionarItem;
+    }
+
+    public void setCampoAdicionarItem(JTextField campoAdicionarItem) {
+        this.campoAdicionarItem = campoAdicionarItem;
+    }
+
+    public JTextField getCampoBusca() {
+        return campoBusca;
+    }
+
+    public void setCampoBusca(JTextField campoBusca) {
+        this.campoBusca = campoBusca;
+    }
+
+    public JTable getTabelaBusca() {
+        return tabelaBusca;
+    }
+
+    public void setTabelaBusca(JTable tabelaBusca) {
+        this.tabelaBusca = tabelaBusca;
+    }
+
+    public JTable getTabelaPedido() {
+        return tabelaPedido;
+    }
+
+    public void setTabelaPedido(JTable tabelaPedido) {
+        this.tabelaPedido = tabelaPedido;
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -163,12 +445,31 @@ public class TelaVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jBarraMenuSuperior;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenuArquivo;
-    private javax.swing.JMenu jMenuEditar;
-    private javax.swing.JMenuItem jOpcaoSair;
-    private javax.swing.JPanel jPainelSuperior;
-    private javax.swing.JLabel jTextoIconeUsuario;
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton botaoAdicionarAoPedido;
+    private javax.swing.JButton botaoAdicionarItem;
+    private javax.swing.JButton botaoAlternarUsuario;
+    private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botaoCancelarPedido;
+    private javax.swing.JButton botaoExcluirItem;
+    private javax.swing.JButton botaoFecharCaixa;
+    private javax.swing.JButton botaoFecharPedido;
+    private javax.swing.JTextField campoAdicionarItem;
+    private javax.swing.JTextField campoBusca;
+    private javax.swing.JMenu menuArquivo;
+    private javax.swing.JMenu menuEditar;
+    private javax.swing.JPanel painelBusca;
+    private javax.swing.JPanel painelPedido;
+    private javax.swing.JScrollPane painelScrollTabelaBusca;
+    private javax.swing.JScrollPane painelScrollTabelaPedido;
+    private javax.swing.JPanel painelSuperior;
+    private javax.swing.JTable tabelaBusca;
+    private javax.swing.JTable tabelaPedido;
+    private javax.swing.JLabel textoData;
+    private javax.swing.JLabel textoDigiteParaAdicionar;
+    private javax.swing.JLabel textoDigiteParaBuscar;
+    private javax.swing.JLabel textoFotoFuncionario;
+    private javax.swing.JLabel textoHora;
+    private javax.swing.JLabel textoNomeFuncionario;
     // End of variables declaration//GEN-END:variables
 }
