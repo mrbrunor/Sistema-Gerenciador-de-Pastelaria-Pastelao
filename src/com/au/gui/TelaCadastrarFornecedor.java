@@ -23,28 +23,23 @@
  */
 package com.au.gui;
 
-import com.au.modelo.Fornecedor;
-import com.au.util.DAO;
+import com.au.gui.listener.FornecedorActionListener;
 import com.au.util.LimitaDigitos;
-import java.awt.Color;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
  * @author tiago_000
  */
 public class TelaCadastrarFornecedor extends javax.swing.JFrame {
+    private FornecedorActionListener listener;
 
     /**
      * Creates new form TelaCadastrarFornecedor
      */
-    int[] validaForm = {0, 0, 0, 0, 0};
-    Border border2 = BorderFactory.createLineBorder(Color.gray, 1);
-    Border border = BorderFactory.createLineBorder(Color.red, 1);
-
+    
     public TelaCadastrarFornecedor() {
         initComponents();
         campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ ]"));
@@ -54,6 +49,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         campoTelefoneFornecedor.setDocument(new LimitaDigitos((15), "[^0-9|^()\\-]"));
         campoIdFornecedor.setEnabled(false);
         campoNomeFornecedor.requestFocus();
+        listener = new FornecedorActionListener(this);
     }
 
     /**
@@ -145,43 +141,13 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
         textoNomeFornecedor.setText("Nome Completo:");
 
-        campoNomeFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoNomeFornecedorFocusLost(evt);
-            }
-        });
-
         textoCnpjFornecedor.setText("CNPJ: ");
-
-        campoCnpjFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCnpjFornecedorFocusLost(evt);
-            }
-        });
 
         textoEmailFornecedor.setText("E-mail:");
 
-        campoEmailFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoEmailFornecedorFocusLost(evt);
-            }
-        });
-
         textoTelefoneFornecedor.setText("Telefone:");
 
-        campoTelefoneFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoTelefoneFornecedorFocusLost(evt);
-            }
-        });
-
         textoCelularFornecedor.setText("Celular:");
-
-        campoCelularFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCelularFornecedorFocusLost(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelAdicionarModificarFornecedorLayout = new javax.swing.GroupLayout(painelAdicionarModificarFornecedor);
         painelAdicionarModificarFornecedor.setLayout(painelAdicionarModificarFornecedorLayout);
@@ -298,11 +264,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
 
         botaoCadastrarFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFornecedor.setText("Cadastrar Fornecedor");
-        botaoCadastrarFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarFornecedorActionPerformed(evt);
-            }
-        });
 
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
@@ -382,104 +343,128 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean validaCampos() {
-        for (int i = 0; i < validaForm.length; i++) {
-            if (validaForm[i] == 0) {
-                return false;
-            }
-        }
-        return true;
+    public JButton getBotaoAtualizarFornecedor() {
+        return botaoAtualizarFornecedor;
     }
 
-    private void campoNomeFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFornecedorFocusLost
-        if (!campoNomeFornecedor.getText().equals("")) {
-            validaForm[0] = 1;
-            campoNomeFornecedor.setBorder(border2);
-        } else {
-            validaForm[0] = 0;
-            campoNomeFornecedor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoNomeFornecedorFocusLost
+    public void setBotaoAtualizarFornecedor(JButton botaoAtualizarFornecedor) {
+        this.botaoAtualizarFornecedor = botaoAtualizarFornecedor;
+    }
 
-    private void campoCnpjFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCnpjFornecedorFocusLost
-        if (!campoCnpjFornecedor.getText().equals("")) {
-            validaForm[1] = 1;
-            campoCnpjFornecedor.setBorder(border2);
-        } else {
-            validaForm[1] = 0;
-            campoCnpjFornecedor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoCnpjFornecedorFocusLost
+    public JButton getBotaoCadastrarFornecedor() {
+        return botaoCadastrarFornecedor;
+    }
 
-    private void campoEmailFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorFocusLost
-        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-        Matcher m = p.matcher(campoEmailFornecedor.getText());
+    public void setBotaoCadastrarFornecedor(JButton botaoCadastrarFornecedor) {
+        this.botaoCadastrarFornecedor = botaoCadastrarFornecedor;
+    }
 
-        if (m.matches()) {
-            validaForm[2] = 1;
-            campoEmailFornecedor.setBorder(border2);
-        } else {
-            campoEmailFornecedor.setBorder(border);
-            validaForm[2] = 0;
-        }
-    }//GEN-LAST:event_campoEmailFornecedorFocusLost
+    public JButton getBotaoCancelarCadastro() {
+        return botaoCancelarCadastro;
+    }
 
-    private void campoTelefoneFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFornecedorFocusLost
-        if (!campoTelefoneFornecedor.getText().equals("")) {
-            validaForm[3] = 1;
-            campoTelefoneFornecedor.setBorder(border2);
-        } else {
-            validaForm[3] = 0;
-            campoTelefoneFornecedor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoTelefoneFornecedorFocusLost
+    public void setBotaoCancelarCadastro(JButton botaoCancelarCadastro) {
+        this.botaoCancelarCadastro = botaoCancelarCadastro;
+    }
 
-    private void campoCelularFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFornecedorFocusLost
-        if (!campoCelularFornecedor.getText().equals("")) {
-            validaForm[4] = 1;
-            campoCelularFornecedor.setBorder(border2);
-        } else {
-            validaForm[4] = 0;
-            campoCelularFornecedor.setBorder(border);
-        }
-    }//GEN-LAST:event_campoCelularFornecedorFocusLost
+    public JButton getBotaoExcluirFornecedor() {
+        return botaoExcluirFornecedor;
+    }
 
-    private void botaoCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFornecedorActionPerformed
-        if (validaCampos()) {
-            Fornecedor fornecedor = new Fornecedor();
+    public void setBotaoExcluirFornecedor(JButton botaoExcluirFornecedor) {
+        this.botaoExcluirFornecedor = botaoExcluirFornecedor;
+    }
 
-            fornecedor.setNomeForn(campoNomeFornecedor.getText());
-            fornecedor.setCnpjForn(campoCnpjFornecedor.getText());
-            fornecedor.setMailForn(campoEmailFornecedor.getText());
-            fornecedor.setFoneForn(campoTelefoneFornecedor.getText());
-            fornecedor.setCelForn(campoCelularFornecedor.getText());
+    public JButton getBotaoLimparCampos() {
+        return botaoLimparCampos;
+    }
 
-            new DAO<>(Fornecedor.class).adiciona(fornecedor);
+    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
+        this.botaoLimparCampos = botaoLimparCampos;
+    }
 
-            campoNomeFornecedor.setText("");
-            campoCnpjFornecedor.setText("");
-            campoEmailFornecedor.setText("");
-            campoTelefoneFornecedor.setText("");
-            campoCelularFornecedor.setText("");
-        } else {
-            if (validaForm[0] == 0) {
-                campoNomeFornecedor.setBorder(border);
-            }
-            if (validaForm[1] == 0) {
-                campoCnpjFornecedor.setBorder(border);
-            }
-            if (validaForm[2] == 0) {
-                campoEmailFornecedor.setBorder(border);
-            }
-            if (validaForm[3] == 0) {
-                campoTelefoneFornecedor.setBorder(border);
-            }
-            if (validaForm[4] == 0) {
-                campoCelularFornecedor.setBorder(border);
-            }
-        }
-    }//GEN-LAST:event_botaoCadastrarFornecedorActionPerformed
+    public JButton getBotaoProcurarFornecedor() {
+        return botaoProcurarFornecedor;
+    }
 
+    public void setBotaoProcurarFornecedor(JButton botaoProcurarFornecedor) {
+        this.botaoProcurarFornecedor = botaoProcurarFornecedor;
+    }
+
+    public JTextField getCampoCelularFornecedor() {
+        return campoCelularFornecedor;
+    }
+
+    public void setCampoCelularFornecedor(JTextField campoCelularFornecedor) {
+        this.campoCelularFornecedor = campoCelularFornecedor;
+    }
+
+    public JTextField getCampoCnpjFornecedor() {
+        return campoCnpjFornecedor;
+    }
+
+    public void setCampoCnpjFornecedor(JTextField campoCnpjFornecedor) {
+        this.campoCnpjFornecedor = campoCnpjFornecedor;
+    }
+
+    public JTextField getCampoEmailFornecedor() {
+        return campoEmailFornecedor;
+    }
+
+    public void setCampoEmailFornecedor(JTextField campoEmailFornecedor) {
+        this.campoEmailFornecedor = campoEmailFornecedor;
+    }
+
+    public JTextField getCampoIdFornecedor() {
+        return campoIdFornecedor;
+    }
+
+    public void setCampoIdFornecedor(JTextField campoIdFornecedor) {
+        this.campoIdFornecedor = campoIdFornecedor;
+    }
+
+    public JTextField getCampoNomeFornecedor() {
+        return campoNomeFornecedor;
+    }
+
+    public void setCampoNomeFornecedor(JTextField campoNomeFornecedor) {
+        this.campoNomeFornecedor = campoNomeFornecedor;
+    }
+
+    public JTextField getCampoPesquisarFornecedor() {
+        return campoPesquisarFornecedor;
+    }
+
+    public void setCampoPesquisarFornecedor(JTextField campoPesquisarFornecedor) {
+        this.campoPesquisarFornecedor = campoPesquisarFornecedor;
+    }
+
+    public JTextField getCampoTelefoneFornecedor() {
+        return campoTelefoneFornecedor;
+    }
+
+    public void setCampoTelefoneFornecedor(JTextField campoTelefoneFornecedor) {
+        this.campoTelefoneFornecedor = campoTelefoneFornecedor;
+    }
+
+    public JTable getTabelaFornecedores() {
+        return tabelaFornecedores;
+    }
+
+    public void setTabelaFornecedores(JTable tabelaFornecedores) {
+        this.tabelaFornecedores = tabelaFornecedores;
+    }
+    
+    public void limpaCampos(){
+        campoCelularFornecedor.setText("");
+        campoCnpjFornecedor.setText("");
+        campoEmailFornecedor.setText("");
+        campoIdFornecedor.setText("");
+        campoNomeFornecedor.setText("");
+        campoPesquisarFornecedor.setText("");
+        campoTelefoneFornecedor.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -233,9 +233,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNomeFornecedor">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFornecedorFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCnpjFornecedor">
           <Properties>
@@ -243,9 +240,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCnpjFornecedor">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCnpjFornecedorFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoEmailFornecedor">
           <Properties>
@@ -253,9 +247,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoEmailFornecedor">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEmailFornecedorFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoTelefoneFornecedor">
           <Properties>
@@ -263,9 +254,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoTelefoneFornecedor">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoTelefoneFornecedorFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCelularFornecedor">
           <Properties>
@@ -273,9 +261,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCelularFornecedor">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCelularFornecedorFocusLost"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -430,9 +415,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Fornecedor"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarFornecedorActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoLimparCampos">
           <Properties>
