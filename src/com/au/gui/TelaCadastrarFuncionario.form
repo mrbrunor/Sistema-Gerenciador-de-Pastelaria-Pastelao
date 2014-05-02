@@ -249,7 +249,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="textoDtNasc" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -260,31 +260,35 @@
                           <Component id="textoTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="textoCelular" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="textoNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoId" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="campoNome" alignment="0" max="32767" attributes="0"/>
-                          <Component id="caixaSexo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoCpf" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoRg" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoEmail" alignment="0" min="-2" pref="266" max="-2" attributes="0"/>
-                          <Component id="campoDtNasc" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="campoCelular" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoTelefone" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="campoNome" alignment="0" max="32767" attributes="0"/>
+                              <Component id="caixaSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoCpf" alignment="0" max="32767" attributes="0"/>
+                              <Component id="campoRg" alignment="0" max="32767" attributes="0"/>
+                              <Component id="campoEmail" alignment="0" min="-2" pref="266" max="-2" attributes="0"/>
+                              <Component id="campoDtNasc" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="campoCelular" alignment="0" min="-2" pref="266" max="-2" attributes="0"/>
+                              <Component id="campoTelefone" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="campoId" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="textoId" min="-2" pref="52" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="textoId" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="textoId" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="textoNome" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -330,6 +334,13 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JLabel" name="textoId">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ID:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoId">
+            </Component>
             <Component class="javax.swing.JLabel" name="textoNome">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nome Completo:"/>
@@ -342,49 +353,14 @@
                 <Property name="text" type="java.lang.String" value="Data de Nascimento:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="textoSexo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sexo:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoRg">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="RG:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoRg">
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoCpf">
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoCpf">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="CPF:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoEmail">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="E-mail:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoEmail">
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoTelefone">
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoTelefone">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Telefone:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoCelular">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Celular:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoCelular">
-            </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="campoDtNasc">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoSexo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sexo:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="caixaSexo">
@@ -398,7 +374,40 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="textoId">
+            <Component class="javax.swing.JLabel" name="textoRg">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="RG:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoRg">
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoCpf">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CPF:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoCpf">
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoEmail">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="E-mail:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoEmail">
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoTelefone">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Telefone:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoTelefone">
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoCelular">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Celular:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoCelular">
             </Component>
           </SubComponents>
         </Container>
@@ -512,44 +521,43 @@
                 <Property name="text" type="java.lang.String" value="Data de Admiss&#xe3;o:"/>
               </Properties>
             </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="campoDtAdm">
+              <Properties>
+                <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="textoSalario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sal&#xe1;rio:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="campoSalario">
             </Component>
             <Component class="javax.swing.JLabel" name="textoUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nome de Usu&#xe1;rio:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JTextField" name="campoUser">
+            </Component>
             <Component class="javax.swing.JLabel" name="textoSenha">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Senha:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="campoSenha">
             </Component>
             <Component class="javax.swing.JLabel" name="textoSenha2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Redigite a Senha:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JPasswordField" name="campoSenha2">
+            </Component>
             <Component class="javax.swing.JLabel" name="textoNivel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nivel:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoAtivo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ativo"/>
-              </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="campoDtAdm">
-              <Properties>
-                <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoSalario">
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoUser">
             </Component>
             <Component class="javax.swing.JComboBox" name="caixaNivel">
               <Properties>
@@ -560,6 +568,11 @@
                     <StringItem index="2" value="Funcion&#xe1;rio"/>
                   </StringArray>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoAtivo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ativo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="caixaAtivo">
@@ -573,10 +586,6 @@
                   </StringArray>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="campoSenha">
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="campoSenha2">
             </Component>
           </SubComponents>
         </Container>
@@ -639,6 +648,26 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="textoProcurarFuncionario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Procurar Funcion&#xe1;rio:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoPesquisarFuncionario">
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoProcurarFuncionario">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Procurar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoCliqueParaEditar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clique no funcion&#xe1;rio desejado na lista para edit&#xe1;-lo no painel ao lado:"/>
+          </Properties>
+        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -660,26 +689,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="textoProcurarFuncionario">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Procurar Funcion&#xe1;rio:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoPesquisarFuncionario">
-        </Component>
-        <Component class="javax.swing.JButton" name="botaoProcurarFuncionario">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Procurar"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="textoCliqueParaEditar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Clique no funcion&#xe1;rio desejado na lista para edit&#xe1;-lo no painel ao lado:"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="painelBotoes">
@@ -719,6 +728,30 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JButton" name="botaoLimparCampos">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/erase-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Limpar Campos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoExcluirFuncionario">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/delete-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Excluir Funcion&#xe1;rio"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoAtualizarFuncionario">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/refresh-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Atualizar Funcion&#xe1;rio"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JButton" name="botaoCancelarCadastro">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -733,30 +766,6 @@
               <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Funcion&#xe1;rio"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="botaoLimparCampos">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/erase-32.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Limpar Campos"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="botaoAtualizarFuncionario">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/refresh-32.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Atualizar Funcion&#xe1;rio"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="botaoExcluirFuncionario">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/delete-32.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Excluir Funcion&#xe1;rio"/>
           </Properties>
         </Component>
       </SubComponents>
