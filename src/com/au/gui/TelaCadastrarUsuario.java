@@ -132,9 +132,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         botaoCadastrar = new javax.swing.JButton();
         campoPass = new javax.swing.JPasswordField();
         campoPass2 = new javax.swing.JPasswordField();
-        barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -387,7 +384,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 .addGroup(painelDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoCelular)
                     .addComponent(campoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados \"Funcionais\""));
@@ -605,14 +602,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoCadastrar))
         );
-
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
-
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
-
-        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1063,7 +1052,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JComboBox caixaSelecaoAtivo;
     private javax.swing.JComboBox caixaSelecaoNivel;
@@ -1096,8 +1084,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelDadosPessoais;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoAdicionarUsuario;

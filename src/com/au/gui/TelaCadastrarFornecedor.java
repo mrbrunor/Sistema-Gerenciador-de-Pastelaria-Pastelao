@@ -91,9 +91,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         botaoLimparCampos = new javax.swing.JButton();
         botaoAtualizarFornecedor = new javax.swing.JButton();
         botaoExcluirFornecedor = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Adiconar novo Fornecedor");
@@ -200,7 +197,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                 .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCelularFornecedor)
                     .addComponent(campoCelularFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         painelProcurarFornecedores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Fornecedor Existente"));
@@ -303,14 +300,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                     .addComponent(botaoExcluirFornecedor))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
-
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
-
-        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -501,7 +490,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAtualizarFornecedor;
     private javax.swing.JButton botaoCadastrarFornecedor;
     private javax.swing.JButton botaoCancelarCadastro;
@@ -516,8 +504,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField campoPesquisarFornecedor;
     private javax.swing.JTextField campoTelefoneFornecedor;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelAdicionarModificarFornecedor;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelProcurarFornecedores;

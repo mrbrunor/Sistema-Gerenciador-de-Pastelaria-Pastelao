@@ -116,9 +116,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         botaoAtualizarFuncionario = new javax.swing.JButton();
         botaoCancelarCadastro = new javax.swing.JButton();
         botaoCadastrarFuncionario = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -506,14 +503,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
-
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
-
-        setJMenuBar(barraMenu);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -780,7 +769,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoAtualizarFuncionario;
     private javax.swing.JButton botaoCadastrarFuncionario;
@@ -812,8 +800,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelAdicionarModificarFuncionarios;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosEmpregaticios;

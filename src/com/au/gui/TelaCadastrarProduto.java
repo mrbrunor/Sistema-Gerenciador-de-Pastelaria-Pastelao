@@ -116,9 +116,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
         botaoLimparCampos = new javax.swing.JButton();
         botaoAtualizarProduto = new javax.swing.JButton();
         botaoExcluirProduto = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Adicionar/Modificar Produto - Sistema Pastelão");
@@ -396,7 +393,7 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(painelScrollTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                .addComponent(painelScrollTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -444,14 +441,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
                     .addComponent(botaoExcluirProduto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
-
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
-
-        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -716,7 +705,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAdicionarFornecedor;
     private javax.swing.JButton botaoAdicionarIngrediente;
     private javax.swing.JButton botaoAtualizarProduto;
@@ -736,8 +724,6 @@ public class TelaCadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JTextField campoQtd;
     private javax.swing.JTextField campoValor;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelAdicionarModificarProdutos;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosProduto;

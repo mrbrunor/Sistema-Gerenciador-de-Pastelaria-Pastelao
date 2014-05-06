@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.VendaActionListener;
+import com.au.modelo.Funcionario;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -34,13 +35,17 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaVenda extends javax.swing.JFrame {
-    private VendaActionListener listener;
+    private Funcionario funcionario;
+    private final VendaActionListener listener;
 
     /**
      * Creates new form TelaVenda
+     * @param funcionario
      */
-    public TelaVenda() {
+    public TelaVenda(Funcionario funcionario) {
+        this.funcionario = funcionario;
         initComponents();
+        textoNomeFuncionario.setText(funcionario.getNomeFunc());
         listener = new VendaActionListener(this);
     }
     
@@ -59,7 +64,7 @@ public class TelaVenda extends javax.swing.JFrame {
         textoData = new javax.swing.JLabel();
         textoHora = new javax.swing.JLabel();
         botaoAlternarUsuario = new javax.swing.JButton();
-        botaoFecharCaixa = new javax.swing.JButton();
+        botaoCaixa = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
         textoDigiteParaAdicionar = new javax.swing.JLabel();
         botaoAdicionarItem = new javax.swing.JButton();
@@ -69,6 +74,7 @@ public class TelaVenda extends javax.swing.JFrame {
         painelScrollTabelaPedido = new javax.swing.JScrollPane();
         tabelaPedido = new javax.swing.JTable();
         botaoExcluirItem = new javax.swing.JButton();
+        textoValorTotal = new javax.swing.JLabel();
         painelBusca = new javax.swing.JPanel();
         textoDigiteParaBuscar = new javax.swing.JLabel();
         campoBusca = new javax.swing.JTextField();
@@ -77,8 +83,29 @@ public class TelaVenda extends javax.swing.JFrame {
         tabelaBusca = new javax.swing.JTable();
         botaoAdicionarAoPedido = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
+        menuPrincipal = new javax.swing.JMenu();
+        itemMenuAbrirCaixa = new javax.swing.JMenuItem();
+        itemMenuFecharCaixa = new javax.swing.JMenuItem();
+        itemMenuRetiradaDeCaixa = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        itemMenuTrocarSenha = new javax.swing.JMenuItem();
+        itemMenuDeslogar = new javax.swing.JMenuItem();
+        itemMenuSair = new javax.swing.JMenuItem();
+        menuCadastros = new javax.swing.JMenu();
+        itemMenuDespesas = new javax.swing.JMenuItem();
+        itemMenuFornecedores = new javax.swing.JMenuItem();
+        itemMenuFuncionarios = new javax.swing.JMenuItem();
+        itemMenuIngredientes = new javax.swing.JMenuItem();
+        itemMenuNotasFiscais = new javax.swing.JMenuItem();
+        itemMenuProdutos = new javax.swing.JMenuItem();
+        MenuRelatorio = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        MenuAjuda = new javax.swing.JMenu();
+        itemMenuAjuda = new javax.swing.JMenuItem();
+        itemMenuTeclasAtalho = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        itemMenuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Pastelão - Vendas");
@@ -88,7 +115,7 @@ public class TelaVenda extends javax.swing.JFrame {
         textoFotoFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/user-64.png"))); // NOI18N
 
         textoNomeFuncionario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoNomeFuncionario.setText("Fulano de Tal");
+        textoNomeFuncionario.setText("Nome do Funcionário");
 
         textoData.setText("DATA");
         textoData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -96,11 +123,11 @@ public class TelaVenda extends javax.swing.JFrame {
         textoHora.setText("HORA");
 
         botaoAlternarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/change_user-32.png"))); // NOI18N
-        botaoAlternarUsuario.setText("Trocar Usuário");
+        botaoAlternarUsuario.setText("Deslogar");
 
-        botaoFecharCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
-        botaoFecharCaixa.setText("Fechar Caixa");
-        botaoFecharCaixa.setToolTipText("Clique aqui para fechar o caixa");
+        botaoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
+        botaoCaixa.setText("Fechar Caixa");
+        botaoCaixa.setToolTipText("Clique aqui para fechar o caixa");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -119,7 +146,7 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoAlternarUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoFecharCaixa)
+                        .addComponent(botaoCaixa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoHora)))
                 .addContainerGap())
@@ -135,10 +162,14 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addComponent(textoNomeFuncionario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoHora)
-                            .addComponent(botaoAlternarUsuario)
-                            .addComponent(botaoFecharCaixa))
-                        .addGap(0, 7, Short.MAX_VALUE))
+                            .addGroup(painelSuperiorLayout.createSequentialGroup()
+                                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoHora)
+                                    .addComponent(botaoAlternarUsuario))
+                                .addGap(0, 7, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSuperiorLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botaoCaixa))))
                     .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -176,6 +207,8 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
         botaoExcluirItem.setToolTipText("Clique aqui para excluir este item do pedido");
 
+        textoValorTotal.setText("Valor Total: 0,00");
+
         javax.swing.GroupLayout painelPedidoLayout = new javax.swing.GroupLayout(painelPedido);
         painelPedido.setLayout(painelPedidoLayout);
         painelPedidoLayout.setHorizontalGroup(
@@ -194,7 +227,8 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(botaoExcluirItem))
                     .addGroup(painelPedidoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(textoValorTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botaoFecharPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -218,11 +252,12 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelPedidoLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                        .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                         .addGap(18, 18, 18)))
                 .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoFecharPedido)
-                    .addComponent(botaoCancelarPedido))
+                    .addComponent(botaoCancelarPedido)
+                    .addComponent(textoValorTotal))
                 .addContainerGap())
         );
 
@@ -273,18 +308,81 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(botaoBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addComponent(botaoAdicionarAoPedido)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
+        menuPrincipal.setText("Principal");
 
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
+        itemMenuAbrirCaixa.setText("Abrir Caixa");
+        menuPrincipal.add(itemMenuAbrirCaixa);
+
+        itemMenuFecharCaixa.setText("Fechar Caixa");
+        menuPrincipal.add(itemMenuFecharCaixa);
+
+        itemMenuRetiradaDeCaixa.setText("Retirada de Caixa");
+        menuPrincipal.add(itemMenuRetiradaDeCaixa);
+        menuPrincipal.add(jSeparator1);
+
+        itemMenuTrocarSenha.setText("Trocar Senha");
+        menuPrincipal.add(itemMenuTrocarSenha);
+
+        itemMenuDeslogar.setText("Deslogar");
+        menuPrincipal.add(itemMenuDeslogar);
+
+        itemMenuSair.setText("Sair");
+        menuPrincipal.add(itemMenuSair);
+
+        barraMenu.add(menuPrincipal);
+
+        menuCadastros.setText("Cadastros");
+
+        itemMenuDespesas.setText("Despesas");
+        menuCadastros.add(itemMenuDespesas);
+
+        itemMenuFornecedores.setText("Fornecedores");
+        menuCadastros.add(itemMenuFornecedores);
+
+        itemMenuFuncionarios.setText("Funcionários");
+        menuCadastros.add(itemMenuFuncionarios);
+
+        itemMenuIngredientes.setText("Ingredientes");
+        menuCadastros.add(itemMenuIngredientes);
+
+        itemMenuNotasFiscais.setText("Notas Fiscais");
+        menuCadastros.add(itemMenuNotasFiscais);
+
+        itemMenuProdutos.setText("Produtos");
+        menuCadastros.add(itemMenuProdutos);
+
+        barraMenu.add(menuCadastros);
+
+        MenuRelatorio.setText("Relatórios");
+
+        jMenuItem7.setText("jMenuItem1");
+        MenuRelatorio.add(jMenuItem7);
+
+        jMenuItem8.setText("jMenuItem1");
+        MenuRelatorio.add(jMenuItem8);
+
+        barraMenu.add(MenuRelatorio);
+
+        MenuAjuda.setText("Ajuda");
+
+        itemMenuAjuda.setText("Ajuda");
+        MenuAjuda.add(itemMenuAjuda);
+
+        itemMenuTeclasAtalho.setText("Teclas de Atalho");
+        MenuAjuda.add(itemMenuTeclasAtalho);
+        MenuAjuda.add(jSeparator2);
+
+        itemMenuSobre.setText("Sobre");
+        MenuAjuda.add(itemMenuSobre);
+
+        barraMenu.add(MenuAjuda);
 
         setJMenuBar(barraMenu);
 
@@ -317,6 +415,14 @@ public class TelaVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
     public JButton getBotaoAdicionarAoPedido() {
         return botaoAdicionarAoPedido;
     }
@@ -365,12 +471,12 @@ public class TelaVenda extends javax.swing.JFrame {
         this.botaoExcluirItem = botaoExcluirItem;
     }
 
-    public JButton getBotaoFecharCaixa() {
-        return botaoFecharCaixa;
+    public JButton getBotaoCaixa() {
+        return botaoCaixa;
     }
 
-    public void setBotaoFecharCaixa(JButton botaoFecharCaixa) {
-        this.botaoFecharCaixa = botaoFecharCaixa;
+    public void setBotaoCaixa(JButton botaoFecharCaixa) {
+        this.botaoCaixa = botaoFecharCaixa;
     }
 
     public JButton getBotaoFecharPedido() {
@@ -415,52 +521,73 @@ public class TelaVenda extends javax.swing.JFrame {
     
     
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaVenda().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Windows look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Windows".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TelaVenda().setVisible(true);
+//            }
+//        }); 
+//     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuAjuda;
+    private javax.swing.JMenu MenuRelatorio;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAdicionarAoPedido;
     private javax.swing.JButton botaoAdicionarItem;
     private javax.swing.JButton botaoAlternarUsuario;
     private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botaoCaixa;
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JButton botaoExcluirItem;
-    private javax.swing.JButton botaoFecharCaixa;
     private javax.swing.JButton botaoFecharPedido;
     private javax.swing.JTextField campoAdicionarItem;
     private javax.swing.JTextField campoBusca;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
+    private javax.swing.JMenuItem itemMenuAbrirCaixa;
+    private javax.swing.JMenuItem itemMenuAjuda;
+    private javax.swing.JMenuItem itemMenuDeslogar;
+    private javax.swing.JMenuItem itemMenuDespesas;
+    private javax.swing.JMenuItem itemMenuFecharCaixa;
+    private javax.swing.JMenuItem itemMenuFornecedores;
+    private javax.swing.JMenuItem itemMenuFuncionarios;
+    private javax.swing.JMenuItem itemMenuIngredientes;
+    private javax.swing.JMenuItem itemMenuNotasFiscais;
+    private javax.swing.JMenuItem itemMenuProdutos;
+    private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
+    private javax.swing.JMenuItem itemMenuSair;
+    private javax.swing.JMenuItem itemMenuSobre;
+    private javax.swing.JMenuItem itemMenuTeclasAtalho;
+    private javax.swing.JMenuItem itemMenuTrocarSenha;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenu menuPrincipal;
     private javax.swing.JPanel painelBusca;
     private javax.swing.JPanel painelPedido;
     private javax.swing.JScrollPane painelScrollTabelaBusca;
@@ -474,5 +601,6 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel textoFotoFuncionario;
     private javax.swing.JLabel textoHora;
     private javax.swing.JLabel textoNomeFuncionario;
+    private javax.swing.JLabel textoValorTotal;
     // End of variables declaration//GEN-END:variables
 }

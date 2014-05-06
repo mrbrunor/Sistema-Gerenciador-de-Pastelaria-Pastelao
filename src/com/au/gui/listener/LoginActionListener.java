@@ -24,6 +24,7 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaLogin;
+import com.au.gui.TelaVenda;
 import com.au.modelo.Funcionario;
 import com.au.util.DAO;
 import com.au.util.HexSha;
@@ -66,7 +67,8 @@ public class LoginActionListener implements ActionListener {
             System.out.println("fuu");
         }
         else if(funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc())){
-            System.out.println("HAHA");
+            new TelaVenda(funcionario).setVisible(true);
+            frm.dispose();
                                
         }
     }

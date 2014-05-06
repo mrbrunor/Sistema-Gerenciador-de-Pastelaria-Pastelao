@@ -4,15 +4,122 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menuArquivo">
+        <Menu class="javax.swing.JMenu" name="menuPrincipal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Arquivo"/>
+            <Property name="text" type="java.lang.String" value="Principal"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuAbrirCaixa">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir Caixa"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFecharCaixa">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fechar Caixa"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuRetiradaDeCaixa">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Retirada de Caixa"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuTrocarSenha">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Trocar Senha"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuDeslogar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Deslogar"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuSair">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuEditar">
+        <Menu class="javax.swing.JMenu" name="menuCadastros">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar"/>
+            <Property name="text" type="java.lang.String" value="Cadastros"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuDespesas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Despesas"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFornecedores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fornecedores"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFuncionarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rios"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuIngredientes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ingredientes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuNotasFiscais">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Notas Fiscais"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuProdutos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Produtos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuRelatorio">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuAjuda">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ajuda"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuAjuda">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ajuda"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuTeclasAtalho">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Teclas de Atalho"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuSobre">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sobre"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -97,7 +204,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="botaoAlternarUsuario" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="botaoFecharCaixa" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoCaixa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="textoHora" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -118,11 +225,18 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textoHora" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoAlternarUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoFecharCaixa" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="textoHora" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoAlternarUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="botaoCaixa" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                       </Group>
                       <Component id="textoFotoFuncionario" max="32767" attributes="0"/>
                   </Group>
@@ -144,7 +258,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fulano de Tal"/>
+            <Property name="text" type="java.lang.String" value="Nome do Funcion&#xe1;rio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoData">
@@ -165,10 +279,10 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/change_user-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Trocar Usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Deslogar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="botaoFecharCaixa">
+        <Component class="javax.swing.JButton" name="botaoCaixa">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/logout-32.png"/>
@@ -211,7 +325,8 @@
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="textoValorTotal" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="botaoCancelarPedido" linkSize="4" min="-2" pref="161" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoFecharPedido" linkSize="4" min="-2" pref="153" max="-2" attributes="0"/>
@@ -238,13 +353,14 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="painelScrollTabelaPedido" pref="368" max="32767" attributes="0"/>
+                          <Component id="painelScrollTabelaPedido" pref="358" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botaoFecharPedido" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoCancelarPedido" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -311,6 +427,11 @@
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para excluir este item do pedido"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="textoValorTotal">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Valor Total: 0,00"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="painelBusca">
@@ -364,7 +485,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="painelScrollTabelaBusca" pref="426" max="32767" attributes="0"/>
+                      <Component id="painelScrollTabelaBusca" pref="414" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="botaoAdicionarAoPedido" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

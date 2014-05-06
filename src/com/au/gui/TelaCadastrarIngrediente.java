@@ -83,9 +83,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
         botaoLimparCampos = new javax.swing.JButton();
         botaoAtualizarIngrediente = new javax.swing.JButton();
         botaoExcluirIngrediente = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        menuArquivo = new javax.swing.JMenu();
-        menuEditar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -292,14 +289,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        menuArquivo.setText("Arquivo");
-        barraMenu.add(menuArquivo);
-
-        menuEditar.setText("Editar");
-        barraMenu.add(menuEditar);
-
-        setJMenuBar(barraMenu);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -462,7 +451,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAtualizarIngrediente;
     private javax.swing.JButton botaoCadastrarIngrediente;
     private javax.swing.JButton botaoCancelarIngrediente;
@@ -474,8 +462,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JFrame {
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPesquisarIngrediente;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JMenu menuArquivo;
-    private javax.swing.JMenu menuEditar;
     private javax.swing.JPanel painelAdicionarModificarIngredientes;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosIngrediente;
