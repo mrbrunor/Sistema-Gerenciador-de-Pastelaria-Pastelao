@@ -23,13 +23,21 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaCadastrarProduto;
 import com.au.gui.TelaVenda;
+import com.au.gui.tmodel.ProdutoIngredientesTableModel;
 import com.au.gui.tmodel.ProdutoTableModel;
-import com.au.modelo.Pedido;
+import com.au.gui.tmodel.VendaTableModel;
+import com.au.modelo.Fornecedor;
+import com.au.modelo.Ingrediente;
+import com.au.modelo.Itempedido;
 import com.au.modelo.Produto;
+import com.au.util.CustomComboBoxInt;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -41,8 +49,9 @@ import javax.swing.event.ListSelectionListener;
 public class VendaActionListener implements ActionListener, ListSelectionListener {
 
     private final TelaVenda frm;
-    private ProdutoTableModel tableModel;
-
+    private VendaTableModel tableModelVenda;
+    private List<Itempedido> itemspedido = new ArrayList<>();
+    
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
         adicionaListener();
@@ -50,10 +59,15 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void inicializaTableModel() {
-        tableModel = new ProdutoTableModel(new DAO<>(Produto.class).listaTodos());
-        frm.getTabelaBusca().setModel(tableModel);
-        frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
-
+        atualizaTableModelVenda();
+    }
+    
+    public void atualizaTableModelVenda(){
+        if(!itemspedido.isEmpty()){
+            tableModelVenda = new VendaTableModel(itemspedido);
+            frm.getTabelaPedido().setModel(tableModelVenda);
+            frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+        }
     }
 
     public void adicionaListener() {
@@ -63,28 +77,81 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoBuscar().addActionListener(this);
         frm.getBotaoCancelarPedido().addActionListener(this);
         frm.getBotaoExcluirItem().addActionListener(this);
-        frm.getBotaoFecharCaixa().addActionListener(this);
+        frm.getBotaoCaixa().addActionListener(this);
         frm.getBotaoFecharPedido().addActionListener(this);
     }
 
     private void salvar() {
-        //Lógica de Criar o Pedido - new DAO<>(Pedido.class).adiciona();
-
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
-
-        //Limpar o Pedido após Registrar o Pedido - limpaCampos();
-
+        new DAO<>(Produto.class).adiciona(formToVenda());
+        
+        JOptionPane.showMessageDialog(frm, "Lógica de Pagamento Aqui", "Cadastro de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        
+        itemspedido = new ArrayList<>();
+        tableModelVenda = new VendaTableModel(itemspedido);
+        frm.getTabelaPedido().setModel(tableModelVenda);
+        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+        
         inicializaTableModel();
     }
+    
+    private Produto formToVenda() {
+        Produto produto = new Produto();
+        
+        produto.setDescProd(frm.getCampoNome().getText());
+        produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
+        
+        CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoForn().getSelectedItem();
+        produto.setFornecedor(new DAO<>(Fornecedor.class).buscaPorId(ob.getId()));
+        
+        if (frm.getRadioInd().isSelected()) {
+            produto.setEIndustrializado((byte)1);
+            produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
+            if("".equals(frm.getCampoBarras().getText())){
+                produto.setCodBarras(null);
+            }
+            else{
+                produto.setCodBarras(frm.getCampoBarras().getText());
+            }            
+        } else {
+            produto.setQtdProd(null);
+            produto.setCodBarras(null);
+            produto.setEIndustrializado((byte)0);
+            produto.setIngredientes(ingredientes);
+        }   
+        return produto;
+    }
 
-    private void produtoToAddItem(Produto produto) {
-        frm.getCampoAdicionarItem().setText(String.valueOf(produto.getIdProd()));        
+    private void vendaToForm(Produto produto) {
+        frm.getCampoId().setText(String.valueOf(produto.getIdProd()));
+        frm.getCampoNome().setText(produto.getDescProd());
+        frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
+        //Fornecedor
+        List<Fornecedor> fornecedores = frm.getListaResForn();
+        for(int i=0; i<frm.getCaixaSelecaoForn().getItemCount(); i++){
+            if(produto.getFornecedor().getIdForn() == fornecedores.get(i).getIdForn()){
+                frm.getCaixaSelecaoForn().setSelectedIndex(i);
+            }
+        }        
+        //
+        if(produto.getEIndustrializado() == (byte)1){
+            frm.getRadioInd().setSelected(true);
+            frm.getRadioPrep().setSelected(false);
+            frm.getCampoQtd().setText(String.valueOf(produto.getQtdProd()));
+            frm.getCampoBarras().setText(produto.getCodBarras());
+        }
+        else{
+            frm.getRadioPrep().setSelected(true);
+            frm.getRadioInd().setSelected(false);
+            tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
+            frm.getTabelaIngredientes().setModel(tableModelIngredientes);
+            frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Cadastrar Fornecedor":
+            case "Cadastrar Produto":
                 salvar();
                 break;
             case "Alterar":
@@ -92,15 +159,21 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Excluir":
                 break;
             case "Salvar":
+                salvar();
                 break;
             case "Cancelar":
                 break;
+            case "Adiciona Ingrediente":
+                System.out.println("Chegou aqui");
+                adicionaIngrediente();
         }
+        habilitaBotoesParaSalvar();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Produto produto = tableModel.getProdutos().get(frm.getTabelaBusca().getSelectedRow());
-        produtoToAddItem(produto);
+        Produto produto = tableModelVenda.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
+        vendaToForm(produto);
+        
     }
 }

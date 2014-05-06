@@ -24,7 +24,7 @@
 
 package com.au.gui.tmodel;
 
-import com.au.modelo.Produto;
+import com.au.modelo.Itempedido;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -33,14 +33,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class ProdutoTableModel extends AbstractTableModel{
+public class VendaTableModel extends AbstractTableModel{
     
-    private List<Produto> produtos;
+    private List<Itempedido> itemspedido;
     private List<String> colunas;
     
-    public ProdutoTableModel(List<Produto> produtos){
-        this.produtos = produtos;
-        colunas = Arrays.asList("Id", "Descrição", "Valor");
+    public VendaTableModel(List<Itempedido> itemspedido){
+        this.itemspedido = itemspedido;
+        colunas = Arrays.asList("Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ProdutoTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return produtos.size();
+        return itemspedido.size();
     }
 
     @Override
@@ -60,21 +60,24 @@ public class ProdutoTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Produto produto = produtos.get(rowIndex);
+        Itempedido itempedido = itemspedido.get(rowIndex);
+     
         switch(columnIndex){
-            case 0: return produto.getIdProd();
-            case 1: return produto.getDescProd();
-            case 2: return produto.getValorProd();
+            case 0: return itempedido.getProduto().getIdProd();
+            case 1: return itempedido.getProduto().getDescProd();
+            case 2: return itempedido.getProduto().getValorProd();
+            case 3: return itempedido.getQtdProd();
+            case 4: return itempedido.getTotProd();
         }
         return null;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<Itempedido> getItemspedido() {
+        return itemspedido;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProdutos(List<Itempedido> itemspedido) {
+        this.itemspedido = itemspedido;
     }    
     
 }
