@@ -104,10 +104,8 @@
                   <Component id="jScrollPane1" pref="249" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoValorTotal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="textoValorTotal" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoDesconto" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="campoDesconto" max="32767" attributes="0"/>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -200,27 +198,41 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoSelecioneFormaPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="botaoRadioDinheiro" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoSelecioneFormaPagamento" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="botaoRadioDinheiro" min="-2" pref="91" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="textoIconeDinheiro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="botaoRadioCartaoCredito" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="caixaSelecaoCC" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="botaoRadioCartaoCredito" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="textoIconeCC" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="botaoCartaoDebito" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="caixaSelecaoCD" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="botaoCartaoDebito" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="textoIconeCD" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="caixaSelecaoVA" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoRadioValeAlimentacao" min="-2" max="-2" attributes="0"/>
+                              <Component id="caixaSelecaoVR" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="botaoRadioValeRefeicao" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="textoIconeVR" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="192" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -229,20 +241,38 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoSelecioneFormaPagamento" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="botaoRadioDinheiro" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoRadioCartaoCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoCartaoDebito" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoRadioValeAlimentacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="botaoRadioDinheiro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoIconeDinheiro" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="botaoRadioCartaoCredito" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="caixaSelecaoCC" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="botaoCartaoDebito" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoIconeCC" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="caixaSelecaoCD" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="botaoRadioValeRefeicao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textoIconeVR" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="textoIconeCD" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="caixaSelecaoVR" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="caixaSelecaoCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="caixaSelecaoCD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="caixaSelecaoVA" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -255,21 +285,36 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioDinheiro">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Dinheiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioDinheiroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioCartaoCredito">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cr&#xe9;dito"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="botaoRadioValeAlimentacao">
+        <Component class="javax.swing.JRadioButton" name="botaoRadioValeRefeicao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vale Alimenta&#xe7;&#xe3;o/Ticket Refei&#xe7;&#xe3;o"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Vale Refei&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoCartaoDebito">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cart&#xe3;o de D&#xe9;bito"/>
           </Properties>
         </Component>
@@ -297,7 +342,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="caixaSelecaoVA">
+        <Component class="javax.swing.JComboBox" name="caixaSelecaoVR">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -306,6 +351,34 @@
                 <StringItem index="2" value="Item 3"/>
                 <StringItem index="3" value="Item 4"/>
               </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoIconeDinheiro">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/banknotes-26.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoIconeCD">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/bank_cards-26.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoIconeCC">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/mastercard-26.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoIconeVR">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/au/resources/icons/barcode-26.png"/>
             </Property>
           </Properties>
         </Component>
