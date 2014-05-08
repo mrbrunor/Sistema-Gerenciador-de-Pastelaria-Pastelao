@@ -3,6 +3,7 @@ package com.au.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class Pedido implements Serializable {
 	private Caixa caixa;
 
 	public Pedido() {
+            this.itempedidos = new ArrayList<>();
 	}
 
 	public int getIdPedido() {

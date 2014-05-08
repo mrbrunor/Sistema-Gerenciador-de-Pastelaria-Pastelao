@@ -24,6 +24,7 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.TabelaPesquisaActionListener;
 import com.au.gui.listener.VendaActionListener;
 import com.au.modelo.Funcionario;
 import javax.swing.JButton;
@@ -37,6 +38,8 @@ import javax.swing.JTextField;
 public class TelaVenda extends javax.swing.JFrame {
     private Funcionario funcionario;
     private final VendaActionListener listener;
+    private final TabelaPesquisaActionListener listener2;
+    
 
     /**
      * Creates new form TelaVenda
@@ -47,6 +50,7 @@ public class TelaVenda extends javax.swing.JFrame {
         initComponents();
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
         listener = new VendaActionListener(this);
+        listener2 = new TabelaPesquisaActionListener(this);
     }
     
     /**
@@ -275,6 +279,7 @@ public class TelaVenda extends javax.swing.JFrame {
         painelScrollTabelaBusca.setViewportView(tabelaBusca);
 
         botaoAdicionarAoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
+        botaoAdicionarAoPedido.setText("");
         botaoAdicionarAoPedido.setToolTipText("Clique aqui para adicionar este item ao pedido");
 
         javax.swing.GroupLayout painelBuscaLayout = new javax.swing.GroupLayout(painelBusca);
@@ -314,6 +319,8 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        botaoAdicionarAoPedido.getAccessibleContext().setAccessibleName("teste");
 
         menuPrincipal.setText("Principal");
 

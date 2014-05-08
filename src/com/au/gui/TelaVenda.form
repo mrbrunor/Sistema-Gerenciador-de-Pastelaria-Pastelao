@@ -538,8 +538,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value=""/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para adicionar este item ao pedido"/>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="teste"/>
+          </AccessibilityProperties>
         </Component>
       </SubComponents>
     </Container>
