@@ -18,7 +18,7 @@ public class Itempedido implements Serializable {
 	private ItempedidoPK id;
 
 	@Column(nullable=false)
-	private int qtdProd;
+	private Integer qtdProd;
 
 	@Column(nullable=false)
 	private double totProd;
@@ -44,11 +44,11 @@ public class Itempedido implements Serializable {
 		this.id = id;
 	}
 
-	public int getQtdProd() {
+	public Integer getQtdProd() {
 		return this.qtdProd;
 	}
 
-	public void setQtdProd(int qtdProd) {
+	public void setQtdProd(Integer qtdProd) {
 		this.qtdProd = qtdProd;
 	}
 

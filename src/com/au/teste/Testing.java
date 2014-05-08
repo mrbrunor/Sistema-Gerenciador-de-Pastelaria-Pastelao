@@ -51,7 +51,16 @@ class Testing extends JFrame
       }
     });
   }
-  public static void main(String[] args){new Testing().setVisible(true);}
+  public static void main(String[] args){
+ //     new Testing().setVisible(true);
+      
+     String[] buttons = {"OK"};
+
+    int rc = JOptionPane.showOptionDialog(null, "Question ?", "Confirmation",
+        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[0]);
+
+    System.out.println(rc);  
+  }
 }
 class Beer
 {

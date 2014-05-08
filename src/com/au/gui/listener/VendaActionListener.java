@@ -24,7 +24,6 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaVenda;
-import com.au.gui.tmodel.ProdutoTableModel;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
@@ -46,7 +45,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private final TelaVenda frm;
     private VendaTableModel tableModelVenda;
     private Pedido pedido = new Pedido();
-
+    private double totalPedido=0;
+    
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
         adicionaListener();
@@ -90,6 +90,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private Pedido formToVenda() {
         return pedido;
     }
+    
+    private void atualizaTotal(){
+        frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(totalPedido));
+    }
 
     private void adicionaItempedido() {
         Produto produto = new Produto();
@@ -97,27 +101,45 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
         produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
         itempedido.setProduto(produto);
+        itempedido.setQtdProd(null);
+        while (itempedido.getQtdProd() == null) {
+            String aux = JOptionPane.showInputDialog("Digite a Quantidade");
+            if (aux != null) {
+                if (aux.equals("0")) {
+                    System.out.println("Lógica de Remover Item");
+                } else {
+                    itempedido.setQtdProd(Integer.valueOf(aux));
+                }
+            }
+        }
+        itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
+        totalPedido = totalPedido + itempedido.getTotProd();
+        atualizaTotal();
         pedido.getItempedidos().add(itempedido);
         frm.getCampoAdicionarItem().setText("");
         atualizaTableModelVenda();
     }
-    
-    public void cancelarPedido(){
+
+    public void cancelarPedido() {
         pedido.setItempedidos(new ArrayList<Itempedido>());
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+        totalPedido = 0;
+        atualizaTotal();
         atualizaTableModelVenda();
     }
-    
-    public void removerItem(){
+
+    public void removerItem() {
         System.out.println("Chegou no Remover");
-        if(pedido.getItempedidos().size() == 1){
+        if (pedido.getItempedidos().size() == 1) {
             System.out.println("Apenas 1 Item");
             cancelarPedido();
-        }
-        else if (frm.getTabelaPedido().getSelectedRow() != -1) {
+        } else if (frm.getTabelaPedido().getSelectedRow() != -1) {
+            System.out.println("Removendo 1 Item");
+            totalPedido = totalPedido - pedido.getItempedidos().get(frm.getTabelaPedido().getSelectedRow()).getTotProd();
             pedido.getItempedidos().remove(frm.getTabelaPedido().getSelectedRow());
+            atualizaTotal();
             atualizaTableModelVenda();
         }
     }
@@ -154,7 +176,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaPedido().getSelectedRow() != -1) {
             Itempedido itempedido = tableModelVenda.getItemspedido().get(frm.getTabelaPedido().getSelectedRow());
-            vendaToForm(itempedido);   
+            vendaToForm(itempedido);
         }
     }
 }

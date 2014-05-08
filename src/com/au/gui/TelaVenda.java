@@ -28,6 +28,7 @@ import com.au.gui.listener.TabelaPesquisaActionListener;
 import com.au.gui.listener.VendaActionListener;
 import com.au.modelo.Funcionario;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -421,6 +422,14 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JLabel getTextoValorTotal() {
+        return textoValorTotal;
+    }
+
+    public void setTextoValorTotal(JLabel textoValorTotal) {
+        this.textoValorTotal = textoValorTotal;
+    }
 
     public Funcionario getFuncionario() {
         return funcionario;
