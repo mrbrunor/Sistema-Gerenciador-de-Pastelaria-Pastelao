@@ -32,6 +32,7 @@ import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,8 +46,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private final TelaVenda frm;
     private VendaTableModel tableModelVenda;
     private Pedido pedido = new Pedido();
-    private double totalPedido=0;
-    
+    private double totalPedido = 0;
+
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
         adicionaListener();
@@ -90,9 +91,27 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private Pedido formToVenda() {
         return pedido;
     }
-    
-    private void atualizaTotal(){
+
+    private void atualizaTotal() {
         frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(totalPedido));
+    }
+
+    private void verificaSeExiste(Itempedido itempedido) {
+        for (int i = 0; i < pedido.getItempedidos().size(); i++) {
+            System.out.println("Entrou FOR");
+            if (pedido.getItempedidos().get(i).getProduto().getIdProd() == itempedido.getProduto().getIdProd()) {
+                System.out.println("Item ja existe no pedido");
+                totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
+                if (itempedido.getQtdProd() == 0) {
+                    pedido.getItempedidos().remove(i);
+                } else {
+                    pedido.getItempedidos().set(i, itempedido);
+                }
+                return;
+            }
+        }
+        System.out.println("saiu do for");
+        pedido.getItempedidos().add(itempedido);
     }
 
     private void adicionaItempedido() {
@@ -105,17 +124,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         while (itempedido.getQtdProd() == null) {
             String aux = JOptionPane.showInputDialog("Digite a Quantidade");
             if (aux != null) {
-                if (aux.equals("0")) {
-                    System.out.println("Lógica de Remover Item");
-                } else {
-                    itempedido.setQtdProd(Integer.valueOf(aux));
-                }
+                itempedido.setQtdProd(Integer.valueOf(aux));
             }
         }
+        verificaSeExiste(itempedido);
         itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
         totalPedido = totalPedido + itempedido.getTotProd();
         atualizaTotal();
-        pedido.getItempedidos().add(itempedido);
         frm.getCampoAdicionarItem().setText("");
         atualizaTableModelVenda();
     }
