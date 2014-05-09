@@ -76,7 +76,6 @@ public class DAO<T> {
         long result = (Long) em.createQuery("select count(n) from livro n")
                 .getSingleResult();
         em.close();
-
         return (int) result;
     }
 
@@ -88,13 +87,12 @@ public class DAO<T> {
 
         List<Funcionario> funcionarios = q.getResultList();
         
-        if(funcionarios.size() == 0){
+        if(funcionarios.isEmpty()){
             return null;
         }
-        for(int i=0; i<funcionarios.size(); i++){
-            funcionario = funcionarios.get(i);
+        for (Funcionario funcionario1 : funcionarios) {
+            funcionario = funcionario1;
         }
-
         return funcionario;
     }
 

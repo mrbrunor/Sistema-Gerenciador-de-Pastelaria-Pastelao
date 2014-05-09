@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Itempedido;
@@ -158,9 +159,14 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             atualizaTableModelVenda();
         }
     }
+    
+    public void deslogar(){
+        new TelaLogin().setVisible(true);
+        frm.dispose();
+    }
 
     public void vendaToForm(Itempedido itempedido) {
-        frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getId()));
+        frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getProduto().getIdProd()));
     }
 
     @Override
@@ -182,8 +188,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Cancelar Pedido":
                 cancelarPedido();
                 break;
-            case "Adiciona Ingrediente":
-                System.out.println("Chegou aqui");
+            case "Deslogar":
+                deslogar();
+                break;
         }
     }
 
