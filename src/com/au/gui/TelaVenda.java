@@ -26,6 +26,7 @@ package com.au.gui;
 
 import com.au.gui.listener.TabelaPesquisaActionListener;
 import com.au.gui.listener.VendaActionListener;
+import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,6 +38,7 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaVenda extends javax.swing.JFrame {
+    private Caixa caixa;
     private Funcionario funcionario;
     private final VendaActionListener listener;
     private final TabelaPesquisaActionListener listener2;
@@ -131,7 +133,7 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoAlternarUsuario.setText("Deslogar");
 
         botaoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
-        botaoCaixa.setText("Fechar Caixa");
+        botaoCaixa.setText("Abre Caixa");
         botaoCaixa.setToolTipText("Clique aqui para fechar o caixa");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -280,7 +282,6 @@ public class TelaVenda extends javax.swing.JFrame {
         painelScrollTabelaBusca.setViewportView(tabelaBusca);
 
         botaoAdicionarAoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
-        botaoAdicionarAoPedido.setText("");
         botaoAdicionarAoPedido.setToolTipText("Clique aqui para adicionar este item ao pedido");
 
         javax.swing.GroupLayout painelBuscaLayout = new javax.swing.GroupLayout(painelBusca);
@@ -533,6 +534,14 @@ public class TelaVenda extends javax.swing.JFrame {
 
     public void setTabelaPedido(JTable tabelaPedido) {
         this.tabelaPedido = tabelaPedido;
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
     }
     
     

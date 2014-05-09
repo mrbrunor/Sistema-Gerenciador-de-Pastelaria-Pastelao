@@ -26,14 +26,16 @@ package com.au.gui.listener;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.modelo.Caixa;
 import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,6 +55,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        verificaCaixa();
     }
 
     public void inicializaTableModel() {
@@ -71,7 +74,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoAdicionarAoPedido().addActionListener(this);
         frm.getBotaoAdicionarItem().addActionListener(this);
         frm.getBotaoAlternarUsuario().addActionListener(this);
-        frm.getBotaoBuscar().addActionListener(this);
         frm.getBotaoCancelarPedido().addActionListener(this);
         frm.getBotaoExcluirItem().addActionListener(this);
         frm.getBotaoCaixa().addActionListener(this);
@@ -157,6 +159,18 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             pedido.getItempedidos().remove(frm.getTabelaPedido().getSelectedRow());
             atualizaTotal();
             atualizaTableModelVenda();
+        }
+    }
+    
+    public Caixa verificaCaixa(){
+        Date data = new Date();  
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");  
+        formatador.format(data);
+        
+        for (Caixa caixa : frm.getFuncionario().getCaixas()) {
+            if(caixa.getDataCaixa() == data){
+                return caixa;
+            }
         }
     }
     

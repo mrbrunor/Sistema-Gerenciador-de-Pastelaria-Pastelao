@@ -1,7 +1,8 @@
 package com.au.util;
 
+import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
-import java.util.Iterator;
+import com.au.modelo.Produto;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -86,8 +87,8 @@ public class DAO<T> {
         Query q = em.createQuery("from Funcionario f where f.userFunc='" + usuario + "'  and f.passFunc='" + senha + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
-        if(funcionarios.isEmpty()){
+
+        if (funcionarios.isEmpty()) {
             return null;
         }
         for (Funcionario funcionario1 : funcionarios) {
@@ -96,15 +97,13 @@ public class DAO<T> {
         return funcionario;
     }
 
-    public List<T> listaTodosPaginada(int firstResult, int maxResults) {
+    public List<Produto> buscaProduto(String pesquisa) {
         EntityManager em = new JPAUtil().getEntityManager();
-        CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
-        query.select(query.from(classe));
 
-        List<T> lista = em.createQuery(query).setFirstResult(firstResult)
-                .setMaxResults(maxResults).getResultList();
+        Query q = em.createQuery("from Produto p where p.descProd like '%" + pesquisa + "%'  or p.idProd like '" + pesquisa + "'");
 
-        em.close();
-        return lista;
+        List<Produto> produtos = q.getResultList();
+
+        return produtos;
     }
 }
