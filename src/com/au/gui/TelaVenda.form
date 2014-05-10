@@ -225,18 +225,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="textoHora" min="-2" max="-2" attributes="0"/>
-                                      <Component id="botaoAlternarUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="botaoCaixa" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoHora" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="botaoAlternarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botaoCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                       </Group>
                       <Component id="textoFotoFuncionario" max="32767" attributes="0"/>
                   </Group>
@@ -277,7 +272,7 @@
         <Component class="javax.swing.JButton" name="botaoAlternarUsuario">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/change_user-32.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/logout-32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Deslogar"/>
           </Properties>
@@ -285,7 +280,7 @@
         <Component class="javax.swing.JButton" name="botaoCaixa">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/logout-32.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/moneybox-32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Abre Caixa"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para fechar o caixa"/>
@@ -315,12 +310,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="textoDigiteParaAdicionar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="campoAdicionarItem" pref="119" max="32767" attributes="0"/>
+                          <Component id="campoAdicionarItem" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoAdicionarItem" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="painelScrollTabelaPedido" pref="0" max="32767" attributes="0"/>
+                          <Component id="painelScrollTabelaPedido" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -345,18 +340,15 @@
                       <Component id="campoAdicionarItem" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoAdicionarItem" linkSize="5" alignment="3" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="painelScrollTabelaPedido" pref="358" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="painelScrollTabelaPedido" pref="358" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botaoFecharPedido" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoCancelarPedido" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -425,11 +417,15 @@
               <Image iconType="3" name="/com/au/resources/icons/minus-26.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para excluir este item do pedido"/>
+            <Property name="actionCommand" type="java.lang.String" value="Remover Item"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorTotal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor Total: 0,00"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="20" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Valor Total: 100,00"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -461,7 +457,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="campoBusca" max="32767" attributes="0"/>
-                              <Component id="textoDigiteParaBuscar" pref="231" max="32767" attributes="0"/>
+                              <Component id="textoDigiteParaBuscar" pref="251" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoBuscar" min="-2" max="-2" attributes="0"/>
@@ -539,6 +535,7 @@
               <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para adicionar este item ao pedido"/>
+            <Property name="actionCommand" type="java.lang.String" value="Adicionar Item"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="teste"/>

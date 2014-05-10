@@ -65,6 +65,7 @@ public class TelaLogin extends javax.swing.JFrame {
         botaoEntrarNoSistema = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema Pastelão - Efetuar Login");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -136,6 +137,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        botaoEsqueciSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/help-32.png"))); // NOI18N
         botaoEsqueciSenha.setText("Esqueci a minha senha");
 
         botaoEntrarNoSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/login-32.png"))); // NOI18N
@@ -156,6 +158,9 @@ public class TelaLogin extends javax.swing.JFrame {
                         .addComponent(botaoEntrarNoSistema)))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botaoEntrarNoSistema, botaoEsqueciSenha});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
