@@ -25,13 +25,10 @@ package com.au.gui.listener;
 
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.ProdutoTableModel;
-import com.au.gui.tmodel.VendaTableModel;
-import com.au.modelo.Itempedido;
 import com.au.modelo.Produto;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,7 +40,7 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
 
     private final TelaVenda frm;
     private ProdutoTableModel tableModelPesquisa;
-    
+
     public TabelaPesquisaActionListener(TelaVenda frm) {
         this.frm = frm;
         frm.getBotaoBuscar().addActionListener(this);
@@ -55,28 +52,30 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
     }
-    
-    public void atualizaTableModelPesquisa(){
+
+    public void atualizaTableModelPesquisa() {
         tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).listaTodos());
     }
-    
-    public void pesquisaProdutos(){
+
+    public void pesquisaProdutos() {
         String pesquisa = frm.getCampoBusca().getText();
         System.out.println(pesquisa);
         tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).buscaProduto(pesquisa));
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
-        
+
     }
-    
-    public void vendaToForm(Produto produto){
+
+    public void vendaToForm(Produto produto) {
         frm.getCampoAdicionarItem().setText(String.valueOf(produto.getIdProd()));
     }
- 
+
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Produto produto = tableModelPesquisa.getProdutos().get(frm.getTabelaBusca().getSelectedRow());
-        vendaToForm(produto);
+        if (frm.getTabelaBusca().getSelectedRow() != -1) {
+            Produto produto = tableModelPesquisa.getProdutos().get(frm.getTabelaBusca().getSelectedRow());
+            vendaToForm(produto);
+        }
     }
 
     @Override

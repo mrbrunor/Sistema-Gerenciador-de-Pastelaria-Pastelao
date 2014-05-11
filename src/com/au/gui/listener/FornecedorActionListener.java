@@ -139,6 +139,11 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         frm.getCampoCelularFornecedor().setText(fornecedor.getCelForn());
         desabilitaBotoesParaSalvar();
     }
+    
+    public boolean valida(){
+        
+        return false;
+    }
 
     @Override
     public void actionPerformed(ActionEvent event) {
