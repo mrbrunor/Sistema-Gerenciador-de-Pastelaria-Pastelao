@@ -24,20 +24,39 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.PagamentoActionListener;
+import com.au.modelo.Funcionario;
+import com.au.modelo.Pedido;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
-    /**
-     * Creates new form TelaConfirmacaoPagamento
-     */
-    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal) {
+    private Funcionario funcionario = new Funcionario();
+    private Pedido pedido = new Pedido();
+    private Integer indexCaixa = null;
+    private double subTotal = 0;
+    private double total = 0;
+    private final PagamentoActionListener listener;
+        
+    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer indexCaixa, Double subTotal) {
         super(parent, modal);
+        this.pedido = pedido;
+        this.funcionario = funcionario;
+        this.indexCaixa = indexCaixa;
+        this.subTotal = subTotal;
         initComponents();
+        listener = new PagamentoActionListener(this);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +73,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorTotal = new javax.swing.JLabel();
         textoDesconto = new javax.swing.JLabel();
         campoDesconto = new javax.swing.JTextField();
+        campoDesconto.setActionCommand("Desconto");
         jSeparator1 = new javax.swing.JSeparator();
         painelFormasDePagamento = new javax.swing.JPanel();
         textoSelecioneFormaPagamento = new javax.swing.JLabel();
@@ -149,11 +169,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         botaoRadioDinheiro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioDinheiro.setText("Dinheiro");
-        botaoRadioDinheiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoRadioDinheiroActionPerformed(evt);
-            }
-        });
 
         botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioCartaoCredito.setText("Cartão de Crédito");
@@ -220,9 +235,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addComponent(textoSelecioneFormaPagamento)
                 .addGap(18, 18, 18)
                 .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botaoRadioDinheiro)
-                        .addComponent(textoIconeDinheiro))
+                    .addComponent(textoIconeDinheiro)
+                    .addComponent(botaoRadioDinheiro)
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                         .addComponent(botaoRadioCartaoCredito)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,9 +249,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                         .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                         .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(botaoRadioValeRefeicao)
-                                .addComponent(textoIconeVR))
+                            .addComponent(textoIconeVR)
+                            .addComponent(botaoRadioValeRefeicao)
                             .addComponent(textoIconeCD))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -260,7 +273,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(painelDadosPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoConfirmarPedido)))
@@ -283,50 +296,140 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoRadioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoRadioDinheiroActionPerformed
+    public double getSubTotal() {
+        return subTotal;
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConfirmacaoPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConfirmacaoPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConfirmacaoPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConfirmacaoPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaConfirmacaoPagamento dialog = new TelaConfirmacaoPagamento(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public JLabel getTextoValorTotal() {
+        return textoValorTotal;
+    }
+
+    public void setTextoValorTotal(JLabel textoValorTotal) {
+        this.textoValorTotal = textoValorTotal;
+    }
+
+    public Integer getIndexCaixa() {
+        return indexCaixa;
+    }
+
+    public void setIndexCaixa(Integer indexCaixa) {
+        this.indexCaixa = indexCaixa;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public JButton getBotaoCancelarPedido() {
+        return botaoCancelarPedido;
+    }
+
+    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
+        this.botaoCancelarPedido = botaoCancelarPedido;
+    }
+
+    public JRadioButton getBotaoCartaoDebito() {
+        return botaoCartaoDebito;
+    }
+
+    public void setBotaoCartaoDebito(JRadioButton botaoCartaoDebito) {
+        this.botaoCartaoDebito = botaoCartaoDebito;
+    }
+
+    public JButton getBotaoConfirmarPedido() {
+        return botaoConfirmarPedido;
+    }
+
+    public void setBotaoConfirmarPedido(JButton botaoConfirmarPedido) {
+        this.botaoConfirmarPedido = botaoConfirmarPedido;
+    }
+
+    public JRadioButton getBotaoRadioCartaoCredito() {
+        return botaoRadioCartaoCredito;
+    }
+
+    public void setBotaoRadioCartaoCredito(JRadioButton botaoRadioCartaoCredito) {
+        this.botaoRadioCartaoCredito = botaoRadioCartaoCredito;
+    }
+
+    public JRadioButton getBotaoRadioDinheiro() {
+        return botaoRadioDinheiro;
+    }
+
+    public void setBotaoRadioDinheiro(JRadioButton botaoRadioDinheiro) {
+        this.botaoRadioDinheiro = botaoRadioDinheiro;
+    }
+
+    public JRadioButton getBotaoRadioValeRefeicao() {
+        return botaoRadioValeRefeicao;
+    }
+
+    public void setBotaoRadioValeRefeicao(JRadioButton botaoRadioValeRefeicao) {
+        this.botaoRadioValeRefeicao = botaoRadioValeRefeicao;
+    }
+
+    public JComboBox getCaixaSelecaoCC() {
+        return caixaSelecaoCC;
+    }
+
+    public void setCaixaSelecaoCC(JComboBox caixaSelecaoCC) {
+        this.caixaSelecaoCC = caixaSelecaoCC;
+    }
+
+    public JComboBox getCaixaSelecaoCD() {
+        return caixaSelecaoCD;
+    }
+
+    public void setCaixaSelecaoCD(JComboBox caixaSelecaoCD) {
+        this.caixaSelecaoCD = caixaSelecaoCD;
+    }
+
+    public JComboBox getCaixaSelecaoVR() {
+        return caixaSelecaoVR;
+    }
+
+    public void setCaixaSelecaoVR(JComboBox caixaSelecaoVR) {
+        this.caixaSelecaoVR = caixaSelecaoVR;
+    }
+
+    public JTextField getCampoDesconto() {
+        return campoDesconto;
+    }
+
+    public void setCampoDesconto(JTextField campoDesconto) {
+        this.campoDesconto = campoDesconto;
+    }
+
+    public JTable getTabelaPedido() {
+        return tabelaPedido;
+    }
+
+    public void setTabelaPedido(JTable tabelaPedido) {
+        this.tabelaPedido = tabelaPedido;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

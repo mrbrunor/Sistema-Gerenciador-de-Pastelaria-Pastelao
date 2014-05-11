@@ -213,7 +213,7 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoExcluirItem.setActionCommand("Remover Item");
 
         textoValorTotal.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        textoValorTotal.setText("Valor Total: 100,00");
+        textoValorTotal.setText("Valor Total: 0,00");
 
         javax.swing.GroupLayout painelPedidoLayout = new javax.swing.GroupLayout(painelPedido);
         painelPedido.setLayout(painelPedidoLayout);
@@ -296,7 +296,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoBusca)
-                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(botaoBuscar)))
                 .addContainerGap())

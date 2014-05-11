@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.VendaTableModel;
@@ -58,13 +59,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         adicionaListener();
         inicializaTableModel();
         indexCaixa = verificaCaixa();
-        if (indexCaixa == null){
+        if (indexCaixa == null) {
             Caixa caixa = novoCaixa();
             new DAO<>(Caixa.class).atualiza(caixa);
             frm.getFuncionario().getCaixas().add(caixa);
             System.out.println("Novo caixa Criado");
-            indexCaixa = frm.getFuncionario().getCaixas().size()-1;
-        }        
+            indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
+        }
         System.out.println(indexCaixa);
         frm.getBotaoCaixa().setText("Fechar Caixa");
     }
@@ -91,15 +92,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoFecharPedido().addActionListener(this);
     }
 
-    private void salvar() {
+    private void fecharPedido() {
 
-        JOptionPane.showMessageDialog(frm, "Lógica de Pagamento Aqui", "Cadastro de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
 
-        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
-        frm.getTabelaPedido().setModel(tableModelVenda);
-        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
-
-        inicializaTableModel();
     }
 
     private Pedido formToVenda() {
@@ -192,37 +188,30 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         return caixa;
     }
 
+    public void fecharCaixa(Integer index) {
+        System.out.println("HAHAHA FECHA AI Caixa ID: " + frm.getFuncionario().getCaixas().get(index).getIdCaixa());
+    }
+
     public Integer verificaCaixa() {
+        byte x = 1;
         Date data = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         String dataStr = formatador.format(data);
-        
-        
-        for(int i =0; frm.getFuncionario().getCaixas().size() > i; i++){
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
-            System.out.println("A");
+
+        for (int i = 0; frm.getFuncionario().getCaixas().size() > i; i++) {
             System.out.println(frm.getFuncionario().getCaixas().get(i).getDataCaixa());
             System.out.println(frm.getFuncionario().getCaixas().size());
             System.out.println(dataStr);
-            if(String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataCaixa()).equals(dataStr)){
-                System.out.println("Chegou");
-                byte x = 1;
-                if(frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x){
+            if (frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x) {
+                if (String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataCaixa()).equals(dataStr)) {
+                    System.out.println("Chegou");
                     return i;
+                } else {
+                    JOptionPane.showMessageDialog(frm, "Você não fechou o caixa do ultimo dia, antes de iniciar um novo caixa, devemos fechar o anterior. Clique em OK para Fechar o Caixa");
+                    fecharCaixa(i);
                 }
             }
+
         }
         return null;
     }
@@ -238,7 +227,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
                 atualizaTableModelVenda();
@@ -250,8 +238,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Fechar Caixa":
                 System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getTotalCaixa());
                 break;
-            case "Salvar":
-                salvar();
+            case "Fechar Pedido":
+                fecharPedido();
                 break;
             case "Cancelar Pedido":
                 cancelarPedido();
