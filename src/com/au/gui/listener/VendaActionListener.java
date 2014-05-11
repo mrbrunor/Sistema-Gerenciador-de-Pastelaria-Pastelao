@@ -33,6 +33,7 @@ import com.au.modelo.Produto;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,12 +51,22 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private VendaTableModel tableModelVenda;
     private Pedido pedido = new Pedido();
     private double totalPedido = 0;
+    private Integer indexCaixa = null;
 
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
-        verificaCaixa();
+        indexCaixa = verificaCaixa();
+        if (indexCaixa == null){
+            Caixa caixa = novoCaixa();
+            new DAO<>(Caixa.class).atualiza(caixa);
+            frm.getFuncionario().getCaixas().add(caixa);
+            System.out.println("Novo caixa Criado");
+            indexCaixa = frm.getFuncionario().getCaixas().size()-1;
+        }        
+        System.out.println(indexCaixa);
+        frm.getBotaoCaixa().setText("Fechar Caixa");
     }
 
     public void inicializaTableModel() {
@@ -161,20 +172,62 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             atualizaTableModelVenda();
         }
     }
-    
-    public Caixa verificaCaixa(){
-        Date data = new Date();  
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");  
-        formatador.format(data);
-        
-        for (Caixa caixa : frm.getFuncionario().getCaixas()) {
-            if(caixa.getDataCaixa() == data){
-                return caixa;
+
+    public Caixa novoCaixa() {
+        Caixa caixa = new Caixa();
+        Date data = new Date();
+        Time time = new Time(data.getTime());
+        caixa.setAberturaCaixa(time);
+        caixa.setDataCaixa(data);
+        caixa.setEstaAberto((byte) 1);
+        caixa.setFuncionario(frm.getFuncionario());
+        caixa.setFundoCaixa(0);
+        while (caixa.getFundoCaixa() == 0) {
+            String aux = JOptionPane.showInputDialog("Digite o Valor do Fundo de Caixa");
+            if (aux != null) {
+                caixa.setFundoCaixa(Double.valueOf(aux));
             }
         }
+        caixa.setTotalCaixa(0);
+        return caixa;
     }
-    
-    public void deslogar(){
+
+    public Integer verificaCaixa() {
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataStr = formatador.format(data);
+        
+        
+        for(int i =0; frm.getFuncionario().getCaixas().size() > i; i++){
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println("A");
+            System.out.println(frm.getFuncionario().getCaixas().get(i).getDataCaixa());
+            System.out.println(frm.getFuncionario().getCaixas().size());
+            System.out.println(dataStr);
+            if(String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataCaixa()).equals(dataStr)){
+                System.out.println("Chegou");
+                byte x = 1;
+                if(frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x){
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deslogar() {
         new TelaLogin().setVisible(true);
         frm.dispose();
     }
@@ -191,10 +244,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 atualizaTableModelVenda();
                 adicionaItempedido();
                 break;
-            case "":
+            case "Remover Item":
                 removerItem();
                 break;
-            case "Excluir":
+            case "Fechar Caixa":
+                System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getTotalCaixa());
                 break;
             case "Salvar":
                 salvar();
