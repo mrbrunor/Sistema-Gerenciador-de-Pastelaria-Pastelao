@@ -30,6 +30,7 @@ import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -421,6 +422,126 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JMenuItem getItemMenuAbrirCaixa() {
+        return itemMenuAbrirCaixa;
+    }
+
+    public void setItemMenuAbrirCaixa(JMenuItem itemMenuAbrirCaixa) {
+        this.itemMenuAbrirCaixa = itemMenuAbrirCaixa;
+    }
+
+    public JMenuItem getItemMenuAjuda() {
+        return itemMenuAjuda;
+    }
+
+    public void setItemMenuAjuda(JMenuItem itemMenuAjuda) {
+        this.itemMenuAjuda = itemMenuAjuda;
+    }
+
+    public JMenuItem getItemMenuDeslogar() {
+        return itemMenuDeslogar;
+    }
+
+    public void setItemMenuDeslogar(JMenuItem itemMenuDeslogar) {
+        this.itemMenuDeslogar = itemMenuDeslogar;
+    }
+
+    public JMenuItem getItemMenuDespesas() {
+        return itemMenuDespesas;
+    }
+
+    public void setItemMenuDespesas(JMenuItem itemMenuDespesas) {
+        this.itemMenuDespesas = itemMenuDespesas;
+    }
+
+    public JMenuItem getItemMenuFecharCaixa() {
+        return itemMenuFecharCaixa;
+    }
+
+    public void setItemMenuFecharCaixa(JMenuItem itemMenuFecharCaixa) {
+        this.itemMenuFecharCaixa = itemMenuFecharCaixa;
+    }
+
+    public JMenuItem getItemMenuFornecedores() {
+        return itemMenuFornecedores;
+    }
+
+    public void setItemMenuFornecedores(JMenuItem itemMenuFornecedores) {
+        this.itemMenuFornecedores = itemMenuFornecedores;
+    }
+
+    public JMenuItem getItemMenuFuncionarios() {
+        return itemMenuFuncionarios;
+    }
+
+    public void setItemMenuFuncionarios(JMenuItem itemMenuFuncionarios) {
+        this.itemMenuFuncionarios = itemMenuFuncionarios;
+    }
+
+    public JMenuItem getItemMenuIngredientes() {
+        return itemMenuIngredientes;
+    }
+
+    public void setItemMenuIngredientes(JMenuItem itemMenuIngredientes) {
+        this.itemMenuIngredientes = itemMenuIngredientes;
+    }
+
+    public JMenuItem getItemMenuNotasFiscais() {
+        return itemMenuNotasFiscais;
+    }
+
+    public void setItemMenuNotasFiscais(JMenuItem itemMenuNotasFiscais) {
+        this.itemMenuNotasFiscais = itemMenuNotasFiscais;
+    }
+
+    public JMenuItem getItemMenuProdutos() {
+        return itemMenuProdutos;
+    }
+
+    public void setItemMenuProdutos(JMenuItem itemMenuProdutos) {
+        this.itemMenuProdutos = itemMenuProdutos;
+    }
+
+    public JMenuItem getItemMenuRetiradaDeCaixa() {
+        return itemMenuRetiradaDeCaixa;
+    }
+
+    public void setItemMenuRetiradaDeCaixa(JMenuItem itemMenuRetiradaDeCaixa) {
+        this.itemMenuRetiradaDeCaixa = itemMenuRetiradaDeCaixa;
+    }
+
+    public JMenuItem getItemMenuSair() {
+        return itemMenuSair;
+    }
+
+    public void setItemMenuSair(JMenuItem itemMenuSair) {
+        this.itemMenuSair = itemMenuSair;
+    }
+
+    public JMenuItem getItemMenuSobre() {
+        return itemMenuSobre;
+    }
+
+    public void setItemMenuSobre(JMenuItem itemMenuSobre) {
+        this.itemMenuSobre = itemMenuSobre;
+    }
+
+    public JMenuItem getItemMenuTeclasAtalho() {
+        return itemMenuTeclasAtalho;
+    }
+
+    public void setItemMenuTeclasAtalho(JMenuItem itemMenuTeclasAtalho) {
+        this.itemMenuTeclasAtalho = itemMenuTeclasAtalho;
+    }
+
+    public JMenuItem getItemMenuTrocarSenha() {
+        return itemMenuTrocarSenha;
+    }
+
+    public void setItemMenuTrocarSenha(JMenuItem itemMenuTrocarSenha) {
+        this.itemMenuTrocarSenha = itemMenuTrocarSenha;
+    }
 
     public JLabel getTextoValorTotal() {
         return textoValorTotal;

@@ -43,12 +43,13 @@ import javax.swing.border.Border;
  *
  * @author tiago_000
  */
-public class TelaCadastrarUsuario extends javax.swing.JFrame {
+public class TelaCadastrarUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaCadastrarUsuario
      */
-    public TelaCadastrarUsuario() {
+    public TelaCadastrarUsuario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ |^~]"));
         campoNascAno.setDocument(new LimitaDigitos((4), "[^0-9]"));
@@ -133,7 +134,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         campoPass = new javax.swing.JPasswordField();
         campoPass2 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1018,38 +1019,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void caixaSelecaoAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoAtivoActionPerformed
 
     }//GEN-LAST:event_caixaSelecaoAtivoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastrarUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;

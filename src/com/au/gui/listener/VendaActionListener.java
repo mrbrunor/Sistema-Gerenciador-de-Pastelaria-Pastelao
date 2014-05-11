@@ -23,6 +23,10 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaCadastrarFornecedor;
+import com.au.gui.TelaCadastrarFuncionario;
+import com.au.gui.TelaCadastrarIngrediente;
+import com.au.gui.TelaCadastrarProduto;
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
@@ -90,6 +94,21 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoExcluirItem().addActionListener(this);
         frm.getBotaoCaixa().addActionListener(this);
         frm.getBotaoFecharPedido().addActionListener(this);
+        frm.getItemMenuAbrirCaixa().addActionListener(this);
+        frm.getItemMenuAjuda().addActionListener(this);
+        frm.getItemMenuDeslogar().addActionListener(this);
+        frm.getItemMenuDespesas().addActionListener(this);
+        frm.getItemMenuFecharCaixa().addActionListener(this);
+        frm.getItemMenuFornecedores().addActionListener(this);
+        frm.getItemMenuFuncionarios().addActionListener(this);
+        frm.getItemMenuIngredientes().addActionListener(this);
+        frm.getItemMenuNotasFiscais().addActionListener(this);
+        frm.getItemMenuProdutos().addActionListener(this);
+        frm.getItemMenuRetiradaDeCaixa().addActionListener(this);
+        frm.getItemMenuSair().addActionListener(this);
+        frm.getItemMenuSobre().addActionListener(this);
+        frm.getItemMenuTeclasAtalho().addActionListener(this);
+        frm.getItemMenuTrocarSenha().addActionListener(this);
     }
 
     private void fecharPedido() {
@@ -227,6 +246,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
                 atualizaTableModelVenda();
@@ -247,6 +267,19 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Deslogar":
                 deslogar();
                 break;
+            case "Fornecedores":
+                new TelaCadastrarFornecedor(frm, true).setVisible(true);
+                break;
+            case "Funcionários":
+                new TelaCadastrarFuncionario(frm, true).setVisible(true);
+                break;
+            case "Ingredientes":
+                new TelaCadastrarIngrediente(frm, true).setVisible(true);
+                break;
+            case "Produtos":
+                new TelaCadastrarProduto(frm, true).setVisible(true);
+                break;
+            
         }
     }
 

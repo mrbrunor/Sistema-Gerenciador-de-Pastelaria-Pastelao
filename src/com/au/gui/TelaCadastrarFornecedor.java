@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 tiago_000.
+ * Copyright 2014 BrunoRicardo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.au.gui;
 
 import com.au.gui.listener.FornecedorActionListener;
@@ -31,16 +32,18 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author tiago_000
+ * @author BrunoRicardo
  */
-public class TelaCadastrarFornecedor extends javax.swing.JFrame {
+public class TelaCadastrarFornecedor extends javax.swing.JDialog {
+
     private FornecedorActionListener listener;
 
     /**
      * Creates new form TelaCadastrarFornecedor
      */
     
-    public TelaCadastrarFornecedor() {
+    public TelaCadastrarFornecedor(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ ]"));
         campoCnpjFornecedor.setDocument(new LimitaDigitos((20), "[^0-9|^.\\-]"));
@@ -51,6 +54,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         campoNomeFornecedor.requestFocus();
         listener = new FornecedorActionListener(this);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,8 +96,8 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         botaoAtualizarFornecedor = new javax.swing.JButton();
         botaoExcluirFornecedor = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Adiconar novo Fornecedor");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(945, 565));
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -168,7 +172,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                         .addComponent(campoEmailFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                         .addComponent(campoTelefoneFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(campoCelularFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelAdicionarModificarFornecedorLayout.setVerticalGroup(
             painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +201,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                 .addGroup(painelAdicionarModificarFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCelularFornecedor)
                     .addComponent(campoCelularFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         painelProcurarFornecedores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Fornecedor Existente"));
@@ -239,7 +243,7 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoProcurarFornecedor))
                             .addComponent(textoCliqueParaEditar))
-                        .addGap(0, 25, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelProcurarFornecedoresLayout.setVerticalGroup(
@@ -332,6 +336,9 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
     public JButton getBotaoAtualizarFornecedor() {
         return botaoAtualizarFornecedor;
     }
@@ -452,41 +459,6 @@ public class TelaCadastrarFornecedor extends javax.swing.JFrame {
         campoNomeFornecedor.setText("");
         campoPesquisarFornecedor.setText("");
         campoTelefoneFornecedor.setText("");
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastrarFornecedor().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

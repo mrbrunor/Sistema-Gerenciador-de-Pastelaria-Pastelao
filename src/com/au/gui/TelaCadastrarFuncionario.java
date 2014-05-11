@@ -37,13 +37,14 @@ import javax.swing.JTextField;
  *
  * @author BrunoRicardo
  */
-public class TelaCadastrarFuncionario extends javax.swing.JFrame {
+public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private FuncionarioActionListener listener;
 
     /**
      * Creates new form TelaCadastrarFuncionario
      */
-    public TelaCadastrarFuncionario() {
+    public TelaCadastrarFuncionario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         listener = new FuncionarioActionListener(this);
     }
@@ -117,7 +118,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         botaoCancelarCadastro = new javax.swing.JButton();
         botaoCadastrarFuncionario = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -732,42 +733,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JFrame {
         caixaSexo.setSelectedIndex(0);
         textoId.setText("");
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastrarFuncionario().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoAtualizarFuncionario;
