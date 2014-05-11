@@ -81,7 +81,6 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         frm.getBotaoAtualizarFornecedor().setEnabled(!enabled);
         frm.getBotaoCadastrarFornecedor().setEnabled(enabled);
         frm.getBotaoExcluirFornecedor().setEnabled(!enabled);
-        frm.getBotaoProcurarFornecedor().setEnabled(enabled);
     }
 
     private void cadastrarFornecedor() {
@@ -106,8 +105,6 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
     }
 
     public void excluirFornecedor() {
-        inicializaTableModel();
-
         new DAO<>(Fornecedor.class).remove(formToFornecedor());
 
         JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
