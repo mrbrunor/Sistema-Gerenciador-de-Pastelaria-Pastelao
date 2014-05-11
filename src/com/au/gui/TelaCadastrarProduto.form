@@ -148,9 +148,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="painelDadosProduto" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="painelProdutoIndustrializado" max="32767" attributes="0"/>
+                          <Component id="painelProdutoIndustrializado" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="painelProdutoPreparado" min="-2" max="-2" attributes="0"/>
+                          <Component id="painelProdutoPreparado" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -338,7 +338,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="campoBarras" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="campoQtd" max="32767" attributes="0"/>
+                              <Component id="campoQtd" pref="38" max="32767" attributes="0"/>
                               <EmptySpace min="84" pref="84" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -400,7 +400,7 @@
                   <Component id="jScrollPane2" alignment="1" pref="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="caixaSelecaoIng" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace pref="69" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="botaoAdicionarIngrediente" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -458,7 +458,10 @@
             </Container>
             <Component class="javax.swing.JButton" name="botaoAdicionarIngrediente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Adiciona Ingrediente"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Adicionar Ingrediente"/>
               </Properties>
             </Component>
           </SubComponents>

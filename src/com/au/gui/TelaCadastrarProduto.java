@@ -247,7 +247,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoBarras)
                     .addGroup(painelProdutoIndustrializadoLayout.createSequentialGroup()
-                        .addComponent(campoQtd)
+                        .addComponent(campoQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                         .addGap(84, 84, 84)))
                 .addContainerGap())
         );
@@ -277,7 +277,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(tabelaIngredientes);
 
-        botaoAdicionarIngrediente.setText("Adiciona Ingrediente");
+        botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
+        botaoAdicionarIngrediente.setText("Adicionar Ingrediente");
 
         javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
         painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);
@@ -286,7 +287,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
                 .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoAdicionarIngrediente))
         );
         painelProdutoPreparadoLayout.setVerticalGroup(
@@ -310,9 +311,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelDadosProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
-                        .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelAdicionarModificarProdutosLayout.setVerticalGroup(
