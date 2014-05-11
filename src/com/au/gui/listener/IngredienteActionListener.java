@@ -50,6 +50,7 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     public void inicializaTableModel() {
@@ -80,26 +81,43 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         frm.getBotaoAtualizarIngrediente().setEnabled(!enabled);
         frm.getBotaoCadastrarIngrediente().setEnabled(enabled);
         frm.getBotaoExcluirIngrediente().setEnabled(!enabled);
-        frm.getBotaoCancelarIngrediente().setEnabled(enabled);
-        frm.getBotaoLimparCampos().setEnabled(enabled);
-        frm.getBotaoProcurarIngrediente().setEnabled(enabled);
     }
 
-    private void salvar() {
+    private void cadastrarIngrediente() {
         new DAO<>(Ingrediente.class).adiciona(formToIngrediente());
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
-
-        desabilitaBotoesParaSalvar();
+        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
         inicializaTableModel();
     }
 
+    public void atualizarIngrediente() {
+        new DAO<>(Ingrediente.class).atualiza(formToIngrediente());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+
+    }
+
+    public void excluirIngrediente() {
+        new DAO<>(Ingrediente.class).remove(formToIngrediente());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+
+    }
+
     private Ingrediente formToIngrediente() {
         Ingrediente ingrediente = new Ingrediente();
-        
+
         if (!"".equals(frm.getCampoId().getText())) {
             ingrediente.setIdIng(Integer.valueOf(frm.getCampoId().getText()));
         }
@@ -112,29 +130,38 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         frm.getCampoId().setText(String.valueOf(ingrediente.getIdIng()));
         frm.getCampoNome().setText(ingrediente.getDescIng());
         frm.getCampoValor().setText(String.valueOf(ingrediente.getValorIng()));
+        desabilitaBotoesParaSalvar();
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Ingrediente":
-                salvar();
+                cadastrarIngrediente();
                 break;
-            case "Alterar":
+            case "Limpar Campos":
+                limpaCampos();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Excluir":
+            case "Excluir Ingrediente":
+                excluirIngrediente();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Salvar":
+            case "Atualizar Ingrediente":
+                atualizarIngrediente();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Cancelar":
+            case "Cancelar Cadastro":
+                this.frm.dispose();
                 break;
         }
-        habilitaBotoesParaSalvar();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Ingrediente ingrediente = tableModel.getIngredientes().get(frm.getTabelaIngredientes().getSelectedRow());
-        ingredienteToForm(ingrediente);
+        if (frm.getTabelaIngredientes().getSelectedRow() != -1) {
+            Ingrediente ingrediente = tableModel.getIngredientes().get(frm.getTabelaIngredientes().getSelectedRow());
+            ingredienteToForm(ingrediente);
+        }
     }
 }
