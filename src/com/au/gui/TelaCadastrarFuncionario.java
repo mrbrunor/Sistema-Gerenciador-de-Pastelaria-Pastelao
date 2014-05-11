@@ -28,7 +28,6 @@ import com.au.gui.listener.FuncionarioActionListener;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -62,13 +61,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoIconeNovoFuncionario = new javax.swing.JLabel();
         textoAdicionarNovoFuncionario = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
-        botaoIncluir = new javax.swing.JButton();
-        botaoAlterar = new javax.swing.JButton();
-        botaoExcluir = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        botaoSalvar = new javax.swing.JButton();
-        botaoCancelar = new javax.swing.JButton();
         painelAdicionarModificarFuncionarios = new javax.swing.JPanel();
         painelDadosPessoais = new javax.swing.JPanel();
         textoId = new javax.swing.JLabel();
@@ -129,41 +121,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar um novo funcionário.");
 
-        jToolBar1.setRollover(true);
-
-        botaoIncluir.setText("Incluir");
-        botaoIncluir.setFocusable(false);
-        botaoIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoIncluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botaoIncluir);
-
-        botaoAlterar.setText("Alterar");
-        botaoAlterar.setFocusable(false);
-        botaoAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botaoAlterar);
-
-        botaoExcluir.setText("Excluir");
-        botaoExcluir.setFocusable(false);
-        botaoExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botaoExcluir);
-        jToolBar1.add(jSeparator1);
-
-        botaoSalvar.setText("Salvar");
-        botaoSalvar.setEnabled(false);
-        botaoSalvar.setFocusable(false);
-        botaoSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botaoSalvar);
-
-        botaoCancelar.setText("Cancelar");
-        botaoCancelar.setEnabled(false);
-        botaoCancelar.setFocusable(false);
-        botaoCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botaoCancelar);
-
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
         painelSuperiorLayout.setHorizontalGroup(
@@ -175,8 +132,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoAdicionarNovoFuncionario)
                     .addComponent(textoPreencherDados))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(527, Short.MAX_VALUE))
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,8 +144,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoPreencherDados))
                     .addComponent(textoIconeNovoFuncionario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -198,6 +152,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         painelDadosPessoais.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Pessoais"));
 
         textoId.setText("ID:");
+
+        campoId.setEnabled(false);
 
         textoNome.setText("Nome Completo:");
 
@@ -397,9 +353,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
             painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelDadosPessoais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelDadosPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDadosEmpregaticios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painelDadosEmpregaticios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelProcurarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Funcionário Existente"));
@@ -455,8 +412,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueParaEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
@@ -527,16 +484,80 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelAdicionarModificarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelProcurarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JButton getBotaoAtualizarFuncionario() {
+        return botaoAtualizarFuncionario;
+    }
+
+    public void setBotaoAtualizarFuncionario(JButton botaoAtualizarFuncionario) {
+        this.botaoAtualizarFuncionario = botaoAtualizarFuncionario;
+    }
+
+    public JButton getBotaoCadastrarFuncionario() {
+        return botaoCadastrarFuncionario;
+    }
+
+    public void setBotaoCadastrarFuncionario(JButton botaoCadastrarFuncionario) {
+        this.botaoCadastrarFuncionario = botaoCadastrarFuncionario;
+    }
+
+    public JButton getBotaoCancelarCadastro() {
+        return botaoCancelarCadastro;
+    }
+
+    public void setBotaoCancelarCadastro(JButton botaoCancelarCadastro) {
+        this.botaoCancelarCadastro = botaoCancelarCadastro;
+    }
+
+    public JButton getBotaoExcluirFuncionario() {
+        return botaoExcluirFuncionario;
+    }
+
+    public void setBotaoExcluirFuncionario(JButton botaoExcluirFuncionario) {
+        this.botaoExcluirFuncionario = botaoExcluirFuncionario;
+    }
+
+    public JButton getBotaoLimparCampos() {
+        return botaoLimparCampos;
+    }
+
+    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
+        this.botaoLimparCampos = botaoLimparCampos;
+    }
+
+    public JButton getBotaoProcurarFuncionario() {
+        return botaoProcurarFuncionario;
+    }
+
+    public void setBotaoProcurarFuncionario(JButton botaoProcurarFuncionario) {
+        this.botaoProcurarFuncionario = botaoProcurarFuncionario;
+    }
+
+    public JTextField getCampoPesquisarFuncionario() {
+        return campoPesquisarFuncionario;
+    }
+
+    public void setCampoPesquisarFuncionario(JTextField campoPesquisarFuncionario) {
+        this.campoPesquisarFuncionario = campoPesquisarFuncionario;
+    }
+
+    public JTable getTabelaFuncionarios() {
+        return tabelaFuncionarios;
+    }
+
+    public void setTabelaFuncionarios(JTable tabelaFuncionarios) {
+        this.tabelaFuncionarios = tabelaFuncionarios;
+    }
 
     public JTextField getCampoId() {
         return campoId;
@@ -546,46 +567,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         this.campoId = campoId;
     }
     
-    public JButton getBotaoAlterar() {
-        return botaoAlterar;
-    }
-
-    public void setBotaoAlterar(JButton botaoAlterar) {
-        this.botaoAlterar = botaoAlterar;
-    }
-
-    public JButton getBotaoCancelar() {
-        return botaoCancelar;
-    }
-
-    public void setBotaoCancelar(JButton botaoCancelar) {
-        this.botaoCancelar = botaoCancelar;
-    }
-
-    public JButton getBotaoExcluir() {
-        return botaoExcluir;
-    }
-
-    public void setBotaoExcluir(JButton botaoExcluir) {
-        this.botaoExcluir = botaoExcluir;
-    }
-
-    public JButton getBotaoIncluir() {
-        return botaoIncluir;
-    }
-
-    public void setBotaoIncluir(JButton botaoIncluir) {
-        this.botaoIncluir = botaoIncluir;
-    }
-
-    public JButton getBotaoSalvar() {
-        return botaoSalvar;
-    }
-
-    public void setBotaoSalvar(JButton botaoSalvar) {
-        this.botaoSalvar = botaoSalvar;
-    }
-
     public JComboBox getCaixaAtivo() {
         return caixaAtivo;
     }
@@ -705,15 +686,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     public void setCampoUser(JTextField campoUser) {
         this.campoUser = campoUser;
     }
-
-
-    public JTable getTabelaPesquisa() {
-        return tabelaFuncionarios;
-    }
-
-    public void setTabelaPesquisa(JTable tabelaPesquisa) {
-        this.tabelaFuncionarios = tabelaPesquisa;
-    }
     
     public void limpaCampos(){
         campoCelular.setText("");
@@ -731,20 +703,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         caixaAtivo.setSelectedIndex(0);
         caixaNivel.setSelectedIndex(0);
         caixaSexo.setSelectedIndex(0);
-        textoId.setText("");
+        campoId.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoAtualizarFuncionario;
     private javax.swing.JButton botaoCadastrarFuncionario;
-    private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoCancelarCadastro;
-    private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoExcluirFuncionario;
-    private javax.swing.JButton botaoIncluir;
     private javax.swing.JButton botaoLimparCampos;
     private javax.swing.JButton botaoProcurarFuncionario;
-    private javax.swing.JButton botaoSalvar;
     private javax.swing.JComboBox caixaAtivo;
     private javax.swing.JComboBox caixaNivel;
     private javax.swing.JComboBox caixaSexo;
@@ -763,8 +730,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JTextField campoTelefone;
     private javax.swing.JTextField campoUser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel painelAdicionarModificarFuncionarios;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelDadosEmpregaticios;

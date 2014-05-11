@@ -150,7 +150,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
                 cadastrarFornecedor();
                 break;
             case "Limpar Campos":
-                frm.limpaCampos();
+                limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
             case "Excluir Fornecedor":

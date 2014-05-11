@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -44,14 +44,14 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="painelAdicionarModificarFuncionarios" max="32767" attributes="0"/>
                   <Component id="painelProcurarFuncionarios" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="painelBotoes" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -79,9 +79,8 @@
                       <Component id="textoAdicionarNovoFuncionario" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="textoPreencherDados" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="527" max="32767" attributes="0"/>
               </Group>
-              <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -96,8 +95,6 @@
                       </Group>
                       <Component id="textoIconeNovoFuncionario" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -124,59 +121,6 @@
             <Property name="text" type="java.lang.String" value="Preencha os dados abaixo para adicionar um novo funcion&#xe1;rio."/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JToolBar" name="jToolBar1">
-          <Properties>
-            <Property name="rollover" type="boolean" value="true"/>
-          </Properties>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JButton" name="botaoIncluir">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Incluir"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="botaoAlterar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Alterar"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="botaoExcluir">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
-            </Component>
-            <Component class="javax.swing.JButton" name="botaoSalvar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Salvar"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="botaoCancelar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cancelar"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="painelAdicionarModificarFuncionarios">
@@ -196,10 +140,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="painelDadosPessoais" max="32767" attributes="0"/>
-                      <Component id="painelDadosEmpregaticios" max="32767" attributes="0"/>
+                      <Component id="painelDadosEmpregaticios" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -207,10 +151,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="painelDadosPessoais" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="painelDadosEmpregaticios" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="painelDadosPessoais" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="painelDadosEmpregaticios" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -323,6 +268,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campoId">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="textoNome">
               <Properties>
@@ -624,8 +572,8 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="textoCliqueParaEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

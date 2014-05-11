@@ -52,21 +52,23 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     public void inicializaTableModel() {
         tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).listaTodos());
-        frm.getTabelaPesquisa().setModel(tableModel);
-        frm.getTabelaPesquisa().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaFuncionarios().setModel(tableModel);
+        frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
 
     }
 
     public void adicionaListener() {
-        frm.getBotaoAlterar().addActionListener(this);
-        frm.getBotaoCancelar().addActionListener(this);
-        frm.getBotaoExcluir().addActionListener(this);
-        frm.getBotaoIncluir().addActionListener(this);
-        frm.getBotaoSalvar().addActionListener(this);
+        frm.getBotaoAtualizarFuncionario().addActionListener(this);
+        frm.getBotaoCadastrarFuncionario().addActionListener(this);
+        frm.getBotaoCancelarCadastro().addActionListener(this);
+        frm.getBotaoExcluirFuncionario().addActionListener(this);
+        frm.getBotaoLimparCampos().addActionListener(this);
+        frm.getBotaoProcurarFuncionario().addActionListener(this);
 
     }
 
@@ -79,23 +81,36 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     private void habilitaOuDesabilitaBotoesEdicao(boolean enabled) {
-        frm.getBotaoIncluir().setEnabled(!enabled);
-        frm.getBotaoAlterar().setEnabled(!enabled);
-        frm.getBotaoExcluir().setEnabled(!enabled);
-        frm.getBotaoSalvar().setEnabled(enabled);
-        frm.getBotaoCancelar().setEnabled(enabled);
+        frm.getBotaoAtualizarFuncionario().setEnabled(!enabled);
+        frm.getBotaoCadastrarFuncionario().setEnabled(enabled);
+        frm.getBotaoExcluirFuncionario().setEnabled(!enabled);
+        frm.getBotaoProcurarFuncionario().setEnabled(enabled);
     }
 
-    private void incluir() {
-        habilitaBotoesParaSalvar();
-    }
-
-    private void salvar() {
+    private void cadastrarFuncionario() {
         new DAO<>(Funcionario.class).adiciona(formToFuncionario());
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
 
-        desabilitaBotoesParaSalvar();
+        limpaCampos();
+
+        inicializaTableModel();
+    }
+
+    private void atualizarFuncionario() {
+        new DAO<>(Funcionario.class).atualiza(formToFuncionario());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+    }
+
+    private void excluirFuncionario() {
+        new DAO<>(Funcionario.class).remove(formToFuncionario());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -170,23 +185,29 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         } else {
             frm.getCaixaAtivo().setSelectedIndex(2);
         }
-
+        desabilitaBotoesParaSalvar();
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Incluir":
-                incluir();
+            case "Cadastrar Funcionário":
+                cadastrarFuncionario();
                 break;
-            case "Alterar":
+            case "Limpar Campos":
+                limpaCampos();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Excluir":
+            case "Excluir Funcionário":
+                excluirFuncionario();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Salvar":
-                salvar();
+            case "Atualizar Funcionário":
+                atualizarFuncionario();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Cancelar":
+            case "Cancelar Cadastro":
+                this.frm.dispose();
                 break;
         }
         habilitaBotoesParaSalvar();
@@ -194,9 +215,10 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaPesquisa().getSelectedRow());
-        funcionarioToForm(funcionario);
+        if (frm.getTabelaFuncionarios().getSelectedRow() != -1) {
+            Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaFuncionarios().getSelectedRow());
+            funcionarioToForm(funcionario);
+        }
 
     }
-
 }
