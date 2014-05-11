@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
@@ -52,13 +52,12 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="painelProcurarProdutos" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="painelAdicionarModificarProdutos" max="32767" attributes="0"/>
+                  <Component id="painelProcurarProdutos" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="painelBotoes" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="painelBotoes" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -150,8 +149,8 @@
                       <Component id="painelDadosProduto" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="painelProdutoIndustrializado" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="painelProdutoPreparado" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="painelProdutoPreparado" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -165,8 +164,8 @@
                   <Component id="painelDadosProduto" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="painelProdutoPreparado" max="32767" attributes="0"/>
                       <Component id="painelProdutoIndustrializado" max="32767" attributes="0"/>
+                      <Component id="painelProdutoPreparado" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -209,11 +208,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="radioPrep" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="caixaSelecaoForn" min="-2" pref="110" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="botaoAdicionarFornecedor" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="caixaSelecaoForn" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="campoNome" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="62" max="32767" attributes="0"/>
@@ -248,7 +243,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="textoFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="caixaSelecaoForn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoAdicionarFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -312,14 +306,6 @@
                 <Property name="text" type="java.lang.String" value="Preparado"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoAdicionarFornecedor">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Novo Fornecedor"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="painelProdutoIndustrializado">
@@ -373,7 +359,7 @@
                           <Component id="textoBarras" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="campoBarras" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="128" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -411,14 +397,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="botaoNovoIngrediente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
                   <Component id="jScrollPane2" alignment="1" pref="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="caixaSelecaoIng" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="69" max="32767" attributes="0"/>
                       <Component id="botaoAdicionarIngrediente" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -432,9 +414,8 @@
                           <Component id="botaoAdicionarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="181" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoNovoIngrediente" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -444,14 +425,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox(getIngs())"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JButton" name="botaoNovoIngrediente">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/au/resources/icons/plus-32.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Novo Ingrediente"/>
-              </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
@@ -540,7 +513,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoCliqueParaEditar" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="painelScrollTabela" pref="494" max="32767" attributes="0"/>
+                  <Component id="painelScrollTabela" pref="0" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

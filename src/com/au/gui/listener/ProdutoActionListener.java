@@ -58,6 +58,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     public void inicializaTableModel() {
@@ -80,13 +81,14 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     public void adicionaListener() {
+        frm.getBotaoAdicionarIngrediente().addActionListener(this);
+        frm.getBotaoAtualizarProduto().addActionListener(this);
         frm.getBotaoCadastrarProduto().addActionListener(this);
         frm.getBotaoCancelarCadastro().addActionListener(this);
         frm.getBotaoExcluirProduto().addActionListener(this);
-        frm.getBotaoAtualizarProduto().addActionListener(this);
-        frm.getBotaoAdicionarFornecedor().addActionListener(this);
-        frm.getBotaoAdicionarIngrediente().addActionListener(this);
-        frm.getBotaoNovoIngrediente().addActionListener(this);
+        frm.getBotaoLimparCampos().addActionListener(this);
+        frm.getBotaoProcurarProduto().addActionListener(this);
+        
     }
 
     private void habilitaBotoesParaSalvar() {
@@ -101,23 +103,43 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getBotaoCadastrarProduto().setEnabled(enabled);
         frm.getBotaoAtualizarProduto().setEnabled(!enabled);
         frm.getBotaoExcluirProduto().setEnabled(!enabled);
-        frm.getBotaoCancelarCadastro().setEnabled(enabled);
     }
 
-    private void salvar() {
+    private void cadastrarProduto() {
         new DAO<>(Produto.class).adiciona(formToProduto());
-        
+
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
-        
-        desabilitaBotoesParaSalvar();
-        
+
         limpaCampos();
+        
         ingredientes = new ArrayList<>();
         tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModelIngredientes);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
-        
+
         inicializaTableModel();
+    }
+
+    public void atualizarProduto() {
+        new DAO<>(Produto.class).atualiza(formToProduto());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+
+    }
+
+    public void excluirProduto() {
+        new DAO<>(Produto.class).remove(formToProduto());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+
     }
     
     private void adicionaIngrediente() {
@@ -140,6 +162,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     private Produto formToProduto() {
         Produto produto = new Produto();
         
+        if (!"".equals(frm.getCampoId().getText())) {
+            produto.setIdProd(Integer.valueOf(frm.getCampoId().getText()));
+        }        
         produto.setDescProd(frm.getCampoNome().getText());
         produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
         
@@ -189,34 +214,38 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             frm.getTabelaIngredientes().setModel(tableModelIngredientes);
             frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         }
+        desabilitaBotoesParaSalvar();
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Produto":
-                salvar();
+                cadastrarProduto();
                 break;
-            case "Alterar":
+            case "Limpar Campos":
+                limpaCampos();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Excluir":
+            case "Excluir Produto":
+                excluirProduto();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Salvar":
-                salvar();
+            case "Atualizar Produto":
+                atualizarProduto();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Cancelar":
+            case "Cancelar Cadastro":
+                this.frm.dispose();
                 break;
-            case "Adiciona Ingrediente":
-                System.out.println("Chegou aqui");
-                adicionaIngrediente();
         }
-        habilitaBotoesParaSalvar();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
-        produtoToForm(produto);
-        
+        if(frm.getTabelaProdutos().getSelectedRow() != -1){
+            Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
+            produtoToForm(produto);
+        }        
     }
 }
