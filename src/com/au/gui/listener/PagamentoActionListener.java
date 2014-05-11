@@ -25,8 +25,11 @@ package com.au.gui.listener;
 
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.util.Bematech;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -76,10 +79,44 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
         frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
     }
+    
+    private void geraComanda(){
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");        
+        String dataStr = formatador.format(data);
+        formatador = new SimpleDateFormat("HH:mm");        
+        String horaStr = formatador.format(data);
+        
+        Bematech bematech = new Bematech();
+        bematech.detectaImpressoras("MP-400 TH");
+        
+        
+        bematech.imprime("P A S T E L A O");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime(dataStr + "       " + horaStr);
+        bematech.imprime("AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido());
+        bematech.imprime("Codigo QT Descricao         Unit       Total");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+        bematech.imprime("");
+    }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        System.out.println(frm.getCampoDesconto().getText());
+        
     }
 
     @Override
@@ -88,6 +125,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         switch (event.getActionCommand()) {
             case "Desconto":
                 atualizaTotal();
+                break;
+            case "Confirmar Pedido":
+                geraComanda();
                 break;
         }
     }   

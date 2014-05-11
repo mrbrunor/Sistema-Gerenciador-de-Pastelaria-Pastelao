@@ -24,6 +24,8 @@
 
 package com.au.teste;
 
+import com.au.util.Bematech;
+
 /**
  *
  * @author BrunoRicardo
@@ -34,7 +36,7 @@ public class TestaIMP {
         Bematech bema = new Bematech();
         
        bema.detectaImpressoras("MP-4200 TH");
-       bema.imprime("TESTANDO A IMPRESSAO");
+       bema.imprime("P A S T E L A O");
        //bema.acionarGuilhotina();
     }
 }

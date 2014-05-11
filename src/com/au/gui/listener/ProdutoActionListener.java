@@ -220,6 +220,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
+            case "Adicionar Ingrediente":
+                adicionaIngrediente();
+                break;
             case "Cadastrar Produto":
                 cadastrarProduto();
                 break;
