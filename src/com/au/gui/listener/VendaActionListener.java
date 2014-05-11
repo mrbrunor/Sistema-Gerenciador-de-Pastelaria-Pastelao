@@ -112,7 +112,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     private void fecharPedido() {
-
+        
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
 
     }

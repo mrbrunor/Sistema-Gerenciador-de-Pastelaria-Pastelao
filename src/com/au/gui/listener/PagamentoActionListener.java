@@ -25,9 +25,12 @@ package com.au.gui.listener;
 
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.modelo.Pedido;
 import com.au.util.Bematech;
+import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.event.ListSelectionEvent;
@@ -80,12 +83,39 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
     }
     
-    private void geraComanda(){
+    private void criaPedido(){
         Date data = new Date();
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");        
-        String dataStr = formatador.format(data);
-        formatador = new SimpleDateFormat("HH:mm");        
+        //SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");        
+        //String dataStr = formatador.format(data);
+        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");        
         String horaStr = formatador.format(data);
+        
+        frm.getPedido().setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
+        frm.getPedido().setDataPedido(data);
+        frm.getPedido().setDescPedido(Double.valueOf(frm.getCampoDesconto().getText()));
+        frm.getPedido().setEstadoPedido("Finalizado");
+        if(frm.getBotaoRadioDinheiro().isSelected()){
+            frm.getPedido().setFormaPagtoPedido("Dinheiro");
+        }
+        else if (frm.getBotaoRadioCartaoCredito().isSelected()){
+            frm.getPedido().setFormaPagtoPedido("Credito");
+        }
+        else if (frm.getBotaoCartaoDebito().isSelected()){
+            frm.getPedido().setFormaPagtoPedido("Debito");
+        }
+        else if (frm.getBotaoRadioValeRefeicao().isSelected()){
+            frm.getPedido().setFormaPagtoPedido("Vale");
+        }
+        frm.getPedido().setHoraPedido(Time.valueOf(horaStr));
+        frm.getPedido().setNumPedido(1);
+        frm.getPedido().setSubTotPedido(frm.getSubTotal());
+        frm.getPedido().setTotPedido(frm.getTotal());
+        
+        new DAO<>(Pedido.class).adiciona(frm.getPedido());
+    }
+    
+    private void geraComanda(){
+        
         
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("MP-400 TH");
@@ -93,17 +123,21 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         
         bematech.imprime("P A S T E L A O");
         bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime(dataStr + "       " + horaStr);
+        bematech.imprime(frm.getPedido().getDataPedido() + "                                  " + frm.getPedido().getHoraPedido());
+        
         bematech.imprime("AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido());
-        bematech.imprime("Codigo QT Descricao         Unit       Total");
+        bematech.imprime("Codigo QT Descricao            Unit         Total");
+        bematech.imprime("");
+        
+        for(int i=0; frm.getPedido().getItempedidos().size() > i; i++){
+            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getIdProd()+ "       x  " + frm.getPedido().getItempedidos().get(i).getQtdProd() + "            " + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "         " + frm.getPedido().getItempedidos().get(i).getTotProd());
+            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd());
+        }    
+        
         bematech.imprime("");
         bematech.imprime("");
         bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
+        bematech.imprime("                       TOTAL.........." + frm.getPedido().getTotPedido());
         bematech.imprime("");
         bematech.imprime("");
         bematech.imprime("");
@@ -127,6 +161,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 atualizaTotal();
                 break;
             case "Confirmar Pedido":
+                criaPedido();
                 geraComanda();
                 break;
         }
