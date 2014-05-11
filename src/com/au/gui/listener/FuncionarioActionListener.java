@@ -84,7 +84,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         frm.getBotaoAtualizarFuncionario().setEnabled(!enabled);
         frm.getBotaoCadastrarFuncionario().setEnabled(enabled);
         frm.getBotaoExcluirFuncionario().setEnabled(!enabled);
-        frm.getBotaoProcurarFuncionario().setEnabled(enabled);
     }
 
     private void cadastrarFuncionario() {
