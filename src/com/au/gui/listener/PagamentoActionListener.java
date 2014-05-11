@@ -87,8 +87,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         Date data = new Date();
         //SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");        
         //String dataStr = formatador.format(data);
-        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");        
-        String horaStr = formatador.format(data);
         
         frm.getPedido().setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         frm.getPedido().setDataPedido(data);
@@ -106,7 +104,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         else if (frm.getBotaoRadioValeRefeicao().isSelected()){
             frm.getPedido().setFormaPagtoPedido("Vale");
         }
-        frm.getPedido().setHoraPedido(Time.valueOf(horaStr));
+        frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setNumPedido(1);
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
@@ -116,15 +114,16 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     
     private void geraComanda(){
         
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String dataStr = formatador.format(frm.getPedido().getDataPedido());
         
         Bematech bematech = new Bematech();
-        bematech.detectaImpressoras("MP-400 TH");
+        bematech.detectaImpressoras("MP-4000 TH");
         
         
         bematech.imprime("P A S T E L A O");
         bematech.imprime("");
-        bematech.imprime(frm.getPedido().getDataPedido() + "                                  " + frm.getPedido().getHoraPedido());
-        
+        bematech.imprime(dataStr + "                  " + frm.getPedido().getHoraPedido());        
         bematech.imprime("AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido());
         bematech.imprime("Codigo QT Descricao            Unit         Total");
         bematech.imprime("");

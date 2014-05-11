@@ -31,12 +31,47 @@ import com.au.util.Bematech;
  * @author BrunoRicardo
  */
 public class TestaIMP {
+    private static final char ESC = 27; //escape   
+    private static final char AT = 64; //@   
+    private static final char LINE_FEED = 10; //line feed/new line   
+    private static final char PARENTHESIS_LEFT = 40;   
+    private static final char BACKSLASH = 92;   
+    private static final char CR = 13; //carriage return   
+    private static final char TAB = 9; //horizontal tab   
+    private static final char FF = 12; //form feed   
+    private static final char P = 80; //10cpi pitch   
+    private static final char M = 77; //12cpi pitch   
+    private static final char g = 103; //15cpi pitch   
+    private static final char p = 112; //used for choosing proportional mode or fixed-pitch   
+    private static final char t = 116; //used for character set assignment/selection   
+    private static final char l = 108; //used for setting left margin   
+    private static final char x = 120; //used for setting draft or letter quality (LQ) printing   
+    private static final char E = 69; //bold font on   
+    private static final char F = 70; //bold font off   
+    private static final char J = 74; //used for advancing paper vertically   
+    private static final char Q = 81; //used for setting right margin   
+    private static final char $ = 36; //used for absolute horizontal positioning   
+    public static final char ITALIC_ON = 52; //set font italic   
+    public static final char ITALIC_OFF = 53; //unset font italic   
+    public static final char CONDENSED_ON = 15;   
+    public static final char CONDENSED_OFF = 18;  
+
     public static void main(String[] args) {
         
         Bematech bema = new Bematech();
         
-       bema.detectaImpressoras("MP-4200 TH");
-       bema.imprime("P A S T E L A O");
+        
+       bema.detectaImpressoras("MP-4000 TH");
+       bema.imprime("" + ESC + ITALIC_ON);
+       bema.imprime("Teste da Testa");
+       bema.imprime("" + ESC + ITALIC_OFF);
+       bema.imprime("");
+       bema.imprime("");
+       bema.imprime("");
+       bema.imprime("");
+       bema.imprime("");
+       bema.imprime("");
+       
        //bema.acionarGuilhotina();
     }
 }
