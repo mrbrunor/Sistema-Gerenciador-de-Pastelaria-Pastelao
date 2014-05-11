@@ -50,6 +50,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     public void inicializaTableModel() {
@@ -80,26 +81,46 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         frm.getBotaoAtualizarFornecedor().setEnabled(!enabled);
         frm.getBotaoCadastrarFornecedor().setEnabled(enabled);
         frm.getBotaoExcluirFornecedor().setEnabled(!enabled);
-        frm.getBotaoCancelarCadastro().setEnabled(enabled);
-        frm.getBotaoLimparCampos().setEnabled(enabled);
         frm.getBotaoProcurarFornecedor().setEnabled(enabled);
     }
 
-    private void salvar() {
+    private void cadastrarFornecedor() {
         new DAO<>(Fornecedor.class).adiciona(formToFornecedor());
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
-
-        desabilitaBotoesParaSalvar();
+        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
         inicializaTableModel();
     }
 
+    public void atualizarFornecedor() {
+        new DAO<>(Fornecedor.class).atualiza(formToFornecedor());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+        
+    }
+
+    public void excluirFornecedor() {
+        inicializaTableModel();
+
+        new DAO<>(Fornecedor.class).remove(formToFornecedor());
+
+        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
+
+        limpaCampos();
+
+        inicializaTableModel();
+        
+    }
+
     private Fornecedor formToFornecedor() {
         Fornecedor fornecedor = new Fornecedor();
-        
+
         if (!"".equals(frm.getCampoIdFornecedor().getText())) {
             fornecedor.setIdForn(Integer.valueOf(frm.getCampoIdFornecedor().getText()));
         }
@@ -108,7 +129,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         fornecedor.setMailForn(frm.getCampoEmailFornecedor().getText());
         fornecedor.setFoneForn(frm.getCampoTelefoneFornecedor().getText());
         fornecedor.setCelForn(frm.getCampoCelularFornecedor().getText());
-        
+
         return fornecedor;
     }
 
@@ -119,29 +140,39 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         frm.getCampoEmailFornecedor().setText(fornecedor.getMailForn());
         frm.getCampoTelefoneFornecedor().setText(fornecedor.getFoneForn());
         frm.getCampoCelularFornecedor().setText(fornecedor.getCelForn());
+        desabilitaBotoesParaSalvar();
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Fornecedor":
-                salvar();
+                cadastrarFornecedor();
                 break;
-            case "Alterar":
+            case "Limpar Campos":
+                frm.limpaCampos();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Excluir":
+            case "Excluir Fornecedor":
+                excluirFornecedor();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Salvar":
+            case "Atualizar Fornecedor":
+                atualizarFornecedor();
+                habilitaBotoesParaSalvar();
                 break;
-            case "Cancelar":
+            case "Cancelar Cadastro":
+                this.frm.dispose();
                 break;
         }
-        habilitaBotoesParaSalvar();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        Fornecedor fornecedor = tableModel.getFornecedores().get(frm.getTabelaFornecedores().getSelectedRow());
-        fornecedorToForm(fornecedor);
+        if (frm.getTabelaFornecedores().getSelectedRow() != -1) {
+            Fornecedor fornecedor = tableModel.getFornecedores().get(frm.getTabelaFornecedores().getSelectedRow());
+            fornecedorToForm(fornecedor);
+        }
+
     }
 }
