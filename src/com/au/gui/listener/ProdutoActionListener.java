@@ -63,11 +63,23 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCampoNome().setBorder(normal);
         frm.getCampoQtd().setBorder(normal);
         frm.getCampoValor().setBorder(normal);
-        frm.getRadioInd().setBorderPainted(false);
-        frm.getRadioPrep().setBorderPainted(false);
+        frm.getTextoErroIngrediente().setVisible(false);
+        limpaInd();
+        limpaPrep();
         limpaIngredientes();
         habilitaInd(false);
         habilitaPrep(false);
+    }
+    
+    public void limpaInd(){
+        frm.getRadioInd().setBorderPainted(false);
+        frm.getCampoQtd().setBorder(normal);
+        frm.getCampoBarras().setBorder(normal);
+    }
+    
+    public void limpaPrep(){
+        frm.getRadioPrep().setBorderPainted(false);
+        
     }
 
     public void limpaIngredientes() {
@@ -80,9 +92,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public ProdutoActionListener(TelaCadastrarProduto frm) {
         this.frm = frm;
+        frm.getTextoErroIngrediente().setVisible(false);
         normal = frm.getCampoNome().getBorder();
-        frm.getRadioPrep().setBorder(vermelha);
-        frm.getRadioInd().setBorder(vermelha);
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -187,6 +198,15 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         System.out.println("Adicionou " + ingrediente.getDescIng());
         atualizaTableModelIngredientes();
     }
+    
+    public void pesquisaProdutos() {
+        String pesquisa = frm.getCampoPesquisarProduto().getText();
+        System.out.println(pesquisa);
+        tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
+        frm.getTabelaProdutos().setModel(tableModelProdutos);
+        frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
+
+    }
 
     private Produto formToProduto() {
         Produto produto = new Produto();
@@ -230,12 +250,12 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         }
         //
         if (produto.getEIndustrializado() == (byte) 1) {
-            frm.getRadioInd().setSelected(true);
+            frm.getRadioInd().doClick();
             frm.getRadioPrep().setSelected(false);
             frm.getCampoQtd().setText(String.valueOf(produto.getQtdProd()));
             frm.getCampoBarras().setText(produto.getCodBarras());
         } else {
-            frm.getRadioPrep().setSelected(true);
+            frm.getRadioPrep().doClick();
             frm.getRadioInd().setSelected(false);
             tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
             frm.getTabelaIngredientes().setModel(tableModelIngredientes);
@@ -268,7 +288,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoValor().getText()) && frm.getCampoValor().getText().length() > 4) {
+        if (!"".equals(frm.getCampoValor().getText()) && frm.getCampoValor().getText().length() > 0) {
             frm.getCampoValor().setBorder(normal);
         } else {
             frm.getCampoValor().setBorder(vermelha);
@@ -281,6 +301,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         } else {
             frm.getRadioInd().setBorderPainted(true);
             frm.getRadioPrep().setBorderPainted(true);
+            frm.getRadioPrep().setBorder(vermelha);
+            frm.getRadioInd().setBorder(vermelha);
             valida = false;
         }
 
@@ -309,9 +331,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
         if (frm.getRadioPrep().isSelected()) {
             if (!ingredientes.isEmpty()) {
-                frm.getTabelaIngredientes().setBackground(Color.LIGHT_GRAY);
+                frm.getTextoErroIngrediente().setVisible(false);
             } else {
-                frm.getTabelaIngredientes().setBackground(Color.red);
+                frm.getTextoErroIngrediente().setVisible(true);
                 valida = false;
             }
         }
@@ -351,10 +373,15 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             case "Industrializado":
                 habilitaInd(true);
                 habilitaPrep(false);
+                limpaPrep();
                 break;
             case "Preparado":
                 habilitaPrep(true);
                 habilitaInd(false);
+                limpaInd();
+                break;
+            case "Procurar":
+                pesquisaProdutos();
                 break;
         }
     }
