@@ -45,12 +45,11 @@ public class TelaCadastrarFornecedor extends javax.swing.JDialog {
     public TelaCadastrarFornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ ]"));
+        campoNomeFornecedor.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^ |^À-Ä|^È-Ë|^Ì-Ï|^Ò-Ö|^Ù-Ü|^à-ä|^è-ë|^ì-ï|^ò-ö|^ù-ü]"));
         campoCnpjFornecedor.setDocument(new LimitaDigitos((20), "[^0-9|^.\\-]"));
         campoEmailFornecedor.setDocument(new LimitaDigitos((150), "[^0-9|^.|^_|^@|^a-z|^A-Z\\-]"));
         campoCelularFornecedor.setDocument(new LimitaDigitos((15), "[^0-9|^()\\-]"));
         campoTelefoneFornecedor.setDocument(new LimitaDigitos((15), "[^0-9|^()\\-]"));
-        campoIdFornecedor.setEnabled(false);
         campoNomeFornecedor.requestFocus();
         listener = new FornecedorActionListener(this);
     }

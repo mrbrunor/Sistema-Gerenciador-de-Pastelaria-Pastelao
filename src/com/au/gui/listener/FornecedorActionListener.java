@@ -27,9 +27,14 @@ import com.au.gui.tmodel.FornecedorTableModel;
 import com.au.gui.TelaCadastrarFornecedor;
 import com.au.modelo.Fornecedor;
 import com.au.util.DAO;
+import com.au.util.ValidaEmail;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -41,13 +46,22 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
 
     private final TelaCadastrarFornecedor frm;
     private FornecedorTableModel tableModel;
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
 
     public void limpaCampos() {
         frm.limpaCampos();
+        frm.getCampoCelularFornecedor().setBorder(normal);
+        frm.getCampoCnpjFornecedor().setBorder(normal);
+        frm.getCampoEmailFornecedor().setBorder(normal);
+        frm.getCampoNomeFornecedor().setBorder(normal);
+        frm.getCampoPesquisarFornecedor().setBorder(normal);
+        frm.getCampoTelefoneFornecedor().setBorder(normal);
     }
 
     public FornecedorActionListener(TelaCadastrarFornecedor frm) {
         this.frm = frm;
+        normal = frm.getCampoNomeFornecedor().getBorder();
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -101,7 +115,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         limpaCampos();
 
         inicializaTableModel();
-        
+
     }
 
     public void excluirFornecedor() {
@@ -112,7 +126,16 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         limpaCampos();
 
         inicializaTableModel();
-        
+
+    }
+
+    public void pesquisaFornecedores() {
+        String pesquisa = frm.getCampoPesquisarFornecedor().getText();
+        System.out.println(pesquisa);
+        tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).buscaFornecedor(pesquisa));
+        frm.getTabelaFornecedores().setModel(tableModel);
+        frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);
+
     }
 
     private Fornecedor formToFornecedor() {
@@ -139,32 +162,75 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         frm.getCampoCelularFornecedor().setText(fornecedor.getCelForn());
         desabilitaBotoesParaSalvar();
     }
-    
-    public boolean valida(){
-        
-        return false;
+
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(frm.getCampoNomeFornecedor().getText()) && frm.getCampoNomeFornecedor().getText().length() > 5) {
+            frm.getCampoNomeFornecedor().setBorder(normal);
+        } else {
+            frm.getCampoNomeFornecedor().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoCnpjFornecedor().getText()) && frm.getCampoCnpjFornecedor().getText().length() > 5) {
+            frm.getCampoCnpjFornecedor().setBorder(normal);
+        } else {
+            frm.getCampoCnpjFornecedor().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (new ValidaEmail().validEmail(frm.getCampoEmailFornecedor().getText())) {
+            frm.getCampoEmailFornecedor().setBorder(normal);
+        } else {
+            frm.getCampoEmailFornecedor().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoTelefoneFornecedor().getText()) && frm.getCampoTelefoneFornecedor().getText().length() > 5) {
+            frm.getCampoTelefoneFornecedor().setBorder(normal);
+        } else {
+            frm.getCampoTelefoneFornecedor().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoCelularFornecedor().getText()) && frm.getCampoCelularFornecedor().getText().length() > 5) {
+            frm.getCampoCelularFornecedor().setBorder(normal);
+        } else {
+            frm.getCampoCelularFornecedor().setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Fornecedor":
-                cadastrarFornecedor();
+                if (valida()) {
+                    cadastrarFornecedor();
+                }
                 break;
             case "Limpar Campos":
                 limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
             case "Excluir Fornecedor":
-                excluirFornecedor();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    excluirFornecedor();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Atualizar Fornecedor":
-                atualizarFornecedor();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    atualizarFornecedor();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Cancelar Cadastro":
                 this.frm.dispose();
+                break;
+            case "Procurar":
+                pesquisaFornecedores();
                 break;
         }
     }

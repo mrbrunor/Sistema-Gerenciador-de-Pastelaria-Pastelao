@@ -1,6 +1,7 @@
 package com.au.util;
 
 import com.au.modelo.Caixa;
+import com.au.modelo.Fornecedor;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Produto;
 import java.util.List;
@@ -105,5 +106,15 @@ public class DAO<T> {
         List<Produto> produtos = q.getResultList();
 
         return produtos;
+    }
+    
+    public List<Fornecedor> buscaFornecedor(String pesquisa) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Fornecedor f where f.nomeForn like '%" + pesquisa + "%'");
+
+        List<Fornecedor> fornecedores = q.getResultList();
+
+        return fornecedores;
     }
 }
