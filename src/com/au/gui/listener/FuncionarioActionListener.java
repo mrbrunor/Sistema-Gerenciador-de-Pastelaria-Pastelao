@@ -28,10 +28,14 @@ import com.au.gui.TelaCadastrarFuncionario;
 import com.au.modelo.Funcionario;
 import com.au.util.DAO;
 import com.au.util.HexSha;
+import com.au.util.ValidaEmail;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,13 +47,34 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     private final TelaCadastrarFuncionario frm;
     private FuncionarioTableModel tableModel;
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
+    private Color normalc;
 
     public void limpaCampos() {
         frm.limpaCampos();
+        frm.getCaixaAtivo().setBorder(normal);
+        frm.getCaixaNivel().setBorder(normal);
+        frm.getCaixaSexo().setBorder(normal);
+        frm.getCampoCelular().setBorder(normal);
+        frm.getCampoCpf().setBorder(normal);
+        frm.getCampoDtAdm().setBorder(normal);
+        frm.getCampoDtNasc().setBorder(normal);
+        frm.getCampoEmail().setBorder(normal);
+        frm.getCampoNome().setBorder(normal);
+        frm.getCampoRg().setBorder(normal);
+        frm.getCampoSalario().setBorder(normal);
+        frm.getCampoSenha().setBorder(normal);
+        frm.getCampoSenha2().setBorder(normal);
+        frm.getCampoUser().setBorder(normal);
     }
 
     public FuncionarioActionListener(TelaCadastrarFuncionario frm) {
         this.frm = frm;
+        frm.getCampoDtAdm().setBorder(normal);
+        frm.getCampoDtNasc().setBorder(normal);
+        normal = frm.getCampoNome().getBorder();
+        normalc = frm.getCaixaSexo().getForeground();
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -115,7 +140,16 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
         inicializaTableModel();
     }
+    
+    public void pesquisaFuncionarios() {
+        String pesquisa = frm.getCampoPesquisarFuncionario().getText();
+        System.out.println(pesquisa);
+        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionario(pesquisa));
+        frm.getTabelaFuncionarios().setModel(tableModel);
+        frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
 
+    }
+    
     private Funcionario formToFuncionario() {
         Date data;
         Funcionario func = new Funcionario();
@@ -187,33 +221,144 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         desabilitaBotoesParaSalvar();
     }
 
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
+            frm.getCampoNome().setBorder(normal);
+        } else {
+            frm.getCampoNome().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCampoDtNasc().getDate() != null) {
+            frm.getCampoDtNasc().setBorder(normal);
+        } else {
+            frm.getCampoDtNasc().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCaixaSexo().getSelectedIndex() != 0) {
+            frm.getCaixaSexo().setBorder(normal);
+        } else {
+            frm.getCaixaSexo().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoRg().getText()) && frm.getCampoRg().getText().length() > 5) {
+            frm.getCampoRg().setBorder(normal);
+        } else {
+            frm.getCampoRg().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoCpf().getText()) && frm.getCampoCpf().getText().length() > 10) {
+            frm.getCampoCpf().setBorder(normal);
+        } else {
+            frm.getCampoCpf().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (new ValidaEmail().validEmail(frm.getCampoEmail().getText())) {
+            frm.getCampoEmail().setBorder(normal);
+        } else {
+            frm.getCampoEmail().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoCelular().getText()) && frm.getCampoCelular().getText().length() > 7) {
+            frm.getCampoCelular().setBorder(normal);
+        } else {
+            frm.getCampoCelular().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCampoDtAdm().getDate() != null) {
+            frm.getCampoDtAdm().setBorder(normal);
+        } else {
+            frm.getCampoDtAdm().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoSalario().getText()) && frm.getCampoSalario().getText().length() > 2) {
+            frm.getCampoSalario().setBorder(normal);
+        } else {
+            frm.getCampoSalario().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoUser().getText()) && frm.getCampoUser().getText().length() > 5) {
+            frm.getCampoUser().setBorder(normal);
+        } else {
+            frm.getCampoUser().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoSenha().getPassword()) && frm.getCampoSenha().getPassword().length > 5) {
+            frm.getCampoSenha().setBorder(normal);
+        } else {
+            frm.getCampoSenha().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoSenha2().getPassword()) && frm.getCampoSenha2().getText().equals(frm.getCampoSenha().getText())) {
+            frm.getCampoSenha2().setBorder(normal);
+        } else {
+            frm.getCampoSenha2().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCaixaNivel().getSelectedIndex() != 0) {
+            frm.getCaixaNivel().setBorder(normal);
+        } else {
+            frm.getCaixaNivel().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCaixaAtivo().getSelectedIndex() != 0) {
+            frm.getCaixaAtivo().setBorder(normal);
+        } else {
+            frm.getCaixaAtivo().setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Funcionário":
-                cadastrarFuncionario();
+                if (valida()) {
+                    cadastrarFuncionario();
+                }
                 break;
             case "Limpar Campos":
                 limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
             case "Excluir Funcionário":
-                excluirFuncionario();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    excluirFuncionario();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Atualizar Funcionário":
-                atualizarFuncionario();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    atualizarFuncionario();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Cancelar Cadastro":
                 this.frm.dispose();
                 break;
+            case "Procurar":
+                pesquisaFuncionarios();
+                break;
         }
-        habilitaBotoesParaSalvar();
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent event) {
+    public void valueChanged(ListSelectionEvent event
+    ) {
         if (frm.getTabelaFuncionarios().getSelectedRow() != -1) {
             Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaFuncionarios().getSelectedRow());
             funcionarioToForm(funcionario);

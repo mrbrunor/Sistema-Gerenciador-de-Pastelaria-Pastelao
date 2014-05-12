@@ -31,7 +31,6 @@ import com.au.util.ValidaEmail;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -183,13 +182,6 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
             frm.getCampoEmailFornecedor().setBorder(normal);
         } else {
             frm.getCampoEmailFornecedor().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (!"".equals(frm.getCampoTelefoneFornecedor().getText()) && frm.getCampoTelefoneFornecedor().getText().length() > 5) {
-            frm.getCampoTelefoneFornecedor().setBorder(normal);
-        } else {
-            frm.getCampoTelefoneFornecedor().setBorder(vermelha);
             valida = false;
         }
 

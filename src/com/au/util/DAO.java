@@ -117,4 +117,14 @@ public class DAO<T> {
 
         return fornecedores;
     }
+    
+    public List<Funcionario> buscaFuncionario(String pesquisa) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Funcionario f where f.nomeFunc like '%" + pesquisa + "%'");
+
+        List<Funcionario> funcionarios = q.getResultList();
+
+        return funcionarios;
+    }
 }
