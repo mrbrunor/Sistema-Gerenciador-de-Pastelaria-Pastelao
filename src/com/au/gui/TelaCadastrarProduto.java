@@ -199,7 +199,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                         .addComponent(radioPrep))
                     .addComponent(caixaSelecaoForn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelDadosProdutoLayout.setVerticalGroup(
             painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,6 +234,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         textoBarras.setText("Código Barras");
 
+        campoQtd.setEnabled(false);
+
+        campoBarras.setEnabled(false);
+
         javax.swing.GroupLayout painelProdutoIndustrializadoLayout = new javax.swing.GroupLayout(painelProdutoIndustrializado);
         painelProdutoIndustrializado.setLayout(painelProdutoIndustrializadoLayout);
         painelProdutoIndustrializadoLayout.setHorizontalGroup(
@@ -267,6 +271,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
 
+        caixaSelecaoIng.setEnabled(false);
+
         tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -275,10 +281,12 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 "Descrição"
             }
         ));
+        tabelaIngredientes.setEnabled(false);
         jScrollPane2.setViewportView(tabelaIngredientes);
 
         botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
         botaoAdicionarIngrediente.setText("Adicionar Ingrediente");
+        botaoAdicionarIngrediente.setEnabled(false);
 
         javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
         painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);

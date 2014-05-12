@@ -54,8 +54,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     private List<Ingrediente> ingredientes = new ArrayList<>();
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         frm.limpaCampos();
         frm.getCaixaSelecaoForn().setBorder(normal);
         frm.getCaixaSelecaoIng().setBorder(normal);
@@ -65,6 +65,17 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCampoValor().setBorder(normal);
         frm.getRadioInd().setBorderPainted(false);
         frm.getRadioPrep().setBorderPainted(false);
+        limpaIngredientes();
+        habilitaInd(false);
+        habilitaPrep(false);
+    }
+
+    public void limpaIngredientes() {
+
+        ingredientes = new ArrayList<>();
+        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+        frm.getTabelaIngredientes().setModel(tableModelIngredientes);
+        frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
     }
 
     public ProdutoActionListener(TelaCadastrarProduto frm) {
@@ -83,13 +94,13 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
         atualizaTableModelIngredientes();
     }
-    
-    public void atualizaTableModelProdutos(){
+
+    public void atualizaTableModelProdutos() {
         tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).listaTodos());
     }
-    
-    public void atualizaTableModelIngredientes(){
-        if(!ingredientes.isEmpty()){
+
+    public void atualizaTableModelIngredientes() {
+        if (!ingredientes.isEmpty()) {
             tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
             frm.getTabelaIngredientes().setModel(tableModelIngredientes);
             frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
@@ -104,7 +115,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getBotaoExcluirProduto().addActionListener(this);
         frm.getBotaoLimparCampos().addActionListener(this);
         frm.getBotaoProcurarProduto().addActionListener(this);
-        
+        frm.getRadioInd().addActionListener(this);
+        frm.getRadioPrep().addActionListener(this);
+
     }
 
     private void habilitaBotoesParaSalvar() {
@@ -127,7 +140,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
-        
+
         ingredientes = new ArrayList<>();
         tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModelIngredientes);
@@ -157,16 +170,16 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         inicializaTableModel();
 
     }
-    
+
     private void adicionaIngrediente() {
         CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoIng().getSelectedItem();
-        
-        for(int i=0; i<frm.getTabelaIngredientes().getRowCount(); i++){
-            if(ob.getNome().equals(frm.getTabelaIngredientes().getValueAt(i, 0))){
+
+        for (int i = 0; i < frm.getTabelaIngredientes().getRowCount(); i++) {
+            if (ob.getNome().equals(frm.getTabelaIngredientes().getValueAt(i, 0))) {
                 System.out.println("FUDEU");
                 return;
             }
-        }        
+        }
         Ingrediente ingrediente = new Ingrediente();
         ingrediente.setDescIng(ob.getNome());
         ingrediente.setIdIng(ob.getId());
@@ -177,31 +190,30 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     private Produto formToProduto() {
         Produto produto = new Produto();
-        
+
         if (!"".equals(frm.getCampoId().getText())) {
             produto.setIdProd(Integer.valueOf(frm.getCampoId().getText()));
-        }        
+        }
         produto.setDescProd(frm.getCampoNome().getText());
         produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
-        
+
         CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoForn().getSelectedItem();
         produto.setFornecedor(new DAO<>(Fornecedor.class).buscaPorId(ob.getId()));
-        
+
         if (frm.getRadioInd().isSelected()) {
-            produto.setEIndustrializado((byte)1);
+            produto.setEIndustrializado((byte) 1);
             produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
-            if("".equals(frm.getCampoBarras().getText())){
+            if ("".equals(frm.getCampoBarras().getText())) {
                 produto.setCodBarras(null);
-            }
-            else{
+            } else {
                 produto.setCodBarras(frm.getCampoBarras().getText());
-            }            
+            }
         } else {
             produto.setQtdProd(null);
             produto.setCodBarras(null);
-            produto.setEIndustrializado((byte)0);
+            produto.setEIndustrializado((byte) 0);
             produto.setIngredientes(ingredientes);
-        }   
+        }
         return produto;
     }
 
@@ -211,19 +223,18 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
         //Fornecedor
         List<Fornecedor> fornecedores = frm.getListaResForn();
-        for(int i=0; i<frm.getCaixaSelecaoForn().getItemCount(); i++){
-            if(produto.getFornecedor().getIdForn() == fornecedores.get(i).getIdForn()){
+        for (int i = 0; i < frm.getCaixaSelecaoForn().getItemCount(); i++) {
+            if (produto.getFornecedor().getIdForn() == fornecedores.get(i).getIdForn()) {
                 frm.getCaixaSelecaoForn().setSelectedIndex(i);
             }
-        }        
+        }
         //
-        if(produto.getEIndustrializado() == (byte)1){
+        if (produto.getEIndustrializado() == (byte) 1) {
             frm.getRadioInd().setSelected(true);
             frm.getRadioPrep().setSelected(false);
             frm.getCampoQtd().setText(String.valueOf(produto.getQtdProd()));
             frm.getCampoBarras().setText(produto.getCodBarras());
-        }
-        else{
+        } else {
             frm.getRadioPrep().setSelected(true);
             frm.getRadioInd().setSelected(false);
             tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
@@ -232,8 +243,23 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         }
         desabilitaBotoesParaSalvar();
     }
-    
-     public boolean valida() {
+
+    public void habilitaInd(boolean valida) {
+        frm.getCampoQtd().setText("");
+        frm.getCampoQtd().setEnabled(valida);
+        frm.getCampoBarras().setText("");
+        frm.getCampoBarras().setEnabled(valida);
+    }
+
+    public void habilitaPrep(boolean valida) {
+        frm.getCaixaSelecaoIng().setSelectedIndex(0);
+        frm.getCaixaSelecaoIng().setEnabled(valida);
+        frm.getBotaoAdicionarIngrediente().setEnabled(valida);
+        limpaIngredientes();
+        frm.getTabelaIngredientes().setEnabled(valida);
+    }
+
+    public boolean valida() {
         boolean valida = true;
         if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
             frm.getCampoNome().setBorder(normal);
@@ -241,9 +267,57 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             frm.getCampoNome().setBorder(vermelha);
             valida = false;
         }
+
+        if (!"".equals(frm.getCampoValor().getText()) && frm.getCampoValor().getText().length() > 4) {
+            frm.getCampoValor().setBorder(normal);
+        } else {
+            frm.getCampoValor().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getRadioInd().isSelected() || frm.getRadioPrep().isSelected()) {
+            frm.getRadioInd().setBorderPainted(false);
+            frm.getRadioPrep().setBorderPainted(false);
+        } else {
+            frm.getRadioInd().setBorderPainted(true);
+            frm.getRadioPrep().setBorderPainted(true);
+            valida = false;
+        }
+
+        if (frm.getCaixaSelecaoForn().getSelectedIndex() != -1) {
+            frm.getCaixaSelecaoForn().setBorder(normal);
+        } else {
+            frm.getCaixaSelecaoForn().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getRadioInd().isSelected()) {
+            if (!"".equals(frm.getCampoQtd().getText()) && frm.getCampoQtd().getText().length() > 0) {
+                frm.getCampoQtd().setBorder(normal);
+            } else {
+                frm.getCampoQtd().setBorder(vermelha);
+                valida = false;
+            }
+
+            if (!"".equals(frm.getCampoBarras().getText()) && frm.getCampoBarras().getText().length() > 4) {
+                frm.getCampoBarras().setBorder(normal);
+            } else {
+                frm.getCampoBarras().setBorder(vermelha);
+                valida = false;
+            }
+        }
+
+        if (frm.getRadioPrep().isSelected()) {
+            if (!ingredientes.isEmpty()) {
+                frm.getTabelaIngredientes().setBackground(Color.LIGHT_GRAY);
+            } else {
+                frm.getTabelaIngredientes().setBackground(Color.red);
+                valida = false;
+            }
+        }
         return valida;
-     }
-    
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
@@ -251,32 +325,45 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
                 adicionaIngrediente();
                 break;
             case "Cadastrar Produto":
-                //cadastrarProduto();
-                valida();
+                if (valida()) {
+                    cadastrarProduto();
+                }
                 break;
             case "Limpar Campos":
                 limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
             case "Excluir Produto":
-                excluirProduto();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    excluirProduto();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Atualizar Produto":
-                atualizarProduto();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    atualizarProduto();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Cancelar Cadastro":
                 this.frm.dispose();
+                break;
+            case "Industrializado":
+                habilitaInd(true);
+                habilitaPrep(false);
+                break;
+            case "Preparado":
+                habilitaPrep(true);
+                habilitaInd(false);
                 break;
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        if(frm.getTabelaProdutos().getSelectedRow() != -1){
+        if (frm.getTabelaProdutos().getSelectedRow() != -1) {
             Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
             produtoToForm(produto);
-        }        
+        }
     }
 }

@@ -211,7 +211,7 @@
                           <Component id="caixaSelecaoForn" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="campoNome" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -376,8 +376,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campoQtd">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campoBarras">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -422,6 +428,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JComboBox" name="caixaSelecaoIng">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox(getIngs())"/>
               </AuxValues>
@@ -449,6 +458,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -462,6 +472,7 @@
                   <Image iconType="3" name="/com/au/resources/icons/plus-26.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Adicionar Ingrediente"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
