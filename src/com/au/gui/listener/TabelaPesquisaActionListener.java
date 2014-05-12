@@ -60,7 +60,7 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoBusca().getText();
         System.out.println(pesquisa);
-        tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).buscaProduto(pesquisa));
+        tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
 

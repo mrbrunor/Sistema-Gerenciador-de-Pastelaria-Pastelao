@@ -49,7 +49,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     private FuncionarioTableModel tableModel;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
-    private Color normalc;
 
     public void limpaCampos() {
         frm.limpaCampos();
@@ -74,7 +73,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         frm.getCampoDtAdm().setBorder(normal);
         frm.getCampoDtNasc().setBorder(normal);
         normal = frm.getCampoNome().getBorder();
-        normalc = frm.getCaixaSexo().getForeground();
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -144,7 +142,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     public void pesquisaFuncionarios() {
         String pesquisa = frm.getCampoPesquisarFuncionario().getText();
         System.out.println(pesquisa);
-        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionario(pesquisa));
+        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionarios(pesquisa));
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
 
