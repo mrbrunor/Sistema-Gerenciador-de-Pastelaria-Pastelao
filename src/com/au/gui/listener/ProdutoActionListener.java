@@ -31,11 +31,14 @@ import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
 import com.au.util.CustomComboBoxInt;
 import com.au.util.DAO;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -49,13 +52,26 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     private ProdutoTableModel tableModelProdutos;
     private ProdutoIngredientesTableModel tableModelIngredientes;
     private List<Ingrediente> ingredientes = new ArrayList<>();
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
     
     public void limpaCampos(){
         frm.limpaCampos();
+        frm.getCaixaSelecaoForn().setBorder(normal);
+        frm.getCaixaSelecaoIng().setBorder(normal);
+        frm.getCampoBarras().setBorder(normal);
+        frm.getCampoNome().setBorder(normal);
+        frm.getCampoQtd().setBorder(normal);
+        frm.getCampoValor().setBorder(normal);
+        frm.getRadioInd().setBorderPainted(false);
+        frm.getRadioPrep().setBorderPainted(false);
     }
 
     public ProdutoActionListener(TelaCadastrarProduto frm) {
         this.frm = frm;
+        normal = frm.getCampoNome().getBorder();
+        frm.getRadioPrep().setBorder(vermelha);
+        frm.getRadioInd().setBorder(vermelha);
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -216,7 +232,18 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         }
         desabilitaBotoesParaSalvar();
     }
-
+    
+     public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
+            frm.getCampoNome().setBorder(normal);
+        } else {
+            frm.getCampoNome().setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
+     }
+    
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
@@ -224,7 +251,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
                 adicionaIngrediente();
                 break;
             case "Cadastrar Produto":
-                cadastrarProduto();
+                //cadastrarProduto();
+                valida();
                 break;
             case "Limpar Campos":
                 limpaCampos();
