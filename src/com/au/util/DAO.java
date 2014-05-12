@@ -3,6 +3,7 @@ package com.au.util;
 import com.au.modelo.Caixa;
 import com.au.modelo.Fornecedor;
 import com.au.modelo.Funcionario;
+import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -98,7 +99,7 @@ public class DAO<T> {
         return funcionario;
     }
 
-    public List<Produto> buscaProduto(String pesquisa) {
+    public List<Produto> buscaProdutos(String pesquisa) {
         EntityManager em = new JPAUtil().getEntityManager();
 
         Query q = em.createQuery("from Produto p where p.descProd like '%" + pesquisa + "%'  or p.idProd like '" + pesquisa + "'");
@@ -108,7 +109,7 @@ public class DAO<T> {
         return produtos;
     }
     
-    public List<Fornecedor> buscaFornecedor(String pesquisa) {
+    public List<Fornecedor> buscaFornecedores(String pesquisa) {
         EntityManager em = new JPAUtil().getEntityManager();
 
         Query q = em.createQuery("from Fornecedor f where f.nomeForn like '%" + pesquisa + "%'");
@@ -118,7 +119,7 @@ public class DAO<T> {
         return fornecedores;
     }
     
-    public List<Funcionario> buscaFuncionario(String pesquisa) {
+    public List<Funcionario> buscaFuncionarios(String pesquisa) {
         EntityManager em = new JPAUtil().getEntityManager();
 
         Query q = em.createQuery("from Funcionario f where f.nomeFunc like '%" + pesquisa + "%'");
@@ -126,5 +127,15 @@ public class DAO<T> {
         List<Funcionario> funcionarios = q.getResultList();
 
         return funcionarios;
+    }
+    
+    public List<Ingrediente> buscaIngredientes(String pesquisa) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Ingrediente i where i.descIng like '%" + pesquisa + "%'");
+
+        List<Ingrediente> ingredientes = q.getResultList();
+
+        return ingredientes;
     }
 }

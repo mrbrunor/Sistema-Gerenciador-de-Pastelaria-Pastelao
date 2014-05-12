@@ -27,9 +27,12 @@ import com.au.gui.tmodel.IngredienteTableModel;
 import com.au.gui.TelaCadastrarIngrediente;
 import com.au.modelo.Ingrediente;
 import com.au.util.DAO;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -41,13 +44,18 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     private final TelaCadastrarIngrediente frm;
     private IngredienteTableModel tableModel;
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
 
     public void limpaCampos() {
         frm.limpaCampos();
+        frm.getCampoNome().setBorder(normal);
+        frm.getCampoValor().setBorder(normal);
     }
 
     public IngredienteActionListener(TelaCadastrarIngrediente frm) {
         this.frm = frm;
+        normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -115,6 +123,14 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     }
 
+    public void pesquisaIngredientes() {
+        String pesquisa = frm.getCampoPesquisarIngrediente().getText();
+        System.out.println(pesquisa);
+        tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).buscaIngredientes(pesquisa));
+        frm.getTabelaIngredientes().setModel(tableModel);
+        frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
+    }
+
     private Ingrediente formToIngrediente() {
         Ingrediente ingrediente = new Ingrediente();
 
@@ -133,26 +149,53 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         desabilitaBotoesParaSalvar();
     }
 
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
+            frm.getCampoNome().setBorder(normal);
+        } else {
+            frm.getCampoNome().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoValor().getText()) && frm.getCampoValor().getText().length() > 0) {
+            frm.getCampoValor().setBorder(normal);
+        } else {
+            frm.getCampoValor().setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Cadastrar Ingrediente":
-                cadastrarIngrediente();
+                if (valida()) {
+                    cadastrarIngrediente();
+                }
                 break;
             case "Limpar Campos":
                 limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
             case "Excluir Ingrediente":
-                excluirIngrediente();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    excluirIngrediente();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Atualizar Ingrediente":
-                atualizarIngrediente();
-                habilitaBotoesParaSalvar();
+                if (valida()) {
+                    atualizarIngrediente();
+                    habilitaBotoesParaSalvar();
+                }
                 break;
             case "Cancelar Cadastro":
                 this.frm.dispose();
+                break;
+            case "Procurar":
+                pesquisaIngredientes();
                 break;
         }
     }
