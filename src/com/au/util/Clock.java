@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 Tiago.
+ * Copyright 2014 BrunoRicardo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,33 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.au.teste;
+package com.au.util;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.au.util.Clock;
-
-import javax.swing.*;
+import javax.swing.JLabel;
 
 /**
  *
- * @author Tiago
+ * @author BrunoRicardo
  */
-public class ClockFrame extends JFrame {
+public class Clock extends Thread {
 
-    ClockFrame() {
-        JLabel label = new JLabel();
-        getContentPane().add(label);
-        Thread t = new Clock(label);
-        t.start();
+    private JLabel labelToUpdate;
+    
+    public Clock(JLabel label) {
+        labelToUpdate = label;
+    }
+    
+    public JLabel getLabelToUpdate() {
+        return labelToUpdate;
     }
 
-    public static void main(String[] args) {
-        ClockFrame frame = new ClockFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(200, 60);
-        frame.setVisible(true);
+    public void setLabelToUpdate(JLabel labelToUpdate) {
+        this.labelToUpdate = labelToUpdate;
     }
+
+    public void run() {
+        Date date = new Date();
+        for (;;) {
+            date.setTime(System.currentTimeMillis());            
+            SimpleDateFormat formatador = new SimpleDateFormat("HH:mm:ss");        
+            labelToUpdate.setText(formatador.format(date));
+            labelToUpdate.repaint();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }

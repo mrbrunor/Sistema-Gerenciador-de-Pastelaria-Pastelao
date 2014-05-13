@@ -28,6 +28,7 @@ import com.au.gui.listener.TabelaPesquisaActionListener;
 import com.au.gui.listener.VendaActionListener;
 import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
+import com.au.util.Clock;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -71,6 +72,8 @@ public class TelaVenda extends javax.swing.JFrame {
         textoNomeFuncionario = new javax.swing.JLabel();
         textoData = new javax.swing.JLabel();
         textoHora = new javax.swing.JLabel();
+        Thread t = new Clock(textoHora);
+        t.start();
         botaoAlternarUsuario = new javax.swing.JButton();
         botaoCaixa = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
@@ -198,10 +201,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -423,6 +423,16 @@ public class TelaVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JLabel getTextoData() {
+        return textoData;
+    }
+
+    public void setTextoData(JLabel textoData) {
+        this.textoData = textoData;
+    }
+
+    
+    
     public JMenuItem getItemMenuAbrirCaixa() {
         return itemMenuAbrirCaixa;
     }

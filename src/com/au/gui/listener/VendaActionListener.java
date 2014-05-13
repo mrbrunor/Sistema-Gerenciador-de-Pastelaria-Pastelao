@@ -32,6 +32,7 @@ import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
+import com.au.modelo.Funcionario;
 import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
@@ -62,6 +63,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        inicializaData();
         indexCaixa = verificaCaixa();
         if (indexCaixa == null) {
             Caixa caixa = novoCaixa();
@@ -72,6 +74,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         System.out.println(indexCaixa);
         frm.getBotaoCaixa().setText("Fechar Caixa");
+        frm.getCampoAdicionarItem().requestFocus();
     }
 
     public void inicializaTableModel() {
@@ -84,6 +87,12 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             frm.getTabelaPedido().setModel(tableModelVenda);
             frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
         }
+    }
+    
+    public void inicializaData(){
+        Date date = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");
+        frm.getTextoData().setText(formatador.format(date));
     }
 
     public void adicionaListener() {
@@ -112,9 +121,16 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     private void fecharPedido() {
-        
+        pedido.setNumPedido(verificaNumeroPedido());
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
-        
+        if(!TelaConfirmacaoPagamento.isCadastrou()){
+            TelaConfirmacaoPagamento.setCadastrou(true);
+            //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
+            System.out.println("Funcionou");
+        }
+        frm.getFuncionario().getCaixas().set(indexCaixa, TelaConfirmacaoPagamento.getCaixa());
+        limparPedido();
+        pedido = new Pedido();
     }
 
     private Pedido formToVenda() {
@@ -164,7 +180,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         atualizaTableModelVenda();
     }
 
-    public void cancelarPedido() {
+    public void limparPedido() {
         pedido.setItempedidos(new ArrayList<Itempedido>());
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
@@ -178,7 +194,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println("Chegou no Remover");
         if (pedido.getItempedidos().size() == 1) {
             System.out.println("Apenas 1 Item");
-            cancelarPedido();
+            limparPedido();
         } else if (frm.getTabelaPedido().getSelectedRow() != -1) {
             System.out.println("Removendo 1 Item");
             totalPedido = totalPedido - pedido.getItempedidos().get(frm.getTabelaPedido().getSelectedRow()).getTotProd();
@@ -213,10 +229,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     public Integer verificaCaixa() {
         byte x = 1;
-        Date data = new Date();
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        String dataStr = formatador.format(data);
-
+        String dataStr = geraDataStr();
         for (int i = 0; frm.getFuncionario().getCaixas().size() > i; i++) {
             System.out.println(frm.getFuncionario().getCaixas().get(i).getDataCaixa());
             System.out.println(frm.getFuncionario().getCaixas().size());
@@ -234,6 +247,33 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return null;
     }
+    
+    public Integer verificaNumeroPedido(){
+        String dataStr = geraDataStr();
+        Integer numPedido = null;
+        
+        if(indexCaixa != null){
+            numPedido = 1;
+            System.out.println("Numero de Pedidos: ");
+            System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size());
+            for (int i = 0; frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size() > i; i++) {
+                System.out.println("Entrou For Numero Pedido");
+                System.out.println("Numero Pedido Antes: " + numPedido);
+                if(frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido() >= numPedido){
+                    numPedido = frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido();
+                    numPedido++;
+                    System.out.println("Numero Pedido Depois: " + numPedido);
+                }
+            }
+        }
+        return numPedido;
+    }
+    
+    public String geraDataStr(){
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        return formatador.format(data);
+    }
 
     public void deslogar() {
         new TelaLogin().setVisible(true);
@@ -243,26 +283,73 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     public void vendaToForm(Itempedido itempedido) {
         frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getProduto().getIdProd()));
     }
-
+    
+    public void fecharCaixa(){
+        
+    }
+    
+    public boolean validaAddItem(){
+        boolean valida = true;
+        if("".equals(frm.getCampoAdicionarItem().getText()) || "0".equals(frm.getCampoAdicionarItem().getText())){
+            valida = false;
+            JOptionPane.showMessageDialog(frm, "Insira o ID do produto para adiciona-lo ao pedido.");
+        }
+        return valida;
+    }
+    
+    public boolean validaDelItem(){
+        boolean valida = true;
+        if(frm.getTabelaPedido().getSelectedRow() == -1){
+            valida = false;
+            JOptionPane.showMessageDialog(frm, "Selecione um item para remover!");
+        }
+        return valida;
+    }
+    
+    public boolean validaPedido(){
+        boolean valida = true;
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        System.out.println(frm.getTabelaPedido().getRowCount());
+        if(frm.getTabelaPedido().getRowCount() == 0){
+            valida = false;
+            JOptionPane.showMessageDialog(frm, "Adicione um item ao pedido antes!");
+        }
+        return valida;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent event) {
         System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
-                atualizaTableModelVenda();
-                adicionaItempedido();
+                if(validaAddItem()){
+                    atualizaTableModelVenda();
+                    adicionaItempedido();
+                }
                 break;
             case "Remover Item":
-                removerItem();
+                if(validaDelItem()){
+                    removerItem();
+                }
                 break;
             case "Fechar Caixa":
+                fecharCaixa();
                 System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getTotalCaixa());
                 break;
             case "Fechar Pedido":
-                fecharPedido();
+                if(validaPedido()){
+                    fecharPedido();
+                }
                 break;
             case "Cancelar Pedido":
-                cancelarPedido();
+                limparPedido();
                 break;
             case "Deslogar":
                 deslogar();

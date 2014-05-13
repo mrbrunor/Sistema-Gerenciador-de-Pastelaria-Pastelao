@@ -25,6 +25,7 @@ package com.au.gui.listener;
 
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.modelo.Caixa;
 import com.au.modelo.Pedido;
 import com.au.util.Bematech;
 import com.au.util.DAO;
@@ -108,11 +109,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getPedido().setFormaPagtoPedido("Vale");
         }
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
-        frm.getPedido().setNumPedido(1);
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
-
+        
+        TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
+        TelaConfirmacaoPagamento.getCaixa().addPedido(frm.getPedido());
+        TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
+        new DAO<>(Caixa.class).atualiza(TelaConfirmacaoPagamento.getCaixa());
     }
 
     private void geraComanda() {
@@ -203,8 +207,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         boolean valida = true;
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.getCampoDesconto().setText("0");
-        } 
-        
+            atualizaTotal();
+        }
+
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
             limpaBorda();
         } else {
@@ -258,9 +263,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 atualizaTotal();
                 break;
             case "Confirmar Pedido":
-                System.out.println(valida());
-                //criaPedido();
-                //geraComanda();
+                if (valida()) {
+                    criaPedido();
+                    //geraComanda();
+                    frm.dispose();
+                }
                 break;
             case "Dinheiro":
                 habilitaDinheiro();
@@ -273,6 +280,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Vale Refeição":
                 habilitaVR();
+                break;
+            case "Cancelar Pedido":
+                frm.setCadastrou(false);
+                frm.dispose();
                 break;
         }
     }

@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.PagamentoActionListener;
+import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Pedido;
 import javax.swing.JButton;
@@ -42,10 +43,12 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private Funcionario funcionario = new Funcionario();
     private Pedido pedido = new Pedido();
+    private static Caixa caixa = null;
     private Integer indexCaixa = null;
     private double subTotal = 0;
     private double total = 0;
     private final PagamentoActionListener listener;
+    private static boolean cadastrou = true;
         
     public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer indexCaixa, Double subTotal) {
         super(parent, modal);
@@ -436,6 +439,22 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.tabelaPedido = tabelaPedido;
     }
 
+    public static boolean isCadastrou() {
+        return cadastrou;
+    }
+
+    public static void setCadastrou(boolean cadastrou) {
+        TelaConfirmacaoPagamento.cadastrou = cadastrou;
+    }
+
+    public static Caixa getCaixa() {
+        return caixa;
+    }
+
+    public static void setCaixa(Caixa caixa) {
+        TelaConfirmacaoPagamento.caixa = caixa;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;

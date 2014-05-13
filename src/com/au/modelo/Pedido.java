@@ -53,7 +53,7 @@ public class Pedido implements Serializable {
 	private List<Itempedido> itempedidos;
 
 	//bi-directional many-to-one association to Caixa
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idCaixa", nullable=false)
 	private Caixa caixa;
 

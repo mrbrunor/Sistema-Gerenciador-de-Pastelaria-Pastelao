@@ -41,7 +41,7 @@ public class Caixa implements Serializable {
 	private double totalCaixa;
 
 	//bi-directional many-to-one association to Funcionario
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idFunc", nullable=false)
 	private Funcionario funcionario;
 
