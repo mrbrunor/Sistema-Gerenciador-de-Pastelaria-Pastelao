@@ -61,6 +61,7 @@ public class TelaLogin extends javax.swing.JFrame {
         textoSenha = new javax.swing.JLabel();
         campoUsuario = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
+        campoSenha.setActionCommand("Entrar no Sistema");
         botaoEsqueciSenha = new javax.swing.JButton();
         botaoEntrarNoSistema = new javax.swing.JButton();
 

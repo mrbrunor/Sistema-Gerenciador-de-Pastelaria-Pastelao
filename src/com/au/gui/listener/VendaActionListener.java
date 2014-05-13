@@ -114,7 +114,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private void fecharPedido() {
         
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
-
+        
     }
 
     private Pedido formToVenda() {
@@ -278,6 +278,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Produtos":
                 new TelaCadastrarProduto(frm, true).setVisible(true);
+                new TabelaPesquisaActionListener(frm).pesquisaProdutos();
                 break;
             
         }

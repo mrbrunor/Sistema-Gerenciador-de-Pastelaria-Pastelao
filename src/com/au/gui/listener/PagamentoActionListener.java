@@ -146,6 +146,13 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         bematech.imprime("");
         bematech.imprime("");
     }
+    
+    public boolean valida(){
+        boolean valida = true;
+        
+        
+        return valida;
+    }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {

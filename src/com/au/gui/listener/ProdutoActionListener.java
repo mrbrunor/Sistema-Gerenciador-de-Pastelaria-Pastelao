@@ -330,7 +330,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         }
 
         if (frm.getRadioPrep().isSelected()) {
-            if (!ingredientes.isEmpty()) {
+            if (frm.getTabelaIngredientes().getRowCount() > 0) {
                 frm.getTextoErroIngrediente().setVisible(false);
             } else {
                 frm.getTextoErroIngrediente().setVisible(true);

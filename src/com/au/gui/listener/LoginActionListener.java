@@ -51,6 +51,7 @@ public class LoginActionListener implements ActionListener {
     public void adicionaListener() {
         frm.getBotaoEntrarNoSistema().addActionListener(this);
         frm.getBotaoEsqueciSenha().addActionListener(this);
+        frm.getCampoSenha().addActionListener(this);
     }
 
     private void logar() {

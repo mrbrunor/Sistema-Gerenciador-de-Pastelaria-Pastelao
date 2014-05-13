@@ -178,6 +178,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoSenha">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoSenha.setActionCommand(&quot;Entrar no Sistema&quot;);  "/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

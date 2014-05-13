@@ -142,7 +142,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1)
                         .addGap(18, 18, 18)
-                        .addComponent(textoValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)))
+                        .addComponent(textoValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelDadosPedidoLayout.setVerticalGroup(
@@ -202,8 +202,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoSelecioneFormaPagamento)
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
-                        .addComponent(botaoRadioDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoRadioDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoIconeDinheiro)
                         .addGap(18, 18, 18)
                         .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +273,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(painelDadosPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoConfirmarPedido)))
