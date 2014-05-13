@@ -66,6 +66,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         painelDadosPedido = new javax.swing.JPanel();
         textoConfiraDadosPedido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -167,15 +168,19 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         textoSelecioneFormaPagamento.setText("Selecione a forma de pagamento utilizada:");
 
+        buttonGroup1.add(botaoRadioDinheiro);
         botaoRadioDinheiro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioDinheiro.setText("Dinheiro");
 
+        buttonGroup1.add(botaoRadioCartaoCredito);
         botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioCartaoCredito.setText("Cartão de Crédito");
 
+        buttonGroup1.add(botaoRadioValeRefeicao);
         botaoRadioValeRefeicao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioValeRefeicao.setText("Vale Refeição");
 
+        buttonGroup1.add(botaoCartaoDebito);
         botaoCartaoDebito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoCartaoDebito.setText("Cartão de Débito");
 
@@ -438,6 +443,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JRadioButton botaoRadioCartaoCredito;
     private javax.swing.JRadioButton botaoRadioDinheiro;
     private javax.swing.JRadioButton botaoRadioValeRefeicao;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox caixaSelecaoCC;
     private javax.swing.JComboBox caixaSelecaoCD;
     private javax.swing.JComboBox caixaSelecaoVR;
