@@ -36,14 +36,15 @@ import javax.swing.JTextField;
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
     private FechamentoActionListener listener;
-    private Caixa caixa;
+    private static boolean cadastrou = false;
+    private int idCaixa;
     /**
      * Creates new form TelaFechamentoCaixa
      */
-    public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal, Caixa caixa) {
+    public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
-        this.caixa = caixa;
+        this.idCaixa = idCaixa;
         listener = new FechamentoActionListener(this);
     }
 
@@ -536,12 +537,20 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Caixa getCaixa() {
-        return caixa;
+    public static boolean isCadastrou() {
+        return cadastrou;
     }
 
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
+    public static void setCadastrou(boolean cadastrou) {
+        TelaFechamentoCaixa.cadastrou = cadastrou;
+    }
+
+    public int getIdCaixa() {
+        return idCaixa;
+    }
+
+    public void setIdCaixa(int idCaixa) {
+        this.idCaixa = idCaixa;
     }
 
     public JLabel getTextoValeRefeicao() {

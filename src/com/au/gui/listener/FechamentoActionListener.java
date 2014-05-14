@@ -29,6 +29,8 @@ import com.au.util.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -36,105 +38,146 @@ import javax.swing.border.MatteBorder;
  *
  * @author BrunoRicardo
  */
-public class FechamentoActionListener implements ActionListener {
+public class FechamentoActionListener implements ActionListener, KeyListener {
 
     private final TelaFechamentoCaixa frm;
-    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
-    private Border normal;
+    private Caixa caixa;
+    private double dinheiroCaixa;
 
     public FechamentoActionListener(TelaFechamentoCaixa frm) {
         this.frm = frm;
-        normal = frm.getCampoCedulaCemReais().getBorder();
-        System.out.println(frm.getCaixa().getIdCaixa());
+        caixa = new DAO<>(Caixa.class).buscaPorId(frm.getIdCaixa());
         inicializaCampos();
         adicionaListener();
     }
 
-    public void inicializaCampos(){
-        frm.getTextoValorTotalFaturado().setText("TOTAL FATURADO: R$ " + frm.getCaixa().getTotalCaixa());
-        frm.getTextoValorFundoDeCaixa().setText("R$: " + frm.getCaixa().getFundoCaixa());
+    public void inicializaCampos() {
+        frm.getTextoValorFundoDeCaixa().setText("R$: " + caixa.getFundoCaixa());
         calculaReducoes();
         calculaDinheiro();
     }
-    
-    public void calculaDinheiro(){
+
+    public void calculaDinheiro() {
         System.out.println("Entrou Calcula Dinheiro");
-        if(frm.getCaixa().getPedidos() != null && !frm.getCaixa().getPedidos().isEmpty()){
+        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
             System.out.println("Entrou IF Not Null");
             double totalDinheiro = 0;
-            
-            for(int i = 0; i < frm.getCaixa().getPedidos().size(); i++){
-                if("Dinheiro".equals(frm.getCaixa().getPedidos().get(i).getFormaPagtoPedido()))
-                    totalDinheiro = totalDinheiro + frm.getCaixa().getPedidos().get(i).getTotPedido();
+
+            for (int i = 0; i < caixa.getPedidos().size(); i++) {
+                if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagtoPedido())) {
+                    totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
+                }
             }
             frm.getTextoValorDinheiro().setText("R$: " + totalDinheiro);
         } else {
             frm.getTextoValorDinheiro().setText("R$: 0.00");
         }
     }
-    
-    public void calculaCC(){
-        if(!frm.getCaixa().getDespesas().isEmpty()){
+
+    public void calculaCC() {
+        if (!caixa.getDespesas().isEmpty()) {
             double totalDesp = 0;
-            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
-                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            for (int i = 0; i < caixa.getDespesas().size(); i++) {
+                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
             frm.getTextoValorDespesas().setText("R$: " + totalDesp);
         } else {
             frm.getTextoValorDespesas().setText("R$: 0.00");
         }
     }
-    
-    public void calculaCD(){
-        if(!frm.getCaixa().getDespesas().isEmpty()){
+
+    public void calculaCD() {
+        if (!caixa.getDespesas().isEmpty()) {
             double totalDesp = 0;
-            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
-                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            for (int i = 0; i < caixa.getDespesas().size(); i++) {
+                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
             frm.getTextoValorDespesas().setText("R$: " + totalDesp);
         } else {
             frm.getTextoValorDespesas().setText("R$: 0.00");
         }
     }
-    
-    public void calculaVR(){
-        if(!frm.getCaixa().getDespesas().isEmpty()){
+
+    public void calculaVR() {
+        if (!caixa.getDespesas().isEmpty()) {
             double totalDesp = 0;
-            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
-                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            for (int i = 0; i < caixa.getDespesas().size(); i++) {
+                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
             frm.getTextoValorDespesas().setText("R$: " + totalDesp);
         } else {
             frm.getTextoValorDespesas().setText("R$: 0.00");
         }
     }
-    
-    public void calculaReducoes(){
-        if(frm.getCaixa().getDespesas() != null && !frm.getCaixa().getDespesas().isEmpty()){
-            double totalDesp = 0;
-            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
-                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+
+    public void calculaReducoes() {
+        double totalDesp = 0;
+        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
+            for (int i = 0; i < caixa.getDespesas().size(); i++) {
+                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
             frm.getTextoValorDespesas().setText("R$: " + totalDesp);
         } else {
             frm.getTextoValorDespesas().setText("R$: 0.00");
         }
+        frm.getTextoValorTotalDeReducoes().setText("R$: " + caixa.getFundoCaixa() + totalDesp);
+        frm.getTextoValorTotalFaturado().setText("TOTAL FATURADO: R$ " + (caixa.getTotalCaixa() - (caixa.getFundoCaixa() + totalDesp)));
     }
-    
+
     public void adicionaListener() {
         frm.getBotaoCancelarFechamentoDeCaixa().addActionListener(this);
         frm.getBotaoConfirmarFechamentoDeCaixa().addActionListener(this);
-        frm.getCampoCedulaCemReais().addActionListener(this);
-        frm.getCampoCedulaCincoReais().addActionListener(this);
-        frm.getCampoCedulaCinquentaReais().addActionListener(this);
-        frm.getCampoCedulaDezReais().addActionListener(this);
-        frm.getCampoCedulaDoisReais().addActionListener(this);
-        frm.getCampoCedulaVinteReais().addActionListener(this);
-        frm.getCampoMoedaCincoCentavos().addActionListener(this);
-        frm.getCampoMoedaCinquentaCentavos().addActionListener(this);
-        frm.getCampoMoedaDezCentavos().addActionListener(this);
-        frm.getCampoMoedaUmReal().addActionListener(this);
-        frm.getCampoMoedaVinteCincoCentavos().addActionListener(this);
+        frm.getCampoCedulaCemReais().addKeyListener(this);
+        frm.getCampoCedulaCincoReais().addKeyListener(this);
+        frm.getCampoCedulaCinquentaReais().addKeyListener(this);
+        frm.getCampoCedulaDezReais().addKeyListener(this);
+        frm.getCampoCedulaDoisReais().addKeyListener(this);
+        frm.getCampoCedulaVinteReais().addKeyListener(this);
+        frm.getCampoMoedaCincoCentavos().addKeyListener(this);
+        frm.getCampoMoedaCinquentaCentavos().addKeyListener(this);
+        frm.getCampoMoedaDezCentavos().addKeyListener(this);
+        frm.getCampoMoedaUmReal().addKeyListener(this);
+        frm.getCampoMoedaVinteCincoCentavos().addKeyListener(this);
+    }
+
+    public void calculaDinheiroEmCaixa() {
+        dinheiroCaixa = 0;
+        
+        if (!"".equals(frm.getCampoMoedaCincoCentavos().getText())) {
+            dinheiroCaixa += Integer.valueOf((frm.getCampoMoedaCincoCentavos().getText()))*0.05;
+        }
+        if (!"".equals(frm.getCampoMoedaCinquentaCentavos().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaCinquentaCentavos().getText())) *0.5;
+        }
+        if (!"".equals(frm.getCampoMoedaDezCentavos().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaDezCentavos().getText()))*0.1;
+        }
+        if (!"".equals(frm.getCampoMoedaUmReal().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaUmReal().getText()));
+        }
+        if (!"".equals(frm.getCampoMoedaVinteCincoCentavos().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaVinteCincoCentavos().getText()))*.25;
+        }
+        if (!"".equals(frm.getCampoCedulaCemReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCemReais().getText()))*100;
+        }
+        if (!"".equals(frm.getCampoCedulaCincoReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCincoReais().getText()))*5;
+        }
+        if (!"".equals(frm.getCampoCedulaCinquentaReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCinquentaReais().getText()))*50;
+        }
+        if (!"".equals(frm.getCampoCedulaDezReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDezReais().getText()))*10;
+        }
+        if (!"".equals(frm.getCampoCedulaDoisReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDoisReais().getText()))*2;
+        }
+        if (!"".equals(frm.getCampoCedulaVinteReais().getText())) {
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaVinteReais().getText()))*20;
+        }
+        
+        frm.getTextoValorTotalEmCaixa().setText(String.format("R$: %.2f", dinheiroCaixa));
     }
 
     @Override
@@ -143,5 +186,20 @@ public class FechamentoActionListener implements ActionListener {
             case "Cadastrar Fornecedor":
                 break;
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        calculaDinheiroEmCaixa();
     }
 }

@@ -47,11 +47,11 @@ public class Caixa implements Serializable {
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to Despesa
-	@OneToMany(mappedBy="caixa")
+	@OneToMany(mappedBy="caixa", fetch=FetchType.EAGER)
 	private List<Despesa> despesas;
 
 	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="caixa")
+	@OneToMany(mappedBy="caixa", fetch=FetchType.EAGER)
 	private List<Pedido> pedidos;
 
 	public Caixa() {

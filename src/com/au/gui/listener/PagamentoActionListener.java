@@ -92,9 +92,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     private void criaPedido() {
         Date data = new Date();
-        //SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");        
-        //String dataStr = formatador.format(data);
-
         frm.getPedido().setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         frm.getPedido().setDataPedido(data);
         frm.getPedido().setDescPedido(Double.valueOf(frm.getCampoDesconto().getText()));
@@ -111,11 +108,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
-        
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
-        TelaConfirmacaoPagamento.getCaixa().addPedido(frm.getPedido());
-        TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
+        TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Caixa.class).atualiza(TelaConfirmacaoPagamento.getCaixa());
     }
 
