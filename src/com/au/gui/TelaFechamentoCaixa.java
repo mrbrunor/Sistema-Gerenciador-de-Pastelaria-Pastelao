@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.FechamentoActionListener;
+import com.au.modelo.Caixa;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -35,12 +36,14 @@ import javax.swing.JTextField;
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
     private FechamentoActionListener listener;
+    private Caixa caixa;
     /**
      * Creates new form TelaFechamentoCaixa
      */
-    public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal) {
+    public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal, Caixa caixa) {
         super(parent, modal);
         initComponents();
+        this.caixa = caixa;
         listener = new FechamentoActionListener(this);
     }
 
@@ -382,8 +385,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                             .addComponent(textoValorDinheiro)
                             .addComponent(textoValorCartaoDeCredito)
                             .addComponent(textoValorCartaoDeDebito)
-                            .addComponent(textoValorValeRefeicao))
-                        .addGap(0, 0, 0)))
+                            .addComponent(textoValorValeRefeicao))))
                 .addContainerGap())
         );
         painelFaturamentosLayout.setVerticalGroup(
@@ -462,13 +464,12 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                         .addGroup(painelReducoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textoFundoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(painelReducoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelReducoesLayout.createSequentialGroup()
-                                .addComponent(textoValorDespesas)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelReducoesLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(textoValorDespesas)
+                                .addGap(0, 0, 0))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelReducoesLayout.createSequentialGroup()
                                 .addComponent(textoValorFundoDeCaixa))))
                     .addComponent(textoTotalDeReducoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoValorTotalDeReducoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -534,6 +535,14 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
     public JLabel getTextoValeRefeicao() {
         return textoValeRefeicao;

@@ -28,6 +28,7 @@ import com.au.gui.TelaCadastrarFuncionario;
 import com.au.gui.TelaCadastrarIngrediente;
 import com.au.gui.TelaCadastrarProduto;
 import com.au.gui.TelaConfirmacaoPagamento;
+import com.au.gui.TelaFechamentoCaixa;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.VendaTableModel;
@@ -68,9 +69,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         if (indexCaixa == null) {
             Caixa caixa = novoCaixa();
             new DAO<>(Caixa.class).atualiza(caixa);
+            System.out.println("O ID do caixa é: " + caixa.getIdCaixa());
             frm.getFuncionario().getCaixas().add(caixa);
             System.out.println("Novo caixa Criado");
-            indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
+            indexCaixa = frm.getFuncionario().getCaixas().size() -1;
         }
         System.out.println(indexCaixa);
         frm.getBotaoCaixa().setText("Fechar Caixa");
@@ -123,14 +125,15 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private void fecharPedido() {
         pedido.setNumPedido(verificaNumeroPedido());
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
-        if(!TelaConfirmacaoPagamento.isCadastrou()){
-            TelaConfirmacaoPagamento.setCadastrou(true);
+        if(TelaConfirmacaoPagamento.isCadastrou()){
+            TelaConfirmacaoPagamento.setCadastrou(false);
+            frm.getFuncionario().getCaixas().set(indexCaixa, TelaConfirmacaoPagamento.getCaixa());
+            limparPedido();
+        } else{
             //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
-            System.out.println("Funcionou");
+            System.out.println("Cadastro Cancelado");
         }
-        frm.getFuncionario().getCaixas().set(indexCaixa, TelaConfirmacaoPagamento.getCaixa());
-        limparPedido();
-        pedido = new Pedido();
+        
     }
 
     private Pedido formToVenda() {
@@ -181,6 +184,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void limparPedido() {
+        pedido = new Pedido();
         pedido.setItempedidos(new ArrayList<Itempedido>());
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
@@ -224,7 +228,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void fecharCaixa(Integer index) {
-        System.out.println("HAHAHA FECHA AI Caixa ID: " + frm.getFuncionario().getCaixas().get(index).getIdCaixa());
+        System.out.println(index);
+        System.out.println(indexCaixa);
+        System.out.println("ID caixa :P");
+        System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa());
+        new TelaFechamentoCaixa(frm, true, frm.getFuncionario().getCaixas().get(index)).setVisible(true);
+        
+        JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso");
     }
 
     public Integer verificaCaixa() {
@@ -250,12 +260,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     
     public Integer verificaNumeroPedido(){
         String dataStr = geraDataStr();
-        Integer numPedido = null;
+        Integer numPedido = 1;
         
-        if(indexCaixa != null){
-            numPedido = 1;
-            System.out.println("Numero de Pedidos: ");
-            System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size());
+        if(indexCaixa != null && frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos() !=null){
+            System.out.println("index caixa...." + indexCaixa);
             for (int i = 0; frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size() > i; i++) {
                 System.out.println("Entrou For Numero Pedido");
                 System.out.println("Numero Pedido Antes: " + numPedido);
@@ -282,10 +290,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     public void vendaToForm(Itempedido itempedido) {
         frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getProduto().getIdProd()));
-    }
-    
-    public void fecharCaixa(){
-        
     }
     
     public boolean validaAddItem(){
@@ -340,8 +344,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 }
                 break;
             case "Fechar Caixa":
-                fecharCaixa();
-                System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getTotalCaixa());
+                fecharCaixa(indexCaixa);
+                deslogar();
                 break;
             case "Fechar Pedido":
                 if(validaPedido()){

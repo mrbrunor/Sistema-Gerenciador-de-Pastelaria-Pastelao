@@ -266,6 +266,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 if (valida()) {
                     criaPedido();
                     //geraComanda();
+                    frm.setCadastrou(true);
                     frm.dispose();
                 }
                 break;

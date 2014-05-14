@@ -48,7 +48,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private double subTotal = 0;
     private double total = 0;
     private final PagamentoActionListener listener;
-    private static boolean cadastrou = true;
+    private static boolean cadastrou = false;
         
     public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer indexCaixa, Double subTotal) {
         super(parent, modal);

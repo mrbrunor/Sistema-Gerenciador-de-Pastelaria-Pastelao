@@ -24,6 +24,8 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaFechamentoCaixa;
+import com.au.modelo.Caixa;
+import com.au.util.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,9 +45,82 @@ public class FechamentoActionListener implements ActionListener {
     public FechamentoActionListener(TelaFechamentoCaixa frm) {
         this.frm = frm;
         normal = frm.getCampoCedulaCemReais().getBorder();
+        System.out.println(frm.getCaixa().getIdCaixa());
+        inicializaCampos();
         adicionaListener();
     }
 
+    public void inicializaCampos(){
+        frm.getTextoValorTotalFaturado().setText("TOTAL FATURADO: R$ " + frm.getCaixa().getTotalCaixa());
+        frm.getTextoValorFundoDeCaixa().setText("R$: " + frm.getCaixa().getFundoCaixa());
+        calculaReducoes();
+        calculaDinheiro();
+    }
+    
+    public void calculaDinheiro(){
+        System.out.println("Entrou Calcula Dinheiro");
+        if(frm.getCaixa().getPedidos() != null && !frm.getCaixa().getPedidos().isEmpty()){
+            System.out.println("Entrou IF Not Null");
+            double totalDinheiro = 0;
+            
+            for(int i = 0; i < frm.getCaixa().getPedidos().size(); i++){
+                if("Dinheiro".equals(frm.getCaixa().getPedidos().get(i).getFormaPagtoPedido()))
+                    totalDinheiro = totalDinheiro + frm.getCaixa().getPedidos().get(i).getTotPedido();
+            }
+            frm.getTextoValorDinheiro().setText("R$: " + totalDinheiro);
+        } else {
+            frm.getTextoValorDinheiro().setText("R$: 0.00");
+        }
+    }
+    
+    public void calculaCC(){
+        if(!frm.getCaixa().getDespesas().isEmpty()){
+            double totalDesp = 0;
+            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
+                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            }
+            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
+        } else {
+            frm.getTextoValorDespesas().setText("R$: 0.00");
+        }
+    }
+    
+    public void calculaCD(){
+        if(!frm.getCaixa().getDespesas().isEmpty()){
+            double totalDesp = 0;
+            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
+                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            }
+            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
+        } else {
+            frm.getTextoValorDespesas().setText("R$: 0.00");
+        }
+    }
+    
+    public void calculaVR(){
+        if(!frm.getCaixa().getDespesas().isEmpty()){
+            double totalDesp = 0;
+            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
+                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            }
+            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
+        } else {
+            frm.getTextoValorDespesas().setText("R$: 0.00");
+        }
+    }
+    
+    public void calculaReducoes(){
+        if(frm.getCaixa().getDespesas() != null && !frm.getCaixa().getDespesas().isEmpty()){
+            double totalDesp = 0;
+            for(int i = 0; i<frm.getCaixa().getDespesas().size(); i++){
+                totalDesp = totalDesp + frm.getCaixa().getDespesas().get(i).getValorDesp();
+            }
+            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
+        } else {
+            frm.getTextoValorDespesas().setText("R$: 0.00");
+        }
+    }
+    
     public void adicionaListener() {
         frm.getBotaoCancelarFechamentoDeCaixa().addActionListener(this);
         frm.getBotaoConfirmarFechamentoDeCaixa().addActionListener(this);
