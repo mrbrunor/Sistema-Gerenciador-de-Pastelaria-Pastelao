@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
@@ -143,107 +143,71 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="painelDadosIngrediente" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="textoId" max="32767" attributes="0"/>
+                      <Component id="textoValor" max="32767" attributes="0"/>
+                      <Component id="textoNome" alignment="0" pref="122" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="campoNome" min="-2" pref="226" max="-2" attributes="0"/>
+                      <Component id="campoValor" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="campoId" min="-2" pref="77" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="painelDadosIngrediente" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="392" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="painelDadosIngrediente">
+        <Component class="javax.swing.JTextField" name="campoValor">
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoValor">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Dados Ingrediente">
-                  <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                    <EtchetBorder/>
-                  </Border>
-                </TitledBorder>
-              </Border>
-            </Property>
+            <Property name="text" type="java.lang.String" value="Valor Ingrediente:"/>
           </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textoId" max="32767" attributes="0"/>
-                          <Component id="textoValor" max="32767" attributes="0"/>
-                          <Component id="textoNome" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="campoNome" min="-2" pref="226" max="-2" attributes="0"/>
-                          <Component id="campoValor" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="campoId" min="-2" pref="77" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoId" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="textoId">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ID do Ingrediente:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoId">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoNome">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nome Ingrediente:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoValor">
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoNome">
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoValor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valor Ingrediente:"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoNome">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nome Ingrediente:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoNome">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoId">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoId">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID do Ingrediente:"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="painelProcurarIngredientes">
@@ -299,7 +263,7 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="textoCliqueParaEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="painelScrollTabela" max="32767" attributes="0"/>
+                  <Component id="painelScrollTabela" pref="0" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
