@@ -24,18 +24,24 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.FechamentoActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Tiago
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
-
+    private FechamentoActionListener listener;
     /**
      * Creates new form TelaFechamentoCaixa
      */
     public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listener = new FechamentoActionListener(this);
     }
 
     /**
@@ -529,48 +535,201 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JLabel getTextoValeRefeicao() {
+        return textoValeRefeicao;
+    }
+
+    public void setTextoValeRefeicao(JLabel textoValeRefeicao) {
+        this.textoValeRefeicao = textoValeRefeicao;
+    }
+
+    public JLabel getTextoValorCartaoDeCredito() {
+        return textoValorCartaoDeCredito;
+    }
+
+    public void setTextoValorCartaoDeCredito(JLabel textoValorCartaoDeCredito) {
+        this.textoValorCartaoDeCredito = textoValorCartaoDeCredito;
+    }
+
+    public JLabel getTextoValorCartaoDeDebito() {
+        return textoValorCartaoDeDebito;
+    }
+
+    public void setTextoValorCartaoDeDebito(JLabel textoValorCartaoDeDebito) {
+        this.textoValorCartaoDeDebito = textoValorCartaoDeDebito;
+    }
+
+    public JLabel getTextoValorDespesas() {
+        return textoValorDespesas;
+    }
+
+    public void setTextoValorDespesas(JLabel textoValorDespesas) {
+        this.textoValorDespesas = textoValorDespesas;
+    }
+
+    public JLabel getTextoValorDinheiro() {
+        return textoValorDinheiro;
+    }
+
+    public void setTextoValorDinheiro(JLabel textoValorDinheiro) {
+        this.textoValorDinheiro = textoValorDinheiro;
+    }
+
+    public JLabel getTextoValorFundoDeCaixa() {
+        return textoValorFundoDeCaixa;
+    }
+
+    public void setTextoValorFundoDeCaixa(JLabel textoValorFundoDeCaixa) {
+        this.textoValorFundoDeCaixa = textoValorFundoDeCaixa;
+    }
+
+    public JLabel getTextoValorTotalDeReducoes() {
+        return textoValorTotalDeReducoes;
+    }
+
+    public void setTextoValorTotalDeReducoes(JLabel textoValorTotalDeReducoes) {
+        this.textoValorTotalDeReducoes = textoValorTotalDeReducoes;
+    }
+
+    public JLabel getTextoValorTotalEmCaixa() {
+        return textoValorTotalEmCaixa;
+    }
+
+    public void setTextoValorTotalEmCaixa(JLabel textoValorTotalEmCaixa) {
+        this.textoValorTotalEmCaixa = textoValorTotalEmCaixa;
+    }
+
+    public JLabel getTextoValorTotalFaturado() {
+        return textoValorTotalFaturado;
+    }
+
+    public void setTextoValorTotalFaturado(JLabel textoValorTotalFaturado) {
+        this.textoValorTotalFaturado = textoValorTotalFaturado;
+    }
+
+    public JLabel getTextoValorValeRefeicao() {
+        return textoValorValeRefeicao;
+    }
+
+    public void setTextoValorValeRefeicao(JLabel textoValorValeRefeicao) {
+        this.textoValorValeRefeicao = textoValorValeRefeicao;
+    }
+
+    public JLabel getTextoValoresFaturados() {
+        return textoValoresFaturados;
+    }
+
+    public void setTextoValoresFaturados(JLabel textoValoresFaturados) {
+        this.textoValoresFaturados = textoValoresFaturados;
+    }
+
+    public JButton getBotaoCancelarFechamentoDeCaixa() {
+        return botaoCancelarFechamentoDeCaixa;
+    }
+
+    public void setBotaoCancelarFechamentoDeCaixa(JButton botaoCancelarFechamentoDeCaixa) {
+        this.botaoCancelarFechamentoDeCaixa = botaoCancelarFechamentoDeCaixa;
+    }
+
+    public JButton getBotaoConfirmarFechamentoDeCaixa() {
+        return botaoConfirmarFechamentoDeCaixa;
+    }
+
+    public void setBotaoConfirmarFechamentoDeCaixa(JButton botaoConfirmarFechamentoDeCaixa) {
+        this.botaoConfirmarFechamentoDeCaixa = botaoConfirmarFechamentoDeCaixa;
+    }
+
+    public JTextField getCampoCedulaCemReais() {
+        return campoCedulaCemReais;
+    }
+
+    public void setCampoCedulaCemReais(JTextField campoCedulaCemReais) {
+        this.campoCedulaCemReais = campoCedulaCemReais;
+    }
+
+    public JTextField getCampoCedulaCincoReais() {
+        return campoCedulaCincoReais;
+    }
+
+    public void setCampoCedulaCincoReais(JTextField campoCedulaCincoReais) {
+        this.campoCedulaCincoReais = campoCedulaCincoReais;
+    }
+
+    public JTextField getCampoCedulaCinquentaReais() {
+        return campoCedulaCinquentaReais;
+    }
+
+    public void setCampoCedulaCinquentaReais(JTextField campoCedulaCinquentaReais) {
+        this.campoCedulaCinquentaReais = campoCedulaCinquentaReais;
+    }
+
+    public JTextField getCampoCedulaDezReais() {
+        return campoCedulaDezReais;
+    }
+
+    public void setCampoCedulaDezReais(JTextField campoCedulaDezReais) {
+        this.campoCedulaDezReais = campoCedulaDezReais;
+    }
+
+    public JTextField getCampoCedulaDoisReais() {
+        return campoCedulaDoisReais;
+    }
+
+    public void setCampoCedulaDoisReais(JTextField campoCedulaDoisReais) {
+        this.campoCedulaDoisReais = campoCedulaDoisReais;
+    }
+
+    public JTextField getCampoCedulaVinteReais() {
+        return campoCedulaVinteReais;
+    }
+
+    public void setCampoCedulaVinteReais(JTextField campoCedulaVinteReais) {
+        this.campoCedulaVinteReais = campoCedulaVinteReais;
+    }
+
+    public JTextField getCampoMoedaCincoCentavos() {
+        return campoMoedaCincoCentavos;
+    }
+
+    public void setCampoMoedaCincoCentavos(JTextField campoMoedaCincoCentavos) {
+        this.campoMoedaCincoCentavos = campoMoedaCincoCentavos;
+    }
+
+    public JTextField getCampoMoedaCinquentaCentavos() {
+        return campoMoedaCinquentaCentavos;
+    }
+
+    public void setCampoMoedaCinquentaCentavos(JTextField campoMoedaCinquentaCentavos) {
+        this.campoMoedaCinquentaCentavos = campoMoedaCinquentaCentavos;
+    }
+
+    public JTextField getCampoMoedaDezCentavos() {
+        return campoMoedaDezCentavos;
+    }
+
+    public void setCampoMoedaDezCentavos(JTextField campoMoedaDezCentavos) {
+        this.campoMoedaDezCentavos = campoMoedaDezCentavos;
+    }
+
+    public JTextField getCampoMoedaUmReal() {
+        return campoMoedaUmReal;
+    }
+
+    public void setCampoMoedaUmReal(JTextField campoMoedaUmReal) {
+        this.campoMoedaUmReal = campoMoedaUmReal;
+    }
+
+    public JTextField getCampoMoedaVinteCincoCentavos() {
+        return campoMoedaVinteCincoCentavos;
+    }
+
+    public void setCampoMoedaVinteCincoCentavos(JTextField campoMoedaVinteCincoCentavos) {
+        this.campoMoedaVinteCincoCentavos = campoMoedaVinteCincoCentavos;
+    }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaFechamentoCaixa dialog = new TelaFechamentoCaixa(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarFechamentoDeCaixa;
     private javax.swing.JButton botaoConfirmarFechamentoDeCaixa;
