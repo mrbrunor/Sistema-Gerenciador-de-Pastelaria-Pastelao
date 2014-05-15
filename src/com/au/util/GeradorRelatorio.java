@@ -23,9 +23,12 @@
  */
 package com.au.util;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -49,17 +52,17 @@ public class GeradorRelatorio {
         this.conexao = conexao;
     }
 
-    public void geraPdfParaOutputStream(OutputStream outputStream) {
+    public void geraPdfParaOutputStream(OutputStream outputStream) { //throws IOException {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.conexao);
 
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outputStream);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
             exporter.exportReport();
         } catch (JRException e) {
-            throw new RuntimeException (e);
+            throw new RuntimeException(e);
         }
+        //outputStream.close();
     }
-
 }

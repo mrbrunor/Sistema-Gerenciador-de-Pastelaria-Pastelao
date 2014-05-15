@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -94,13 +96,14 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         switch (event.getActionCommand()) {
             case "Procurar":
                 if (valida()) {
-                    //lógica de Procurar 
+                    //lógica de Procurar o Caminho de Salvar o Arquivo
                 }
                 break;
             case "Gerar Relatório":
                 if (valida()) {
                     try {
                         geraRelatorio();
+                        JOptionPane.showMessageDialog(frm, "Relatório Gerado com Sucesso!", "Geração de Relatório", JOptionPane.INFORMATION_MESSAGE);
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
