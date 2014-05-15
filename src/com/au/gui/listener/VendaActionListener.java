@@ -31,6 +31,7 @@ import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
+import com.au.gui.TelaVendasPorPeriodo;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
@@ -75,7 +76,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             System.out.println("O ID do caixa é: " + caixa.getIdCaixa());
             frm.getFuncionario().getCaixas().add(caixa);
             System.out.println("Novo caixa Criado");
-            indexCaixa = frm.getFuncionario().getCaixas().size() -1;
+            indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
         }
         System.out.println(indexCaixa);
         frm.getBotaoCaixa().setText("Fechar Caixa");
@@ -93,8 +94,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
         }
     }
-    
-    public void inicializaData(){
+
+    public void inicializaData() {
         Date date = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");
         frm.getTextoData().setText(formatador.format(date));
@@ -123,24 +124,25 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuSobre().addActionListener(this);
         frm.getItemMenuTeclasAtalho().addActionListener(this);
         frm.getItemMenuTrocarSenha().addActionListener(this);
+        frm.getItemMenuVendasPorPeriodo().addActionListener(this);
     }
 
     private void fecharPedido() {
-        if(numeroPedidoVerificado){
+        if (numeroPedidoVerificado) {
             pedido.setNumPedido(numPedido++);
-        } else{
+        } else {
             pedido.setNumPedido(verificaNumeroPedido());
         }
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
-        if(TelaConfirmacaoPagamento.isCadastrou()){
+        if (TelaConfirmacaoPagamento.isCadastrou()) {
             TelaConfirmacaoPagamento.setCadastrou(false);
             frm.getFuncionario().getCaixas().set(indexCaixa, TelaConfirmacaoPagamento.getCaixa());
             limparPedido();
-        } else{
+        } else {
             //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
             System.out.println("Cadastro Cancelado");
         }
-        
+
     }
 
     private Pedido formToVenda() {
@@ -240,10 +242,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println("ID caixa :P");
         System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa());
         new TelaFechamentoCaixa(frm, true, frm.getFuncionario().getCaixas().get(index).getIdCaixa()).setVisible(true);
-        if(TelaFechamentoCaixa.isCadastrou()){
+        if (TelaFechamentoCaixa.isCadastrou()) {
             JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso");
             return true;
-        }        
+        }
         return false;
     }
 
@@ -267,16 +269,16 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return null;
     }
-    
-    public Integer verificaNumeroPedido(){
+
+    public Integer verificaNumeroPedido() {
         String dataStr = geraDataStr();
         numPedido = 1;
-        if(indexCaixa != null && frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos() !=null){
+        if (indexCaixa != null && frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos() != null) {
             System.out.println("index caixa...." + indexCaixa);
             for (int i = 0; frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size() > i; i++) {
                 System.out.println("Entrou For Numero Pedido");
                 System.out.println("Numero Pedido Antes: " + numPedido);
-                if(frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido() >= numPedido){
+                if (frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido() >= numPedido) {
                     numPedido = frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido();
                     numPedido++;
                     System.out.println("Numero Pedido Depois: " + numPedido);
@@ -286,8 +288,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return numPedido;
     }
-    
-    public String geraDataStr(){
+
+    public String geraDataStr() {
         Date data = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         return formatador.format(data);
@@ -301,26 +303,26 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     public void vendaToForm(Itempedido itempedido) {
         frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getProduto().getIdProd()));
     }
-    
-    public boolean validaAddItem(){
+
+    public boolean validaAddItem() {
         boolean valida = true;
-        if("".equals(frm.getCampoAdicionarItem().getText()) || "0".equals(frm.getCampoAdicionarItem().getText())){
+        if ("".equals(frm.getCampoAdicionarItem().getText()) || "0".equals(frm.getCampoAdicionarItem().getText())) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Insira o ID do produto para adiciona-lo ao pedido.");
         }
         return valida;
     }
-    
-    public boolean validaDelItem(){
+
+    public boolean validaDelItem() {
         boolean valida = true;
-        if(frm.getTabelaPedido().getSelectedRow() == -1){
+        if (frm.getTabelaPedido().getSelectedRow() == -1) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Selecione um item para remover!");
         }
         return valida;
     }
-    
-    public boolean validaPedido(){
+
+    public boolean validaPedido() {
         boolean valida = true;
         System.out.println(frm.getTabelaPedido().getRowCount());
         System.out.println(frm.getTabelaPedido().getRowCount());
@@ -331,35 +333,35 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println(frm.getTabelaPedido().getRowCount());
         System.out.println(frm.getTabelaPedido().getRowCount());
         System.out.println(frm.getTabelaPedido().getRowCount());
-        if(frm.getTabelaPedido().getRowCount() == 0){
+        if (frm.getTabelaPedido().getRowCount() == 0) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Adicione um item ao pedido antes!");
         }
         return valida;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent event) {
         System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
-                if(validaAddItem()){
+                if (validaAddItem()) {
                     atualizaTableModelVenda();
                     adicionaItempedido();
                 }
                 break;
             case "Remover Item":
-                if(validaDelItem()){
+                if (validaDelItem()) {
                     removerItem();
                 }
                 break;
             case "Fechar Caixa":
-                if(fecharCaixa(indexCaixa)){
+                if (fecharCaixa(indexCaixa)) {
                     deslogar();
                 }
                 break;
             case "Fechar Pedido":
-                if(validaPedido()){
+                if (validaPedido()) {
                     fecharPedido();
                 }
                 break;
@@ -382,7 +384,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 new TelaCadastrarProduto(frm, true).setVisible(true);
                 new TabelaPesquisaActionListener(frm).pesquisaProdutos();
                 break;
-            
+            case "Vendas Por Período":
+                new TelaVendasPorPeriodo(frm, true).setVisible(true);
+                break;
         }
     }
 

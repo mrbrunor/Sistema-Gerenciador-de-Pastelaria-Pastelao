@@ -110,7 +110,7 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuNotasFiscais = new javax.swing.JMenuItem();
         itemMenuProdutos = new javax.swing.JMenuItem();
         MenuRelatorio = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        itemMenuVendasPorPeriodo = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuAjuda = new javax.swing.JMenuItem();
@@ -149,7 +149,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textoNomeFuncionario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoData))
@@ -370,8 +370,8 @@ public class TelaVenda extends javax.swing.JFrame {
 
         MenuRelatorio.setText("Relatórios");
 
-        jMenuItem7.setText("jMenuItem1");
-        MenuRelatorio.add(jMenuItem7);
+        itemMenuVendasPorPeriodo.setText("Vendas Por Período");
+        MenuRelatorio.add(itemMenuVendasPorPeriodo);
 
         jMenuItem8.setText("jMenuItem1");
         MenuRelatorio.add(jMenuItem8);
@@ -672,9 +672,15 @@ public class TelaVenda extends javax.swing.JFrame {
     public void setCaixa(Caixa caixa) {
         this.caixa = caixa;
     }
-    
-    
-    
+
+    public JMenuItem getItemMenuVendasPorPeriodo() {
+        return itemMenuVendasPorPeriodo;
+    }
+
+    public void setItemMenuVendasPorPeriodo(JMenuItem itemMenuVendasPorPeriodo) {
+        this.itemMenuVendasPorPeriodo = itemMenuVendasPorPeriodo;
+    }
+       
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -736,7 +742,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuSobre;
     private javax.swing.JMenuItem itemMenuTeclasAtalho;
     private javax.swing.JMenuItem itemMenuTrocarSenha;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem itemMenuVendasPorPeriodo;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
