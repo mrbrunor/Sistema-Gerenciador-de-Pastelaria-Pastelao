@@ -52,7 +52,7 @@ public class GeradorRelatorio {
         this.conexao = conexao;
     }
 
-    public void geraPdfParaOutputStream(OutputStream outputStream) { //throws IOException {
+    public void geraPdfParaOutputStream(OutputStream outputStream) {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.conexao);
 
@@ -60,9 +60,11 @@ public class GeradorRelatorio {
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
             exporter.exportReport();
+            outputStream.close();
         } catch (JRException e) {
             throw new RuntimeException(e);
+        } catch (IOException ex) {
+            Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //outputStream.close();
     }
 }

@@ -25,9 +25,11 @@ package com.au.gui.listener;
 
 import com.au.bd.FabricaConexao;
 import com.au.gui.TelaVendasPorPeriodo;
+import com.au.util.ExtensionFilterFilePDF;
 import com.au.util.GeradorRelatorio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -40,6 +42,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -68,24 +71,41 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         return true;
     }
 
+    private void procuraLocal() {
+        //Está Setando o caminho, porém se após ter setado procurar novamente e cancelar ele reseta
+        JFileChooser file = new JFileChooser();
+        file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        file.setFileFilter(new ExtensionFilterFilePDF());
+        int i = file.showSaveDialog(this.frm);
+        if (i == 1) {
+            frm.getCampoLocalParaSalvar().setText("");
+        }
+        File arquivo = file.getSelectedFile();
+        /* if (arquivo.exists()) {
+            int result = JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?",
+                    "Substituir Arquivo Existente", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
+            } else frm.getCampoLocalParaSalvar().setText("");
+        } */
+        frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
+    }
+
     private void geraRelatorio() throws FileNotFoundException, ParseException {
         String nome = "src\\com\\au\\resources\\reports\\Vendas Diárias.jasper";
         Map<String, Object> parametros = new HashMap<String, Object>();
         Connection conexao = new FabricaConexao().getConexao();
-        OutputStream saida = new FileOutputStream("Relatório.pdf");
+        OutputStream saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dataIni = sdf.format(frm.getCampoDataInicio().getDate());
         String dataFim = sdf.format(frm.getCampoDataTermino().getDate());
-
-        System.out.println(dataIni + "\n" + dataFim);
 
         Date dataInicial = sdf.parse(dataIni);
         Date dataFinal = sdf.parse(dataFim);
 
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);
-        System.out.println(dataInicial + "\n" + dataFinal);
 
         GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
         gerador.geraPdfParaOutputStream(saida);
@@ -96,7 +116,7 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         switch (event.getActionCommand()) {
             case "Procurar":
                 if (valida()) {
-                    //lógica de Procurar o Caminho de Salvar o Arquivo
+                    procuraLocal();
                 }
                 break;
             case "Gerar Relatório":
@@ -104,10 +124,13 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
                     try {
                         geraRelatorio();
                         JOptionPane.showMessageDialog(frm, "Relatório Gerado com Sucesso!", "Geração de Relatório", JOptionPane.INFORMATION_MESSAGE);
+
                     } catch (FileNotFoundException ex) {
-                        Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(VendasPorPeriodoActionListener.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
-                        Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(VendasPorPeriodoActionListener.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 break;
