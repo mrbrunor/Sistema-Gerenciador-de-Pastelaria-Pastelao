@@ -49,7 +49,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     }
 
     public void inicializaCampos() {
-        frm.getTextoValorFundoDeCaixa().setText("R$: " + caixa.getFundoCaixa());
+        frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
         calculaReducoes();
         calculaDinheiro();
     }
@@ -65,46 +65,22 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                     totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
                 }
             }
-            frm.getTextoValorDinheiro().setText("R$: " + totalDinheiro);
+            frm.getTextoValorDinheiro().setText(String.format("R$: %.2f", totalDinheiro));
         } else {
             frm.getTextoValorDinheiro().setText("R$: 0.00");
         }
     }
 
     public void calculaCC() {
-        if (!caixa.getDespesas().isEmpty()) {
-            double totalDesp = 0;
-            for (int i = 0; i < caixa.getDespesas().size(); i++) {
-                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
-            }
-            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
-        } else {
-            frm.getTextoValorDespesas().setText("R$: 0.00");
-        }
+       
     }
 
     public void calculaCD() {
-        if (!caixa.getDespesas().isEmpty()) {
-            double totalDesp = 0;
-            for (int i = 0; i < caixa.getDespesas().size(); i++) {
-                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
-            }
-            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
-        } else {
-            frm.getTextoValorDespesas().setText("R$: 0.00");
-        }
+       
     }
 
     public void calculaVR() {
-        if (!caixa.getDespesas().isEmpty()) {
-            double totalDesp = 0;
-            for (int i = 0; i < caixa.getDespesas().size(); i++) {
-                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
-            }
-            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
-        } else {
-            frm.getTextoValorDespesas().setText("R$: 0.00");
-        }
+       
     }
 
     public void calculaReducoes() {
@@ -113,12 +89,12 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             for (int i = 0; i < caixa.getDespesas().size(); i++) {
                 totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
-            frm.getTextoValorDespesas().setText("R$: " + totalDesp);
+            frm.getTextoValorDespesas().setText(String.format("R$: %.2f", totalDesp));
         } else {
             frm.getTextoValorDespesas().setText("R$: 0.00");
         }
-        frm.getTextoValorTotalDeReducoes().setText("R$: " + caixa.getFundoCaixa() + totalDesp);
-        frm.getTextoValorTotalFaturado().setText("TOTAL FATURADO: R$ " + (caixa.getTotalCaixa() - (caixa.getFundoCaixa() + totalDesp)));
+        frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f",(caixa.getFundoCaixa() + totalDesp)));
+        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f",(caixa.getTotalCaixa() - (caixa.getFundoCaixa() + totalDesp))));
     }
 
     public void adicionaListener() {

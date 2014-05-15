@@ -36,6 +36,7 @@ import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Itempedido;
+import com.au.modelo.ItempedidoPK;
 import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
 import com.au.util.DAO;
@@ -174,9 +175,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private void adicionaItempedido() {
         Produto produto = new Produto();
         Itempedido itempedido = new Itempedido();
+        ItempedidoPK itempedidoPK = new ItempedidoPK();
+        
         produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
         produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
         itempedido.setProduto(produto);
+        itempedidoPK.setIdProd(produto.getIdProd());
+        itempedido.setId(itempedidoPK);
         itempedido.setQtdProd(null);
         while (itempedido.getQtdProd() == null) {
             String aux = JOptionPane.showInputDialog("Digite a Quantidade");
@@ -186,6 +191,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         verificaSeExiste(itempedido);
         itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
+        
         totalPedido = totalPedido + itempedido.getTotProd();
         atualizaTotal();
         frm.getCampoAdicionarItem().setText("");

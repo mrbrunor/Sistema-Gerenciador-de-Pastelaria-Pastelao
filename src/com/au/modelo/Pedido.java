@@ -34,7 +34,7 @@ public class Pedido implements Serializable {
     private String estadoPedido;
 
     //bi-directional many-to-one association to FormaPagamento
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idFormaPgto", nullable = false)
     private FormaPagamento formaPagamento;
 

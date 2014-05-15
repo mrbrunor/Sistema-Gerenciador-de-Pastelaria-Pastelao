@@ -27,6 +27,7 @@ import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
 import com.au.modelo.FormaPagamento;
+import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
 import com.au.util.Bematech;
 import com.au.util.CustomComboBoxInt;
@@ -58,8 +59,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         normal = frm.getCampoDesconto().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getSubTotal()));
-        System.out.println(frm.getPedido().getItempedidos().size());
+        frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
+        System.out.println("Qtd Pedidos= " + frm.getPedido().getItempedidos().size());
         System.out.println(frm.getFuncionario().getNomeFunc());
         System.out.println(frm.getIndexCaixa());
     }
@@ -114,10 +115,20 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
+        
+        
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
         TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Caixa.class).atualiza(TelaConfirmacaoPagamento.getCaixa());
+        
+        if(frm.getPedido().getItempedidos() != null){
+            for(int i=0; frm.getPedido().getItempedidos().size() > i; i++){
+                frm.getPedido().getItempedidos().get(i).setPedido(frm.getPedido());
+                frm.getPedido().getItempedidos().get(i).getId().setIdPedido(frm.getPedido().getIdPedido());
+                new DAO<>(Itempedido.class).adiciona(frm.getPedido().getItempedidos().get(i));
+            }
+        }
     }
 
     private void geraComanda() {
@@ -167,41 +178,41 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     public void habilitaDinheiro() {
         limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
-        frm.getCaixaSelecaoCC().setSelectedIndex(0);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
-        frm.getCaixaSelecaoCD().setSelectedIndex(0);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(false);
-        frm.getCaixaSelecaoVR().setSelectedIndex(0);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
     public void habilitaCC() {
         limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(true);
-        frm.getCaixaSelecaoCC().setSelectedIndex(0);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
-        frm.getCaixaSelecaoCD().setSelectedIndex(0);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(false);
-        frm.getCaixaSelecaoVR().setSelectedIndex(0);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
     public void habilitaCD() {
         limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
-        frm.getCaixaSelecaoCC().setSelectedIndex(0);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
-        frm.getCaixaSelecaoCD().setSelectedIndex(0);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(false);
-        frm.getCaixaSelecaoVR().setSelectedIndex(0);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
     public void habilitaVR() {
         limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
-        frm.getCaixaSelecaoCC().setSelectedIndex(0);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
-        frm.getCaixaSelecaoCD().setSelectedIndex(0);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(true);
-        frm.getCaixaSelecaoVR().setSelectedIndex(0);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
     public boolean valida() {
@@ -225,7 +236,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoRadioValeRefeicao().setBorderPainted(true);
         }
         if (frm.getBotaoRadioCartaoCredito().isSelected()) {
-            if (frm.getCaixaSelecaoCC().getSelectedIndex() == 0) {
+            if (frm.getCaixaSelecaoCC().getSelectedIndex() == -1) {
                 valida = false;
                 frm.getCaixaSelecaoCC().setBorder(vermelha);
             }
@@ -233,7 +244,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getCaixaSelecaoCC().setBorder(normal);
         }
         if (frm.getBotaoCartaoDebito().isSelected()) {
-            if (frm.getCaixaSelecaoCD().getSelectedIndex() == 0) {
+            if (frm.getCaixaSelecaoCD().getSelectedIndex() == -1) {
                 valida = false;
                 frm.getCaixaSelecaoCD().setBorder(vermelha);
             }
@@ -241,7 +252,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getCaixaSelecaoCD().setBorder(normal);
         }
         if (frm.getBotaoRadioValeRefeicao().isSelected()) {
-            if (frm.getCaixaSelecaoVR().getSelectedIndex() == 0) {
+            if (frm.getCaixaSelecaoVR().getSelectedIndex() == -1) {
                 valida = false;
                 frm.getCaixaSelecaoVR().setBorder(vermelha);
             }
