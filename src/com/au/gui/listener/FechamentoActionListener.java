@@ -26,13 +26,10 @@ package com.au.gui.listener;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.modelo.Caixa;
 import com.au.util.DAO;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
 
 /**
  *
@@ -64,7 +61,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             double totalDinheiro = 0;
 
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagtoPedido())) {
+                if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
                     totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
                 }
             }

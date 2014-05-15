@@ -26,8 +26,10 @@ package com.au.gui.listener;
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
+import com.au.modelo.FormaPagamento;
 import com.au.modelo.Pedido;
 import com.au.util.Bematech;
+import com.au.util.CustomComboBoxInt;
 import com.au.util.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -97,14 +99,18 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getPedido().setDescPedido(Double.valueOf(frm.getCampoDesconto().getText()));
         frm.getPedido().setEstadoPedido("Finalizado");
         if (frm.getBotaoRadioDinheiro().isSelected()) {
-            frm.getPedido().setFormaPagtoPedido("Dinheiro");
+            frm.getPedido().setFormaPagamento(new DAO<>(FormaPagamento.class).buscaPorId(1));
         } else if (frm.getBotaoRadioCartaoCredito().isSelected()) {
-            frm.getPedido().setFormaPagtoPedido("Credito");
+            CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoCC().getSelectedItem();
+            frm.getPedido().setFormaPagamento((new DAO<>(FormaPagamento.class).buscaPorId(ob.getId())));
         } else if (frm.getBotaoCartaoDebito().isSelected()) {
-            frm.getPedido().setFormaPagtoPedido("Debito");
+            CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoCD().getSelectedItem();
+            frm.getPedido().setFormaPagamento((new DAO<>(FormaPagamento.class).buscaPorId(ob.getId())));
         } else if (frm.getBotaoRadioValeRefeicao().isSelected()) {
-            frm.getPedido().setFormaPagtoPedido("Vale");
+            CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoVR().getSelectedItem();
+            frm.getPedido().setFormaPagamento((new DAO<>(FormaPagamento.class).buscaPorId(ob.getId())));
         }
+
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());

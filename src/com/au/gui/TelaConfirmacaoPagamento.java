@@ -21,13 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
 import com.au.gui.listener.PagamentoActionListener;
 import com.au.modelo.Caixa;
+import com.au.modelo.FormaPagamento;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Pedido;
+import com.au.util.CustomComboBoxInt;
+import com.au.util.DAO;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -49,17 +53,22 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private double total = 0;
     private final PagamentoActionListener listener;
     private static boolean cadastrou = false;
-        
+    private List<FormaPagamento> listaResFormasPagamento;
+
     public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer indexCaixa, Double subTotal) {
         super(parent, modal);
         this.pedido = pedido;
         this.funcionario = funcionario;
         this.indexCaixa = indexCaixa;
         this.subTotal = subTotal;
+        buscaFormasPagamento();
         initComponents();
+        caixaSelecaoCC.setVisible(false);
+        caixaSelecaoCD.setVisible(false);
+        caixaSelecaoVR.setVisible(false);
         listener = new PagamentoActionListener(this);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,9 +94,9 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioCartaoCredito = new javax.swing.JRadioButton();
         botaoRadioValeRefeicao = new javax.swing.JRadioButton();
         botaoCartaoDebito = new javax.swing.JRadioButton();
-        caixaSelecaoCC = new javax.swing.JComboBox();
-        caixaSelecaoCD = new javax.swing.JComboBox();
-        caixaSelecaoVR = new javax.swing.JComboBox();
+        caixaSelecaoCC = new javax.swing.JComboBox(getFormasCredito());
+        caixaSelecaoCD = new javax.swing.JComboBox(getFormasDebito());
+        caixaSelecaoVR = new javax.swing.JComboBox(getFormasVale());
         textoIconeDinheiro = new javax.swing.JLabel();
         textoIconeCD = new javax.swing.JLabel();
         textoIconeCC = new javax.swing.JLabel();
@@ -186,12 +195,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buttonGroup1.add(botaoCartaoDebito);
         botaoCartaoDebito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoCartaoDebito.setText("Cartão de Débito");
-
-        caixaSelecaoCC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        caixaSelecaoCD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        caixaSelecaoVR.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         textoIconeDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/banknotes-26.png"))); // NOI18N
 
@@ -454,7 +457,74 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public static void setCaixa(Caixa caixa) {
         TelaConfirmacaoPagamento.caixa = caixa;
     }
+
+    public void buscaFormasPagamento() {
+        System.out.println("Chegou na Busca");
+        listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
+        System.out.println(listaResFormasPagamento.size());
+
+    }
+
+    private CustomComboBoxInt[] getFormasDebito() {
+
+        List<FormaPagamento> listaResFormasDebito = new ArrayList<>();
+
+        if (listaResFormasPagamento != null) {
+
+            for (int i = 0; listaResFormasPagamento.size() > i; i++) {
+                if ("Debito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)) {
+                    listaResFormasDebito.add(listaResFormasPagamento.get(i));
+                }
+            }
+        }
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasDebito.size()];
+
+        for (int i = 0; i < listaResFormasDebito.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResFormasDebito.get(i).getNomeFormaPgto(), listaResFormasDebito.get(i).getIdFormaPgto());
+        }
+        return oItems;
+    }
     
+    private CustomComboBoxInt[] getFormasCredito() {
+
+        List<FormaPagamento> listaResFormasCredito = new ArrayList<>();
+
+        if (listaResFormasPagamento != null) {
+
+            for (int i = 0; listaResFormasPagamento.size() > i; i++) {
+                if ("Credito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)){
+                    listaResFormasCredito.add(listaResFormasPagamento.get(i));
+                }
+            }
+        }
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasCredito.size()];
+
+        for (int i = 0; i < listaResFormasCredito.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResFormasCredito.get(i).getNomeFormaPgto(), listaResFormasCredito.get(i).getIdFormaPgto());
+        }
+        return oItems;
+    }
+    
+    private CustomComboBoxInt[] getFormasVale() {
+
+        List<FormaPagamento> listaResFormasVale = new ArrayList<>();
+
+        if (listaResFormasPagamento != null) {
+
+            for (int i = 0; listaResFormasPagamento.size() > i; i++) {
+                if ("Vale".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)) {
+                    listaResFormasVale.add(listaResFormasPagamento.get(i));
+                }
+            }
+        }
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasVale.size()];
+
+        for (int i = 0; i < listaResFormasVale.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResFormasVale.get(i).getNomeFormaPgto(), listaResFormasVale.get(i).getIdFormaPgto());
+        }
+        return oItems;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;

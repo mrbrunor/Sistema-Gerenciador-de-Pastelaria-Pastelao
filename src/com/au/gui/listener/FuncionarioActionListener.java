@@ -221,7 +221,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     public boolean valida() {
         boolean valida = true;
-        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
+        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 9) {
             frm.getCampoNome().setBorder(normal);
         } else {
             frm.getCampoNome().setBorder(vermelha);
@@ -242,7 +242,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoRg().getText()) && frm.getCampoRg().getText().length() > 5) {
+        if (!"".equals(frm.getCampoRg().getText()) && frm.getCampoRg().getText().length() > 4) {
             frm.getCampoRg().setBorder(normal);
         } else {
             frm.getCampoRg().setBorder(vermelha);
@@ -284,14 +284,14 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoUser().getText()) && frm.getCampoUser().getText().length() > 5) {
+        if (!"".equals(frm.getCampoUser().getText()) && frm.getCampoUser().getText().length() > 4) {
             frm.getCampoUser().setBorder(normal);
         } else {
             frm.getCampoUser().setBorder(vermelha);
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoSenha().getPassword()) && frm.getCampoSenha().getPassword().length > 5) {
+        if (!"".equals(frm.getCampoSenha().getPassword()) && frm.getCampoSenha().getPassword().length > 4) {
             frm.getCampoSenha().setBorder(normal);
         } else {
             frm.getCampoSenha().setBorder(vermelha);

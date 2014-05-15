@@ -7,160 +7,162 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the pedido database table.
- * 
+ *
  */
 @Entity
-@Table(name="pedido")
-@NamedQuery(name="Pedido.findAll", query="SELECT p FROM Pedido p")
+@Table(name = "pedido")
+@NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p")
 public class Pedido implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int idPedido;
+    private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date dataPedido;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int idPedido;
 
-	@Column(nullable=false)
-	private double descPedido;
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date dataPedido;
 
-	@Column(nullable=false, length=20)
-	private String estadoPedido;
+    @Column(nullable = false)
+    private double descPedido;
 
-	@Column(nullable=false, length=40)
-	private String formaPagtoPedido;
+    @Column(nullable = false, length = 20)
+    private String estadoPedido;
 
-	@Column(nullable=false)
-	private Time horaPedido;
+    //bi-directional many-to-one association to FormaPagamento
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idFormaPgto", nullable = false)
+    private FormaPagamento formaPagamento;
 
-	@Column(nullable=false)
-	private int numPedido;
+    @Column(nullable = false)
+    private Time horaPedido;
 
-	@Column(nullable=false)
-	private double subTotPedido;
+    @Column(nullable = false)
+    private int numPedido;
 
-	@Column(nullable=false)
-	private double totPedido;
+    @Column(nullable = false)
+    private double subTotPedido;
 
-	//bi-directional many-to-one association to Itempedido
-	@OneToMany(mappedBy="pedido")
-	private List<Itempedido> itempedidos;
+    @Column(nullable = false)
+    private double totPedido;
 
-	//bi-directional many-to-one association to Caixa
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCaixa", nullable=false)
-	private Caixa caixa;
+    //bi-directional many-to-one association to Itempedido
+    @OneToMany(mappedBy = "pedido")
+    private List<Itempedido> itempedidos;
 
-	public Pedido() {
-            this.itempedidos = new ArrayList<>();
-	}
+    //bi-directional many-to-one association to Caixa
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idCaixa", nullable = false)
+    private Caixa caixa;
 
-	public int getIdPedido() {
-		return this.idPedido;
-	}
+    public Pedido() {
+        this.itempedidos = new ArrayList<>();
+    }
 
-	public void setIdPedido(int idPedido) {
-		this.idPedido = idPedido;
-	}
+    public int getIdPedido() {
+        return this.idPedido;
+    }
 
-	public Date getDataPedido() {
-		return this.dataPedido;
-	}
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
 
-	public void setDataPedido(Date dataPedido) {
-		this.dataPedido = dataPedido;
-	}
+    public Date getDataPedido() {
+        return this.dataPedido;
+    }
 
-	public double getDescPedido() {
-		return this.descPedido;
-	}
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
 
-	public void setDescPedido(double descPedido) {
-		this.descPedido = descPedido;
-	}
+    public double getDescPedido() {
+        return this.descPedido;
+    }
 
-	public String getEstadoPedido() {
-		return this.estadoPedido;
-	}
+    public void setDescPedido(double descPedido) {
+        this.descPedido = descPedido;
+    }
 
-	public void setEstadoPedido(String estadoPedido) {
-		this.estadoPedido = estadoPedido;
-	}
+    public String getEstadoPedido() {
+        return this.estadoPedido;
+    }
 
-	public String getFormaPagtoPedido() {
-		return this.formaPagtoPedido;
-	}
+    public void setEstadoPedido(String estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
 
-	public void setFormaPagtoPedido(String formaPagtoPedido) {
-		this.formaPagtoPedido = formaPagtoPedido;
-	}
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
 
-	public Time getHoraPedido() {
-		return this.horaPedido;
-	}
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
 
-	public void setHoraPedido(Time horaPedido) {
-		this.horaPedido = horaPedido;
-	}
+    public Time getHoraPedido() {
+        return this.horaPedido;
+    }
 
-	public int getNumPedido() {
-		return this.numPedido;
-	}
+    public void setHoraPedido(Time horaPedido) {
+        this.horaPedido = horaPedido;
+    }
 
-	public void setNumPedido(int numPedido) {
-		this.numPedido = numPedido;
-	}
+    public int getNumPedido() {
+        return this.numPedido;
+    }
 
-	public double getSubTotPedido() {
-		return this.subTotPedido;
-	}
+    public void setNumPedido(int numPedido) {
+        this.numPedido = numPedido;
+    }
 
-	public void setSubTotPedido(double subTotPedido) {
-		this.subTotPedido = subTotPedido;
-	}
+    public double getSubTotPedido() {
+        return this.subTotPedido;
+    }
 
-	public double getTotPedido() {
-		return this.totPedido;
-	}
+    public void setSubTotPedido(double subTotPedido) {
+        this.subTotPedido = subTotPedido;
+    }
 
-	public void setTotPedido(double totPedido) {
-		this.totPedido = totPedido;
-	}
+    public double getTotPedido() {
+        return this.totPedido;
+    }
 
-	public List<Itempedido> getItempedidos() {
-		return this.itempedidos;
-	}
+    public void setTotPedido(double totPedido) {
+        this.totPedido = totPedido;
+    }
 
-	public void setItempedidos(List<Itempedido> itempedidos) {
-		this.itempedidos = itempedidos;
-	}
+    public List<Itempedido> getItempedidos() {
+        return this.itempedidos;
+    }
 
-	public Itempedido addItempedido(Itempedido itempedido) {
-		getItempedidos().add(itempedido);
-		itempedido.setPedido(this);
+    public void setItempedidos(List<Itempedido> itempedidos) {
+        this.itempedidos = itempedidos;
+    }
 
-		return itempedido;
-	}
+    public Itempedido addItempedido(Itempedido itempedido) {
+        getItempedidos().add(itempedido);
+        itempedido.setPedido(this);
 
-	public Itempedido removeItempedido(Itempedido itempedido) {
-		getItempedidos().remove(itempedido);
-		itempedido.setPedido(null);
+        return itempedido;
+    }
 
-		return itempedido;
-	}
+    public Itempedido removeItempedido(Itempedido itempedido) {
+        getItempedidos().remove(itempedido);
+        itempedido.setPedido(null);
 
-	public Caixa getCaixa() {
-		return this.caixa;
-	}
+        return itempedido;
+    }
 
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-	}
+    public Caixa getCaixa() {
+        return this.caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
 }
