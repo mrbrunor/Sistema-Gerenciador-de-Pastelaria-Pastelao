@@ -285,7 +285,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="0.05:"/>
+            <Property name="text" type="java.lang.String" value="0,05:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaCincoCentavos">
@@ -300,7 +300,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="0.10:"/>
+            <Property name="text" type="java.lang.String" value="0,10:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaDezCentavos">
@@ -315,7 +315,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="0.25:"/>
+            <Property name="text" type="java.lang.String" value="0,25:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaVinteCincoCentavos">
@@ -330,7 +330,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="0.50:"/>
+            <Property name="text" type="java.lang.String" value="0,50:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaCinquentaCentavos">
@@ -345,7 +345,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="1.00:"/>
+            <Property name="text" type="java.lang.String" value="1,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaUmReal">
@@ -360,7 +360,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2.00:"/>
+            <Property name="text" type="java.lang.String" value="2,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaDoisReais">
@@ -375,7 +375,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="5.00:"/>
+            <Property name="text" type="java.lang.String" value="5,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaCincoReais">
@@ -390,7 +390,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="10.00:"/>
+            <Property name="text" type="java.lang.String" value="10,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaDezReais">
@@ -405,7 +405,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="20.00:"/>
+            <Property name="text" type="java.lang.String" value="20,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaVinteReais">
@@ -420,7 +420,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="50.00:"/>
+            <Property name="text" type="java.lang.String" value="50,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaCinquentaReais">
@@ -435,7 +435,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="100.00:"/>
+            <Property name="text" type="java.lang.String" value="100,00:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCedulaCemReais">
@@ -460,7 +460,7 @@
               <Font name="Tahoma" size="20" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="R$: 0000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoMoedas">
@@ -615,7 +615,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorCartaoDeCredito">
@@ -623,7 +623,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorCartaoDeDebito">
@@ -631,7 +631,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorValeRefeicao">
@@ -639,7 +639,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -649,7 +649,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TOTAL FATURADO: R$ 00000.00"/>
+            <Property name="text" type="java.lang.String" value="TOTAL FATURADO: R$ 00000,00"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -756,7 +756,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="20" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorDespesas">
@@ -764,7 +764,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="20" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="R$: 0000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoTotalDeReducoes">
@@ -782,7 +782,7 @@
               <Font name="Tahoma" size="20" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="R$: 0000.00"/>
+            <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
           </Properties>
         </Component>
       </SubComponents>

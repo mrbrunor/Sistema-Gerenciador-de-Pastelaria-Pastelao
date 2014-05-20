@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Time;
+import java.util.Date;
 
 /**
  *
@@ -50,8 +52,12 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
 
     public void inicializaCampos() {
         frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
+        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f",(caixa.getTotalCaixa())));
         calculaReducoes();
         calculaDinheiro();
+        calculaCC();
+        calculaCD();
+        calculaVR();
     }
 
     public void calculaDinheiro() {
@@ -67,20 +73,59 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             }
             frm.getTextoValorDinheiro().setText(String.format("R$: %.2f", totalDinheiro));
         } else {
-            frm.getTextoValorDinheiro().setText("R$: 0.00");
+            frm.getTextoValorDinheiro().setText("R$: 0,00");
         }
     }
 
     public void calculaCC() {
-       
+       System.out.println("Entrou Calcula CC");
+        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
+            System.out.println("Entrou IF Not Null");
+            double totalCredito = 0;
+
+            for (int i = 0; i < caixa.getPedidos().size(); i++) {
+                if ("Credito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    totalCredito = totalCredito + caixa.getPedidos().get(i).getTotPedido();
+                }
+            }
+            frm.getTextoValorCartaoDeCredito().setText(String.format("R$: %.2f", totalCredito));
+        } else {
+            frm.getTextoValorCartaoDeCredito().setText("R$: 0,00");
+        }
     }
 
     public void calculaCD() {
-       
+       System.out.println("Entrou Calcula Debito");
+        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
+            System.out.println("Entrou IF Not Null");
+            double totalDebito = 0;
+
+            for (int i = 0; i < caixa.getPedidos().size(); i++) {
+                if ("Debito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    totalDebito = totalDebito + caixa.getPedidos().get(i).getTotPedido();
+                }
+            }
+            frm.getTextoValorCartaoDeDebito().setText(String.format("R$: %.2f", totalDebito));
+        } else {
+            frm.getTextoValorCartaoDeDebito().setText("R$: 0,00");
+        }
     }
 
     public void calculaVR() {
-       
+       System.out.println("Entrou Calcula Vale");
+        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
+            System.out.println("Entrou IF Not Null");
+            double totalVale = 0;
+
+            for (int i = 0; i < caixa.getPedidos().size(); i++) {
+                if ("Vale".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
+                }
+            }
+            frm.getTextoValorValeRefeicao().setText(String.format("R$: %.2f", totalVale));
+        } else {
+            frm.getTextoValorValeRefeicao().setText("R$: 0,00");
+        }
     }
 
     public void calculaReducoes() {
@@ -91,10 +136,9 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             }
             frm.getTextoValorDespesas().setText(String.format("R$: %.2f", totalDesp));
         } else {
-            frm.getTextoValorDespesas().setText("R$: 0.00");
+            frm.getTextoValorDespesas().setText("R$: 0,00");
         }
         frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f",(caixa.getFundoCaixa() + totalDesp)));
-        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f",(caixa.getTotalCaixa() - (caixa.getFundoCaixa() + totalDesp))));
     }
 
     public void adicionaListener() {
@@ -152,11 +196,27 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         
         frm.getTextoValorTotalEmCaixa().setText(String.format("R$: %.2f", dinheiroCaixa));
     }
+    
+    public void fecharCaixa(){
+        
+        Date data = new Date();
+        caixa.setDataFechamentoCaixa(data);
+        caixa.setFechamentoCaixa(new Time(data.getTime()));
+        caixa.setEstaAberto((byte)0);
+        new DAO<>(Caixa.class).atualiza(caixa);
+        TelaFechamentoCaixa.setFechou(true);
+    }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Cadastrar Fornecedor":
+            case "Cancelar Fechamento de Caixa":
+                this.frm.dispose();
+                break;
+            case "Confirmar Fechamento de Caixa":
+                //fecharCaixa();
+                TelaFechamentoCaixa.setFechou(true);
+                this.frm.dispose();
                 break;
         }
     }

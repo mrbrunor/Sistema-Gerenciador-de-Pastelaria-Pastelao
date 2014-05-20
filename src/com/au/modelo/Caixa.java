@@ -3,166 +3,176 @@ package com.au.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the caixa database table.
- * 
+ *
  */
 @Entity
-@Table(name="caixa")
-@NamedQuery(name="Caixa.findAll", query="SELECT c FROM Caixa c")
+@Table(name = "caixa")
+@NamedQuery(name = "Caixa.findAll", query = "SELECT c FROM Caixa c")
 public class Caixa implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int idCaixa;
+    private static final long serialVersionUID = 1L;
 
-	@Column(nullable=false)
-	private Time aberturaCaixa;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int idCaixa;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date dataCaixa;
+    @Column(nullable = false)
+    private Time aberturaCaixa;
 
-	@Column(nullable=false)
-	private byte estaAberto;
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date dataAberturaCaixa;
 
-	private Time fechamentoCaixa;
+    @Column(nullable = false)
+    private byte estaAberto;
 
-	@Column(nullable=false)
-	private double fundoCaixa;
+    private Time fechamentoCaixa;
 
-	@Column(nullable=false)
-	private double totalCaixa;
+    @Temporal(TemporalType.DATE)
+    private Date dataFechamentoCaixa;
 
-	//bi-directional many-to-one association to Funcionario
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idFunc", nullable=false)
-	private Funcionario funcionario;
+    @Column(nullable = false)
+    private double fundoCaixa;
 
-	//bi-directional many-to-one association to Despesa
-	@OneToMany(mappedBy="caixa", fetch=FetchType.EAGER)
-	private List<Despesa> despesas;
+    @Column(nullable = false)
+    private double totalCaixa;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="caixa", fetch=FetchType.EAGER)
-	private List<Pedido> pedidos;
+    //bi-directional many-to-one association to Funcionario
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idFunc", nullable = false)
+    private Funcionario funcionario;
 
-	public Caixa() {
-	}
+    //bi-directional many-to-one association to Despesa
+    @OneToMany(mappedBy = "caixa", fetch = FetchType.EAGER)
+    private List<Despesa> despesas;
 
-	public int getIdCaixa() {
-		return this.idCaixa;
-	}
+    //bi-directional many-to-one association to Pedido
+    @OneToMany(mappedBy = "caixa", fetch = FetchType.EAGER)
+    private List<Pedido> pedidos;
 
-	public void setIdCaixa(int idCaixa) {
-		this.idCaixa = idCaixa;
-	}
+    public Caixa() {
+    }
 
-	public Time getAberturaCaixa() {
-		return this.aberturaCaixa;
-	}
+    public int getIdCaixa() {
+        return this.idCaixa;
+    }
 
-	public void setAberturaCaixa(Time aberturaCaixa) {
-		this.aberturaCaixa = aberturaCaixa;
-	}
+    public void setIdCaixa(int idCaixa) {
+        this.idCaixa = idCaixa;
+    }
 
-	public Date getDataCaixa() {
-		return this.dataCaixa;
-	}
+    public Time getAberturaCaixa() {
+        return this.aberturaCaixa;
+    }
 
-	public void setDataCaixa(Date dataCaixa) {
-		this.dataCaixa = dataCaixa;
-	}
+    public void setAberturaCaixa(Time aberturaCaixa) {
+        this.aberturaCaixa = aberturaCaixa;
+    }
 
-	public byte getEstaAberto() {
-		return this.estaAberto;
-	}
+    public Date getDataAberturaCaixa() {
+        return this.dataAberturaCaixa;
+    }
 
-	public void setEstaAberto(byte estaAberto) {
-		this.estaAberto = estaAberto;
-	}
+    public void setDataAberturaCaixa(Date dataAberturaCaixa) {
+        this.dataAberturaCaixa = dataAberturaCaixa;
+    }
 
-	public Time getFechamentoCaixa() {
-		return this.fechamentoCaixa;
-	}
+    public byte getEstaAberto() {
+        return this.estaAberto;
+    }
 
-	public void setFechamentoCaixa(Time fechamentoCaixa) {
-		this.fechamentoCaixa = fechamentoCaixa;
-	}
+    public void setEstaAberto(byte estaAberto) {
+        this.estaAberto = estaAberto;
+    }
 
-	public double getFundoCaixa() {
-		return this.fundoCaixa;
-	}
+    public Time getFechamentoCaixa() {
+        return this.fechamentoCaixa;
+    }
 
-	public void setFundoCaixa(double fundoCaixa) {
-		this.fundoCaixa = fundoCaixa;
-	}
+    public void setFechamentoCaixa(Time fechamentoCaixa) {
+        this.fechamentoCaixa = fechamentoCaixa;
+    }
 
-	public double getTotalCaixa() {
-		return this.totalCaixa;
-	}
+    public Date getDataFechamentoCaixa() {
+        return dataFechamentoCaixa;
+    }
 
-	public void setTotalCaixa(double totalCaixa) {
-		this.totalCaixa = totalCaixa;
-	}
+    public void setDataFechamentoCaixa(Date dataFechamentoCaixa) {
+        this.dataFechamentoCaixa = dataFechamentoCaixa;
+    }
 
-	public Funcionario getFuncionario() {
-		return this.funcionario;
-	}
+    public double getFundoCaixa() {
+        return this.fundoCaixa;
+    }
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
+    public void setFundoCaixa(double fundoCaixa) {
+        this.fundoCaixa = fundoCaixa;
+    }
 
-	public List<Despesa> getDespesas() {
-		return this.despesas;
-	}
+    public double getTotalCaixa() {
+        return this.totalCaixa;
+    }
 
-	public void setDespesas(List<Despesa> despesas) {
-		this.despesas = despesas;
-	}
+    public void setTotalCaixa(double totalCaixa) {
+        this.totalCaixa = totalCaixa;
+    }
 
-	public Despesa addDespesa(Despesa despesa) {
-		getDespesas().add(despesa);
-		despesa.setCaixa(this);
+    public Funcionario getFuncionario() {
+        return this.funcionario;
+    }
 
-		return despesa;
-	}
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 
-	public Despesa removeDespesa(Despesa despesa) {
-		getDespesas().remove(despesa);
-		despesa.setCaixa(null);
+    public List<Despesa> getDespesas() {
+        return this.despesas;
+    }
 
-		return despesa;
-	}
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
+    }
 
-	public List<Pedido> getPedidos() {
-		return this.pedidos;
-	}
+    public Despesa addDespesa(Despesa despesa) {
+        getDespesas().add(despesa);
+        despesa.setCaixa(this);
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+        return despesa;
+    }
 
-	public Pedido addPedido(Pedido pedido) {
-		getPedidos().add(pedido);
-		pedido.setCaixa(this);
+    public Despesa removeDespesa(Despesa despesa) {
+        getDespesas().remove(despesa);
+        despesa.setCaixa(null);
 
-		return pedido;
-	}
+        return despesa;
+    }
 
-	public Pedido removePedido(Pedido pedido) {
-		getPedidos().remove(pedido);
-		pedido.setCaixa(null);
+    public List<Pedido> getPedidos() {
+        return this.pedidos;
+    }
 
-		return pedido;
-	}
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public Pedido addPedido(Pedido pedido) {
+        getPedidos().add(pedido);
+        pedido.setCaixa(this);
+
+        return pedido;
+    }
+
+    public Pedido removePedido(Pedido pedido) {
+        getPedidos().remove(pedido);
+        pedido.setCaixa(null);
+
+        return pedido;
+    }
 
 }

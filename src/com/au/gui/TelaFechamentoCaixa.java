@@ -25,7 +25,6 @@
 package com.au.gui;
 
 import com.au.gui.listener.FechamentoActionListener;
-import com.au.modelo.Caixa;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -35,15 +34,19 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
-    private FechamentoActionListener listener;
-    private static boolean cadastrou = false;
+    private final FechamentoActionListener listener;
+    private static boolean fechou;
     private int idCaixa;
     /**
      * Creates new form TelaFechamentoCaixa
+     * @param parent
+     * @param modal
+     * @param idCaixa
      */
     public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        fechou = false;
         this.idCaixa = idCaixa;
         listener = new FechamentoActionListener(this);
     }
@@ -138,57 +141,57 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         painelDinheiroEmCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dinheiro em Caixa"));
 
         textoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoMoedaCincoCentavos.setText("0.05:");
+        textoMoedaCincoCentavos.setText("0,05:");
 
         campoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoMoedaDezCentavos.setText("0.10:");
+        textoMoedaDezCentavos.setText("0,10:");
 
         campoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaVinteCintoCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoMoedaVinteCintoCentavos.setText("0.25:");
+        textoMoedaVinteCintoCentavos.setText("0,25:");
 
         campoMoedaVinteCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoMoedaCinquentaCentavos.setText("0.50:");
+        textoMoedaCinquentaCentavos.setText("0,50:");
 
         campoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoMoedaUmReal.setText("1.00:");
+        textoMoedaUmReal.setText("1,00:");
 
         campoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaDoisReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaDoisReais.setText("2.00:");
+        textoCedulaDoisReais.setText("2,00:");
 
         campoCedulaDoisReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaCincoReais.setText("5.00:");
+        textoCedulaCincoReais.setText("5,00:");
 
         campoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaDezReais.setText("10.00:");
+        textoCedulaDezReais.setText("10,00:");
 
         campoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaVinteReais.setText("20.00:");
+        textoCedulaVinteReais.setText("20,00:");
 
         campoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaCinquentaReais.setText("50.00:");
+        textoCedulaCinquentaReais.setText("50,00:");
 
         campoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoCedulaCemReais.setText("100.00:");
+        textoCedulaCemReais.setText("100,00:");
 
         campoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
@@ -198,7 +201,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         textoValorTotalEmCaixa.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         textoValorTotalEmCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoValorTotalEmCaixa.setText("R$: 0000.00");
+        textoValorTotalEmCaixa.setText("R$: 0000,00");
 
         textoMoedas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         textoMoedas.setText("Moedas:");
@@ -351,19 +354,19 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         textoValeRefeicao.setText(" Vale Refeição:");
 
         textoValorDinheiro.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        textoValorDinheiro.setText("R$: 000.00");
+        textoValorDinheiro.setText("R$: 000,00");
 
         textoValorCartaoDeCredito.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        textoValorCartaoDeCredito.setText("R$: 000.00");
+        textoValorCartaoDeCredito.setText("R$: 000,00");
 
         textoValorCartaoDeDebito.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        textoValorCartaoDeDebito.setText("R$: 000.00");
+        textoValorCartaoDeDebito.setText("R$: 000,00");
 
         textoValorValeRefeicao.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        textoValorValeRefeicao.setText("R$: 000.00");
+        textoValorValeRefeicao.setText("R$: 000,00");
 
         textoValorTotalFaturado.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        textoValorTotalFaturado.setText("TOTAL FATURADO: R$ 00000.00");
+        textoValorTotalFaturado.setText("TOTAL FATURADO: R$ 00000,00");
 
         javax.swing.GroupLayout painelFaturamentosLayout = new javax.swing.GroupLayout(painelFaturamentos);
         painelFaturamentos.setLayout(painelFaturamentosLayout);
@@ -441,10 +444,10 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         textoDespesas.setText("Despesas:");
 
         textoValorFundoDeCaixa.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        textoValorFundoDeCaixa.setText("R$: 000.00");
+        textoValorFundoDeCaixa.setText("R$: 000,00");
 
         textoValorDespesas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        textoValorDespesas.setText("R$: 0000.00");
+        textoValorDespesas.setText("R$: 0000,00");
 
         textoTotalDeReducoes.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
         textoTotalDeReducoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -452,7 +455,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         textoValorTotalDeReducoes.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         textoValorTotalDeReducoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoValorTotalDeReducoes.setText("R$: 0000.00");
+        textoValorTotalDeReducoes.setText("R$: 0000,00");
 
         javax.swing.GroupLayout painelReducoesLayout = new javax.swing.GroupLayout(painelReducoes);
         painelReducoes.setLayout(painelReducoesLayout);
@@ -467,11 +470,8 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                             .addComponent(textoDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(painelReducoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelReducoesLayout.createSequentialGroup()
-                                .addComponent(textoValorDespesas)
-                                .addGap(0, 0, 0))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelReducoesLayout.createSequentialGroup()
-                                .addComponent(textoValorFundoDeCaixa))))
+                            .addComponent(textoValorDespesas, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textoValorFundoDeCaixa, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(textoTotalDeReducoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoValorTotalDeReducoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -537,12 +537,12 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static boolean isCadastrou() {
-        return cadastrou;
+    public static boolean isFechou() {
+        return fechou;
     }
 
-    public static void setCadastrou(boolean cadastrou) {
-        TelaFechamentoCaixa.cadastrou = cadastrou;
+    public static void setFechou(boolean cadastrou) {
+        TelaFechamentoCaixa.fechou = cadastrou;
     }
 
     public int getIdCaixa() {

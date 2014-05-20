@@ -34,7 +34,6 @@ import com.au.gui.TelaVenda;
 import com.au.gui.TelaVendasPorPeriodo;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
-import com.au.modelo.Funcionario;
 import com.au.modelo.Itempedido;
 import com.au.modelo.ItempedidoPK;
 import com.au.modelo.Pedido;
@@ -228,7 +227,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         Date data = new Date();
         Time time = new Time(data.getTime());
         caixa.setAberturaCaixa(time);
-        caixa.setDataCaixa(data);
+        caixa.setDataAberturaCaixa(data);
         caixa.setEstaAberto((byte) 1);
         caixa.setFuncionario(frm.getFuncionario());
         caixa.setFundoCaixa(0);
@@ -243,15 +242,17 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public boolean fecharCaixa(Integer index) {
-        System.out.println(index);
-        System.out.println(indexCaixa);
-        System.out.println("ID caixa :P");
-        System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa());
+        //System.out.println(index);
+        //System.out.println(indexCaixa);
+        //System.out.println("ID caixa :P");
+        //System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa());
         new TelaFechamentoCaixa(frm, true, frm.getFuncionario().getCaixas().get(index).getIdCaixa()).setVisible(true);
-        if (TelaFechamentoCaixa.isCadastrou()) {
+        if (TelaFechamentoCaixa.isFechou()) {
             JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso");
+            System.out.println("Resultado" + TelaFechamentoCaixa.isFechou());
             return true;
         }
+        System.out.println("Resultado" + TelaFechamentoCaixa.isFechou());
         return false;
     }
 
@@ -259,11 +260,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         byte x = 1;
         String dataStr = geraDataStr();
         for (int i = 0; frm.getFuncionario().getCaixas().size() > i; i++) {
-            System.out.println(frm.getFuncionario().getCaixas().get(i).getDataCaixa());
+            System.out.println(frm.getFuncionario().getCaixas().get(i).getDataAberturaCaixa());
             System.out.println(frm.getFuncionario().getCaixas().size());
             System.out.println(dataStr);
             if (frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x) {
-                if (String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataCaixa()).equals(dataStr)) {
+                if (String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataAberturaCaixa()).equals(dataStr)) {
                     System.out.println("Chegou");
                     return i;
                 } else {
