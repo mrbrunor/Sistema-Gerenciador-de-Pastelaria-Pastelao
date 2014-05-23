@@ -150,7 +150,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     private void atualizaTotal() {
-        frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(totalPedido));
+        frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", totalPedido));
     }
 
     private void verificaSeExiste(Itempedido itempedido) {
@@ -160,7 +160,12 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 System.out.println("Item ja existe no pedido");
                 totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
                 if (itempedido.getQtdProd() == 0) {
-                    pedido.getItempedidos().remove(i);
+                    if (pedido.getItempedidos().size() == 1) {
+                        System.out.println("Apenas 1 Item");
+                        limparPedido();
+                    } else {
+                        pedido.getItempedidos().remove(i);
+                    }
                 } else {
                     pedido.getItempedidos().set(i, itempedido);
                 }
@@ -175,7 +180,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         Produto produto = new Produto();
         Itempedido itempedido = new Itempedido();
         ItempedidoPK itempedidoPK = new ItempedidoPK();
-        
+
         produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
         produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
         itempedido.setProduto(produto);
@@ -190,7 +195,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         verificaSeExiste(itempedido);
         itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
-        
+
         totalPedido = totalPedido + itempedido.getTotProd();
         atualizaTotal();
         frm.getCampoAdicionarItem().setText("");
