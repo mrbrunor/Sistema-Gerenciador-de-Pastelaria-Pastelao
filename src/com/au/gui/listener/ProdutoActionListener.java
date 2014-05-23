@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaCadastrarIngrediente;
 import com.au.gui.TelaCadastrarProduto;
 import com.au.gui.tmodel.ProdutoIngredientesTableModel;
 import com.au.gui.tmodel.ProdutoTableModel;
@@ -70,16 +71,16 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         habilitaInd(false);
         habilitaPrep(false);
     }
-    
-    public void limpaInd(){
+
+    public void limpaInd() {
         frm.getRadioInd().setBorderPainted(false);
         frm.getCampoQtd().setBorder(normal);
         frm.getCampoBarras().setBorder(normal);
     }
-    
-    public void limpaPrep(){
+
+    public void limpaPrep() {
         frm.getRadioPrep().setBorderPainted(false);
-        
+
     }
 
     public void limpaIngredientes() {
@@ -198,7 +199,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         System.out.println("Adicionou " + ingrediente.getDescIng());
         atualizaTableModelIngredientes();
     }
-    
+
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoPesquisarProduto().getText();
         System.out.println(pesquisa);
@@ -272,11 +273,21 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     public void habilitaPrep(boolean valida) {
-        frm.getCaixaSelecaoIng().setSelectedIndex(0);
-        frm.getCaixaSelecaoIng().setEnabled(valida);
-        frm.getBotaoAdicionarIngrediente().setEnabled(valida);
-        limpaIngredientes();
-        frm.getTabelaIngredientes().setEnabled(valida);
+        if(frm.getCaixaSelecaoIng().getItemCount() > 0){
+            frm.getCaixaSelecaoIng().setSelectedIndex(0);
+            frm.getCaixaSelecaoIng().setEnabled(valida);
+            frm.getBotaoAdicionarIngrediente().setEnabled(valida);
+            limpaIngredientes();
+            frm.getTabelaIngredientes().setEnabled(valida);
+        } else if(valida){
+            Integer resposta = null;
+            resposta = JOptionPane.showConfirmDialog(frm, "Para cadastrar um produto preparado, é necessário cadastrar ao menos um ingrediente primeiro. Deseja cadastrar os ingredientes?", null, JOptionPane.YES_NO_OPTION);
+            if(resposta == 0){
+                frm.dispose();
+                new TelaCadastrarIngrediente(null, true).setVisible(true);
+                new TelaCadastrarProduto(null, true).setVisible(true);
+            } 
+        }
     }
 
     public boolean valida() {
