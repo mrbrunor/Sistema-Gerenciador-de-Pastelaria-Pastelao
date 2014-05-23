@@ -214,8 +214,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                 this.frm.dispose();
                 break;
             case "Confirmar Fechamento de Caixa":
-                //fecharCaixa();
-                TelaFechamentoCaixa.setFechou(true);
+                fecharCaixa();
                 this.frm.dispose();
                 break;
         }

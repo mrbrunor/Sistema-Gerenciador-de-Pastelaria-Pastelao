@@ -147,14 +147,13 @@ public class TelaVenda extends javax.swing.JFrame {
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textoNomeFuncionario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoData))
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoAlternarUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoCaixa)
@@ -204,7 +203,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
             }
         ));
         painelScrollTabelaPedido.setViewportView(tabelaPedido);
@@ -277,6 +276,14 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoBuscar.setText("Buscar");
         botaoBuscar.setToolTipText("Clique aqui para buscar");
 
+        tabelaBusca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Descrição", "Valor"
+            }
+        ));
         painelScrollTabelaBusca.setViewportView(tabelaBusca);
 
         botaoAdicionarAoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N

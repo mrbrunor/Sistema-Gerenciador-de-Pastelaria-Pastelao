@@ -274,7 +274,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                     return i;
                 } else {
                     JOptionPane.showMessageDialog(frm, "Você não fechou o caixa do ultimo dia, antes de iniciar um novo caixa, devemos fechar o anterior. Clique em OK para Fechar o Caixa");
-                    fecharCaixa(i);
+                    while(!TelaFechamentoCaixa.isFechou()){
+                        fecharCaixa(i);
+                    }                    
                 }
             }
 
