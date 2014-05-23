@@ -137,7 +137,7 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoAlternarUsuario.setText("Deslogar");
 
         botaoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/moneybox-32.png"))); // NOI18N
-        botaoCaixa.setText("Abre Caixa");
+        botaoCaixa.setText("Abrir Caixa");
         botaoCaixa.setToolTipText("Clique aqui para fechar o caixa");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);

@@ -69,17 +69,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         inicializaTableModel();
         inicializaData();
         indexCaixa = verificaCaixa();
-        if (indexCaixa == null) {
-            Caixa caixa = novoCaixa();
-            new DAO<>(Caixa.class).adiciona(caixa);//atualiza(caixa);
-            numeroPedidoVerificado = true;
-            System.out.println("O ID do caixa é: " + caixa.getIdCaixa());
-            frm.getFuncionario().getCaixas().add(caixa);
-            System.out.println("Novo caixa Criado");
-            indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
+        if (frm.getFuncionario().getNivelFunc() == 0) {
+            abrirCaixa();
+        } 
+        else if (indexCaixa == null){
+            caixaFechado();
         }
         System.out.println(indexCaixa);
-        frm.getBotaoCaixa().setText("Fechar Caixa");
         frm.getCampoAdicionarItem().requestFocus();
     }
 
@@ -125,6 +121,36 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuTeclasAtalho().addActionListener(this);
         frm.getItemMenuTrocarSenha().addActionListener(this);
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
+    }
+
+    public void caixaAberto(){
+        frm.getBotaoCaixa().setText("Fechar Caixa");
+        frm.getItemMenuAbrirCaixa().setEnabled(false);
+        frm.getItemMenuFecharCaixa().setEnabled(true);
+    }
+    
+    public void caixaFechado(){
+        frm.getBotaoCaixa().setText("Abrir Caixa");
+        frm.getItemMenuAbrirCaixa().setEnabled(true);
+        frm.getItemMenuFecharCaixa().setEnabled(false);
+    }
+    
+    private void abrirCaixa() {
+        if (indexCaixa == null) {
+            Caixa caixa = novoCaixa();
+            if (caixa != null) {
+                new DAO<>(Caixa.class).adiciona(caixa);//atualiza(caixa);
+                numeroPedidoVerificado = true;
+                System.out.println("O ID do caixa é: " + caixa.getIdCaixa());
+                frm.getFuncionario().getCaixas().add(caixa);
+                System.out.println("Novo caixa Criado");
+                indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
+                caixaAberto();
+            } else {
+                JOptionPane.showMessageDialog(frm, "Abertura de Caixa Cancelada!");
+                caixaFechado();
+            }
+        }
     }
 
     private void fecharPedido() {
@@ -236,10 +262,17 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         caixa.setEstaAberto((byte) 1);
         caixa.setFuncionario(frm.getFuncionario());
         caixa.setFundoCaixa(0);
+        String padrao = "[0-9]{1,3}";
+        String msg = "Digite o Valor do Fundo de Caixa";
         while (caixa.getFundoCaixa() == 0) {
-            String aux = JOptionPane.showInputDialog("Digite o Valor do Fundo de Caixa");
-            if (aux != null) {
+            String aux = JOptionPane.showInputDialog(frm, msg);
+            System.out.println(aux);
+            if (aux == null) {
+                return null;
+            } else if (aux.matches(padrao)) {
                 caixa.setFundoCaixa(Double.valueOf(aux));
+            } else {
+                msg = "Digite o Valor do Fundo de Caixa, Ex.: 80";
             }
         }
         caixa.setTotalCaixa(0);
@@ -271,12 +304,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             if (frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x) {
                 if (String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataAberturaCaixa()).equals(dataStr)) {
                     System.out.println("Chegou");
+                    caixaAberto();
                     return i;
                 } else {
                     JOptionPane.showMessageDialog(frm, "Você não fechou o caixa do ultimo dia, antes de iniciar um novo caixa, devemos fechar o anterior. Clique em OK para Fechar o Caixa");
-                    while(!TelaFechamentoCaixa.isFechou()){
+                    while (!TelaFechamentoCaixa.isFechou()) {
                         fecharCaixa(i);
-                    }                    
+                    }
                 }
             }
 
@@ -373,6 +407,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 if (fecharCaixa(indexCaixa)) {
                     deslogar();
                 }
+                break;
+            case "Abrir Caixa":
+                abrirCaixa();
                 break;
             case "Fechar Pedido":
                 if (validaPedido()) {
