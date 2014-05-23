@@ -37,7 +37,9 @@ public class TelaVendasPorPeriodo extends javax.swing.JDialog {
     private VendasPorPeriodoActionListener listener;
 
     /**
-     * Creates new form TelaVendasPorPeríodo
+     * Cria o novo form TelaVendasPorPeríodo
+     * @param parent Tela que chamou
+     * @param modal 
      */
     public TelaVendasPorPeriodo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

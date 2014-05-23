@@ -27,11 +27,13 @@ import com.au.bd.FabricaConexao;
 import com.au.gui.TelaVendasPorPeriodo;
 import com.au.util.ExtensionFilterFilePDF;
 import com.au.util.GeradorRelatorio;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.text.ParseException;
@@ -41,25 +43,31 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- *
+ * Classe Listener da tela TelaVendasPorPeriodo
  * @author tiago_000
  */
 public class VendasPorPeriodoActionListener implements ActionListener, ListSelectionListener {
 
     private final TelaVendasPorPeriodo frm;
 
+    /**
+     * Construtor Default do Listener, o qual recebe o objeto do tipo TelaVendasPorPeriodo
+     * @param frm Parâmetro recebido 
+     */
     public VendasPorPeriodoActionListener(TelaVendasPorPeriodo frm) {
         this.frm = frm;
         adicionaListener();
     }
 
+    /**
+     *
+     */
     public void adicionaListener() {
         frm.getBotaoProcurarLocal().addActionListener(this);
         frm.getBotaoGerarRelatorio().addActionListener(this);
@@ -82,18 +90,24 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         }
         File arquivo = file.getSelectedFile();
         /* if (arquivo.exists()) {
-            int result = JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?",
-                    "Substituir Arquivo Existente", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
-            } else frm.getCampoLocalParaSalvar().setText("");
-        } */
-        frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
+         int result = JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?",
+         "Substituir Arquivo Existente", JOptionPane.YES_NO_CANCEL_OPTION);
+         if (result == JOptionPane.YES_OPTION) {
+         frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
+         } else frm.getCampoLocalParaSalvar().setText("");
+         } */
+        String localArquivo = arquivo.getAbsolutePath() + ".pdf";
+        frm.getCampoLocalParaSalvar().setText(localArquivo);
+        try {
+            Desktop.getDesktop().open(arquivo);
+        } catch (IOException ex) {
+            Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void geraRelatorio() throws FileNotFoundException, ParseException {
         String nome = "src\\com\\au\\resources\\reports\\Vendas Diárias.jasper";
-        Map<String, Object> parametros = new HashMap<String, Object>();
+        Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
 
@@ -111,6 +125,10 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         gerador.geraPdfParaOutputStream(saida);
     }
 
+    /**
+     * Método responsável por capturar qualquer ActionPerformed da tela VendasPorPeríodo
+     * @param event Objeto do tipo ActionEvent contendo o ActionPerformed
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
@@ -125,10 +143,7 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
                         geraRelatorio();
                         JOptionPane.showMessageDialog(frm, "Relatório Gerado com Sucesso!", "Geração de Relatório", JOptionPane.INFORMATION_MESSAGE);
 
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(VendasPorPeriodoActionListener.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
+                    } catch (FileNotFoundException | ParseException ex) {
                         Logger.getLogger(VendasPorPeriodoActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
@@ -140,6 +155,10 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void valueChanged(ListSelectionEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
