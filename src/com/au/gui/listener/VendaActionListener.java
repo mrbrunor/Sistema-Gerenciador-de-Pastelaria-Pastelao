@@ -206,17 +206,21 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         Produto produto = new Produto();
         Itempedido itempedido = new Itempedido();
         ItempedidoPK itempedidoPK = new ItempedidoPK();
+        String padrao = "[0-9]{1,2}";
 
         produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
         produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
         itempedido.setProduto(produto);
         itempedidoPK.setIdProd(produto.getIdProd());
         itempedido.setId(itempedidoPK);
-        itempedido.setQtdProd(null);
-        while (itempedido.getQtdProd() == null) {
+        itempedido.setQtdProd(-1);
+        while (itempedido.getQtdProd() == -1) {
             String aux = JOptionPane.showInputDialog("Digite a Quantidade");
-            if (aux != null) {
-                itempedido.setQtdProd(Integer.valueOf(aux));
+            if (aux == null) {
+                return;
+            } 
+            else if(aux.matches(padrao)){
+                itempedido.setQtdProd(Integer.valueOf(aux));            
             }
         }
         verificaSeExiste(itempedido);
