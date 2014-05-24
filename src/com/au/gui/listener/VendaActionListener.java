@@ -128,12 +128,38 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoCaixa().setText("Fechar Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(false);
         frm.getItemMenuFecharCaixa().setEnabled(true);
+        
+        frm.getCampoAdicionarItem().setEnabled(true);
+        frm.getCampoBusca().setEnabled(true);
+        
+        frm.getBotaoAdicionarAoPedido().setEnabled(true);
+        frm.getBotaoAdicionarItem().setEnabled(true);
+        frm.getBotaoBuscar().setEnabled(true);
+        frm.getBotaoCancelarPedido().setEnabled(true);
+        frm.getBotaoExcluirItem().setEnabled(true);
+        frm.getBotaoFecharPedido().setEnabled(true);
+        
+        frm.getTabelaBusca().setEnabled(true);
+        frm.getTabelaPedido().setEnabled(true);
     }
     
     public void caixaFechado(){
         frm.getBotaoCaixa().setText("Abrir Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(true);
         frm.getItemMenuFecharCaixa().setEnabled(false);
+        
+        frm.getCampoAdicionarItem().setEnabled(false);
+        frm.getCampoBusca().setEnabled(false);
+        
+        frm.getBotaoAdicionarAoPedido().setEnabled(false);
+        frm.getBotaoAdicionarItem().setEnabled(false);
+        frm.getBotaoBuscar().setEnabled(false);
+        frm.getBotaoCancelarPedido().setEnabled(false);
+        frm.getBotaoExcluirItem().setEnabled(false);
+        frm.getBotaoFecharPedido().setEnabled(false);
+        
+        frm.getTabelaBusca().setEnabled(false);
+        frm.getTabelaPedido().setEnabled(false);
     }
     
     private void abrirCaixa() {
