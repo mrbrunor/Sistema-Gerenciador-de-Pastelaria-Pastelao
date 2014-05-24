@@ -161,7 +161,7 @@ public class DAO<T> {
     public boolean validaProduto(Produto produto) {
         EntityManager em = new JPAUtil().getEntityManager();
 
-        Query q = em.createQuery("from produto p where p.descProd like '" + produto.getDescProd() + "'");
+        Query q = em.createQuery("from Produto p where p.descProd like '" + produto.getDescProd() + "'");
 
         List<Produto> produtos = q.getResultList();
 
