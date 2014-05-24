@@ -25,8 +25,8 @@ package com.au.gui.listener;
 
 import com.au.bd.FabricaConexao;
 import com.au.gui.TelaVendasPorPeriodo;
-import com.au.util.ExtensionFilterFilePDF;
 import com.au.util.GeradorRelatorio;
+import com.au.util.JFileChooserCustomizado;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,9 +47,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Classe Listener da tela TelaVendasPorPeriodo
+ *
  * @author tiago_000
  */
 public class VendasPorPeriodoActionListener implements ActionListener, ListSelectionListener {
@@ -57,8 +59,10 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
     private final TelaVendasPorPeriodo frm;
 
     /**
-     * Construtor Default do Listener, o qual recebe o objeto do tipo TelaVendasPorPeriodo
-     * @param frm Parâmetro recebido 
+     * Construtor Default do Listener, o qual recebe o objeto do tipo
+     * TelaVendasPorPeriodo
+     *
+     * @param frm Parâmetro recebido
      */
     public VendasPorPeriodoActionListener(TelaVendasPorPeriodo frm) {
         this.frm = frm;
@@ -80,15 +84,16 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
     }
 
     private void procuraLocal() {
-        //Está Setando o caminho, porém se após ter setado procurar novamente e cancelar ele reseta
-        JFileChooser file = new JFileChooser();
+        JFileChooserCustomizado file = new JFileChooserCustomizado(".", "pdf");
         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        file.setFileFilter(new ExtensionFilterFilePDF());
-        int i = file.showSaveDialog(this.frm);
-        if (i == 1) {
-            frm.getCampoLocalParaSalvar().setText("");
+        file.setFileFilter(new FileNameExtensionFilter("Documentos em PDF", "pdf"));
+        int selecao = file.showSaveDialog(frm);
+        if (selecao == JFileChooser.APPROVE_OPTION) {
+            File arquivo = file.getSelectedFile();
+            System.out.println("Salvar como arquivo: " + arquivo.getAbsolutePath());
+            String localArquivo = arquivo.getAbsolutePath();
+            frm.getCampoLocalParaSalvar().setText(localArquivo);
         }
-        File arquivo = file.getSelectedFile();
         /* if (arquivo.exists()) {
          int result = JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?",
          "Substituir Arquivo Existente", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -96,13 +101,6 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
          frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
          } else frm.getCampoLocalParaSalvar().setText("");
          } */
-        String localArquivo = arquivo.getAbsolutePath() + ".pdf";
-        frm.getCampoLocalParaSalvar().setText(localArquivo);
-        try {
-            Desktop.getDesktop().open(arquivo);
-        } catch (IOException ex) {
-            Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void geraRelatorio() throws FileNotFoundException, ParseException {
@@ -110,6 +108,7 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
+        File arquivo = new File(frm.getCampoLocalParaSalvar().getText());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dataIni = sdf.format(frm.getCampoDataInicio().getDate());
@@ -123,10 +122,18 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
 
         GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
         gerador.geraPdfParaOutputStream(saida);
+        
+        try {
+            Desktop.getDesktop().open(arquivo);
+        } catch (IOException ex) {
+            Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
-     * Método responsável por capturar qualquer ActionPerformed da tela VendasPorPeríodo
+     * Método responsável por capturar qualquer ActionPerformed da tela
+     * VendasPorPeríodo
+     *
      * @param event Objeto do tipo ActionEvent contendo o ActionPerformed
      */
     @Override

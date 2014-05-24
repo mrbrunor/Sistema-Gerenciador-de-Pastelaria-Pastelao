@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 tiago_000.
+ * Copyright 2014 Tiago.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,31 @@
 package com.au.util;
 
 import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
- * @author tiago_000
+ * @author Tiago
  */
-public class ExtensionFilterFilePDF extends javax.swing.filechooser.FileFilter {
+public class JFileChooserCustomizado extends JFileChooser {
 
-    @Override
-    public boolean accept(File file) {
-        // Allow only directories, or files with ".txt" extension
-        return file.isDirectory() || file.getAbsolutePath().endsWith(".pdf");
+    private static final long serialVersionUID = 1L;
+    private final String extension;
+
+    public JFileChooserCustomizado(String getDiretorioAtual, String extensao) {
+        super(getDiretorioAtual);
+        this.extension = extensao;
     }
 
     @Override
-    public String getDescription() {
-            // This description will be displayed in the dialog,
-        // hard-coded = ugly, should be done via I18N
-        return "Documento PDF (*.pdf)";
+    public File getSelectedFile() {
+        File selectedFile = super.getSelectedFile();
+        if (selectedFile != null && (getDialogType() == SAVE_DIALOG || getDialogType() == CUSTOM_DIALOG)) {
+            String name = selectedFile.getName();
+            if (!name.contains(".")) {
+                selectedFile = new File(selectedFile.getParentFile(), name + "." + extension);
+            }
+        }
+        return selectedFile;
     }
 }
