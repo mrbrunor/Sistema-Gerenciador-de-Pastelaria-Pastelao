@@ -24,7 +24,7 @@ public class Funcionario implements Serializable {
 	@Column(nullable=false, length=15)
 	private String celFunc;
 
-	@Column(nullable=false, length=15)
+	@Column(unique=true, nullable=false, length=15)
 	private String cpfFunc;
 
 	@Temporal(TemporalType.DATE)
@@ -62,7 +62,7 @@ public class Funcionario implements Serializable {
 	@Column(nullable=false, length=1)
 	private String sexoFunc;
 
-	@Column(nullable=false, length=50)
+        @Column(unique=true, nullable=false, length=50)
 	private String userFunc;
 
 	//bi-directional many-to-one association to Caixa

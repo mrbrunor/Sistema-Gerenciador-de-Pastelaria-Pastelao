@@ -1,6 +1,5 @@
 package com.au.util;
 
-import com.au.modelo.Caixa;
 import com.au.modelo.Fornecedor;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Ingrediente;
@@ -137,5 +136,45 @@ public class DAO<T> {
         List<Ingrediente> ingredientes = q.getResultList();
 
         return ingredientes;
+    }
+    
+    public boolean validaUser(Funcionario funcionario) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Funcionario f where f.userFunc like '" + funcionario.getUserFunc() + "'");
+
+        List<Funcionario> funcionarios = q.getResultList();
+        
+        return funcionarios == null || funcionarios.isEmpty();
+    }
+    
+    public boolean validaCPF(Funcionario funcionario) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Funcionario f where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
+
+        List<Funcionario> funcionarios = q.getResultList();
+        
+        return funcionarios == null || funcionarios.isEmpty();
+    }    
+    
+    public boolean validaProduto(Produto produto) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from produto p where p.descProd like '" + produto.getDescProd() + "'");
+
+        List<Produto> produtos = q.getResultList();
+
+        return produtos == null || produtos.isEmpty();
+    }
+    
+    public boolean validaIngrediente(Ingrediente ingrediente) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from Ingrediente i where i.descIng like '" + ingrediente.getDescIng() + "'");
+
+        List<Ingrediente> ingredientes = q.getResultList();
+
+        return ingredientes == null || ingredientes.isEmpty();
     }
 }

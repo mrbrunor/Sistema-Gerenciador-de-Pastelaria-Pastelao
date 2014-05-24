@@ -92,7 +92,15 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
     }
 
     private void cadastrarIngrediente() {
-        new DAO<>(Ingrediente.class).adiciona(formToIngrediente());
+        
+        Ingrediente ingrediente = formToIngrediente();
+        
+        if(!new DAO<>(Ingrediente.class).validaIngrediente(ingrediente)){
+            JOptionPane.showMessageDialog(frm, "Ingrediente ja cadastrado!");
+            return;
+        }
+        
+        new DAO<>(Ingrediente.class).adiciona(ingrediente);
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
 

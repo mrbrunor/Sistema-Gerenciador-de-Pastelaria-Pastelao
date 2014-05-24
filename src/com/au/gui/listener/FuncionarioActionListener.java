@@ -110,7 +110,22 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     }
 
     private void cadastrarFuncionario() {
-        new DAO<>(Funcionario.class).adiciona(formToFuncionario());
+        
+        Funcionario funcionario = formToFuncionario();
+        
+        
+        
+        if(!new DAO<>(Funcionario.class).validaCPF(funcionario)){
+            JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!");
+            return;
+        }
+        
+        if(!new DAO<>(Funcionario.class).validaUser(funcionario)){
+            JOptionPane.showMessageDialog(frm, "Usuario ja existe!");
+            return;
+        }
+        
+        new DAO<>(Funcionario.class).adiciona(funcionario);
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
 

@@ -147,7 +147,15 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     private void cadastrarProduto() {
-        new DAO<>(Produto.class).adiciona(formToProduto());
+        
+        Produto produto = formToProduto();
+        
+        if(!new DAO<>(Produto.class).validaProduto(produto)){
+            JOptionPane.showMessageDialog(frm, "Produto ja cadastrado!");
+            return;
+        }
+        
+        new DAO<>(Produto.class).adiciona(produto);
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
 
