@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaCriarNovaSenha;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.modelo.Funcionario;
@@ -78,7 +79,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
     }
 
     private void trocarSenha() {
-        System.out.println("Abrir Tela de Recuperar a Senha");
+        new TelaCriarNovaSenha(frm, true).setVisible(true);
     }
 
     @Override

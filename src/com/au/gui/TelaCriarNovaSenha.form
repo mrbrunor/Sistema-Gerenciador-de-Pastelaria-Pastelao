@@ -192,6 +192,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCpfFuncionario">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="campoNovaSenha"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoCpfFuncionario.setActionCommand(&quot;CPF&quot;);  "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="textoDigiteNovaSenha">
           <Properties>
@@ -199,6 +207,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNovaSenha">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="campoConfirmacaoNovaSenha"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoNovaSenha.setActionCommand(&quot;NovaSenha&quot;);  "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="textoConfirmeNovaSenha">
           <Properties>
@@ -206,6 +222,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoConfirmacaoNovaSenha">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="botaoCriarNovaSenha"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoConfirmacaoNovaSenha.setActionCommand(&quot;ConfirmacaoNovaSenha&quot;);  "/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -215,6 +239,9 @@
           <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Criar Nova Senha"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="botaoCancelarNovaSenha"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCancelarNovaSenha">
@@ -223,6 +250,9 @@
           <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar Cria&#xe7;&#xe3;o de Nova Senha"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="campoCpfFuncionario"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

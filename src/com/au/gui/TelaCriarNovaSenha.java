@@ -24,11 +24,16 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.RecuperarSenhaActionListener;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Tiago
  */
 public class TelaCriarNovaSenha extends javax.swing.JDialog {
+    private final RecuperarSenhaActionListener listener;
 
     /**
      * Creates new form TelaRecuperarSenha
@@ -36,6 +41,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     public TelaCriarNovaSenha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listener = new RecuperarSenhaActionListener(this);
     }
 
     /**
@@ -54,10 +60,13 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         painelDadosFuncionario = new javax.swing.JPanel();
         textoCpfFuncionario = new javax.swing.JLabel();
         campoCpfFuncionario = new javax.swing.JTextField();
+        campoCpfFuncionario.setActionCommand("CPF");
         textoDigiteNovaSenha = new javax.swing.JLabel();
         campoNovaSenha = new javax.swing.JTextField();
+        campoNovaSenha.setActionCommand("NovaSenha");
         textoConfirmeNovaSenha = new javax.swing.JLabel();
         campoConfirmacaoNovaSenha = new javax.swing.JTextField();
+        campoConfirmacaoNovaSenha.setActionCommand("ConfirmacaoNovaSenha");
         botaoCriarNovaSenha = new javax.swing.JButton();
         botaoCancelarNovaSenha = new javax.swing.JButton();
 
@@ -105,9 +114,15 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
         textoCpfFuncionario.setText("CPF do Funcionário:");
 
+        campoCpfFuncionario.setNextFocusableComponent(campoNovaSenha);
+
         textoDigiteNovaSenha.setText("Digite a Nova Senha:");
 
+        campoNovaSenha.setNextFocusableComponent(campoConfirmacaoNovaSenha);
+
         textoConfirmeNovaSenha.setText("Confirme a Nova Senha:");
+
+        campoConfirmacaoNovaSenha.setNextFocusableComponent(botaoCriarNovaSenha);
 
         javax.swing.GroupLayout painelDadosFuncionarioLayout = new javax.swing.GroupLayout(painelDadosFuncionario);
         painelDadosFuncionario.setLayout(painelDadosFuncionarioLayout);
@@ -153,9 +168,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
         botaoCriarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCriarNovaSenha.setText("Criar Nova Senha");
+        botaoCriarNovaSenha.setNextFocusableComponent(botaoCancelarNovaSenha);
 
         botaoCancelarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarNovaSenha.setText("Cancelar Criação de Nova Senha");
+        botaoCancelarNovaSenha.setNextFocusableComponent(campoCpfFuncionario);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,48 +206,49 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getBotaoCancelarNovaSenha() {
+        return botaoCancelarNovaSenha;
+    }
+
+    public void setBotaoCancelarNovaSenha(JButton botaoCancelarNovaSenha) {
+        this.botaoCancelarNovaSenha = botaoCancelarNovaSenha;
+    }
+
+    public JButton getBotaoCriarNovaSenha() {
+        return botaoCriarNovaSenha;
+    }
+
+    public void setBotaoCriarNovaSenha(JButton botaoCriarNovaSenha) {
+        this.botaoCriarNovaSenha = botaoCriarNovaSenha;
+    }
+
+    public JTextField getCampoConfirmacaoNovaSenha() {
+        return campoConfirmacaoNovaSenha;
+    }
+
+    public void setCampoConfirmacaoNovaSenha(JTextField campoConfirmacaoNovaSenha) {
+        this.campoConfirmacaoNovaSenha = campoConfirmacaoNovaSenha;
+    }
+
+    public JTextField getCampoCpfFuncionario() {
+        return campoCpfFuncionario;
+    }
+
+    public void setCampoCpfFuncionario(JTextField campoCpfFuncionario) {
+        this.campoCpfFuncionario = campoCpfFuncionario;
+    }
+
+    public JTextField getCampoNovaSenha() {
+        return campoNovaSenha;
+    }
+
+    public void setCampoNovaSenha(JTextField campoNovaSenha) {
+        this.campoNovaSenha = campoNovaSenha;
+    }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarNovaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarNovaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarNovaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarNovaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaCriarNovaSenha dialog = new TelaCriarNovaSenha(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarNovaSenha;
     private javax.swing.JButton botaoCriarNovaSenha;
