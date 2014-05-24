@@ -35,6 +35,8 @@ import com.au.util.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +49,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author BrunoRicardo
  */
-public class PagamentoActionListener implements ActionListener, ListSelectionListener {
+public class PagamentoActionListener implements ActionListener, ListSelectionListener, KeyListener {
 
     private final TelaConfirmacaoPagamento frm;
     private VendaTableModel tableModelVenda;
@@ -59,6 +61,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         normal = frm.getCampoDesconto().getBorder();
         adicionaListener();
         inicializaTableModel();
+        frm.getCampoDesconto().requestFocus();
         frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
         System.out.println("Qtd Pedidos= " + frm.getPedido().getItempedidos().size());
         System.out.println(frm.getFuncionario().getNomeFunc());
@@ -85,12 +88,17 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getBotaoRadioCartaoCredito().addActionListener(this);
         frm.getBotaoRadioDinheiro().addActionListener(this);
         frm.getBotaoRadioValeRefeicao().addActionListener(this);
-        frm.getCampoDesconto().addActionListener(this);
+        frm.getCampoDesconto().addKeyListener(this);
     }
 
     private void atualizaTotal() {
-        frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
-        frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
+        if ("".equals(frm.getCampoDesconto().getText())) {
+            frm.setTotal(frm.getSubTotal());
+            frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
+        } else {
+            frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
+            frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
+        }
     }
 
     private void criaPedido() {
@@ -115,15 +123,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
-        
-        
+
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
         TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Caixa.class).atualiza(TelaConfirmacaoPagamento.getCaixa());
-        
-        if(frm.getPedido().getItempedidos() != null){
-            for(int i=0; frm.getPedido().getItempedidos().size() > i; i++){
+
+        if (frm.getPedido().getItempedidos() != null) {
+            for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
                 frm.getPedido().getItempedidos().get(i).setPedido(frm.getPedido());
                 frm.getPedido().getItempedidos().get(i).getId().setIdPedido(frm.getPedido().getIdPedido());
                 new DAO<>(Itempedido.class).adiciona(frm.getPedido().getItempedidos().get(i));
@@ -271,9 +278,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     public void actionPerformed(ActionEvent event) {
         System.out.println(event);
         switch (event.getActionCommand()) {
-            case "Desconto":
-                atualizaTotal();
-                break;
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
@@ -299,5 +303,18 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 frm.dispose();
                 break;
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        atualizaTotal();
     }
 }

@@ -30,12 +30,14 @@ import com.au.util.DAO;
 import com.au.util.HexSha;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class LoginActionListener implements ActionListener {
+public class LoginActionListener implements ActionListener, KeyListener {
 
     private final TelaLogin frm;
 
@@ -52,6 +54,7 @@ public class LoginActionListener implements ActionListener {
         frm.getBotaoEntrarNoSistema().addActionListener(this);
         frm.getBotaoEsqueciSenha().addActionListener(this);
         frm.getCampoSenha().addActionListener(this);
+        frm.getCampoUsuario().addKeyListener(this);
     }
 
     private void logar() {
@@ -87,6 +90,21 @@ public class LoginActionListener implements ActionListener {
             case "Esqueci a minha senha":
                 trocarSenha();
                 break;
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            frm.getCampoSenha().requestFocus();
         }
     }
 }

@@ -63,16 +63,16 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         painelSuperior = new javax.swing.JPanel();
         textoFechamentoDeCaixa = new javax.swing.JLabel();
         painelDinheiroEmCaixa = new javax.swing.JPanel();
-        textoMoedaCincoCentavos = new javax.swing.JLabel();
         campoMoedaCincoCentavos = new javax.swing.JTextField();
-        textoMoedaDezCentavos = new javax.swing.JLabel();
         campoMoedaDezCentavos = new javax.swing.JTextField();
-        textoMoedaVinteCintoCentavos = new javax.swing.JLabel();
         campoMoedaVinteCincoCentavos = new javax.swing.JTextField();
-        textoMoedaCinquentaCentavos = new javax.swing.JLabel();
         campoMoedaCinquentaCentavos = new javax.swing.JTextField();
-        textoMoedaUmReal = new javax.swing.JLabel();
         campoMoedaUmReal = new javax.swing.JTextField();
+        textoMoedaCincoCentavos = new javax.swing.JLabel();
+        textoMoedaDezCentavos = new javax.swing.JLabel();
+        textoMoedaVinteCintoCentavos = new javax.swing.JLabel();
+        textoMoedaCinquentaCentavos = new javax.swing.JLabel();
+        textoMoedaUmReal = new javax.swing.JLabel();
         textoCedulaDoisReais = new javax.swing.JLabel();
         campoCedulaDoisReais = new javax.swing.JTextField();
         textoCedulaCincoReais = new javax.swing.JLabel();
@@ -140,60 +140,71 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         painelDinheiroEmCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dinheiro em Caixa"));
 
+        campoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoMoedaCincoCentavos.setNextFocusableComponent(campoMoedaDezCentavos);
+
+        campoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoMoedaDezCentavos.setNextFocusableComponent(campoMoedaVinteCincoCentavos);
+
+        campoMoedaVinteCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoMoedaVinteCincoCentavos.setNextFocusableComponent(campoMoedaCinquentaCentavos);
+
+        campoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoMoedaCinquentaCentavos.setNextFocusableComponent(campoMoedaUmReal);
+
+        campoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoMoedaUmReal.setNextFocusableComponent(campoCedulaDoisReais);
+
         textoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaCincoCentavos.setText("0,05:");
-
-        campoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaDezCentavos.setText("0,10:");
 
-        campoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
         textoMoedaVinteCintoCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaVinteCintoCentavos.setText("0,25:");
-
-        campoMoedaVinteCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaCinquentaCentavos.setText("0,50:");
 
-        campoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
         textoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaUmReal.setText("1,00:");
-
-        campoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         textoCedulaDoisReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaDoisReais.setText("2,00:");
 
         campoCedulaDoisReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaDoisReais.setNextFocusableComponent(campoCedulaCincoReais);
 
         textoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCincoReais.setText("5,00:");
 
         campoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaCincoReais.setNextFocusableComponent(campoCedulaDezReais);
 
         textoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaDezReais.setText("10,00:");
 
         campoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaDezReais.setNextFocusableComponent(campoCedulaVinteReais);
 
         textoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaVinteReais.setText("20,00:");
 
         campoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaVinteReais.setNextFocusableComponent(campoCedulaCinquentaReais);
 
         textoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCinquentaReais.setText("50,00:");
 
         campoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaCinquentaReais.setNextFocusableComponent(campoCedulaCemReais);
 
         textoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCemReais.setText("100,00:");
 
         campoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoCedulaCemReais.setNextFocusableComponent(botaoConfirmarFechamentoDeCaixa);
 
         textoDinheiroTotalEmCaixa.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
         textoDinheiroTotalEmCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -430,10 +441,12 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         botaoConfirmarFechamentoDeCaixa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoConfirmarFechamentoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoConfirmarFechamentoDeCaixa.setText("Confirmar Fechamento de Caixa");
+        botaoConfirmarFechamentoDeCaixa.setNextFocusableComponent(botaoCancelarFechamentoDeCaixa);
 
         botaoCancelarFechamentoDeCaixa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoCancelarFechamentoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarFechamentoDeCaixa.setText("Cancelar Fechamento de Caixa");
+        botaoCancelarFechamentoDeCaixa.setNextFocusableComponent(campoMoedaCincoCentavos);
 
         painelReducoes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Reduções"));
 

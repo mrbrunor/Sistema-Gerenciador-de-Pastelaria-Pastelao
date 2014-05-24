@@ -80,13 +80,13 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelDadosPedido = new javax.swing.JPanel();
-        textoConfiraDadosPedido = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaPedido = new javax.swing.JTable();
-        textoValorTotal = new javax.swing.JLabel();
-        textoDesconto = new javax.swing.JLabel();
         campoDesconto = new javax.swing.JTextField();
         campoDesconto.setActionCommand("Desconto");
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaPedido = new javax.swing.JTable();
+        textoConfiraDadosPedido = new javax.swing.JLabel();
+        textoValorTotal = new javax.swing.JLabel();
+        textoDesconto = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         painelFormasDePagamento = new javax.swing.JPanel();
         textoSelecioneFormaPagamento = new javax.swing.JLabel();
@@ -111,31 +111,28 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         painelDadosPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do Pedido"));
 
-        textoConfiraDadosPedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textoConfiraDadosPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoConfiraDadosPedido.setText("Confira abaixo os dados do pedido:");
+        campoDesconto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        campoDesconto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Descrição", "Valor Unittario", "Quantidade", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(tabelaPedido);
+
+        textoConfiraDadosPedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textoConfiraDadosPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoConfiraDadosPedido.setText("Confira abaixo os dados do pedido:");
 
         textoValorTotal.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         textoValorTotal.setText("VALOR TOTAL:");
 
         textoDesconto.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         textoDesconto.setText("DESCONTO:");
-
-        campoDesconto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        campoDesconto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 

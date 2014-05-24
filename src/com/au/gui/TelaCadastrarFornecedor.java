@@ -69,18 +69,18 @@ public class TelaCadastrarFornecedor extends javax.swing.JDialog {
         textoPreencherDados = new javax.swing.JLabel();
         textoIconeNovoFornecedor = new javax.swing.JLabel();
         painelAdicionarModificarFornecedor = new javax.swing.JPanel();
-        textoIdFornecedor = new javax.swing.JLabel();
         campoIdFornecedor = new javax.swing.JTextField();
-        textoNomeFornecedor = new javax.swing.JLabel();
         campoNomeFornecedor = new javax.swing.JTextField();
-        textoCnpjFornecedor = new javax.swing.JLabel();
         campoCnpjFornecedor = new javax.swing.JTextField();
-        textoEmailFornecedor = new javax.swing.JLabel();
         campoEmailFornecedor = new javax.swing.JTextField();
-        textoTelefoneFornecedor = new javax.swing.JLabel();
         campoTelefoneFornecedor = new javax.swing.JTextField();
-        textoCelularFornecedor = new javax.swing.JLabel();
         campoCelularFornecedor = new javax.swing.JTextField();
+        textoIdFornecedor = new javax.swing.JLabel();
+        textoNomeFornecedor = new javax.swing.JLabel();
+        textoCnpjFornecedor = new javax.swing.JLabel();
+        textoEmailFornecedor = new javax.swing.JLabel();
+        textoTelefoneFornecedor = new javax.swing.JLabel();
+        textoCelularFornecedor = new javax.swing.JLabel();
         painelProcurarFornecedores = new javax.swing.JPanel();
         textoProcurarFornecedor = new javax.swing.JLabel();
         campoPesquisarFornecedor = new javax.swing.JTextField();
@@ -135,9 +135,9 @@ public class TelaCadastrarFornecedor extends javax.swing.JDialog {
 
         painelAdicionarModificarFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Fornecedor"));
 
-        textoIdFornecedor.setText("ID:");
-
         campoIdFornecedor.setEnabled(false);
+
+        textoIdFornecedor.setText("ID:");
 
         textoNomeFornecedor.setText("Nome Completo:");
 
@@ -214,13 +214,10 @@ public class TelaCadastrarFornecedor extends javax.swing.JDialog {
 
         tabelaFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome", "Celular"
             }
         ));
         jScrollPane1.setViewportView(tabelaFornecedores);

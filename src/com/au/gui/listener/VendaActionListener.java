@@ -68,6 +68,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         adicionaListener();
         inicializaTableModel();
         inicializaData();
+        frm.getCampoAdicionarItem().requestFocus();
         indexCaixa = verificaCaixa();
         if (frm.getFuncionario().getNivelFunc() == 0) {
             abrirCaixa();

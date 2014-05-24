@@ -177,13 +177,10 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
 
         tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Descrição", "Valor"
             }
         ));
         painelScrollTabela.setViewportView(tabelaIngredientes);

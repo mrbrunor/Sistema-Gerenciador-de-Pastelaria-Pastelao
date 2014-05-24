@@ -108,6 +108,7 @@ public class TelaLogin extends javax.swing.JFrame {
         textoSenha.setText("Senha:");
 
         campoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoUsuario.setNextFocusableComponent(campoSenha);
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);

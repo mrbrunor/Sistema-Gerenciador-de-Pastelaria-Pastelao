@@ -202,14 +202,24 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="textoIdFornecedor">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ID:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="campoIdFornecedor">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoNomeFornecedor">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoCnpjFornecedor">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoEmailFornecedor">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoTelefoneFornecedor">
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoCelularFornecedor">
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoIdFornecedor">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoNomeFornecedor">
@@ -217,35 +227,25 @@
             <Property name="text" type="java.lang.String" value="Nome Completo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoNomeFornecedor">
-        </Component>
         <Component class="javax.swing.JLabel" name="textoCnpjFornecedor">
           <Properties>
             <Property name="text" type="java.lang.String" value="CNPJ: "/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoCnpjFornecedor">
         </Component>
         <Component class="javax.swing.JLabel" name="textoEmailFornecedor">
           <Properties>
             <Property name="text" type="java.lang.String" value="E-mail:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoEmailFornecedor">
-        </Component>
         <Component class="javax.swing.JLabel" name="textoTelefoneFornecedor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Telefone:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoTelefoneFornecedor">
-        </Component>
         <Component class="javax.swing.JLabel" name="textoCelularFornecedor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Celular:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoCelularFornecedor">
         </Component>
       </SubComponents>
     </Container>
@@ -335,12 +335,33 @@
             <Component class="javax.swing.JTable" name="tabelaFornecedores">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                  <Table columnCount="3" rowCount="0">
+                    <Column editable="true" title="Id" type="java.lang.Object"/>
+                    <Column editable="true" title="Nome" type="java.lang.Object"/>
+                    <Column editable="true" title="Celular" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>
