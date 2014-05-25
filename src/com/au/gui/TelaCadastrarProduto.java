@@ -52,11 +52,11 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        campoId.setDocument(new LimitaDigitos((250), "[^0-9]"));
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-z|^A-Z|^0-9|^ |^~]"));
-        campoValor.setDocument(new LimitaDigitos((7), "[^0-9|^.]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü\\-]"));
+        campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
+        campoPesquisarProduto.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-]"));
         caixaSelecaoForn.setSelectedIndex(-1);
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);

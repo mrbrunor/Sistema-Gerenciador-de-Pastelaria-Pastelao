@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.LoginActionListener;
+import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -41,6 +42,8 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        campoSenha.setDocument(new LimitaDigitos((64), ""));
+        campoUsuario.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
         listener = new LoginActionListener(this);
     }
 

@@ -55,7 +55,7 @@ import javax.swing.event.ListSelectionListener;
  * @author BrunoRicardo
  */
 public class VendaActionListener implements ActionListener, ListSelectionListener {
-    
+
     private final TelaVenda frm;
     private VendaTableModel tableModelVenda;
     private Pedido pedido = new Pedido();
@@ -63,7 +63,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private Integer indexCaixa = null;
     private boolean numeroPedidoVerificado = false;
     private int numPedido = 1;
-    
+
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
         adicionaListener();
@@ -79,30 +79,30 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println(indexCaixa);
         frm.getCampoAdicionarItem().requestFocus();
     }
-    
+
     public void inicializaTableModel() {
         atualizaTableModelVenda();
     }
-    
+
     public void atualizaTableModelVenda() {
         //if (!pedido.getItempedidos().isEmpty()) {
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
-        
+
         frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
         frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
         frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
         //}
     }
-    
+
     public void inicializaData() {
         Date date = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");
         frm.getTextoData().setText(formatador.format(date));
     }
-    
+
     public void adicionaListener() {
         frm.getBotaoAdicionarAoPedido().addActionListener(this);
         frm.getBotaoAdicionarItem().addActionListener(this);
@@ -126,45 +126,45 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuTrocarSenha().addActionListener(this);
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
     }
-    
+
     public void caixaAberto() {
         frm.getBotaoCaixa().setText("Fechar Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(false);
         frm.getItemMenuFecharCaixa().setEnabled(true);
-        
+
         frm.getCampoAdicionarItem().setEnabled(true);
         frm.getCampoBusca().setEnabled(true);
-        
+
         frm.getBotaoAdicionarAoPedido().setEnabled(true);
         frm.getBotaoAdicionarItem().setEnabled(true);
         frm.getBotaoBuscar().setEnabled(true);
         frm.getBotaoCancelarPedido().setEnabled(true);
         frm.getBotaoExcluirItem().setEnabled(true);
         frm.getBotaoFecharPedido().setEnabled(true);
-        
+
         frm.getTabelaBusca().setEnabled(true);
         frm.getTabelaPedido().setEnabled(true);
     }
-    
+
     public void caixaFechado() {
         frm.getBotaoCaixa().setText("Abrir Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(true);
         frm.getItemMenuFecharCaixa().setEnabled(false);
-        
+
         frm.getCampoAdicionarItem().setEnabled(false);
         frm.getCampoBusca().setEnabled(false);
-        
+
         frm.getBotaoAdicionarAoPedido().setEnabled(false);
         frm.getBotaoAdicionarItem().setEnabled(false);
         frm.getBotaoBuscar().setEnabled(false);
         frm.getBotaoCancelarPedido().setEnabled(false);
         frm.getBotaoExcluirItem().setEnabled(false);
         frm.getBotaoFecharPedido().setEnabled(false);
-        
+
         frm.getTabelaBusca().setEnabled(false);
         frm.getTabelaPedido().setEnabled(false);
     }
-    
+
     private void abrirCaixa() {
         if (indexCaixa == null) {
             Caixa caixa = novoCaixa();
@@ -182,7 +182,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             }
         }
     }
-    
+
     private void fecharPedido() {
         if (numeroPedidoVerificado) {
             pedido.setNumPedido(numPedido++);
@@ -198,17 +198,17 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
             System.out.println("Cadastro Cancelado");
         }
-        
+
     }
-    
+
     private Pedido formToVenda() {
         return pedido;
     }
-    
+
     private void atualizaTotal() {
         frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", totalPedido));
     }
-    
+
     private void verificaSeExiste(Itempedido itempedido) {
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
             System.out.println("Entrou FOR");
@@ -231,13 +231,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println("saiu do for");
         pedido.getItempedidos().add(itempedido);
     }
-    
-    private void adicionaItempedido() {
+
+    private void adicionaItempedido() throws NullPointerException {
         Produto produto = new Produto();
         Itempedido itempedido = new Itempedido();
         ItempedidoPK itempedidoPK = new ItempedidoPK();
         String padrao = "[0-9]{1,2}";
-        
+
         produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
         produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
         itempedido.setProduto(produto);
@@ -254,13 +254,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         verificaSeExiste(itempedido);
         itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
-        
+
         totalPedido = totalPedido + itempedido.getTotProd();
         atualizaTotal();
         frm.getCampoAdicionarItem().setText("");
         atualizaTableModelVenda();
     }
-    
+
     public void limparPedido() {
         pedido = new Pedido();
         pedido.setItempedidos(new ArrayList<Itempedido>());
@@ -272,7 +272,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         atualizaTotal();
         atualizaTableModelVenda();
     }
-    
+
     public void removerItem() {
         System.out.println("Chegou no Remover");
         if (pedido.getItempedidos().size() == 1) {
@@ -286,7 +286,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             atualizaTableModelVenda();
         }
     }
-    
+
     public Caixa novoCaixa() {
         Caixa caixa = new Caixa();
         Date data = new Date();
@@ -312,7 +312,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         caixa.setTotalCaixa(0);
         return caixa;
     }
-    
+
     public boolean fecharCaixa(Integer index) {
         //System.out.println(index);
         //System.out.println(indexCaixa);
@@ -327,7 +327,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         System.out.println("Resultado" + TelaFechamentoCaixa.isFechou());
         return false;
     }
-    
+
     public Integer verificaCaixa() {
         byte x = 1;
         String dataStr = geraDataStr();
@@ -347,11 +347,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                     }
                 }
             }
-            
+
         }
         return null;
     }
-    
+
     public Integer verificaNumeroPedido() {
         String dataStr = geraDataStr();
         numPedido = 1;
@@ -370,22 +370,22 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return numPedido;
     }
-    
+
     public String geraDataStr() {
         Date data = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         return formatador.format(data);
     }
-    
+
     public void deslogar() {
         new TelaLogin().setVisible(true);
         frm.dispose();
     }
-    
+
     public void vendaToForm(Itempedido itempedido) {
         frm.getCampoAdicionarItem().setText(String.valueOf(itempedido.getProduto().getIdProd()));
     }
-    
+
     public boolean validaAddItem() {
         boolean valida = true;
         if ("".equals(frm.getCampoAdicionarItem().getText()) || "0".equals(frm.getCampoAdicionarItem().getText())) {
@@ -394,7 +394,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return valida;
     }
-    
+
     public boolean validaDelItem() {
         boolean valida = true;
         if (frm.getTabelaPedido().getSelectedRow() == -1) {
@@ -403,7 +403,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return valida;
     }
-    
+
     public boolean validaPedido() {
         boolean valida = true;
         System.out.println(frm.getTabelaPedido().getRowCount());
@@ -421,15 +421,19 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         }
         return valida;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent event) {
         System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
                 if (validaAddItem()) {
-                    atualizaTableModelVenda();
-                    adicionaItempedido();
+                    try {
+                        atualizaTableModelVenda();
+                        adicionaItempedido();
+                    } catch (NullPointerException e) {
+                        JOptionPane.showMessageDialog(frm, "Este Código não Existe");
+                    }
                 }
                 break;
             case "Remover Item":
@@ -477,7 +481,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
         }
     }
-    
+
     @Override
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaPedido().getSelectedRow() != -1) {

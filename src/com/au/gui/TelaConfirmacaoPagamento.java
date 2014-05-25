@@ -30,6 +30,7 @@ import com.au.modelo.Funcionario;
 import com.au.modelo.Pedido;
 import com.au.util.CustomComboBoxInt;
 import com.au.util.DAO;
+import com.au.util.LimitaDigitos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -63,6 +64,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.subTotal = subTotal;
         buscaFormasPagamento();
         initComponents();
+        campoDesconto.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);

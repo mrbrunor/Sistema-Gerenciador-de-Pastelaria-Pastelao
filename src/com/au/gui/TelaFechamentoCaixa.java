@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.FechamentoActionListener;
+import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -46,6 +47,17 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
     public TelaFechamentoCaixa(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        campoCedulaCemReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoCedulaCincoReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoCedulaCinquentaReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoCedulaDezReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoCedulaDoisReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoCedulaVinteReais.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoMoedaCincoCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoMoedaCinquentaCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoMoedaDezCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoMoedaUmReal.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
+        campoMoedaVinteCincoCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
         fechou = false;
         this.idCaixa = idCaixa;
         listener = new FechamentoActionListener(this);

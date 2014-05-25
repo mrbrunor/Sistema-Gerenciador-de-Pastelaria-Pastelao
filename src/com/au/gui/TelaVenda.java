@@ -29,6 +29,7 @@ import com.au.gui.listener.VendaActionListener;
 import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import com.au.util.Clock;
+import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -53,6 +54,8 @@ public class TelaVenda extends javax.swing.JFrame {
     public TelaVenda(Funcionario funcionario) {
         this.funcionario = funcionario;
         initComponents();
+        campoBusca.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
+        campoAdicionarItem.setDocument(new LimitaDigitos((6), "[^0-9]"));
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
         listener = new VendaActionListener(this);
         listener2 = new TabelaPesquisaActionListener(this);
