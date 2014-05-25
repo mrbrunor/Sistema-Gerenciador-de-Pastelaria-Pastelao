@@ -48,11 +48,6 @@
             <Property name="text" type="java.lang.String" value="Cadastros"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuDespesas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Despesas"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuFornecedores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fornecedores"/>
@@ -66,11 +61,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuIngredientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ingredientes"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuNotasFiscais">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Notas Fiscais"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuProdutos">

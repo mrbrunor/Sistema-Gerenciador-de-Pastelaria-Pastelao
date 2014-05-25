@@ -103,11 +103,9 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuDeslogar = new javax.swing.JMenuItem();
         itemMenuSair = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
-        itemMenuDespesas = new javax.swing.JMenuItem();
         itemMenuFornecedores = new javax.swing.JMenuItem();
         itemMenuFuncionarios = new javax.swing.JMenuItem();
         itemMenuIngredientes = new javax.swing.JMenuItem();
-        itemMenuNotasFiscais = new javax.swing.JMenuItem();
         itemMenuProdutos = new javax.swing.JMenuItem();
         MenuRelatorio = new javax.swing.JMenu();
         itemMenuVendasPorPeriodo = new javax.swing.JMenuItem();
@@ -367,9 +365,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
         menuCadastros.setText("Cadastros");
 
-        itemMenuDespesas.setText("Despesas");
-        menuCadastros.add(itemMenuDespesas);
-
         itemMenuFornecedores.setText("Fornecedores");
         menuCadastros.add(itemMenuFornecedores);
 
@@ -378,9 +373,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
         itemMenuIngredientes.setText("Ingredientes");
         menuCadastros.add(itemMenuIngredientes);
-
-        itemMenuNotasFiscais.setText("Notas Fiscais");
-        menuCadastros.add(itemMenuNotasFiscais);
 
         itemMenuProdutos.setText("Produtos");
         menuCadastros.add(itemMenuProdutos);
@@ -476,14 +468,6 @@ public class TelaVenda extends javax.swing.JFrame {
         this.itemMenuDeslogar = itemMenuDeslogar;
     }
 
-    public JMenuItem getItemMenuDespesas() {
-        return itemMenuDespesas;
-    }
-
-    public void setItemMenuDespesas(JMenuItem itemMenuDespesas) {
-        this.itemMenuDespesas = itemMenuDespesas;
-    }
-
     public JMenuItem getItemMenuFecharCaixa() {
         return itemMenuFecharCaixa;
     }
@@ -514,14 +498,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
     public void setItemMenuIngredientes(JMenuItem itemMenuIngredientes) {
         this.itemMenuIngredientes = itemMenuIngredientes;
-    }
-
-    public JMenuItem getItemMenuNotasFiscais() {
-        return itemMenuNotasFiscais;
-    }
-
-    public void setItemMenuNotasFiscais(JMenuItem itemMenuNotasFiscais) {
-        this.itemMenuNotasFiscais = itemMenuNotasFiscais;
     }
 
     public JMenuItem getItemMenuProdutos() {
@@ -749,12 +725,10 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuAbrirCaixa;
     private javax.swing.JMenuItem itemMenuAjuda;
     private javax.swing.JMenuItem itemMenuDeslogar;
-    private javax.swing.JMenuItem itemMenuDespesas;
     private javax.swing.JMenuItem itemMenuFecharCaixa;
     private javax.swing.JMenuItem itemMenuFornecedores;
     private javax.swing.JMenuItem itemMenuFuncionarios;
     private javax.swing.JMenuItem itemMenuIngredientes;
-    private javax.swing.JMenuItem itemMenuNotasFiscais;
     private javax.swing.JMenuItem itemMenuProdutos;
     private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
     private javax.swing.JMenuItem itemMenuSair;

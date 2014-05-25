@@ -61,22 +61,21 @@ public class LoginActionListener implements ActionListener, KeyListener {
         frm.getCampoUsuario().addKeyListener(this);
     }
 
-    private void logar() throws ExceptionInInitializerError{
+    private void logar() throws ExceptionInInitializerError {
         Funcionario funcionario = new Funcionario();
         Funcionario login = new Funcionario();
-        
+
         login.setUserFunc(frm.getCampoUsuario().getText());
         HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getPassword()));
         login.setPassFunc(hexSha.ConvertSha());
-        
+
         funcionario = new DAO<>(Funcionario.class).buscarLogin(login.getUserFunc(), login.getPassFunc());
-        
-        if(funcionario == null){
+
+        if (funcionario == null) {
             JOptionPane.showMessageDialog(frm, "Senha ou Usuario Invalidos");
-        }
-        else if(funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc())){
+        } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc())) {
             new TelaVenda(funcionario).setVisible(true);
-            frm.dispose();                               
+            frm.dispose();
         }
     }
 
@@ -88,12 +87,12 @@ public class LoginActionListener implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Entrar no Sistema":
-        try {
-            logar();
-        } catch (ExceptionInInitializerError ex) {
-            Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(frm,"Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.");
-        }
+                try {
+                    logar();
+                } catch (ExceptionInInitializerError ex) {
+                    Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(frm, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.");
+                }
                 break;
             case "Esqueci a minha senha":
                 trocarSenha();
@@ -111,7 +110,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             frm.getCampoSenha().requestFocus();
         }
     }
