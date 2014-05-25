@@ -83,6 +83,7 @@ public class TelaVenda extends javax.swing.JFrame {
         textoDigiteParaAdicionar = new javax.swing.JLabel();
         botaoAdicionarItem = new javax.swing.JButton();
         campoAdicionarItem = new javax.swing.JTextField();
+        campoAdicionarItem.setActionCommand("Adicionar Item");
         botaoFecharPedido = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
         painelScrollTabelaPedido = new javax.swing.JScrollPane();

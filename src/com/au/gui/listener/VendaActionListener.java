@@ -125,6 +125,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuTeclasAtalho().addActionListener(this);
         frm.getItemMenuTrocarSenha().addActionListener(this);
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
+        frm.getCampoAdicionarItem().addActionListener(this);
     }
 
     public void caixaAberto() {
@@ -388,9 +389,15 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     public boolean validaAddItem() {
         boolean valida = true;
-        if ("".equals(frm.getCampoAdicionarItem().getText()) || "0".equals(frm.getCampoAdicionarItem().getText())) {
+        if ("0".equals(frm.getCampoAdicionarItem().getText())) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Insira o ID do produto para adiciona-lo ao pedido.");
+        }
+        if ("".equals(frm.getCampoAdicionarItem().getText())) {
+            if (validaPedido()) {
+                fecharPedido();
+            }
+            valida = false;
         }
         return valida;
     }
@@ -433,6 +440,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                         adicionaItempedido();
                     } catch (NullPointerException e) {
                         JOptionPane.showMessageDialog(frm, "Este Código não Existe");
+                        frm.getCampoAdicionarItem().setText("");
                     }
                 }
                 break;

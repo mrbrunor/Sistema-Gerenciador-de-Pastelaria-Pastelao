@@ -93,6 +93,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getBotaoRadioDinheiro().addActionListener(this);
         frm.getBotaoRadioValeRefeicao().addActionListener(this);
         frm.getCampoDesconto().addKeyListener(this);
+        frm.getCampoDesconto().addActionListener(this);
     }
 
     private void atualizaTotal() {
@@ -292,6 +293,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Dinheiro":
                 habilitaDinheiro();
+                frm.getBotaoConfirmarPedido().requestFocus();
                 break;
             case "Cartão de Crédito":
                 habilitaCC();
@@ -305,6 +307,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Cancelar Pedido":
                 TelaConfirmacaoPagamento.setCadastrou(false);
                 frm.dispose();
+                break;
+            case "Desconto":
+                frm.getBotaoRadioDinheiro().requestFocus();
                 break;
         }
     }

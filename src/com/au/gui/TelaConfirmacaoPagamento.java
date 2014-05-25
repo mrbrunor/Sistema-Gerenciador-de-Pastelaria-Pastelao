@@ -83,6 +83,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelDadosPedido = new javax.swing.JPanel();
         campoDesconto = new javax.swing.JTextField();
+        campoDesconto.setActionCommand("Desconto");
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaPedido = new javax.swing.JTable();
         textoConfiraDadosPedido = new javax.swing.JLabel();
