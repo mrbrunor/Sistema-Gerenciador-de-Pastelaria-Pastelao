@@ -54,7 +54,8 @@ public class TestaIMP {
     public static final char ITALIC_ON = 52; //set font italic   
     public static final char ITALIC_OFF = 53; //unset font italic   
     public static final char CONDENSED_ON = 15;   
-    public static final char CONDENSED_OFF = 18;  
+    public static final char CONDENSED_OFF = 18; 
+    public static char test = 135;
 
     public static void main(String[] args) {
         
@@ -63,15 +64,16 @@ public class TestaIMP {
         
        bema.detectaImpressoras("MP-4000 TH");
        bema.imprime("" + ESC + ITALIC_ON);
-       bema.imprime("Teste da Testa");
+       bema.imprime("Teste da Testa ç Ç Ã");
        bema.imprime("" + ESC + ITALIC_OFF);
+       bema.imprime("\t\tOI");
+       bema.imprime("OI");
        bema.imprime("");
        bema.imprime("");
        bema.imprime("");
-       bema.imprime("");
-       bema.imprime("");
-       bema.imprime("");
-       
+       bema.imprime(String.valueOf(test));
        //bema.acionarGuilhotina();
+        new RelatorioAtendentes().iniciarImpressao();
+        
     }
 }
