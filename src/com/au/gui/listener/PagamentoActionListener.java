@@ -61,6 +61,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         normal = frm.getCampoDesconto().getBorder();
         adicionaListener();
         inicializaTableModel();
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(100);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
         frm.getCampoDesconto().requestFocus();
         frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
         System.out.println("Qtd Pedidos= " + frm.getPedido().getItempedidos().size());

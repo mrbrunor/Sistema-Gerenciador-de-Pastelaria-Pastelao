@@ -75,6 +75,9 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
         habilitaBotoesParaSalvar();
     }
 

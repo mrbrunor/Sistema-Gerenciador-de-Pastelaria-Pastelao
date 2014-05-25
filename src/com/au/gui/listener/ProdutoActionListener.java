@@ -97,6 +97,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
+        frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
         habilitaBotoesParaSalvar();
     }
 

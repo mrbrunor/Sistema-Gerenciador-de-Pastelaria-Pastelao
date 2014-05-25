@@ -221,6 +221,10 @@ public class TelaCadastrarFornecedor extends javax.swing.JDialog {
             }
         ));
         jScrollPane1.setViewportView(tabelaFornecedores);
+        if (tabelaFornecedores.getColumnModel().getColumnCount() > 0) {
+            tabelaFornecedores.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaFornecedores.getColumnModel().getColumn(2).setMaxWidth(110);
+        }
 
         javax.swing.GroupLayout painelProcurarFornecedoresLayout = new javax.swing.GroupLayout(painelProcurarFornecedores);
         painelProcurarFornecedores.setLayout(painelProcurarFornecedoresLayout);

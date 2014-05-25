@@ -67,6 +67,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
+        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
+        
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
         inicializaData();
         frm.getCampoAdicionarItem().requestFocus();
         indexCaixa = verificaCaixa();

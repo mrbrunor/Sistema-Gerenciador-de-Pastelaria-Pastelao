@@ -73,7 +73,6 @@ public class TestaIMP {
        bema.imprime("");
        bema.imprime(String.valueOf(test));
        //bema.acionarGuilhotina();
-        new RelatorioAtendentes().iniciarImpressao();
         
     }
 }

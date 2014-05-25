@@ -118,10 +118,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id", "Descrição", "Valor Unittario", "Quantidade", "Valor Total"
+                "Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(tabelaPedido);
+        if (tabelaPedido.getColumnModel().getColumnCount() > 0) {
+            tabelaPedido.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaPedido.getColumnModel().getColumn(2).setMaxWidth(100);
+            tabelaPedido.getColumnModel().getColumn(3).setMaxWidth(75);
+            tabelaPedido.getColumnModel().getColumn(4).setMaxWidth(75);
+        }
 
         textoConfiraDadosPedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoConfiraDadosPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

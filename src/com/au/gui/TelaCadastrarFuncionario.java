@@ -342,6 +342,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
             }
         ));
         jScrollPane1.setViewportView(tabelaFuncionarios);
+        if (tabelaFuncionarios.getColumnModel().getColumnCount() > 0) {
+            tabelaFuncionarios.getColumnModel().getColumn(0).setMaxWidth(75);
+            tabelaFuncionarios.getColumnModel().getColumn(2).setMaxWidth(250);
+            tabelaFuncionarios.getColumnModel().getColumn(3).setMaxWidth(35);
+        }
 
         javax.swing.GroupLayout painelProcurarFuncionariosLayout = new javax.swing.GroupLayout(painelProcurarFuncionarios);
         painelProcurarFuncionarios.setLayout(painelProcurarFuncionariosLayout);

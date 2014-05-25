@@ -63,6 +63,8 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         normal = frm.getCampoNomeFornecedor().getBorder();
         adicionaListener();
         inicializaTableModel();
+        frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
         habilitaBotoesParaSalvar();
     }
 

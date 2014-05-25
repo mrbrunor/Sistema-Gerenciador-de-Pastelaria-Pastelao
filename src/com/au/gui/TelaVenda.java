@@ -209,6 +209,12 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         ));
         painelScrollTabelaPedido.setViewportView(tabelaPedido);
+        if (tabelaPedido.getColumnModel().getColumnCount() > 0) {
+            tabelaPedido.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaPedido.getColumnModel().getColumn(2).setMaxWidth(75);
+            tabelaPedido.getColumnModel().getColumn(3).setMaxWidth(75);
+            tabelaPedido.getColumnModel().getColumn(4).setMaxWidth(75);
+        }
 
         botaoExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
         botaoExcluirItem.setToolTipText("Clique aqui para excluir este item do pedido");
@@ -287,6 +293,10 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         ));
         painelScrollTabelaBusca.setViewportView(tabelaBusca);
+        if (tabelaBusca.getColumnModel().getColumnCount() > 0) {
+            tabelaBusca.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaBusca.getColumnModel().getColumn(2).setMaxWidth(75);
+        }
 
         botaoAdicionarAoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
         botaoAdicionarAoPedido.setToolTipText("Clique aqui para adicionar este item ao pedido");

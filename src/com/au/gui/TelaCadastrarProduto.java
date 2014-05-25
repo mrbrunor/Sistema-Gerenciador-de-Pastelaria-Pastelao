@@ -370,6 +370,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             }
         ));
         painelScrollTabela.setViewportView(tabelaProdutos);
+        if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
+            tabelaProdutos.getColumnModel().getColumn(0).setMaxWidth(35);
+        }
 
         javax.swing.GroupLayout painelProcurarProdutosLayout = new javax.swing.GroupLayout(painelProcurarProdutos);
         painelProcurarProdutos.setLayout(painelProcurarProdutosLayout);

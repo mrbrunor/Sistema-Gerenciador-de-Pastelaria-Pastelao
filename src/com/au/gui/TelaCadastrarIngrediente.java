@@ -184,6 +184,10 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
             }
         ));
         painelScrollTabela.setViewportView(tabelaIngredientes);
+        if (tabelaIngredientes.getColumnModel().getColumnCount() > 0) {
+            tabelaIngredientes.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaIngredientes.getColumnModel().getColumn(2).setMaxWidth(75);
+        }
 
         javax.swing.GroupLayout painelProcurarIngredientesLayout = new javax.swing.GroupLayout(painelProcurarIngredientes);
         painelProcurarIngredientes.setLayout(painelProcurarIngredientesLayout);
