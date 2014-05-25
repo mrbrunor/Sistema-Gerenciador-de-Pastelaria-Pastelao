@@ -183,7 +183,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         textoCelular.setText("Celular:");
 
-        caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim", " " }));
+        caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
 
         textoAtivo.setText("Ativo");
 
