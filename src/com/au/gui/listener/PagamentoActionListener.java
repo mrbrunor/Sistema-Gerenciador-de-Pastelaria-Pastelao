@@ -38,6 +38,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.border.Border;
@@ -143,6 +144,12 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         }
     }
 
+    public String removeAcentos(String str) {
+        str = Normalizer.normalize(str, Normalizer.Form.NFD);
+        str = str.replaceAll("[^\\p{ASCII}]", "");
+        return str;
+    }
+
     private void geraComanda() {
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
@@ -153,20 +160,20 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
         bematech.imprime("P A S T E L A O");
         bematech.imprime("");
-        bematech.imprime(dataStr + "                  " + frm.getPedido().getHoraPedido());
+        bematech.imprime(dataStr + "\t\t\t" + frm.getPedido().getHoraPedido());
         bematech.imprime("AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido());
-        bematech.imprime("Codigo QT Descricao            Unit         Total");
+        bematech.imprime("Codigo\tQT\tDescricao\tUnit\tTotal");
         bematech.imprime("");
 
         for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
-            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "       x  " + frm.getPedido().getItempedidos().get(i).getQtdProd() + "            " + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "         " + frm.getPedido().getItempedidos().get(i).getTotProd());
-            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd());
+            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
+            bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
         }
 
         bematech.imprime("");
         bematech.imprime("");
         bematech.imprime("");
-        bematech.imprime("                       TOTAL.........." + frm.getPedido().getTotPedido());
+        bematech.imprime("\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido());
         bematech.imprime("");
         bematech.imprime("");
         bematech.imprime("");
@@ -286,7 +293,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    //geraComanda();
+                    geraComanda();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }
