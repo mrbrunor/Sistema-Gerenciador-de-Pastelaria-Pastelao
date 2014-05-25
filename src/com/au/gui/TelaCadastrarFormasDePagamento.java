@@ -24,11 +24,19 @@
 
 package com.au.gui;
 
+import com.au.gui.listener.FormaPagamentoActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
+    
+    private final FormaPagamentoActionListener listener;
 
     /**
      * Creates new form TelaCadastrarFormasDePagamento
@@ -36,6 +44,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
     public TelaCadastrarFormasDePagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listener = new FormaPagamentoActionListener(this);
     }
 
     /**
@@ -48,40 +57,40 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
     private void initComponents() {
 
         painelSuperior = new javax.swing.JPanel();
-        textoAdicionarIngrediente = new javax.swing.JLabel();
-        textoIconeNovoIngrediente = new javax.swing.JLabel();
+        textoAdicionarFormaPagamento = new javax.swing.JLabel();
+        textoIconeNovFormaPagamento = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
-        painelAdicionarModificarIngredientes = new javax.swing.JPanel();
-        textoValor = new javax.swing.JLabel();
+        painelAdicionarModificarFormasPagamento = new javax.swing.JPanel();
+        textoTipo = new javax.swing.JLabel();
         textoNome = new javax.swing.JLabel();
         campoNome = new javax.swing.JTextField();
         campoId = new javax.swing.JTextField();
         textoId = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        painelProcurarIngredientes = new javax.swing.JPanel();
-        campoPesquisarIngrediente = new javax.swing.JTextField();
-        botaoProcurarIngrediente = new javax.swing.JButton();
-        textoProcurarIngrediente = new javax.swing.JLabel();
+        caixaTipo = new javax.swing.JComboBox();
+        caixaAtivo = new javax.swing.JComboBox();
+        textoAtiva = new javax.swing.JLabel();
+        painelProcurarFormaPagamento = new javax.swing.JPanel();
+        campoPesquisarFormapagamento = new javax.swing.JTextField();
+        botaoProcurarFormaPagamento = new javax.swing.JButton();
+        textoProcurarFormaPagamento = new javax.swing.JLabel();
         textoCliqueParaEditar = new javax.swing.JLabel();
         painelScrollTabela = new javax.swing.JScrollPane();
-        tabelaIngredientes = new javax.swing.JTable();
+        tabelaFormasPagamento = new javax.swing.JTable();
         painelBotoes = new javax.swing.JPanel();
-        botaoCancelarIngrediente = new javax.swing.JButton();
-        botaoCadastrarIngrediente = new javax.swing.JButton();
+        botaoCancelarFormaPagamento = new javax.swing.JButton();
+        botaoCadastrarFormaPagamento = new javax.swing.JButton();
         botaoLimparCampos = new javax.swing.JButton();
-        botaoAtualizarIngrediente = new javax.swing.JButton();
-        botaoExcluirIngrediente = new javax.swing.JButton();
+        botaoAtualizarFormaPagamento = new javax.swing.JButton();
+        botaoExcluirFormaPagamento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoAdicionarIngrediente.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoAdicionarIngrediente.setText("Adicionar Nova Forma de Pagamento");
+        textoAdicionarFormaPagamento.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        textoAdicionarFormaPagamento.setText("Adicionar Nova Forma de Pagamento");
 
-        textoIconeNovoIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bank_cards-64.png"))); // NOI18N
+        textoIconeNovFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bank_cards-64.png"))); // NOI18N
 
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar uma nova forma de pagamento.");
 
@@ -91,10 +100,10 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoIconeNovoIngrediente)
+                .addComponent(textoIconeNovFormaPagamento)
                 .addGap(18, 18, 18)
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoAdicionarIngrediente)
+                    .addComponent(textoAdicionarFormaPagamento)
                     .addComponent(textoPreencherDados))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -103,17 +112,17 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoIconeNovoIngrediente)
+                    .addComponent(textoIconeNovFormaPagamento)
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
-                        .addComponent(textoAdicionarIngrediente)
+                        .addComponent(textoAdicionarFormaPagamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textoPreencherDados)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelAdicionarModificarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Forma de Pagamento"));
+        painelAdicionarModificarFormasPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Forma de Pagamento"));
 
-        textoValor.setText("Tipo F. Pagamento:");
+        textoTipo.setText("Tipo F. Pagamento:");
 
         textoNome.setText("Nome F. Pagamento:");
 
@@ -121,65 +130,65 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
 
         textoId.setText("ID F. Pagamento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Dinheiro", "Debito", "Credito", "Vale" }));
+        caixaTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Dinheiro", "Debito", "Credito", "Vale" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
+        caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
 
-        jLabel1.setText("Ativa:");
+        textoAtiva.setText("Ativa:");
 
-        javax.swing.GroupLayout painelAdicionarModificarIngredientesLayout = new javax.swing.GroupLayout(painelAdicionarModificarIngredientes);
-        painelAdicionarModificarIngredientes.setLayout(painelAdicionarModificarIngredientesLayout);
-        painelAdicionarModificarIngredientesLayout.setHorizontalGroup(
-            painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarIngredientesLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelAdicionarModificarFormasPagamentoLayout = new javax.swing.GroupLayout(painelAdicionarModificarFormasPagamento);
+        painelAdicionarModificarFormasPagamento.setLayout(painelAdicionarModificarFormasPagamentoLayout);
+        painelAdicionarModificarFormasPagamentoLayout.setHorizontalGroup(
+            painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelAdicionarModificarIngredientesLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                    .addGroup(painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
+                        .addComponent(textoAtiva)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        painelAdicionarModificarIngredientesLayout.setVerticalGroup(
-            painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarIngredientesLayout.createSequentialGroup()
+        painelAdicionarModificarFormasPagamentoLayout.setVerticalGroup(
+            painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoId)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoValor)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoTipo)
+                    .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoAtiva)
+                    .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelProcurarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Formas de Pagamento Existente"));
+        painelProcurarFormaPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Formas de Pagamento Existente"));
 
-        botaoProcurarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
-        botaoProcurarIngrediente.setText("Procurar");
+        botaoProcurarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
+        botaoProcurarFormaPagamento.setText("Procurar");
 
-        textoProcurarIngrediente.setText("Procurar Forma de Pagamento:");
+        textoProcurarFormaPagamento.setText("Procurar Forma de Pagamento:");
 
         textoCliqueParaEditar.setText("Clique na forma de pagamento desejada na lista para editá-la no painel ao lado:");
 
-        tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFormasPagamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -187,42 +196,42 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 "Id", "Descrição", "Tipo"
             }
         ));
-        painelScrollTabela.setViewportView(tabelaIngredientes);
-        if (tabelaIngredientes.getColumnModel().getColumnCount() > 0) {
-            tabelaIngredientes.getColumnModel().getColumn(0).setMaxWidth(35);
-            tabelaIngredientes.getColumnModel().getColumn(2).setMaxWidth(110);
+        painelScrollTabela.setViewportView(tabelaFormasPagamento);
+        if (tabelaFormasPagamento.getColumnModel().getColumnCount() > 0) {
+            tabelaFormasPagamento.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaFormasPagamento.getColumnModel().getColumn(2).setMaxWidth(110);
         }
 
-        javax.swing.GroupLayout painelProcurarIngredientesLayout = new javax.swing.GroupLayout(painelProcurarIngredientes);
-        painelProcurarIngredientes.setLayout(painelProcurarIngredientesLayout);
-        painelProcurarIngredientesLayout.setHorizontalGroup(
-            painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelProcurarFormaPagamentoLayout = new javax.swing.GroupLayout(painelProcurarFormaPagamento);
+        painelProcurarFormaPagamento.setLayout(painelProcurarFormaPagamentoLayout);
+        painelProcurarFormaPagamentoLayout.setHorizontalGroup(
+            painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarIngredientesLayout.createSequentialGroup()
+                .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarFormaPagamentoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(painelScrollTabela))
-                    .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
-                        .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
-                                .addComponent(textoProcurarIngrediente)
+                    .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
+                        .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
+                                .addComponent(textoProcurarFormaPagamento)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoPesquisarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPesquisarFormapagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoProcurarIngrediente))
+                                .addComponent(botaoProcurarFormaPagamento))
                             .addComponent(textoCliqueParaEditar))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        painelProcurarIngredientesLayout.setVerticalGroup(
-            painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
+        painelProcurarFormaPagamentoLayout.setVerticalGroup(
+            painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoPesquisarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoProcurarIngrediente)
-                    .addComponent(botaoProcurarIngrediente))
+                .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPesquisarFormapagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoProcurarFormaPagamento)
+                    .addComponent(botaoProcurarFormaPagamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueParaEditar)
                 .addGap(18, 18, 18)
@@ -230,20 +239,20 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        botaoCancelarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        botaoCancelarIngrediente.setText("Cancelar Cadastro");
+        botaoCancelarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarFormaPagamento.setText("Cancelar Cadastro");
 
-        botaoCadastrarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoCadastrarIngrediente.setText("Cadastrar F. Pagamento");
+        botaoCadastrarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoCadastrarFormaPagamento.setText("Cadastrar F. Pagamento");
 
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
 
-        botaoAtualizarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
-        botaoAtualizarIngrediente.setText("Atualizar F. Pagamento");
+        botaoAtualizarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
+        botaoAtualizarFormaPagamento.setText("Atualizar F. Pagamento");
 
-        botaoExcluirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
-        botaoExcluirIngrediente.setText("Excluir F. Pagamento");
+        botaoExcluirFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
+        botaoExcluirFormaPagamento.setText("Excluir F. Pagamento");
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -253,13 +262,13 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoLimparCampos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoExcluirIngrediente)
+                .addComponent(botaoExcluirFormaPagamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoAtualizarIngrediente)
+                .addComponent(botaoAtualizarFormaPagamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoCancelarIngrediente)
+                .addComponent(botaoCancelarFormaPagamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoCadastrarIngrediente)
+                .addComponent(botaoCadastrarFormaPagamento)
                 .addContainerGap())
         );
         painelBotoesLayout.setVerticalGroup(
@@ -267,11 +276,11 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             .addGroup(painelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCancelarIngrediente)
-                    .addComponent(botaoCadastrarIngrediente)
+                    .addComponent(botaoCancelarFormaPagamento)
+                    .addComponent(botaoCadastrarFormaPagamento)
                     .addComponent(botaoLimparCampos)
-                    .addComponent(botaoAtualizarIngrediente)
-                    .addComponent(botaoExcluirIngrediente))
+                    .addComponent(botaoAtualizarFormaPagamento)
+                    .addComponent(botaoExcluirFormaPagamento))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -284,9 +293,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelAdicionarModificarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelAdicionarModificarFormasPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(painelProcurarFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -299,8 +308,8 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelAdicionarModificarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelProcurarFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelAdicionarModificarFormasPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -309,74 +318,137 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getBotaoAtualizarFormaPagamento() {
+        return botaoAtualizarFormaPagamento;
+    }
+
+    public void setBotaoAtualizarFormaPagamento(JButton botaoAtualizarFormaPagamento) {
+        this.botaoAtualizarFormaPagamento = botaoAtualizarFormaPagamento;
+    }
+
+    public JButton getBotaoCadastrarFormaPagamento() {
+        return botaoCadastrarFormaPagamento;
+    }
+
+    public void setBotaoCadastrarFormaPagamento(JButton botaoCadastrarFormaPagamento) {
+        this.botaoCadastrarFormaPagamento = botaoCadastrarFormaPagamento;
+    }
+
+    public JButton getBotaoCancelarFormaPagamento() {
+        return botaoCancelarFormaPagamento;
+    }
+
+    public void setBotaoCancelarFormaPagamento(JButton botaoCancelarFormaPagamento) {
+        this.botaoCancelarFormaPagamento = botaoCancelarFormaPagamento;
+    }
+
+    public JButton getBotaoExcluirFormaPagamento() {
+        return botaoExcluirFormaPagamento;
+    }
+
+    public void setBotaoExcluirFormaPagamento(JButton botaoExcluirFormaPagamento) {
+        this.botaoExcluirFormaPagamento = botaoExcluirFormaPagamento;
+    }
+
+    public JButton getBotaoLimparCampos() {
+        return botaoLimparCampos;
+    }
+
+    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
+        this.botaoLimparCampos = botaoLimparCampos;
+    }
+
+    public JButton getBotaoProcurarFormaPagamento() {
+        return botaoProcurarFormaPagamento;
+    }
+
+    public void setBotaoProcurarFormaPagamento(JButton botaoProcurarFormaPagamento) {
+        this.botaoProcurarFormaPagamento = botaoProcurarFormaPagamento;
+    }
+
+    public JComboBox getCaixaAtivo() {
+        return caixaAtivo;
+    }
+
+    public void setCaixaAtivo(JComboBox caixaAtivo) {
+        this.caixaAtivo = caixaAtivo;
+    }
+
+    public JComboBox getCaixaTipo() {
+        return caixaTipo;
+    }
+
+    public void setCaixaTipo(JComboBox caixaTipo) {
+        this.caixaTipo = caixaTipo;
+    }
+
+    public JTextField getCampoId() {
+        return campoId;
+    }
+
+    public void setCampoId(JTextField campoId) {
+        this.campoId = campoId;
+    }
+
+    public JTextField getCampoNome() {
+        return campoNome;
+    }
+
+    public void setCampoNome(JTextField campoNome) {
+        this.campoNome = campoNome;
+    }
+
+    public JTextField getCampoPesquisarFormapagamento() {
+        return campoPesquisarFormapagamento;
+    }
+
+    public void setCampoPesquisarFormapagamento(JTextField campoPesquisarFormapagamento) {
+        this.campoPesquisarFormapagamento = campoPesquisarFormapagamento;
+    }
+
+    public JTable getTabelaFormasPagamento() {
+        return tabelaFormasPagamento;
+    }
+
+    public void setTabelaFormasPagamento(JTable tabelaFormasPagamento) {
+        this.tabelaFormasPagamento = tabelaFormasPagamento;
+    }
+    
+    public void limpaCampos(){
+        campoId.setText("");
+        campoNome.setText("");
+        caixaAtivo.setSelectedIndex(0);
+        caixaTipo.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFormasDePagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFormasDePagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFormasDePagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarFormasDePagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaCadastrarFormasDePagamento dialog = new TelaCadastrarFormasDePagamento(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAtualizarIngrediente;
-    private javax.swing.JButton botaoCadastrarIngrediente;
-    private javax.swing.JButton botaoCancelarIngrediente;
-    private javax.swing.JButton botaoExcluirIngrediente;
+    private javax.swing.JButton botaoAtualizarFormaPagamento;
+    private javax.swing.JButton botaoCadastrarFormaPagamento;
+    private javax.swing.JButton botaoCancelarFormaPagamento;
+    private javax.swing.JButton botaoExcluirFormaPagamento;
     private javax.swing.JButton botaoLimparCampos;
-    private javax.swing.JButton botaoProcurarIngrediente;
+    private javax.swing.JButton botaoProcurarFormaPagamento;
+    private javax.swing.JComboBox caixaAtivo;
+    private javax.swing.JComboBox caixaTipo;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
-    private javax.swing.JTextField campoPesquisarIngrediente;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel painelAdicionarModificarIngredientes;
+    private javax.swing.JTextField campoPesquisarFormapagamento;
+    private javax.swing.JPanel painelAdicionarModificarFormasPagamento;
     private javax.swing.JPanel painelBotoes;
-    private javax.swing.JPanel painelProcurarIngredientes;
+    private javax.swing.JPanel painelProcurarFormaPagamento;
     private javax.swing.JScrollPane painelScrollTabela;
     private javax.swing.JPanel painelSuperior;
-    private javax.swing.JTable tabelaIngredientes;
-    private javax.swing.JLabel textoAdicionarIngrediente;
+    private javax.swing.JTable tabelaFormasPagamento;
+    private javax.swing.JLabel textoAdicionarFormaPagamento;
+    private javax.swing.JLabel textoAtiva;
     private javax.swing.JLabel textoCliqueParaEditar;
-    private javax.swing.JLabel textoIconeNovoIngrediente;
+    private javax.swing.JLabel textoIconeNovFormaPagamento;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
-    private javax.swing.JLabel textoProcurarIngrediente;
-    private javax.swing.JLabel textoValor;
+    private javax.swing.JLabel textoProcurarFormaPagamento;
+    private javax.swing.JLabel textoTipo;
     // End of variables declaration//GEN-END:variables
 }

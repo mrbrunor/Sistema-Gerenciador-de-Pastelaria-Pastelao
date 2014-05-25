@@ -48,6 +48,11 @@
             <Property name="text" type="java.lang.String" value="Cadastros"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFormaPagamento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Formas de Pagamento"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuFornecedores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fornecedores"/>

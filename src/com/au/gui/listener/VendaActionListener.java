@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.gui.TelaCadastrarFormasDePagamento;
 import com.au.gui.TelaCadastrarFornecedor;
 import com.au.gui.TelaCadastrarFuncionario;
 import com.au.gui.TelaCadastrarIngrediente;
@@ -125,6 +126,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuTeclasAtalho().addActionListener(this);
         frm.getItemMenuTrocarSenha().addActionListener(this);
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
+        frm.getItemMenuFormaPagamento().addActionListener(this);
         frm.getCampoAdicionarItem().addActionListener(this);
     }
 
@@ -467,6 +469,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Deslogar":
                 deslogar();
+                break;
+            case "Formas de Pagamento":
+                new TelaCadastrarFormasDePagamento(frm, true).setVisible(true);
                 break;
             case "Fornecedores":
                 new TelaCadastrarFornecedor(frm, true).setVisible(true);

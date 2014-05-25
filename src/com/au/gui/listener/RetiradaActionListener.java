@@ -24,7 +24,6 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaRetirada;
-import com.au.modelo.Caixa;
 import com.au.modelo.Despesa;
 import com.au.util.DAO;
 import java.awt.Color;

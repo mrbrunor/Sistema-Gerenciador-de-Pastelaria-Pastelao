@@ -107,6 +107,7 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuDeslogar = new javax.swing.JMenuItem();
         itemMenuSair = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
+        itemMenuFormaPagamento = new javax.swing.JMenuItem();
         itemMenuFornecedores = new javax.swing.JMenuItem();
         itemMenuFuncionarios = new javax.swing.JMenuItem();
         itemMenuIngredientes = new javax.swing.JMenuItem();
@@ -369,6 +370,9 @@ public class TelaVenda extends javax.swing.JFrame {
 
         menuCadastros.setText("Cadastros");
 
+        itemMenuFormaPagamento.setText("Formas de Pagamento");
+        menuCadastros.add(itemMenuFormaPagamento);
+
         itemMenuFornecedores.setText("Fornecedores");
         menuCadastros.add(itemMenuFornecedores);
 
@@ -437,6 +441,14 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JMenuItem getItemMenuFormaPagamento() {
+        return itemMenuFormaPagamento;
+    }
+
+    public void setItemMenuFormaPagamento(JMenuItem itemMenuFormaPagamento) {
+        this.itemMenuFormaPagamento = itemMenuFormaPagamento;
+    }
 
     public JLabel getTextoData() {
         return textoData;
@@ -730,6 +742,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuAjuda;
     private javax.swing.JMenuItem itemMenuDeslogar;
     private javax.swing.JMenuItem itemMenuFecharCaixa;
+    private javax.swing.JMenuItem itemMenuFormaPagamento;
     private javax.swing.JMenuItem itemMenuFornecedores;
     private javax.swing.JMenuItem itemMenuFuncionarios;
     private javax.swing.JMenuItem itemMenuIngredientes;

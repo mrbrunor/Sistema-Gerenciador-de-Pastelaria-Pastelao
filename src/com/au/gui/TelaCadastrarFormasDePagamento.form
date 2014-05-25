@@ -28,9 +28,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="painelSuperior" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="painelAdicionarModificarIngredientes" max="32767" attributes="0"/>
+                      <Component id="painelAdicionarModificarFormasPagamento" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="painelProcurarIngredientes" max="32767" attributes="0"/>
+                      <Component id="painelProcurarFormaPagamento" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -48,8 +48,8 @@
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="painelProcurarIngredientes" alignment="0" max="32767" attributes="0"/>
-                  <Component id="painelAdicionarModificarIngredientes" alignment="0" max="32767" attributes="0"/>
+                  <Component id="painelProcurarFormaPagamento" alignment="0" max="32767" attributes="0"/>
+                  <Component id="painelAdicionarModificarFormasPagamento" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="painelBotoes" min="-2" max="-2" attributes="0"/>
@@ -73,10 +73,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="textoIconeNovoIngrediente" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoIconeNovFormaPagamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoAdicionarIngrediente" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoAdicionarFormaPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="textoPreencherDados" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -88,9 +88,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoIconeNovoIngrediente" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoIconeNovFormaPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="textoAdicionarIngrediente" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoAdicionarFormaPagamento" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="textoPreencherDados" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -101,7 +101,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="textoAdicionarIngrediente">
+        <Component class="javax.swing.JLabel" name="textoAdicionarFormaPagamento">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
@@ -109,7 +109,7 @@
             <Property name="text" type="java.lang.String" value="Adicionar Nova Forma de Pagamento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="textoIconeNovoIngrediente">
+        <Component class="javax.swing.JLabel" name="textoIconeNovFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/bank_cards-64.png"/>
@@ -123,7 +123,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="painelAdicionarModificarIngredientes">
+    <Container class="javax.swing.JPanel" name="painelAdicionarModificarFormasPagamento">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -143,19 +143,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="textoId" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textoValor" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoTipo" alignment="0" max="32767" attributes="0"/>
                       <Component id="textoNome" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoAtiva" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
+                      <Component id="caixaAtivo" min="-2" max="-2" attributes="0"/>
                       <Component id="campoNome" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
                       <Component id="campoId" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                      <Component id="caixaTipo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -176,13 +176,13 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textoValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="caixaTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoAtiva" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="caixaAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -190,7 +190,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="textoValor">
+        <Component class="javax.swing.JLabel" name="textoTipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo F. Pagamento:"/>
           </Properties>
@@ -212,7 +212,7 @@
             <Property name="text" type="java.lang.String" value="ID F. Pagamento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="caixaTipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
@@ -225,7 +225,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
+        <Component class="javax.swing.JComboBox" name="caixaAtivo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -236,14 +236,14 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="textoAtiva">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ativa:"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="painelProcurarIngredientes">
+    <Container class="javax.swing.JPanel" name="painelProcurarFormaPagamento">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -269,11 +269,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoProcurarIngrediente" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="campoPesquisarIngrediente" min="-2" pref="249" max="-2" attributes="0"/>
+                                  <Component id="campoPesquisarFormapagamento" min="-2" pref="249" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoProcurarIngrediente" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botaoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="textoCliqueParaEditar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -289,9 +289,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoPesquisarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textoProcurarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoProcurarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoPesquisarFormapagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoProcurarFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoProcurarFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="textoCliqueParaEditar" min="-2" max="-2" attributes="0"/>
@@ -303,9 +303,9 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="campoPesquisarIngrediente">
+        <Component class="javax.swing.JTextField" name="campoPesquisarFormapagamento">
         </Component>
-        <Component class="javax.swing.JButton" name="botaoProcurarIngrediente">
+        <Component class="javax.swing.JButton" name="botaoProcurarFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
@@ -313,7 +313,7 @@
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="textoProcurarIngrediente">
+        <Component class="javax.swing.JLabel" name="textoProcurarFormaPagamento">
           <Properties>
             <Property name="text" type="java.lang.String" value="Procurar Forma de Pagamento:"/>
           </Properties>
@@ -330,7 +330,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tabelaIngredientes">
+            <Component class="javax.swing.JTable" name="tabelaFormasPagamento">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="0">
@@ -376,13 +376,13 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="botaoLimparCampos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="botaoExcluirIngrediente" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoExcluirFormaPagamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="botaoAtualizarIngrediente" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoAtualizarFormaPagamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="botaoCancelarIngrediente" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCancelarFormaPagamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="botaoCadastrarIngrediente" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCadastrarFormaPagamento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -392,11 +392,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="botaoCancelarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoCadastrarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoCancelarFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoCadastrarFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoLimparCampos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoAtualizarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoExcluirIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoAtualizarFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoExcluirFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -404,7 +404,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="botaoCancelarIngrediente">
+        <Component class="javax.swing.JButton" name="botaoCancelarFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
@@ -412,7 +412,7 @@
             <Property name="text" type="java.lang.String" value="Cancelar Cadastro"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="botaoCadastrarIngrediente">
+        <Component class="javax.swing.JButton" name="botaoCadastrarFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
@@ -428,7 +428,7 @@
             <Property name="text" type="java.lang.String" value="Limpar Campos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="botaoAtualizarIngrediente">
+        <Component class="javax.swing.JButton" name="botaoAtualizarFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/refresh-32.png"/>
@@ -436,7 +436,7 @@
             <Property name="text" type="java.lang.String" value="Atualizar F. Pagamento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="botaoExcluirIngrediente">
+        <Component class="javax.swing.JButton" name="botaoExcluirFormaPagamento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/delete-32.png"/>

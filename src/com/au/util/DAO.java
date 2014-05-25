@@ -1,5 +1,6 @@
 package com.au.util;
 
+import com.au.modelo.FormaPagamento;
 import com.au.modelo.Fornecedor;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Ingrediente;
@@ -136,6 +137,16 @@ public class DAO<T> {
         List<Ingrediente> ingredientes = q.getResultList();
 
         return ingredientes;
+    }
+    
+    public List<FormaPagamento> buscaFormasPagamento(String pesquisa) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Query q = em.createQuery("from FormaPagamento fp where fp.nomeFormaPgto like '%" + pesquisa + "%'");
+
+        List<FormaPagamento> formaPagamentos = q.getResultList();
+
+        return formaPagamentos;
     }
     
     public boolean validaUser(Funcionario funcionario) {
