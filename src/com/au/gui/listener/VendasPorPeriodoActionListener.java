@@ -88,26 +88,30 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
         file.setFileFilter(new FileNameExtensionFilter("Documentos em PDF", "pdf"));
         int selecao = file.showSaveDialog(frm);
-        if (selecao == JFileChooser.APPROVE_OPTION) {
-            File arquivo = file.getSelectedFile();
-            System.out.println("Salvar como arquivo: " + arquivo.getAbsolutePath());
-            String localArquivo = arquivo.getAbsolutePath();
-            frm.getCampoLocalParaSalvar().setText(localArquivo);
+        if (selecao != JFileChooser.APPROVE_OPTION) {
+            return;
         }
-        /* if (arquivo.exists()) {
-         int result = JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?",
-         "Substituir Arquivo Existente", JOptionPane.YES_NO_CANCEL_OPTION);
-         if (result == JOptionPane.YES_OPTION) {
-         frm.getCampoLocalParaSalvar().setText(arquivo.getPath() + ".pdf");
-         } else frm.getCampoLocalParaSalvar().setText("");
-         } */
+        File arquivo = file.getSelectedFile();
+        if (arquivo.exists() && JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?", "Substituir Arquivo Existente", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
+            return;
+        }
+        System.out.println("Salvar como arquivo: " + arquivo.getAbsolutePath());
+        String localArquivo = arquivo.getAbsolutePath();
+        frm.getCampoLocalParaSalvar().setText(localArquivo);
     }
 
-    private void geraRelatorio() throws FileNotFoundException, ParseException {
-        String nome = "src\\com\\au\\resources\\reports\\Vendas Diárias.jasper";
+    private void geraRelatorio() throws ParseException {
+        String nome = "src\\com\\au\\resources\\reports\\vendas_gerais_por_periodo.jasper";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
-        OutputStream saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
+        OutputStream saida = null;
+        try {
+            saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(frm, "Houve um erro ao salvar o arquivo:\n" + ex);
+            return;
+        }
         File arquivo = new File(frm.getCampoLocalParaSalvar().getText());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,11 +126,15 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
 
         GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
         gerador.geraPdfParaOutputStream(saida);
-        
-        try {
-            Desktop.getDesktop().open(arquivo);
-        } catch (IOException ex) {
-            Logger.getLogger(VendasPorPeriodoActionListener.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frm, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {
+            try {
+                Desktop.getDesktop().open(arquivo);
+
+            } catch (IOException ex) {
+                Logger.getLogger(VendasPorPeriodoActionListener.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -148,16 +156,15 @@ public class VendasPorPeriodoActionListener implements ActionListener, ListSelec
                 if (valida()) {
                     try {
                         geraRelatorio();
-                        JOptionPane.showMessageDialog(frm, "Relatório Gerado com Sucesso!", "Geração de Relatório", JOptionPane.INFORMATION_MESSAGE);
-
-                    } catch (FileNotFoundException | ParseException ex) {
+                    } catch (ParseException ex) {
                         Logger.getLogger(VendasPorPeriodoActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                frm.dispose();
                 break;
             case "Cancelar Geração de Relatório":
-                this.frm.dispose();
+                frm.dispose();
                 break;
         }
     }

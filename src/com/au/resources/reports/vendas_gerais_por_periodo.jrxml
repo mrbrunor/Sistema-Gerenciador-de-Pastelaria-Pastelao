@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_diarias" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_gerais_por_periodo" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
 	<property name="ireport.zoom" value="1.331000000000001"/>
-	<property name="ireport.x" value="104"/>
-	<property name="ireport.y" value="60"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="DATA_INI" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -87,6 +87,14 @@
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Sistema Pastelão]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="20" y="63" width="353" height="29" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="b0e6f15d-8fac-4fce-8cdc-8dd25ec56a2b"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="SansSerif" size="16" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Vendas Gerais por Período]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -218,4 +226,15 @@
 			</staticText>
 		</band>
 	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="50" uuid="db3fee89-f69b-4abc-b9f3-81ede6a391e2"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Não existem vendas para o período selecionado!]]></text>
+			</staticText>
+		</band>
+	</noData>
 </jasperReport>

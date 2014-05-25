@@ -33,8 +33,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
@@ -60,7 +61,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
         frm.getCampoUsuario().addKeyListener(this);
     }
 
-    private void logar() {
+    private void logar() throws ExceptionInInitializerError{
         Funcionario funcionario = new Funcionario();
         Funcionario login = new Funcionario();
         
@@ -87,7 +88,12 @@ public class LoginActionListener implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Entrar no Sistema":
-                logar();
+        try {
+            logar();
+        } catch (ExceptionInInitializerError ex) {
+            Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(frm,"Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.");
+        }
                 break;
             case "Esqueci a minha senha":
                 trocarSenha();
