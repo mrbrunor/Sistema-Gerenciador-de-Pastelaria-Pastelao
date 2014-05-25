@@ -67,20 +67,12 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         this.frm = frm;
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
-        
-        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
-        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
         inicializaData();
         frm.getCampoAdicionarItem().requestFocus();
         indexCaixa = verificaCaixa();
         if (frm.getFuncionario().getNivelFunc() == 0) {
             abrirCaixa();
-        } 
-        else if (indexCaixa == null){
+        } else if (indexCaixa == null) {
             caixaFechado();
         }
         System.out.println(indexCaixa);
@@ -92,11 +84,16 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void atualizaTableModelVenda() {
-        if (!pedido.getItempedidos().isEmpty()) {
-            tableModelVenda = new VendaTableModel(pedido.getItempedidos());
-            frm.getTabelaPedido().setModel(tableModelVenda);
-            frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
-        }
+        //if (!pedido.getItempedidos().isEmpty()) {
+        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
+        frm.getTabelaPedido().setModel(tableModelVenda);
+        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
+        //}
     }
 
     public void inicializaData() {
@@ -131,44 +128,44 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
     }
 
-    public void caixaAberto(){
+    public void caixaAberto() {
         frm.getBotaoCaixa().setText("Fechar Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(false);
         frm.getItemMenuFecharCaixa().setEnabled(true);
-        
+
         frm.getCampoAdicionarItem().setEnabled(true);
         frm.getCampoBusca().setEnabled(true);
-        
+
         frm.getBotaoAdicionarAoPedido().setEnabled(true);
         frm.getBotaoAdicionarItem().setEnabled(true);
         frm.getBotaoBuscar().setEnabled(true);
         frm.getBotaoCancelarPedido().setEnabled(true);
         frm.getBotaoExcluirItem().setEnabled(true);
         frm.getBotaoFecharPedido().setEnabled(true);
-        
+
         frm.getTabelaBusca().setEnabled(true);
         frm.getTabelaPedido().setEnabled(true);
     }
-    
-    public void caixaFechado(){
+
+    public void caixaFechado() {
         frm.getBotaoCaixa().setText("Abrir Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(true);
         frm.getItemMenuFecharCaixa().setEnabled(false);
-        
+
         frm.getCampoAdicionarItem().setEnabled(false);
         frm.getCampoBusca().setEnabled(false);
-        
+
         frm.getBotaoAdicionarAoPedido().setEnabled(false);
         frm.getBotaoAdicionarItem().setEnabled(false);
         frm.getBotaoBuscar().setEnabled(false);
         frm.getBotaoCancelarPedido().setEnabled(false);
         frm.getBotaoExcluirItem().setEnabled(false);
         frm.getBotaoFecharPedido().setEnabled(false);
-        
+
         frm.getTabelaBusca().setEnabled(false);
         frm.getTabelaPedido().setEnabled(false);
     }
-    
+
     private void abrirCaixa() {
         if (indexCaixa == null) {
             Caixa caixa = novoCaixa();
@@ -252,9 +249,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             String aux = JOptionPane.showInputDialog("Digite a Quantidade");
             if (aux == null) {
                 return;
-            } 
-            else if(aux.matches(padrao)){
-                itempedido.setQtdProd(Integer.valueOf(aux));            
+            } else if (aux.matches(padrao)) {
+                itempedido.setQtdProd(Integer.valueOf(aux));
             }
         }
         verificaSeExiste(itempedido);
@@ -269,9 +265,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     public void limparPedido() {
         pedido = new Pedido();
         pedido.setItempedidos(new ArrayList<Itempedido>());
-        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
-        frm.getTabelaPedido().setModel(tableModelVenda);
-        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+        atualizaTableModelVenda();
+//        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
+//        frm.getTabelaPedido().setModel(tableModelVenda);
+//        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
         totalPedido = 0;
         atualizaTotal();
         atualizaTableModelVenda();

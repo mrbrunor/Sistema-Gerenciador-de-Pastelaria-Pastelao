@@ -75,9 +75,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
         habilitaBotoesParaSalvar();
     }
 
@@ -85,7 +82,9 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).listaTodos());
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
-
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
     }
 
     public void adicionaListener() {
@@ -163,7 +162,9 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionarios(pesquisa));
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
-
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
+        frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
     }
     
     private Funcionario formToFuncionario() {

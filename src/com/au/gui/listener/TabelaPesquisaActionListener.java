@@ -51,6 +51,8 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
         atualizaTableModelPesquisa();
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
     }
 
     public void atualizaTableModelPesquisa() {
@@ -63,7 +65,8 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
         tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
-
+        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
     }
 
     public void vendaToForm(Produto produto) {

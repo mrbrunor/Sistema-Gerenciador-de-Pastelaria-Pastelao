@@ -58,8 +58,6 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaIngredientes().getColumnModel().getColumn(2).setMaxWidth(75);
         habilitaBotoesParaSalvar();
     }
 
@@ -67,7 +65,8 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).listaTodos());
         frm.getTabelaIngredientes().setModel(tableModel);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
-
+        frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaIngredientes().getColumnModel().getColumn(2).setMaxWidth(75);
     }
 
     public void adicionaListener() {
@@ -139,6 +138,8 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).buscaIngredientes(pesquisa));
         frm.getTabelaIngredientes().setModel(tableModel);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaIngredientes().getColumnModel().getColumn(2).setMaxWidth(75);
     }
 
     private Ingrediente formToIngrediente() {

@@ -63,8 +63,6 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         normal = frm.getCampoNomeFornecedor().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
         habilitaBotoesParaSalvar();
     }
 
@@ -72,7 +70,8 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).listaTodos());
         frm.getTabelaFornecedores().setModel(tableModel);
         frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);
-
+        frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
     }
 
     public void adicionaListener() {
@@ -136,6 +135,8 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).buscaFornecedores(pesquisa));
         frm.getTabelaFornecedores().setModel(tableModel);
         frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
 
     }
 

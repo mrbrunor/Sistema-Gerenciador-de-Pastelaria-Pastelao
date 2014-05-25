@@ -61,10 +61,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         normal = frm.getCampoDesconto().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(100);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
-        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
         frm.getCampoDesconto().requestFocus();
         frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
         System.out.println("Qtd Pedidos= " + frm.getPedido().getItempedidos().size());
@@ -77,11 +73,15 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void atualizaTableModelVenda() {
-        if (!frm.getPedido().getItempedidos().isEmpty()) {
-            tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
-            frm.getTabelaPedido().setModel(tableModelVenda);
-            frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
-        }
+        //if (!frm.getPedido().getItempedidos().isEmpty()) {
+        tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
+        frm.getTabelaPedido().setModel(tableModelVenda);
+        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(100);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
+        //}
     }
 
     public void adicionaListener() {
@@ -286,7 +286,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 if (valida()) {
                     criaPedido();
                     //geraComanda();
-                    frm.setCadastrou(true);
+                    TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }
                 break;
@@ -303,7 +303,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 habilitaVR();
                 break;
             case "Cancelar Pedido":
-                frm.setCadastrou(false);
+                TelaConfirmacaoPagamento.setCadastrou(false);
                 frm.dispose();
                 break;
         }

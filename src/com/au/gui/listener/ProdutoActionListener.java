@@ -97,8 +97,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
-        frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
         habilitaBotoesParaSalvar();
     }
 
@@ -106,6 +104,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         atualizaTableModelProdutos();
         frm.getTabelaProdutos().setModel(tableModelProdutos);
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
         atualizaTableModelIngredientes();
     }
 
@@ -216,6 +216,8 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
         frm.getTabelaProdutos().setModel(tableModelProdutos);
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
+        frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
 
     }
 
@@ -233,7 +235,11 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
         if (frm.getRadioInd().isSelected()) {
             produto.setEIndustrializado((byte) 1);
-            produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
+            if ("".equals(frm.getCampoBarras().getText())) {
+                produto.setQtdProd(null);
+            } else {
+                produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
+            }
             if ("".equals(frm.getCampoBarras().getText())) {
                 produto.setCodBarras(null);
             } else {
@@ -334,21 +340,21 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             valida = false;
         }
 
-        if (frm.getRadioInd().isSelected()) {
-            if (!"".equals(frm.getCampoQtd().getText()) && frm.getCampoQtd().getText().length() > 0) {
-                frm.getCampoQtd().setBorder(normal);
-            } else {
-                frm.getCampoQtd().setBorder(vermelha);
-                valida = false;
-            }
-
-            if (!"".equals(frm.getCampoBarras().getText()) && frm.getCampoBarras().getText().length() > 4) {
-                frm.getCampoBarras().setBorder(normal);
-            } else {
-                frm.getCampoBarras().setBorder(vermelha);
-                valida = false;
-            }
-        }
+//        if (frm.getRadioInd().isSelected()) {
+//            if (!"".equals(frm.getCampoQtd().getText()) && frm.getCampoQtd().getText().length() > 0) {
+//                frm.getCampoQtd().setBorder(normal);
+//            } else {
+//                frm.getCampoQtd().setBorder(vermelha);
+//                valida = false;
+//            }
+//
+//            if (!"".equals(frm.getCampoBarras().getText()) && frm.getCampoBarras().getText().length() > 4) {
+//                frm.getCampoBarras().setBorder(normal);
+//            } else {
+//                frm.getCampoBarras().setBorder(vermelha);
+//                valida = false;
+//            }
+//        }
 
         if (frm.getRadioPrep().isSelected()) {
             if (frm.getTabelaIngredientes().getRowCount() > 0) {
