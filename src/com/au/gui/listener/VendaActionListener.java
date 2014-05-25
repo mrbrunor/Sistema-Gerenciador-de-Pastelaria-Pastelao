@@ -471,7 +471,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Produtos":
                 new TelaCadastrarProduto(frm, true).setVisible(true);
-                new TabelaPesquisaActionListener(frm).pesquisaProdutos();
+                frm.getBotaoBuscar().doClick();
                 break;
             case "Vendas Por Período":
                 new TelaVendasPorPeriodo(frm, true).setVisible(true);

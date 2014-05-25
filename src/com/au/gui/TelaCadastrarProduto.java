@@ -52,7 +52,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü\\-]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
