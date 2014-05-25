@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_gerais_por_periodo" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_por_pagameto" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
 	<property name="ireport.zoom" value="1.331000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -9,8 +9,34 @@
 	<parameter name="DATA_FIM" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="TIPO_PGTO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="NOME_PGTO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT produto.idProd AS 'ID do Produto', produto.descProd AS 'Nome do Produto', produto.valorProd AS 'Valor Unitario', SUM(itemPedido.qtdProd) AS 'Quantidade', SUM(itemPedido.totProd) AS 'Valor Total', pedido.dataPedido AS 'Data' FROM produto INNER JOIN itemPedido ON produto.idProd = itemPedido.idProd INNER JOIN pedido ON itempedido.idPedido = pedido.idPedido WHERE pedido.dataPedido BETWEEN $P{DATA_INI} AND $P{DATA_FIM} AND pedido.estadoPedido = 'FINALIZADO' GROUP BY pedido.dataPedido, itemPedido.idProd;]]>
+		<![CDATA[SELECT
+    produto.idProd AS 'ID do Produto',
+    produto.descProd AS 'Nome do Produto',
+    produto.valorProd AS 'Valor Unitario',
+    SUM(itemPedido.qtdProd) AS 'Quantidade',
+    SUM(itemPedido.totProd) AS 'Valor Total',
+    pedido.dataPedido AS 'Data'
+FROM
+    produto
+        INNER JOIN
+    itemPedido ON produto.idProd = itemPedido.idProd
+        INNER JOIN
+    pedido ON itempedido.idPedido = pedido.idPedido
+        INNER JOIN
+    formapagamento ON pedido.idFormaPgto = formapagamento.idFormaPgto
+WHERE
+    pedido.dataPedido BETWEEN $P{DATA_INI} AND $P{DATA_FIM}
+        AND pedido.estadoPedido = 'FINALIZADO'
+        AND formapagamento.tipoFormaPgto LIKE $P{TIPO_PGTO}
+        AND formapagamento.nomeFormaPgto LIKE $P{NOME_PGTO}
+GROUP BY pedido.dataPedido , itemPedido.idProd;]]>
 	</queryString>
 	<field name="ID do Produto" class="java.lang.Integer"/>
 	<field name="Nome do Produto" class="java.lang.String"/>
@@ -91,16 +117,25 @@
 				<staticText>
 					<reportElement mode="Transparent" x="20" y="63" width="353" height="29" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="b0e6f15d-8fac-4fce-8cdc-8dd25ec56a2b"/>
 					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="SansSerif" size="16" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<font fontName="SansSerif" size="15" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<text><![CDATA[Vendas Gerais por Período]]></text>
+					<text><![CDATA[Vendas Gerais filtradas por Forma de Pagamento]]></text>
 				</staticText>
 			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band height="34">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="34" forecolor="#006699" backcolor="#E6E6E6" uuid="f762cbd4-c753-4fa5-bc41-c65c4957b0b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TIPO_PGTO} == "Dinheiro" ? "Forma de Pagamento: "+$P{NOME_PGTO} : "Forma de Pagamento: "+$P{NOME_PGTO}+ " ("+$P{TIPO_PGTO}+")"]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="34">
