@@ -27,6 +27,7 @@ package com.au.gui;
 import com.au.gui.listener.RecuperarSenhaActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -66,11 +67,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         campoCpfFuncionario = new javax.swing.JTextField();
         campoCpfFuncionario.setActionCommand("CPF");
         textoDigiteNovaSenha = new javax.swing.JLabel();
-        campoNovaSenha = new javax.swing.JTextField();
-        campoNovaSenha.setActionCommand("NovaSenha");
         textoConfirmeNovaSenha = new javax.swing.JLabel();
-        campoConfirmacaoNovaSenha = new javax.swing.JTextField();
-        campoConfirmacaoNovaSenha.setActionCommand("ConfirmacaoNovaSenha");
+        campoNovaSenha = new javax.swing.JPasswordField();
+        campoConfirmacaoNovaSenha = new javax.swing.JPasswordField();
         botaoCriarNovaSenha = new javax.swing.JButton();
         botaoCancelarNovaSenha = new javax.swing.JButton();
 
@@ -122,11 +121,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
         textoDigiteNovaSenha.setText("Digite a Nova Senha:");
 
-        campoNovaSenha.setNextFocusableComponent(campoConfirmacaoNovaSenha);
-
         textoConfirmeNovaSenha.setText("Confirme a Nova Senha:");
-
-        campoConfirmacaoNovaSenha.setNextFocusableComponent(botaoCriarNovaSenha);
 
         javax.swing.GroupLayout painelDadosFuncionarioLayout = new javax.swing.GroupLayout(painelDadosFuncionario);
         painelDadosFuncionario.setLayout(painelDadosFuncionarioLayout);
@@ -136,18 +131,18 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
+                        .addComponent(textoCpfFuncionario)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
                         .addComponent(textoDigiteNovaSenha)
                         .addGap(18, 18, 18)
-                        .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
                         .addComponent(textoConfirmeNovaSenha)
                         .addGap(18, 18, 18)
-                        .addComponent(campoConfirmacaoNovaSenha))
-                    .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
-                        .addComponent(textoCpfFuncionario)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(campoConfirmacaoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelDadosFuncionarioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoConfirmeNovaSenha, textoCpfFuncionario, textoDigiteNovaSenha});
@@ -164,10 +159,10 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                     .addComponent(textoDigiteNovaSenha)
                     .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoConfirmeNovaSenha)
                     .addComponent(campoConfirmacaoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         botaoCriarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
@@ -226,11 +221,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         this.botaoCriarNovaSenha = botaoCriarNovaSenha;
     }
 
-    public JTextField getCampoConfirmacaoNovaSenha() {
+    public JPasswordField getCampoConfirmacaoNovaSenha() {
         return campoConfirmacaoNovaSenha;
     }
 
-    public void setCampoConfirmacaoNovaSenha(JTextField campoConfirmacaoNovaSenha) {
+    public void setCampoConfirmacaoNovaSenha(JPasswordField campoConfirmacaoNovaSenha) {
         this.campoConfirmacaoNovaSenha = campoConfirmacaoNovaSenha;
     }
 
@@ -242,11 +237,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         this.campoCpfFuncionario = campoCpfFuncionario;
     }
 
-    public JTextField getCampoNovaSenha() {
+    public JPasswordField getCampoNovaSenha() {
         return campoNovaSenha;
     }
 
-    public void setCampoNovaSenha(JTextField campoNovaSenha) {
+    public void setCampoNovaSenha(JPasswordField campoNovaSenha) {
         this.campoNovaSenha = campoNovaSenha;
     }
 
@@ -256,9 +251,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarNovaSenha;
     private javax.swing.JButton botaoCriarNovaSenha;
-    private javax.swing.JTextField campoConfirmacaoNovaSenha;
+    private javax.swing.JPasswordField campoConfirmacaoNovaSenha;
     private javax.swing.JTextField campoCpfFuncionario;
-    private javax.swing.JTextField campoNovaSenha;
+    private javax.swing.JPasswordField campoNovaSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel painelDadosFuncionario;
     private javax.swing.JPanel painelSuperior;

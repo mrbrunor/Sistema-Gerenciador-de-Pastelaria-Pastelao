@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.swing.JOptionPane;
 
 public class DAO<T> {
 
@@ -167,6 +168,25 @@ public class DAO<T> {
         List<Funcionario> funcionarios = q.getResultList();
         
         return funcionarios == null || funcionarios.isEmpty();
+    }    
+    
+    public void alterarSenha(Funcionario funcionario) {
+        EntityManager em = new JPAUtil().getEntityManager();
+
+        Funcionario funcionarioNovo = new Funcionario();
+        //Query q = em.createQuery("update Funcionario f set f.passFunc = '" + funcionario.getPassFunc() + "' where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
+        
+        Query q = em.createQuery("from Funcionario f where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
+
+        List<Funcionario> funcionarios = q.getResultList();
+        
+        for (Funcionario funcionario1 : funcionarios) {
+            funcionarioNovo = funcionario1;
+        }
+        
+        funcionarioNovo.setPassFunc(funcionario.getPassFunc());
+        System.out.println("");
+        new DAO<>(Funcionario.class).atualiza(funcionarioNovo);  
     }    
     
     public boolean validaProduto(Produto produto) {

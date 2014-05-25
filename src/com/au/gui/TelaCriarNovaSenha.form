@@ -143,22 +143,22 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="textoDigiteNovaSenha" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="campoNovaSenha" min="-2" pref="80" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="textoConfirmeNovaSenha" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="campoConfirmacaoNovaSenha" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="textoCpfFuncionario" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="campoCpfFuncionario" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="textoDigiteNovaSenha" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="campoNovaSenha" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="textoConfirmeNovaSenha" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="campoConfirmacaoNovaSenha" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -176,11 +176,11 @@
                       <Component id="campoNovaSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoConfirmeNovaSenha" min="-2" max="-2" attributes="0"/>
-                      <Component id="campoConfirmacaoNovaSenha" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoConfirmeNovaSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoConfirmacaoNovaSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -206,30 +206,14 @@
             <Property name="text" type="java.lang.String" value="Digite a Nova Senha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoNovaSenha">
-          <Properties>
-            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="campoConfirmacaoNovaSenha"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoNovaSenha.setActionCommand(&quot;NovaSenha&quot;);  "/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JLabel" name="textoConfirmeNovaSenha">
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirme a Nova Senha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoConfirmacaoNovaSenha">
-          <Properties>
-            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="botaoCriarNovaSenha"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoConfirmacaoNovaSenha.setActionCommand(&quot;ConfirmacaoNovaSenha&quot;);  "/>
-          </AuxValues>
+        <Component class="javax.swing.JPasswordField" name="campoNovaSenha">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="campoConfirmacaoNovaSenha">
         </Component>
       </SubComponents>
     </Container>
