@@ -33,7 +33,7 @@ import com.au.gui.TelaFechamentoCaixa;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaRetirada;
 import com.au.gui.TelaVenda;
-import com.au.gui.TelaVendasPorPeriodo;
+import com.au.gui.TelaVendasGerais;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
 import com.au.modelo.Itempedido;
@@ -486,8 +486,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 new TelaCadastrarProduto(frm, true).setVisible(true);
                 frm.getBotaoBuscar().doClick();
                 break;
-            case "Vendas Por Período":
-                new TelaVendasPorPeriodo(frm, true).setVisible(true);
+            case "Vendas Gerais":
+                new TelaVendasGerais(frm, true).setVisible(true);
                 break;
             case "Retirada de Caixa":
                 new TelaRetirada(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa)).setVisible(true);

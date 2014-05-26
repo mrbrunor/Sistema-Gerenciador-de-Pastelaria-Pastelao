@@ -80,7 +80,7 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasPorPeriodo">
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasGerais">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vendas Por Per&#xed;odo"/>
               </Properties>

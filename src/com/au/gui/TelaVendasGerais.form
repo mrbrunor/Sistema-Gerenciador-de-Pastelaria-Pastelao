@@ -26,18 +26,17 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botaoCancelarGeracaoDeRelatorio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoGerarRelatorio" min="-2" pref="220" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="painelInferior" alignment="0" max="32767" attributes="0"/>
                       <Component id="painelSuperior" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="botaoCancelarGeracaoDeRelatorio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botaoGerarRelatorio" min="-2" pref="200" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,7 +90,7 @@
                       <Component id="textoIconeVendasPorPeriodo" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="textoVendasPorPeriodo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="textoPreenchaOsCampos" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -106,7 +105,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vendas Por Per&#xed;odo"/>
+            <Property name="text" type="java.lang.String" value="Vendas Gerais"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoIconeVendasPorPeriodo">
@@ -118,7 +117,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="textoPreenchaOsCampos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Preencha o campos abaixo para gerar o relat&#xf3;rio de vendas por per&#xed;odo"/>
+            <Property name="text" type="java.lang.String" value="Preencha o campos abaixo para gerar o relat&#xf3;rio de vendas gerais:"/>
           </Properties>
         </Component>
       </SubComponents>
