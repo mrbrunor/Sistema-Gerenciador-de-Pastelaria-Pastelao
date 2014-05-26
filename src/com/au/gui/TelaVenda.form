@@ -82,12 +82,17 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasGerais">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Vendas Por Per&#xed;odo"/>
+                <Property name="text" type="java.lang.String" value="Vendas Gerais"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasFiltradasFormaPgto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+                <Property name="text" type="java.lang.String" value="Vendas por  Forma de Pagamento"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasFiltradasIngredientes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Vendas por Ingredientes"/>
               </Properties>
             </MenuItem>
           </SubComponents>

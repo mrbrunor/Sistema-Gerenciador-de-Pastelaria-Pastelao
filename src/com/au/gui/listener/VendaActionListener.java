@@ -34,6 +34,8 @@ import com.au.gui.TelaLogin;
 import com.au.gui.TelaRetirada;
 import com.au.gui.TelaVenda;
 import com.au.gui.TelaVendasGerais;
+import com.au.gui.TelaVendasPorFormaPgto;
+import com.au.gui.TelaVendasPorIngrediente;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
 import com.au.modelo.Itempedido;
@@ -491,6 +493,12 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Retirada de Caixa":
                 new TelaRetirada(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa)).setVisible(true);
+                break;
+            case "Vendas por  Forma de Pagamento":
+                new TelaVendasPorFormaPgto(frm, true).setVisible(true);
+                break;
+            case "Vendas por Ingredientes":
+                new TelaVendasPorIngrediente(frm, true).setVisible(true);
                 break;
         }
     }

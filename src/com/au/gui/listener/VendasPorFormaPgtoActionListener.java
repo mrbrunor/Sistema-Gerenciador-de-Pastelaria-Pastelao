@@ -24,7 +24,7 @@
 package com.au.gui.listener;
 
 import com.au.bd.FabricaConexao;
-import com.au.gui.TelaVendasGerais;
+import com.au.gui.TelaVendasPorFormaPgto;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
 import java.awt.Desktop;
@@ -54,17 +54,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author tiago_000
  */
-public class VendasGeraisActionListener implements ActionListener, ListSelectionListener {
+public class VendasPorFormaPgtoActionListener implements ActionListener, ListSelectionListener {
 
-    private final TelaVendasGerais frm;
+    private final TelaVendasPorFormaPgto frm;
 
     /**
      * Construtor Default do Listener, o qual recebe o objeto do tipo
- TelaVendasGerais
+ TelaVendasPorFormaPgto
      *
      * @param frm Parâmetro recebido
      */
-    public VendasGeraisActionListener(TelaVendasGerais frm) {
+    public VendasPorFormaPgtoActionListener(TelaVendasPorFormaPgto frm) {
         this.frm = frm;
         adicionaListener();
     }
@@ -101,14 +101,14 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
     }
 
     private void geraRelatorio() throws ParseException {
-        String nome = "src\\com\\au\\resources\\reports\\vendas_gerais.jasper";
+        String nome = "src\\com\\au\\resources\\reports\\vendas_por_pagamento.jasper";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
         try {
             saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VendasGeraisActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendasPorFormaPgtoActionListener.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(frm, "Houve um erro ao salvar o arquivo:\n" + ex);
             return;
         }
@@ -132,7 +132,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
                 Desktop.getDesktop().open(arquivo);
 
             } catch (IOException ex) {
-                Logger.getLogger(VendasGeraisActionListener.class
+                Logger.getLogger(VendasPorFormaPgtoActionListener.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -140,7 +140,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
 
     /**
      * Método responsável por capturar qualquer ActionPerformed da tela
-     * VendasPorPeríodo
+     * Vendas Por Forma de Pagamento
      *
      * @param event Objeto do tipo ActionEvent contendo o ActionPerformed
      */
@@ -157,7 +157,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
                     try {
                         geraRelatorio();
                     } catch (ParseException ex) {
-                        Logger.getLogger(VendasGeraisActionListener.class
+                        Logger.getLogger(VendasPorFormaPgtoActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
                 }

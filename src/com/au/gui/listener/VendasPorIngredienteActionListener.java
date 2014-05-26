@@ -24,7 +24,7 @@
 package com.au.gui.listener;
 
 import com.au.bd.FabricaConexao;
-import com.au.gui.TelaVendasGerais;
+import com.au.gui.TelaVendasPorIngrediente;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
 import java.awt.Desktop;
@@ -50,21 +50,21 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * Classe Listener da tela TelaVendasGerais
+ * Classe Listener da tela TelaVendasPorIngrediente
  *
  * @author tiago_000
  */
-public class VendasGeraisActionListener implements ActionListener, ListSelectionListener {
+public class VendasPorIngredienteActionListener implements ActionListener, ListSelectionListener {
 
-    private final TelaVendasGerais frm;
+    private final TelaVendasPorIngrediente frm;
 
     /**
      * Construtor Default do Listener, o qual recebe o objeto do tipo
- TelaVendasGerais
+ TelaVendasPorIngrediente
      *
      * @param frm Parâmetro recebido
      */
-    public VendasGeraisActionListener(TelaVendasGerais frm) {
+    public VendasPorIngredienteActionListener(TelaVendasPorIngrediente frm) {
         this.frm = frm;
         adicionaListener();
     }
@@ -101,14 +101,14 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
     }
 
     private void geraRelatorio() throws ParseException {
-        String nome = "src\\com\\au\\resources\\reports\\vendas_gerais.jasper";
+        String nome = "src\\com\\au\\resources\\reports\\vendas_por_ingrediente.jasper";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
         try {
             saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VendasGeraisActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendasPorIngredienteActionListener.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(frm, "Houve um erro ao salvar o arquivo:\n" + ex);
             return;
         }
@@ -120,9 +120,11 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
 
         Date dataInicial = sdf.parse(dataIni);
         Date dataFinal = sdf.parse(dataFim);
+        String ingrediente = (String) frm.getComboBoxIngredientes().getSelectedItem();
 
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);
+        parametros.put("INGREDIENTE", ingrediente);
 
         GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
         gerador.geraPdfParaOutputStream(saida);
@@ -132,7 +134,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
                 Desktop.getDesktop().open(arquivo);
 
             } catch (IOException ex) {
-                Logger.getLogger(VendasGeraisActionListener.class
+                Logger.getLogger(VendasPorIngredienteActionListener.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -157,7 +159,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
                     try {
                         geraRelatorio();
                     } catch (ParseException ex) {
-                        Logger.getLogger(VendasGeraisActionListener.class
+                        Logger.getLogger(VendasPorIngredienteActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
                 }

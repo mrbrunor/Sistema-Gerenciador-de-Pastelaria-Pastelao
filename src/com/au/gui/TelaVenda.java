@@ -114,7 +114,8 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuProdutos = new javax.swing.JMenuItem();
         MenuRelatorio = new javax.swing.JMenu();
         itemMenuVendasGerais = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
+        itemMenuVendasFiltradasIngredientes = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuAjuda = new javax.swing.JMenuItem();
         itemMenuTeclasAtalho = new javax.swing.JMenuItem();
@@ -389,11 +390,14 @@ public class TelaVenda extends javax.swing.JFrame {
 
         MenuRelatorio.setText("Relatórios");
 
-        itemMenuVendasGerais.setText("Vendas Por Período");
+        itemMenuVendasGerais.setText("Vendas Gerais");
         MenuRelatorio.add(itemMenuVendasGerais);
 
-        jMenuItem8.setText("jMenuItem1");
-        MenuRelatorio.add(jMenuItem8);
+        itemMenuVendasFiltradasFormaPgto.setText("Vendas por  Forma de Pagamento");
+        MenuRelatorio.add(itemMenuVendasFiltradasFormaPgto);
+
+        itemMenuVendasFiltradasIngredientes.setText("Vendas por Ingredientes");
+        MenuRelatorio.add(itemMenuVendasFiltradasIngredientes);
 
         barraMenu.add(MenuRelatorio);
 
@@ -752,8 +756,9 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuSobre;
     private javax.swing.JMenuItem itemMenuTeclasAtalho;
     private javax.swing.JMenuItem itemMenuTrocarSenha;
+    private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
+    private javax.swing.JMenuItem itemMenuVendasFiltradasIngredientes;
     private javax.swing.JMenuItem itemMenuVendasGerais;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;
