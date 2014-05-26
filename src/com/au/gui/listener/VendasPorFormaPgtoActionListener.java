@@ -76,6 +76,46 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         frm.getBotaoProcurarLocal().addActionListener(this);
         frm.getBotaoGerarRelatorio().addActionListener(this);
         frm.getBotaoCancelarGeracaoDeRelatorio().addActionListener(this);
+        frm.getBotaoRadioDinheiro().addActionListener(this);
+        frm.getBotaoRadioCartaoCredito().addActionListener(this);
+        frm.getBotaoRadioCartaoDebito().addActionListener(this);
+        frm.getBotaoRadioValeRefeicao().addActionListener(this);
+    }
+    
+    public void habilitaDinheiro() {
+        frm.getCaixaSelecaoCC().setVisible(false);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
+        frm.getCaixaSelecaoCD().setVisible(false);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
+        frm.getCaixaSelecaoVR().setVisible(false);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
+    }
+
+    public void habilitaCC() {
+        frm.getCaixaSelecaoCC().setVisible(true);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
+        frm.getCaixaSelecaoCD().setVisible(false);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
+        frm.getCaixaSelecaoVR().setVisible(false);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
+    }
+
+    public void habilitaCD() {
+        frm.getCaixaSelecaoCC().setVisible(false);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
+        frm.getCaixaSelecaoCD().setVisible(true);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
+        frm.getCaixaSelecaoVR().setVisible(false);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
+    }
+
+    public void habilitaVR() {
+        frm.getCaixaSelecaoCC().setVisible(false);
+        frm.getCaixaSelecaoCC().setSelectedIndex(-1);
+        frm.getCaixaSelecaoCD().setVisible(false);
+        frm.getCaixaSelecaoCD().setSelectedIndex(-1);
+        frm.getCaixaSelecaoVR().setVisible(true);
+        frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
     private boolean valida() {
@@ -147,6 +187,19 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
+            case "Dinheiro":
+                habilitaDinheiro();
+                frm.getBotaoGerarRelatorio().requestFocus();
+                break;
+            case "Cartão de Crédito":
+                habilitaCC();
+                break;
+            case "Cartão de Débito":
+                habilitaCD();
+                break;
+            case "Vale Refeição":
+                habilitaVR();
+                break;
             case "Procurar":
                 if (valida()) {
                     procuraLocal();

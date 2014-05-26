@@ -120,7 +120,7 @@ public class VendasPorIngredienteActionListener implements ActionListener, ListS
 
         Date dataInicial = sdf.parse(dataIni);
         Date dataFinal = sdf.parse(dataFim);
-        String ingrediente = (String) frm.getComboBoxIngredientes().getSelectedItem();
+        String ingrediente = frm.getComboBoxIngredientes().getSelectedItem().toString();
 
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);

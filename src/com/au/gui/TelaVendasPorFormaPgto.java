@@ -69,6 +69,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupFormasPgto = new javax.swing.ButtonGroup();
         painelSuperior = new javax.swing.JPanel();
         textoVendasPorPeriodo = new javax.swing.JLabel();
         textoIconeVendasPorPeriodo = new javax.swing.JLabel();
@@ -83,7 +84,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         botaoProcurarLocal = new javax.swing.JButton();
         textoIconeVR = new javax.swing.JLabel();
         botaoRadioDinheiro = new javax.swing.JRadioButton();
-        botaoCartaoDebito = new javax.swing.JRadioButton();
+        botaoRadioCartaoDebito = new javax.swing.JRadioButton();
         textoIconeCD = new javax.swing.JLabel();
         textoIconeCC = new javax.swing.JLabel();
         botaoRadioCartaoCredito = new javax.swing.JRadioButton();
@@ -118,8 +119,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
                         .addComponent(textoIconeVendasPorPeriodo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                        .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
@@ -148,18 +148,22 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
         textoIconeVR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/barcode-26.png"))); // NOI18N
 
+        buttonGroupFormasPgto.add(botaoRadioDinheiro);
         botaoRadioDinheiro.setText("Dinheiro");
 
-        botaoCartaoDebito.setText("Cartão de Débito");
+        buttonGroupFormasPgto.add(botaoRadioCartaoDebito);
+        botaoRadioCartaoDebito.setText("Cartão de Débito");
 
         textoIconeCD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bank_cards-26.png"))); // NOI18N
 
         textoIconeCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/mastercard-26.png"))); // NOI18N
 
+        buttonGroupFormasPgto.add(botaoRadioCartaoCredito);
         botaoRadioCartaoCredito.setText("Cartão de Crédito");
 
         textoIconeDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/banknotes-26.png"))); // NOI18N
 
+        buttonGroupFormasPgto.add(botaoRadioValeRefeicao);
         botaoRadioValeRefeicao.setText("Vale Refeição");
 
         textoSelecioneFormaPgto.setText("Selecione a forma de pagamento desejada:");
@@ -171,9 +175,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoSelecioneFormaPgto)
-                        .addGap(0, 0, 0))
+                    .addComponent(textoSelecioneFormaPgto)
                     .addGroup(painelInferiorLayout.createSequentialGroup()
                         .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelInferiorLayout.createSequentialGroup()
@@ -203,7 +205,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                                        .addComponent(botaoCartaoDebito)
+                                        .addComponent(botaoRadioCartaoDebito)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(textoIconeCD))
                                     .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,12 +241,9 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                             .addComponent(textoIconeDinheiro)
                             .addComponent(botaoRadioDinheiro)
                             .addComponent(botaoRadioCartaoCredito))
-                        .addGroup(painelInferiorLayout.createSequentialGroup()
-                            .addGap(0, 0, 0)
-                            .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(botaoCartaoDebito)
-                                .addComponent(textoIconeCC)
-                                .addComponent(textoIconeCD)))
+                        .addComponent(botaoRadioCartaoDebito)
+                        .addComponent(textoIconeCC)
+                        .addComponent(textoIconeCD)
                         .addComponent(botaoRadioValeRefeicao, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(textoIconeVR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -313,14 +312,6 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         this.botaoCancelarGeracaoDeRelatorio = botaoCancelarGeracaoDeRelatorio;
     }
 
-    public JRadioButton getBotaoCartaoDebito() {
-        return botaoCartaoDebito;
-    }
-
-    public void setBotaoCartaoDebito(JRadioButton botaoCartaoDebito) {
-        this.botaoCartaoDebito = botaoCartaoDebito;
-    }
-
     public JButton getBotaoGerarRelatorio() {
         return botaoGerarRelatorio;
     }
@@ -343,6 +334,14 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
     public void setBotaoRadioCartaoCredito(JRadioButton botaoRadioCartaoCredito) {
         this.botaoRadioCartaoCredito = botaoRadioCartaoCredito;
+    }
+
+    public JRadioButton getBotaoRadioCartaoDebito() {
+        return botaoRadioCartaoDebito;
+    }
+
+    public void setBotaoRadioCartaoDebito(JRadioButton botaoCartaoDebito) {
+        this.botaoRadioCartaoDebito = botaoCartaoDebito;
     }
 
     public JRadioButton getBotaoRadioDinheiro() {
@@ -478,12 +477,13 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarGeracaoDeRelatorio;
-    private javax.swing.JRadioButton botaoCartaoDebito;
     private javax.swing.JButton botaoGerarRelatorio;
     private javax.swing.JButton botaoProcurarLocal;
     private javax.swing.JRadioButton botaoRadioCartaoCredito;
+    private javax.swing.JRadioButton botaoRadioCartaoDebito;
     private javax.swing.JRadioButton botaoRadioDinheiro;
     private javax.swing.JRadioButton botaoRadioValeRefeicao;
+    private javax.swing.ButtonGroup buttonGroupFormasPgto;
     private javax.swing.JComboBox caixaSelecaoCC;
     private javax.swing.JComboBox caixaSelecaoCD;
     private javax.swing.JComboBox caixaSelecaoVR;
