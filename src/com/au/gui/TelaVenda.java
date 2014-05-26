@@ -695,6 +695,31 @@ public class TelaVenda extends javax.swing.JFrame {
     public void setItemMenuVendasPorPeriodo(JMenuItem itemMenuVendasPorPeriodo) {
         this.itemMenuVendasGerais = itemMenuVendasPorPeriodo;
     }
+
+    public JMenuItem getItemMenuVendasFiltradasFormaPgto() {
+        return itemMenuVendasFiltradasFormaPgto;
+    }
+
+    public void setItemMenuVendasFiltradasFormaPgto(JMenuItem itemMenuVendasFiltradasFormaPgto) {
+        this.itemMenuVendasFiltradasFormaPgto = itemMenuVendasFiltradasFormaPgto;
+    }
+
+    public JMenuItem getItemMenuVendasFiltradasIngredientes() {
+        return itemMenuVendasFiltradasIngredientes;
+    }
+
+    public void setItemMenuVendasFiltradasIngredientes(JMenuItem itemMenuVendasFiltradasIngredientes) {
+        this.itemMenuVendasFiltradasIngredientes = itemMenuVendasFiltradasIngredientes;
+    }
+
+    public JMenuItem getItemMenuVendasGerais() {
+        return itemMenuVendasGerais;
+    }
+
+    public void setItemMenuVendasGerais(JMenuItem itemMenuVendasGerais) {
+        this.itemMenuVendasGerais = itemMenuVendasGerais;
+    }
+    
        
 //    /**
 //     * @param args the command line arguments

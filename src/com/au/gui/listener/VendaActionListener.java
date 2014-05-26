@@ -130,6 +130,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
         frm.getItemMenuFormaPagamento().addActionListener(this);
         frm.getCampoAdicionarItem().addActionListener(this);
+        frm.getItemMenuVendasFiltradasFormaPgto().addActionListener(this);
+        frm.getItemMenuVendasFiltradasIngredientes().addActionListener(this);
     }
 
     public void caixaAberto() {
