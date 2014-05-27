@@ -53,6 +53,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
      */
     public TelaVendasPorFormaPgto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        buscaFormasPagamento();
         initComponents();
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
