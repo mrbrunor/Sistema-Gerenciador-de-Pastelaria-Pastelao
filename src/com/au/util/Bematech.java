@@ -40,7 +40,7 @@ import javax.swing.JOptionPane;
  */
 public class Bematech {
 
-    private static PrintService impressora;
+    public static PrintService impressora;
 
     public boolean imprime(String texto) {
 
@@ -78,6 +78,4 @@ public class Bematech {
     public void acionarGuilhotina() {
         imprime("" + (char) 27 + (char) 109);
     }
-    
-  
 }

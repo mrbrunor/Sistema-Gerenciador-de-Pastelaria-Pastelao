@@ -41,6 +41,7 @@ import java.sql.Time;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -154,23 +155,27 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(frm.getPedido().getDataPedido());
-
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("MP-4000 TH");
-
+        if (Bematech.impressora != null){
+            
+        
         bematech.imprime("P A S T E L A O \n\n"
         
-                        + dataStr + "\t\t\t" + frm.getPedido().getHoraPedido() +
-                        "AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido() +
-                        "\nCodigo\tQT\tDescricao\tUnit\tTotal\n\n" );
+                        + dataStr + "                    " + frm.getPedido().getHoraPedido() +
+                        "\n\nAGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido() +
+                        "\n\nCodigo\t\tQT\tUnit\tTotal" );
         
 
         for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
-            bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
+            bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
             bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
         }
         
-        bematech.imprime("\n\n\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n\n");
+        bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
+        } else {
+            JOptionPane.showMessageDialog(frm, "Nennhuma impressora foi encontrada. Instale uma impressora padrão \r\n(Generic Text Only) e reinicie o programa.");
+        }
     }
 
     public void limpaBorda() {
