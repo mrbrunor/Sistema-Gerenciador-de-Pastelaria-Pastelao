@@ -44,8 +44,7 @@ public class Bematech {
 
     public boolean imprime(String texto) {
 
-        if (impressora == null) {
-            JOptionPane.showMessageDialog(null, "Nennhuma impressora foi encontrada. Instale uma impressora padrão \r\n(Generic Text Only) e reinicie o programa.");
+        if (impressora == null) {            
         } else {
             try {
                 DocPrintJob dpj = impressora.createPrintJob();

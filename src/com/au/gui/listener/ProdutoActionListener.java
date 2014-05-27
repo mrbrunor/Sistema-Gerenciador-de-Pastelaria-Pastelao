@@ -198,7 +198,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
         for (int i = 0; i < frm.getTabelaIngredientes().getRowCount(); i++) {
             if (ob.getNome().equals(frm.getTabelaIngredientes().getValueAt(i, 0))) {
-                System.out.println("FUDEU");
                 return;
             }
         }
@@ -206,13 +205,11 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         ingrediente.setDescIng(ob.getNome());
         ingrediente.setIdIng(ob.getId());
         ingredientes.add(ingrediente);
-        System.out.println("Adicionou " + ingrediente.getDescIng());
         atualizaTableModelIngredientes();
     }
 
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoPesquisarProduto().getText();
-        System.out.println(pesquisa);
         tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
         frm.getTabelaProdutos().setModel(tableModelProdutos);
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);

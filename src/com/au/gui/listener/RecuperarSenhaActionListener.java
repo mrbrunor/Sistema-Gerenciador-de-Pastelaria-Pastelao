@@ -103,7 +103,6 @@ public class RecuperarSenhaActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.println(event.getActionCommand());
         switch (event.getActionCommand()) {
             case "Criar Nova Senha":
                 if(valida()){

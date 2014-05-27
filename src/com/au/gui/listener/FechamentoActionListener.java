@@ -61,9 +61,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     }
 
     public void calculaDinheiro() {
-        System.out.println("Entrou Calcula Dinheiro");
         if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            System.out.println("Entrou IF Not Null");
             double totalDinheiro = 0;
 
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
@@ -78,9 +76,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     }
 
     public void calculaCC() {
-       System.out.println("Entrou Calcula CC");
         if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            System.out.println("Entrou IF Not Null");
             double totalCredito = 0;
 
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
@@ -95,9 +91,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     }
 
     public void calculaCD() {
-       System.out.println("Entrou Calcula Debito");
         if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            System.out.println("Entrou IF Not Null");
             double totalDebito = 0;
 
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
@@ -112,9 +106,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     }
 
     public void calculaVR() {
-       System.out.println("Entrou Calcula Vale");
         if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            System.out.println("Entrou IF Not Null");
             double totalVale = 0;
 
             for (int i = 0; i < caixa.getPedidos().size(); i++) {

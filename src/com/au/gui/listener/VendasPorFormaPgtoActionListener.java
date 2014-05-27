@@ -135,7 +135,6 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         if (arquivo.exists() && JOptionPane.showConfirmDialog(this.frm, "O Arquivo já existe. Deseja mesmo substituí-lo?", "Substituir Arquivo Existente", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
             return;
         }
-        System.out.println("Salvar como arquivo: " + arquivo.getAbsolutePath());
         String localArquivo = arquivo.getAbsolutePath();
         frm.getCampoLocalParaSalvar().setText(localArquivo);
     }

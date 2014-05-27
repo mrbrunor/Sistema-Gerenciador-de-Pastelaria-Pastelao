@@ -134,7 +134,6 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     public void pesquisaIngredientes() {
         String pesquisa = frm.getCampoPesquisarIngrediente().getText();
-        System.out.println(pesquisa);
         tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).buscaIngredientes(pesquisa));
         frm.getTabelaIngredientes().setModel(tableModel);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);

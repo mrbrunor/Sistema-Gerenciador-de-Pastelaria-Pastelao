@@ -131,7 +131,6 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
 
     public void pesquisaFornecedores() {
         String pesquisa = frm.getCampoPesquisarFornecedor().getText();
-        System.out.println(pesquisa);
         tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).buscaFornecedores(pesquisa));
         frm.getTabelaFornecedores().setModel(tableModel);
         frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);

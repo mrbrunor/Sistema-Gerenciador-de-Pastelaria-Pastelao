@@ -143,7 +143,6 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     
     public void pesquisaFormaPagamento() {
         String pesquisa = frm.getCampoPesquisarFormapagamento().getText();
-        System.out.println(pesquisa);
         tableModel = new FormaPagamentoTableModel(new DAO<>(FormaPagamento.class).buscaFormasPagamento(pesquisa));
         frm.getTabelaFormasPagamento().setModel(tableModel);
         frm.getTabelaFormasPagamento().getSelectionModel().addListSelectionListener(this);

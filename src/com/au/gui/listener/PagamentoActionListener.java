@@ -65,9 +65,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         inicializaTableModel();
         frm.getCampoDesconto().requestFocus();
         frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
-        System.out.println("Qtd Pedidos= " + frm.getPedido().getItempedidos().size());
-        System.out.println(frm.getFuncionario().getNomeFunc());
-        System.out.println(frm.getIndexCaixa());
     }
 
     public void inicializaTableModel() {
@@ -151,30 +148,50 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         return str;
     }
 
-    private void geraComanda() {
+    private void geraComandaVenda() {
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(frm.getPedido().getDataPedido());
         Bematech bematech = new Bematech();
-        bematech.detectaImpressoras("MP-4000 TH");
-        if (Bematech.impressora != null){
-            
-        
-        bematech.imprime("P A S T E L A O \n\n"
-        
-                        + dataStr + "                    " + frm.getPedido().getHoraPedido() +
-                        "\n\nAGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido() +
-                        "\n\nCodigo\t\tQT\tUnit\tTotal" );
-        
+        bematech.detectaImpressoras("Caixa");
+        if (Bematech.impressora != null) {
 
-        for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
-            bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
-            bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
-        }
-        
-        bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
+            bematech.imprime("P A S T E L A O \n\n"
+                    + dataStr + "                    " + frm.getPedido().getHoraPedido()
+                    + "\n\nAGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido()
+                    + "\n\nCodigo\t\tQT\tUnit\tTotal");
+
+            for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
+                bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
+                bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
+            }
+
+            bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
+            Bematech.impressora = null;
         } else {
-            JOptionPane.showMessageDialog(frm, "Impressora MP-4000 TH não foi encontrada. Instale uma impressora padrão \r\n(Generic Text Only) e reinicie o programa.");
+            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. o Cupum não será impresso.");
+        }
+    }
+
+    private void geraComandaCozinha() {
+
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String dataStr = formatador.format(frm.getPedido().getDataPedido());
+        Bematech bematech = new Bematech();
+        bematech.detectaImpressoras("Cozinha");
+        if (Bematech.impressora != null) {
+            bematech.imprime("P A S T E L A O \n\n"
+                    + dataStr + "                    " + frm.getPedido().getHoraPedido()
+                    + "\n\nPEDIDO NUMERO:     " + frm.getPedido().getNumPedido()
+                    + "\n\nCodigo\t\tQT");
+
+            for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
+                bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd());
+            }
+            bematech.imprime("\n\n\n\n\n\n\n\n\n\n\n");
+            Bematech.impressora = null;
+        } else {
+            JOptionPane.showMessageDialog(frm, "Impressora Cozinha não foi encontrada. o Cupum não será impresso.");
         }
     }
 
@@ -282,12 +299,12 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.println(event);
         switch (event.getActionCommand()) {
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    geraComanda();
+                    geraComandaVenda();
+                    geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }

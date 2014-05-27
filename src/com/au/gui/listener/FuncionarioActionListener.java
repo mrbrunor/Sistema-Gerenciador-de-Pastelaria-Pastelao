@@ -158,7 +158,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     
     public void pesquisaFuncionarios() {
         String pesquisa = frm.getCampoPesquisarFuncionario().getText();
-        System.out.println(pesquisa);
         tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionarios(pesquisa));
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);

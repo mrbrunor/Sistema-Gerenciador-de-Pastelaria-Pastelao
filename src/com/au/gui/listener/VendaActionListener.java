@@ -79,7 +79,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         } else if (indexCaixa == null) {
             caixaFechado();
         }
-        System.out.println(indexCaixa);
         frm.getCampoAdicionarItem().requestFocus();
     }
 
@@ -178,9 +177,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             if (caixa != null) {
                 new DAO<>(Caixa.class).adiciona(caixa);//atualiza(caixa);
                 numeroPedidoVerificado = true;
-                System.out.println("O ID do caixa é: " + caixa.getIdCaixa());
                 frm.getFuncionario().getCaixas().add(caixa);
-                System.out.println("Novo caixa Criado");
                 indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
                 caixaAberto();
             } else {
@@ -203,7 +200,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             limparPedido();
         } else {
             //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
-            System.out.println("Cadastro Cancelado");
         }
 
     }
@@ -218,13 +214,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     private void verificaSeExiste(Itempedido itempedido) {
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
-            System.out.println("Entrou FOR");
             if (pedido.getItempedidos().get(i).getProduto().getIdProd() == itempedido.getProduto().getIdProd()) {
-                System.out.println("Item ja existe no pedido");
                 totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
                 if (itempedido.getQtdProd() == 0) {
                     if (pedido.getItempedidos().size() == 1) {
-                        System.out.println("Apenas 1 Item");
                         limparPedido();
                     } else {
                         pedido.getItempedidos().remove(i);
@@ -235,7 +228,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 return;
             }
         }
-        System.out.println("saiu do for");
         pedido.getItempedidos().add(itempedido);
     }
 
@@ -281,12 +273,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void removerItem() {
-        System.out.println("Chegou no Remover");
         if (pedido.getItempedidos().size() == 1) {
-            System.out.println("Apenas 1 Item");
             limparPedido();
         } else if (frm.getTabelaPedido().getSelectedRow() != -1) {
-            System.out.println("Removendo 1 Item");
             totalPedido = totalPedido - pedido.getItempedidos().get(frm.getTabelaPedido().getSelectedRow()).getTotProd();
             pedido.getItempedidos().remove(frm.getTabelaPedido().getSelectedRow());
             atualizaTotal();
@@ -307,7 +296,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         String msg = "Digite o Valor do Fundo de Caixa";
         while (caixa.getFundoCaixa() == 0) {
             String aux = JOptionPane.showInputDialog(frm, msg);
-            System.out.println(aux);
             if (aux == null) {
                 return null;
             } else if (aux.matches(padrao)) {
@@ -321,17 +309,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public boolean fecharCaixa(Integer index) {
-        //System.out.println(index);
-        //System.out.println(indexCaixa);
-        //System.out.println("ID caixa :P");
-        //System.out.println(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa());
         new TelaFechamentoCaixa(frm, true, frm.getFuncionario().getCaixas().get(index).getIdCaixa()).setVisible(true);
         if (TelaFechamentoCaixa.isFechou()) {
             JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso");
-            System.out.println("Resultado" + TelaFechamentoCaixa.isFechou());
             return true;
         }
-        System.out.println("Resultado" + TelaFechamentoCaixa.isFechou());
         return false;
     }
 
@@ -339,12 +321,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         byte x = 1;
         String dataStr = geraDataStr();
         for (int i = 0; frm.getFuncionario().getCaixas().size() > i; i++) {
-            System.out.println(frm.getFuncionario().getCaixas().get(i).getDataAberturaCaixa());
-            System.out.println(frm.getFuncionario().getCaixas().size());
-            System.out.println(dataStr);
             if (frm.getFuncionario().getCaixas().get(i).getEstaAberto() == x) {
                 if (String.valueOf(frm.getFuncionario().getCaixas().get(i).getDataAberturaCaixa()).equals(dataStr)) {
-                    System.out.println("Chegou");
                     caixaAberto();
                     return i;
                 } else {
@@ -363,14 +341,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         String dataStr = geraDataStr();
         numPedido = 1;
         if (indexCaixa != null && frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos() != null) {
-            System.out.println("index caixa...." + indexCaixa);
             for (int i = 0; frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().size() > i; i++) {
-                System.out.println("Entrou For Numero Pedido");
-                System.out.println("Numero Pedido Antes: " + numPedido);
                 if (frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido() >= numPedido) {
                     numPedido = frm.getFuncionario().getCaixas().get(indexCaixa).getPedidos().get(i).getNumPedido();
                     numPedido++;
-                    System.out.println("Numero Pedido Depois: " + numPedido);
                 }
             }
             numeroPedidoVerificado = true;
@@ -419,15 +393,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     public boolean validaPedido() {
         boolean valida = true;
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
-        System.out.println(frm.getTabelaPedido().getRowCount());
         if (frm.getTabelaPedido().getRowCount() == 0) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Adicione um item ao pedido antes!");
@@ -437,7 +402,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.println(event);
         switch (event.getActionCommand()) {
             case "Adicionar Item":
                 if (validaAddItem()) {
