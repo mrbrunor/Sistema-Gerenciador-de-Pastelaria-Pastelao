@@ -174,7 +174,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         
         bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
         } else {
-            JOptionPane.showMessageDialog(frm, "Nennhuma impressora foi encontrada. Instale uma impressora padrão \r\n(Generic Text Only) e reinicie o programa.");
+            JOptionPane.showMessageDialog(frm, "Impressora MP-4000 TH não foi encontrada. Instale uma impressora padrão \r\n(Generic Text Only) e reinicie o programa.");
         }
     }
 
