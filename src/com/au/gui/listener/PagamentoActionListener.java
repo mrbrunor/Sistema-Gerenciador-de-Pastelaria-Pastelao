@@ -158,30 +158,19 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("MP-4000 TH");
 
-        bematech.imprime("P A S T E L A O");
-        bematech.imprime("");
-        bematech.imprime(dataStr + "\t\t\t" + frm.getPedido().getHoraPedido());
-        bematech.imprime("AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido());
-        bematech.imprime("Codigo\tQT\tDescricao\tUnit\tTotal");
-        bematech.imprime("");
+        bematech.imprime("P A S T E L A O \n\n"
+        
+                        + dataStr + "\t\t\t" + frm.getPedido().getHoraPedido() +
+                        "AGUARDE PELO NUMERO:     " + frm.getPedido().getNumPedido() +
+                        "\nCodigo\tQT\tDescricao\tUnit\tTotal\n\n" );
+        
 
         for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
             bematech.imprime(frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
             bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
         }
-
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido());
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
-        bematech.imprime("");
+        
+        bematech.imprime("\n\n\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n\n");
     }
 
     public void limpaBorda() {
