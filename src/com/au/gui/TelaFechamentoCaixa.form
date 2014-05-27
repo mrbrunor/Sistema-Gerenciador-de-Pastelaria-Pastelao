@@ -32,17 +32,22 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="painelSuperior" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="painelDinheiroEmCaixa" max="32767" attributes="0"/>
-                          <Component id="painelReducoes" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="painelDinheiroEmCaixa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="painelFaturamentos" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Component id="botaoCancelarFechamentoDeCaixa" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="botaoConfirmarFechamentoDeCaixa" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="painelFaturamentos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="painelTotalCaixa" max="32767" attributes="0"/>
+                                  <Component id="painelReducoes" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -58,19 +63,18 @@
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="painelDinheiroEmCaixa" linkSize="11" min="-2" max="-2" attributes="0"/>
+                  <Component id="painelFaturamentos" linkSize="11" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="painelFaturamentos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="botaoCancelarFechamentoDeCaixa" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoConfirmarFechamentoDeCaixa" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="painelDinheiroEmCaixa" min="-2" max="-2" attributes="0"/>
+                      <Component id="painelReducoes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="painelReducoes" max="32767" attributes="0"/>
+                      <Component id="painelTotalCaixa" max="32767" attributes="0"/>
                   </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botaoConfirmarFechamentoDeCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCancelarFechamentoDeCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -143,14 +147,14 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="textoMoedaDezCentavos" linkSize="4" max="32767" attributes="0"/>
-                                      <Component id="textoMoedaCincoCentavos" linkSize="4" max="32767" attributes="0"/>
-                                      <Component id="textoMoedaVinteCintoCentavos" linkSize="4" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textoMoedaCinquentaCentavos" linkSize="4" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textoMoedaUmReal" linkSize="4" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="textoMoedaDezCentavos" linkSize="10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textoMoedaVinteCintoCentavos" linkSize="10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textoMoedaCinquentaCentavos" linkSize="10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textoMoedaUmReal" linkSize="10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textoMoedaCincoCentavos" linkSize="10" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="campoMoedaCincoCentavos" linkSize="5" alignment="0" max="32767" attributes="0"/>
                                       <Component id="campoMoedaDezCentavos" linkSize="5" alignment="0" max="32767" attributes="0"/>
@@ -163,11 +167,11 @@
                               </Group>
                               <Component id="textoMoedas" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textoCedulaCemReais" linkSize="4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="campoCedulaCemReais" linkSize="5" min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                               <Component id="textoCedulas" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -176,7 +180,7 @@
                                       <Component id="textoCedulaDoisReais" linkSize="4" alignment="0" max="32767" attributes="0"/>
                                       <Component id="textoCedulaCincoReais" linkSize="4" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="campoCedulaCincoReais" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="campoCedulaDoisReais" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
@@ -184,17 +188,17 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textoCedulaDezReais" linkSize="4" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="campoCedulaDezReais" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textoCedulaVinteReais" linkSize="4" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="campoCedulaVinteReais" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textoCedulaCinquentaReais" linkSize="4" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="campoCedulaCinquentaReais" linkSize="5" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -274,7 +278,7 @@
                   <Component id="textoDinheiroTotalEmCaixa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoValorTotalEmCaixa" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="53" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -481,7 +485,7 @@
         <Component class="javax.swing.JLabel" name="textoDinheiroTotalEmCaixa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="2"/>
+              <Font name="Tahoma" size="18" style="2"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Dinheiro Total em Caixa:"/>
@@ -490,7 +494,7 @@
         <Component class="javax.swing.JLabel" name="textoValorTotalEmCaixa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="1"/>
+              <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
@@ -535,7 +539,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="textoValoresFaturados" max="32767" attributes="0"/>
-                      <Component id="textoValorTotalFaturado" pref="606" max="32767" attributes="0"/>
+                      <Component id="textoValorTotalFaturado" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="textoCartaoDeCredito" alignment="0" max="32767" attributes="0"/>
@@ -582,7 +586,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoValorTotalFaturado" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -602,10 +606,10 @@
         <Component class="javax.swing.JLabel" name="textoDinheiro">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="0"/>
+              <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/banknotes-64.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/banknotes-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Dinheiro:"/>
           </Properties>
@@ -613,10 +617,10 @@
         <Component class="javax.swing.JLabel" name="textoCartaoDeCredito">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="0"/>
+              <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/mastercard-64.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/mastercard-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Cart&#xe3;o de Cr&#xe9;dito:"/>
           </Properties>
@@ -624,10 +628,10 @@
         <Component class="javax.swing.JLabel" name="textoCartaoDeDebito">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="0"/>
+              <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/bank_cards-64.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/bank_cards-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Cart&#xe3;o de D&#xe9;bito:"/>
           </Properties>
@@ -635,10 +639,10 @@
         <Component class="javax.swing.JLabel" name="textoValeRefeicao">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="0"/>
+              <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/au/resources/icons/barcode-64.png"/>
+              <Image iconType="3" name="/com/au/resources/icons/barcode-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Vale Refei&#xe7;&#xe3;o:"/>
           </Properties>
@@ -646,7 +650,7 @@
         <Component class="javax.swing.JLabel" name="textoValorDinheiro">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
@@ -654,7 +658,7 @@
         <Component class="javax.swing.JLabel" name="textoValorCartaoDeCredito">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
@@ -662,7 +666,7 @@
         <Component class="javax.swing.JLabel" name="textoValorCartaoDeDebito">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
@@ -670,7 +674,7 @@
         <Component class="javax.swing.JLabel" name="textoValorValeRefeicao">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
@@ -680,7 +684,7 @@
         <Component class="javax.swing.JLabel" name="textoValorTotalFaturado">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="TOTAL FATURADO: R$ 00000,00"/>
           </Properties>
@@ -739,7 +743,7 @@
                               <Component id="textoFundoDeCaixa" max="32767" attributes="0"/>
                               <Component id="textoDespesas" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="textoValorDespesas" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="textoValorFundoDeCaixa" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -764,11 +768,11 @@
                       <Component id="textoDespesas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textoValorDespesas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="textoTotalDeReducoes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoValorTotalDeReducoes" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -777,7 +781,7 @@
         <Component class="javax.swing.JLabel" name="textoFundoDeCaixa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="0"/>
+              <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Fundo de caixa:"/>
           </Properties>
@@ -785,7 +789,7 @@
         <Component class="javax.swing.JLabel" name="textoDespesas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="0"/>
+              <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Despesas:"/>
           </Properties>
@@ -793,7 +797,7 @@
         <Component class="javax.swing.JLabel" name="textoValorFundoDeCaixa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="1"/>
+              <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 000,00"/>
           </Properties>
@@ -801,7 +805,7 @@
         <Component class="javax.swing.JLabel" name="textoValorDespesas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="1"/>
+              <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
           </Properties>
@@ -809,7 +813,7 @@
         <Component class="javax.swing.JLabel" name="textoTotalDeReducoes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="2"/>
+              <Font name="Tahoma" size="18" style="2"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Total de Redu&#xe7;&#xf5;es:"/>
@@ -818,10 +822,158 @@
         <Component class="javax.swing.JLabel" name="textoValorTotalDeReducoes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="1"/>
+              <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="R$: 0000,00"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="painelTotalCaixa">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Total do Caixa">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="textototalFaturamentos" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoTotalReducoes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoTotalCaixa" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="textoSinalIgual" max="32767" attributes="0"/>
+                      <Component id="textoSinalMenos" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="textoValorTotalFaturamentos" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoValorTotalReducoes" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textototalFaturamentos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoValorTotalFaturamentos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoSinalMenos" min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoTotalReducoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoValorTotalReducoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoSinalIgual" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textoTotalCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="textoTotalReducoes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Total de Redu&#xe7;&#xf5;es:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoSinalMenos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="-"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textototalFaturamentos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="96" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Total de Faturamentos:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoSinalIgual">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="="/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoTotalCaixa">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Total do Caixa:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoValorTotalFaturamentos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="96" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="R$ 00000,00"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoValorTotalReducoes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="R$ 00000,00"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="R$ 00000,00"/>
           </Properties>
         </Component>
       </SubComponents>
