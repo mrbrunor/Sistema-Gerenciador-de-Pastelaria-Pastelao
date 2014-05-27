@@ -33,9 +33,9 @@ import java.sql.SQLException;
  * @author BrunoRicardo
  */
 public class FabricaConexao {
-    String usuario = "java";
-    String senha = "123456";
-    String url = "jdbc:mysql://localhost:3306/SistemaPastelao";
+    String usuario = "root";
+    String senha = "27639932xD";
+    String url = "jdbc:mysql://sistemapastelao.no-ip.biz:3306/sistemapastelao";
     Connection ready = null;
     
     public Connection getConexao(){

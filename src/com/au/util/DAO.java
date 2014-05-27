@@ -97,6 +97,7 @@ public class DAO<T> {
         for (Funcionario funcionario1 : funcionarios) {
             funcionario = funcionario1;
         }
+        em.close();
         return funcionario;
     }
 
@@ -106,7 +107,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Produto p where p.descProd like '%" + pesquisa + "%'  or p.idProd like '" + pesquisa + "'");
 
         List<Produto> produtos = q.getResultList();
-
+        em.close();
         return produtos;
     }
     
@@ -116,7 +117,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Fornecedor f where f.nomeForn like '%" + pesquisa + "%'");
 
         List<Fornecedor> fornecedores = q.getResultList();
-
+        em.close();
         return fornecedores;
     }
     
@@ -126,7 +127,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Funcionario f where f.nomeFunc like '%" + pesquisa + "%'");
 
         List<Funcionario> funcionarios = q.getResultList();
-
+        em.close();
         return funcionarios;
     }
     
@@ -136,7 +137,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Ingrediente i where i.descIng like '%" + pesquisa + "%'");
 
         List<Ingrediente> ingredientes = q.getResultList();
-
+        em.close();
         return ingredientes;
     }
     
@@ -146,7 +147,7 @@ public class DAO<T> {
         Query q = em.createQuery("from FormaPagamento fp where fp.nomeFormaPgto like '%" + pesquisa + "%'");
 
         List<FormaPagamento> formaPagamentos = q.getResultList();
-
+        em.close();
         return formaPagamentos;
     }
     
@@ -156,7 +157,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Funcionario f where f.userFunc like '" + funcionario.getUserFunc() + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
+        em.close();
         return funcionarios == null || funcionarios.isEmpty();
     }
     
@@ -166,7 +167,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Funcionario f where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
+        em.close();
         return funcionarios == null || funcionarios.isEmpty();
     }    
     
@@ -186,7 +187,8 @@ public class DAO<T> {
         
         funcionarioNovo.setPassFunc(funcionario.getPassFunc());
         System.out.println("");
-        new DAO<>(Funcionario.class).atualiza(funcionarioNovo);  
+        new DAO<>(Funcionario.class).atualiza(funcionarioNovo); 
+        em.close();
     }    
     
     public boolean validaProduto(Produto produto) {
@@ -195,7 +197,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Produto p where p.descProd like '" + produto.getDescProd() + "'");
 
         List<Produto> produtos = q.getResultList();
-
+        em.close();
         return produtos == null || produtos.isEmpty();
     }
     
@@ -205,7 +207,7 @@ public class DAO<T> {
         Query q = em.createQuery("from Ingrediente i where i.descIng like '" + ingrediente.getDescIng() + "'");
 
         List<Ingrediente> ingredientes = q.getResultList();
-
+        em.close();
         return ingredientes == null || ingredientes.isEmpty();
     }
 }
