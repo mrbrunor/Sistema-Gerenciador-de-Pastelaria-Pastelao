@@ -32,6 +32,7 @@ import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -445,6 +446,38 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JMenu getMenuAjuda() {
+        return MenuAjuda;
+    }
+
+    public void setMenuAjuda(JMenu MenuAjuda) {
+        this.MenuAjuda = MenuAjuda;
+    }
+
+    public JMenu getMenuRelatorio() {
+        return MenuRelatorio;
+    }
+
+    public void setMenuRelatorio(JMenu MenuRelatorio) {
+        this.MenuRelatorio = MenuRelatorio;
+    }
+
+    public JMenu getMenuCadastros() {
+        return menuCadastros;
+    }
+
+    public void setMenuCadastros(JMenu menuCadastros) {
+        this.menuCadastros = menuCadastros;
+    }
+
+    public JMenu getMenuPrincipal() {
+        return menuPrincipal;
+    }
+
+    public void setMenuPrincipal(JMenu menuPrincipal) {
+        this.menuPrincipal = menuPrincipal;
+    }
 
     public JMenuItem getItemMenuFormaPagamento() {
         return itemMenuFormaPagamento;

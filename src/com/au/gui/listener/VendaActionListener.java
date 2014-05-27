@@ -75,6 +75,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getCampoAdicionarItem().requestFocus();
         indexCaixa = verificaCaixa();
         if (frm.getFuncionario().getNivelFunc() == 0) {
+            frm.getMenuCadastros().setEnabled(false);
+            frm.getMenuRelatorio().setEnabled(false);
             abrirCaixa();
         } else if (indexCaixa == null) {
             caixaFechado();
