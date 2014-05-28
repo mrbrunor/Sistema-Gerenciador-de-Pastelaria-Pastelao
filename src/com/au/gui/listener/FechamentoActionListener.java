@@ -23,15 +23,21 @@
  */
 package com.au.gui.listener;
 
+import com.au.dao.DespesaDao;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.modelo.Caixa;
+import com.au.modelo.Despesa;
+import com.au.util.Bematech;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,7 +58,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
 
     public void inicializaCampos() {
         frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
-        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f",(caixa.getTotalCaixa())));
+        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
         calculaReducoes();
         calculaDinheiro();
         calculaCC();
@@ -122,15 +128,22 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
 
     public void calculaReducoes() {
         double totalDesp = 0;
-        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
-            for (int i = 0; i < caixa.getDespesas().size(); i++) {
-                totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
+        List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
+        System.out.println(despesas.size());
+        if (despesas != null && !despesas.isEmpty()) {
+            for (int i = 0; i < despesas.size(); i++) {
+                totalDesp = totalDesp + despesas.get(i).getValorDesp();
             }
             frm.getTextoValorTotalRetiradas().setText(String.format("R$: %.2f", totalDesp));
         } else {
             frm.getTextoValorTotalRetiradas().setText("R$: 0,00");
         }
-        frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f",(caixa.getFundoCaixa() + totalDesp)));
+        frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f", totalDesp));
+
+        frm.getTextoValorRetiradas().setText(String.format("R$: %.2f", totalDesp));
+        frm.getTextoValorFaturamentos().setText(String.format("R$: %.2f", caixa.getTotalCaixa()));
+        frm.getTextoValorTotalCaixa().setText(String.format("R$: %.2f", caixa.getTotalCaixa() - totalDesp));
+
     }
 
     public void adicionaListener() {
@@ -151,52 +164,62 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
 
     public void calculaDinheiroEmCaixa() {
         dinheiroCaixa = 0;
-        
+
         if (!"".equals(frm.getCampoMoedaCincoCentavos().getText())) {
-            dinheiroCaixa += Integer.valueOf((frm.getCampoMoedaCincoCentavos().getText()))*0.05;
+            dinheiroCaixa += Integer.valueOf((frm.getCampoMoedaCincoCentavos().getText())) * 0.05;
         }
         if (!"".equals(frm.getCampoMoedaCinquentaCentavos().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaCinquentaCentavos().getText())) *0.5;
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaCinquentaCentavos().getText())) * 0.5;
         }
         if (!"".equals(frm.getCampoMoedaDezCentavos().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaDezCentavos().getText()))*0.1;
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaDezCentavos().getText())) * 0.1;
         }
         if (!"".equals(frm.getCampoMoedaUmReal().getText())) {
             dinheiroCaixa += Double.valueOf((frm.getCampoMoedaUmReal().getText()));
         }
         if (!"".equals(frm.getCampoMoedaVinteCincoCentavos().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaVinteCincoCentavos().getText()))*.25;
+            dinheiroCaixa += Double.valueOf((frm.getCampoMoedaVinteCincoCentavos().getText())) * .25;
         }
         if (!"".equals(frm.getCampoCedulaCemReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCemReais().getText()))*100;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCemReais().getText())) * 100;
         }
         if (!"".equals(frm.getCampoCedulaCincoReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCincoReais().getText()))*5;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCincoReais().getText())) * 5;
         }
         if (!"".equals(frm.getCampoCedulaCinquentaReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCinquentaReais().getText()))*50;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaCinquentaReais().getText())) * 50;
         }
         if (!"".equals(frm.getCampoCedulaDezReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDezReais().getText()))*10;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDezReais().getText())) * 10;
         }
         if (!"".equals(frm.getCampoCedulaDoisReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDoisReais().getText()))*2;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaDoisReais().getText())) * 2;
         }
         if (!"".equals(frm.getCampoCedulaVinteReais().getText())) {
-            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaVinteReais().getText()))*20;
+            dinheiroCaixa += Double.valueOf((frm.getCampoCedulaVinteReais().getText())) * 20;
         }
-        
+
         frm.getTextoValorTotalEmCaixa().setText(String.format("R$: %.2f", dinheiroCaixa));
     }
-    
-    public void fecharCaixa(){
-        
+
+    public void fecharCaixa() {
+
         Date data = new Date();
         caixa.setDataFechamentoCaixa(data);
         caixa.setFechamentoCaixa(new Time(data.getTime()));
-        caixa.setEstaAberto((byte)0);
+        caixa.setEstaAberto((byte) 0);
         new DAO<>(Caixa.class).atualiza(caixa);
         TelaFechamentoCaixa.setFechou(true);
+
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
+        Bematech bematech = new Bematech();
+        bematech.detectaImpressoras("Caixa");
+        if (Bematech.impressora != null) {
+            bematech.imprime("Dados do Fechamento Aqui :D");
+        } else {
+            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.");
+        }
     }
 
     @Override
@@ -214,12 +237,12 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
     }
 
     @Override

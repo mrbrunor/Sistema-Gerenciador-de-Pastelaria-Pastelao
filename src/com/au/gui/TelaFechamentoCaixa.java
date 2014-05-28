@@ -855,6 +855,32 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         this.campoMoedaVinteCincoCentavos = campoMoedaVinteCincoCentavos;
     }
 
+    public JLabel getTextoValorFaturamentos() {
+        return textoValorFaturamentos;
+    }
+
+    public void setTextoValorFaturamentos(JLabel textoValorFaturamentos) {
+        this.textoValorFaturamentos = textoValorFaturamentos;
+    }
+
+    public JLabel getTextoValorRetiradas() {
+        return textoValorRetiradas;
+    }
+
+    public void setTextoValorRetiradas(JLabel textoValorRetiradas) {
+        this.textoValorRetiradas = textoValorRetiradas;
+    }
+
+    public JLabel getTextoValorTotalCaixa() {
+        return textoValorTotalCaixa;
+    }
+
+    public void setTextoValorTotalCaixa(JLabel textoValorTotalCaixa) {
+        this.textoValorTotalCaixa = textoValorTotalCaixa;
+    }
+
+    
+    
     /**
      * @param args the command line arguments
      */

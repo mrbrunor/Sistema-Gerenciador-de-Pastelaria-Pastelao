@@ -25,8 +25,9 @@
 package com.au.dao;
 
 import com.au.bd.FabricaConexao;
-import com.au.bean.Despesa;
+import com.au.modelo.Despesa;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,10 +69,9 @@ public class DespesaDao {
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setDate(1, novaDesp.getDataDesp());
+            stmt.setDate(1, (Date) novaDesp.getDataDesp());
             stmt.setString(2, novaDesp.getDescDesp());
             stmt.setDouble(3, novaDesp.getValorDesp());
-            stmt.setInt(4, novaDesp.getIdCaixa());
             stmt.setInt(5, novaDesp.getRetirada());
             
             stmt.execute();
@@ -85,14 +85,15 @@ public class DespesaDao {
     }
 
     //READ
-    public List<Despesa> getLista() {
-        String sql = "SELECT * FROM Despesa";
+    public List<Despesa> getLista(int idCaixa) {
+        String sql = "SELECT * FROM Despesa where idCaixa = ?";
         PreparedStatement stmt;
         ResultSet res;
         List<Despesa> listaResDesp = new ArrayList<>();
 
         try {
             stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idCaixa);
             res = stmt.executeQuery();
             while (res.next()) {
                 Despesa despesa = new Despesa();
@@ -100,8 +101,7 @@ public class DespesaDao {
                 despesa.setDataDesp(res.getDate("dataDesp"));
                 despesa.setDescDesp(res.getString("descDesp"));
                 despesa.setValorDesp(res.getDouble("valorDesp"));
-                despesa.setIdCaixa(res.getInt("idCaixa"));
-                despesa.setRetirada(res.getInt("retirada"));
+                despesa.setRetirada(res.getByte("retirada"));
                 listaResDesp.add(despesa);
             }
         } catch (SQLException ex) {
@@ -118,10 +118,9 @@ public class DespesaDao {
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setDate(1, novaDespesa.getDataDesp());
+            stmt.setDate(1, (Date) novaDespesa.getDataDesp());
             stmt.setString(2, novaDespesa.getDescDesp());
             stmt.setDouble(3, novaDespesa.getValorDesp());
-            stmt.setInt(4, novaDespesa.getIdCaixa());
             stmt.setInt(5, novaDespesa.getRetirada());
             stmt.setInt(6, novaDespesa.getIdDesp());
 

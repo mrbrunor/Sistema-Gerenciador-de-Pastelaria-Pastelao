@@ -250,6 +250,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.getCampoDesconto().setText("0");
             atualizaTotal();
+        } 
+        else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getPedido().getTotPedido()){
+            JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.");
+            frm.getCampoDesconto().setText("");
+            atualizaTotal();
         }
 
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
