@@ -169,7 +169,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
             Bematech.impressora = null;
         } else {
-            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. o Cupum não será impresso.");
+            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. o cupom não será impresso.");
         }
     }
 
@@ -191,7 +191,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             bematech.imprime("\n\n\n\n\n\n\n\n\n\n\n");
             Bematech.impressora = null;
         } else {
-            JOptionPane.showMessageDialog(frm, "Impressora Cozinha não foi encontrada. o Cupum não será impresso.");
+            JOptionPane.showMessageDialog(frm, "Impressora Cozinha não foi encontrada. o cupom não será impresso.");
         }
     }
 

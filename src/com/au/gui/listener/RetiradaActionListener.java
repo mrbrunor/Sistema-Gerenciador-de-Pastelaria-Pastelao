@@ -84,9 +84,9 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
         }
         
         if(!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 10){
-            frm.getCampoValor().setBorder(normal);
+            frm.getCampoMotivo().setBorder(normal);
         } else {
-            frm.getCampoValor().setBorder(vermelha);
+            frm.getCampoMotivo().setBorder(vermelha);
             valida = false;
         }
         
