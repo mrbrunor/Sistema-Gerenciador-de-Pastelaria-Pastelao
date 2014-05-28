@@ -118,9 +118,6 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
         itemMenuVendasFiltradasIngredientes = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
-        itemMenuAjuda = new javax.swing.JMenuItem();
-        itemMenuTeclasAtalho = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         itemMenuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -404,13 +401,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
         MenuAjuda.setText("Ajuda");
 
-        itemMenuAjuda.setText("Ajuda");
-        MenuAjuda.add(itemMenuAjuda);
-
-        itemMenuTeclasAtalho.setText("Teclas de Atalho");
-        MenuAjuda.add(itemMenuTeclasAtalho);
-        MenuAjuda.add(jSeparator2);
-
         itemMenuSobre.setText("Sobre");
         MenuAjuda.add(itemMenuSobre);
 
@@ -505,13 +495,6 @@ public class TelaVenda extends javax.swing.JFrame {
         this.itemMenuAbrirCaixa = itemMenuAbrirCaixa;
     }
 
-    public JMenuItem getItemMenuAjuda() {
-        return itemMenuAjuda;
-    }
-
-    public void setItemMenuAjuda(JMenuItem itemMenuAjuda) {
-        this.itemMenuAjuda = itemMenuAjuda;
-    }
 
     public JMenuItem getItemMenuDeslogar() {
         return itemMenuDeslogar;
@@ -583,14 +566,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
     public void setItemMenuSobre(JMenuItem itemMenuSobre) {
         this.itemMenuSobre = itemMenuSobre;
-    }
-
-    public JMenuItem getItemMenuTeclasAtalho() {
-        return itemMenuTeclasAtalho;
-    }
-
-    public void setItemMenuTeclasAtalho(JMenuItem itemMenuTeclasAtalho) {
-        this.itemMenuTeclasAtalho = itemMenuTeclasAtalho;
     }
 
     public JMenuItem getItemMenuTrocarSenha() {
@@ -801,7 +776,6 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JTextField campoAdicionarItem;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JMenuItem itemMenuAbrirCaixa;
-    private javax.swing.JMenuItem itemMenuAjuda;
     private javax.swing.JMenuItem itemMenuDeslogar;
     private javax.swing.JMenuItem itemMenuFecharCaixa;
     private javax.swing.JMenuItem itemMenuFormaPagamento;
@@ -812,13 +786,11 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JMenuItem itemMenuSobre;
-    private javax.swing.JMenuItem itemMenuTeclasAtalho;
     private javax.swing.JMenuItem itemMenuTrocarSenha;
     private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
     private javax.swing.JMenuItem itemMenuVendasFiltradasIngredientes;
     private javax.swing.JMenuItem itemMenuVendasGerais;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPrincipal;
     private javax.swing.JPanel painelBusca;

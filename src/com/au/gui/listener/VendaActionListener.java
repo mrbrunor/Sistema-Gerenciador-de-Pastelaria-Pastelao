@@ -32,6 +32,7 @@ import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaRetirada;
+import com.au.gui.TelaSobre;
 import com.au.gui.TelaVenda;
 import com.au.gui.TelaVendasGerais;
 import com.au.gui.TelaVendasPorFormaPgto;
@@ -115,7 +116,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoCaixa().addActionListener(this);
         frm.getBotaoFecharPedido().addActionListener(this);
         frm.getItemMenuAbrirCaixa().addActionListener(this);
-        frm.getItemMenuAjuda().addActionListener(this);
         frm.getItemMenuDeslogar().addActionListener(this);
         frm.getItemMenuFecharCaixa().addActionListener(this);
         frm.getItemMenuFornecedores().addActionListener(this);
@@ -125,7 +125,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuRetiradaDeCaixa().addActionListener(this);
         frm.getItemMenuSair().addActionListener(this);
         frm.getItemMenuSobre().addActionListener(this);
-        frm.getItemMenuTeclasAtalho().addActionListener(this);
         frm.getItemMenuTrocarSenha().addActionListener(this);
         frm.getItemMenuVendasPorPeriodo().addActionListener(this);
         frm.getItemMenuFormaPagamento().addActionListener(this);
@@ -466,6 +465,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Vendas por Ingredientes":
                 new TelaVendasPorIngrediente(frm, true).setVisible(true);
+                break;
+            case "Sobre":
+                new TelaSobre(frm, true).setVisible(true);
                 break;
             case "Sair":
                 System.exit(1);

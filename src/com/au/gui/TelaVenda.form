@@ -102,18 +102,6 @@
             <Property name="text" type="java.lang.String" value="Ajuda"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuAjuda">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ajuda"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuTeclasAtalho">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Teclas de Atalho"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuSobre">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sobre"/>
