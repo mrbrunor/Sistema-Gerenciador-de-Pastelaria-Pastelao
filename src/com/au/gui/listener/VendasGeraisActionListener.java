@@ -27,6 +27,7 @@ import com.au.bd.FabricaConexao;
 import com.au.gui.TelaVendasGerais;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -57,15 +60,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class VendasGeraisActionListener implements ActionListener, ListSelectionListener {
 
     private final TelaVendasGerais frm;
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
 
     /**
      * Construtor Default do Listener, o qual recebe o objeto do tipo
- TelaVendasGerais
+     * TelaVendasGerais
      *
      * @param frm Parâmetro recebido
      */
     public VendasGeraisActionListener(TelaVendasGerais frm) {
         this.frm = frm;
+        normal = frm.getCampoLocalParaSalvar().getBorder();
+        frm.getCampoDataInicio().setBorder(normal);
+        frm.getCampoDataTermino().setBorder(normal);
         adicionaListener();
     }
 
@@ -78,9 +86,30 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
         frm.getBotaoCancelarGeracaoDeRelatorio().addActionListener(this);
     }
 
-    private boolean valida() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return true;
+    public boolean valida() {
+        boolean valida = true;
+
+        if (frm.getCampoDataInicio().getDate() != null) {
+            frm.getCampoDataInicio().setBorder(normal);
+        } else {
+            frm.getCampoDataInicio().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCampoDataTermino().getDate() != null) {
+            frm.getCampoDataTermino().setBorder(normal);
+        } else {
+            frm.getCampoDataTermino().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (!"".equals(frm.getCampoLocalParaSalvar().getText())) {
+            frm.getCampoLocalParaSalvar().setBorder(normal);
+        } else {
+            valida = false;
+            frm.getCampoLocalParaSalvar().setBorder(vermelha);
+        }
+        return valida;
     }
 
     private void procuraLocal() {
@@ -101,7 +130,7 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
 
     private void geraRelatorio() throws ParseException {
         String nome = "reports\\vendas_gerais.jasper";
-        
+
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
@@ -148,20 +177,19 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Procurar":
-                if (valida()) {
-                    procuraLocal();
-                }
+                procuraLocal();
                 break;
             case "Gerar Relatório":
                 if (valida()) {
+                    JOptionPane.showMessageDialog(frm, "A geração de Relatórios pode demorar alguns minutos. \n Aguarde a mensagem de confirmação.");
                     try {
                         geraRelatorio();
                     } catch (ParseException ex) {
                         Logger.getLogger(VendasGeraisActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
+                    frm.dispose();
                 }
-                frm.dispose();
                 break;
             case "Cancelar Geração de Relatório":
                 frm.dispose();

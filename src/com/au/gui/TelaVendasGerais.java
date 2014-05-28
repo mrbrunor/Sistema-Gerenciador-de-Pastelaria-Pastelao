@@ -114,6 +114,10 @@ public class TelaVendasGerais extends javax.swing.JDialog {
 
         textoDataTermino.setText("Data de Término:");
 
+        campoDataInicio.setDateFormatString("dd-MM-yyyy");
+
+        campoDataTermino.setDateFormatString("dd-MM-yyyy");
+
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 

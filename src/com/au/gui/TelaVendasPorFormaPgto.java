@@ -139,7 +139,11 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
         textoDataInicio.setText("Data de Início:");
 
+        campoDataInicio.setDateFormatString("dd-MM-yyyy");
+
         textoDataTermino.setText("Data de Término:");
+
+        campoDataTermino.setDateFormatString("dd-MM-yyyy");
 
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");

@@ -89,7 +89,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void atualizaTableModelVenda() {
-        //if (!pedido.getItempedidos().isEmpty()) {
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);

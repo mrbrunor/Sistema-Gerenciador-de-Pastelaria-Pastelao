@@ -122,6 +122,10 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
 
         textoDataTermino.setText("Data de Término:");
 
+        campoDataInicio.setDateFormatString("dd-MM-yyyy");
+
+        campoDataTermino.setDateFormatString("dd-MM-yyyy");
+
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 
@@ -143,20 +147,17 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarLocal))
                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataTermino)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoingrediente)
-                                .addGap(18, 18, 18)
-                                .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, 0)))
+                        .addComponent(textoDataInicio)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(textoDataTermino)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(textoingrediente)
+                        .addGap(18, 18, 18)
+                        .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 

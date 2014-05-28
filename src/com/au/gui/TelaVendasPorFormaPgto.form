@@ -256,6 +256,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="campoDataInicio">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoDataTermino">
           <Properties>
@@ -263,6 +266,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="campoDataTermino">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoEscolhaOLocal">
           <Properties>

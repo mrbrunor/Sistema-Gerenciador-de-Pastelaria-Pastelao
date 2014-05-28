@@ -24,18 +24,13 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaCadastrarFormasDePagamento;
-import com.au.gui.tmodel.FuncionarioTableModel;
-import com.au.gui.TelaCadastrarFuncionario;
 import com.au.gui.tmodel.FormaPagamentoTableModel;
 import com.au.modelo.FormaPagamento;
-import com.au.modelo.Funcionario;
 import com.au.util.DAO;
-import com.au.util.HexSha;
-import com.au.util.ValidaEmail;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -69,12 +64,21 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
         habilitaBotoesParaSalvar();
     }
 
-    public void inicializaTableModel() {
-        tableModel = new FormaPagamentoTableModel(new DAO<>(FormaPagamento.class).listaTodos());
+    public void atualizaTableModel(List<FormaPagamento> formasPagamento) {
+        if (formasPagamento != null && formasPagamento.isEmpty()) {
+            FormaPagamento formaPagamento = new FormaPagamento();
+            formaPagamento.setNomeFormaPgto("Nenhum Registro Encontrado");
+            formasPagamento.add(formaPagamento);
+        }
+        tableModel = new FormaPagamentoTableModel(formasPagamento);
         frm.getTabelaFormasPagamento().setModel(tableModel);
         frm.getTabelaFormasPagamento().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFormasPagamento().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaFormasPagamento().getColumnModel().getColumn(2).setMaxWidth(110);
+    }
+
+    public void inicializaTableModel() {
+        atualizaTableModel(new DAO<>(FormaPagamento.class).listaTodos());
     }
 
     public void adicionaListener() {
@@ -102,16 +106,13 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     }
 
     private void cadastrarFormaPagamento() {
-        
+
         FormaPagamento formaPagamento = formToFormaPagamento();
-        
-        
-        
+
 //        if(!new DAO<>(FormaPagamento.class).validaNomeTipo(formaPagamento)){
 //            JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!");
 //            return;
 //        }
-        
         new DAO<>(FormaPagamento.class).adiciona(formaPagamento);
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Forma de Pagamento", JOptionPane.INFORMATION_MESSAGE);
@@ -140,16 +141,13 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
 
         inicializaTableModel();
     }
-    
+
     public void pesquisaFormaPagamento() {
         String pesquisa = frm.getCampoPesquisarFormapagamento().getText();
-        tableModel = new FormaPagamentoTableModel(new DAO<>(FormaPagamento.class).buscaFormasPagamento(pesquisa));
-        frm.getTabelaFormasPagamento().setModel(tableModel);
-        frm.getTabelaFormasPagamento().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaFormasPagamento().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaFormasPagamento().getColumnModel().getColumn(2).setMaxWidth(110);
+        limpaCampos();
+        atualizaTableModel(new DAO<>(FormaPagamento.class).buscaFormasPagamento(pesquisa));
     }
-    
+
     private FormaPagamento formToFormaPagamento() {
         FormaPagamento formaPagamento = new FormaPagamento();
         if (!"".equals(frm.getCampoId().getText())) {
@@ -176,7 +174,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
             frm.getCaixaTipo().setSelectedIndex(2);
         } else if (formaPagamento.getTipoFormaPgto().equals("Credito")) {
             frm.getCaixaTipo().setSelectedIndex(3);
-        }else {
+        } else {
             frm.getCaixaTipo().setSelectedIndex(4);
         }
         if ((byte) 0 == formaPagamento.getEstaAtivo()) {
@@ -250,7 +248,9 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     ) {
         if (frm.getTabelaFormasPagamento().getSelectedRow() != -1) {
             FormaPagamento formaPagamento = tableModel.getFormasPagamento().get(frm.getTabelaFormasPagamento().getSelectedRow());
-            formaPagamentoToForm(formaPagamento);
+            if (formaPagamento.getIdFormaPgto() != 0) {
+                formaPagamentoToForm(formaPagamento);
+            }
         }
 
     }

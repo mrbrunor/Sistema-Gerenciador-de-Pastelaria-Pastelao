@@ -29,6 +29,7 @@ import com.au.modelo.Produto;
 import com.au.util.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -48,24 +49,26 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     }
 
     public void inicializaTableModel() {
-        atualizaTableModelPesquisa();
+        atualizaTableModelPesquisa(new DAO<>(Produto.class).listaTodos());
+    }
+    
+    public void atualizaTableModelPesquisa(List<Produto> produtos) {
+        if(produtos != null && produtos.isEmpty()){
+            Produto produto = new Produto();
+            produto.setDescProd("Nenhum Registro Encontrado");
+            produtos.add(produto);
+        }
+        tableModelPesquisa = new ProdutoTableModel(produtos);
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
-    }
-    
-    public void atualizaTableModelPesquisa() {
-        tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).listaTodos());
     }
 
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoBusca().getText();
-        tableModelPesquisa = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
-        frm.getTabelaBusca().setModel(tableModelPesquisa);
-        frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
+        frm.getCampoBusca().setText("");
+        atualizaTableModelPesquisa(new DAO<>(Produto.class).buscaProdutos(pesquisa));
     }
 
     public void vendaToForm(Produto produto) {

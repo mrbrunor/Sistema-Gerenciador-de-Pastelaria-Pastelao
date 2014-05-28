@@ -167,7 +167,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         textoDtNasc.setText("Data de Nascimento:");
 
-        campoDtNasc.setDateFormatString("yyyy-MM-dd");
+        campoDtNasc.setDateFormatString("dd-MM-yyyy");
 
         textoSexo.setText("Sexo:");
 
@@ -199,7 +199,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         textoSalario.setText("Salário:");
 
-        campoDtAdm.setDateFormatString("yyyy-MM-dd");
+        campoDtAdm.setDateFormatString("dd-MM-yyyy");
 
         textoDtAdm.setText("Data de Admissão:");
 

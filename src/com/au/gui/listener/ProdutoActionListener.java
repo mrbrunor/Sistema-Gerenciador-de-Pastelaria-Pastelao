@@ -101,16 +101,21 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     public void inicializaTableModel() {
-        atualizaTableModelProdutos();
+        atualizaTableModelProdutos(new DAO<>(Produto.class).listaTodos());
+        atualizaTableModelIngredientes();
+    }
+
+    public void atualizaTableModelProdutos(List<Produto> produtos) {
+        if (produtos != null && produtos.isEmpty()) {
+            Produto produto = new Produto();
+            produto.setDescProd("Nenhum Registro Encontrado");
+            produtos.add(produto);
+        }
+        tableModelProdutos = new ProdutoTableModel(produtos);
         frm.getTabelaProdutos().setModel(tableModelProdutos);
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
-        atualizaTableModelIngredientes();
-    }
-
-    public void atualizaTableModelProdutos() {
-        tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).listaTodos());
     }
 
     public void atualizaTableModelIngredientes() {
@@ -210,12 +215,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoPesquisarProduto().getText();
-        tableModelProdutos = new ProdutoTableModel(new DAO<>(Produto.class).buscaProdutos(pesquisa));
-        frm.getTabelaProdutos().setModel(tableModelProdutos);
-        frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaProdutos().getColumnModel().getColumn(2).setMaxWidth(75);
-
+        atualizaTableModelProdutos(new DAO<>(Produto.class).buscaProdutos(pesquisa));
     }
 
     private Produto formToProduto() {
@@ -337,22 +337,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             valida = false;
         }
 
-//        if (frm.getRadioInd().isSelected()) {
-//            if (!"".equals(frm.getCampoQtd().getText()) && frm.getCampoQtd().getText().length() > 0) {
-//                frm.getCampoQtd().setBorder(normal);
-//            } else {
-//                frm.getCampoQtd().setBorder(vermelha);
-//                valida = false;
-//            }
-//
-//            if (!"".equals(frm.getCampoBarras().getText()) && frm.getCampoBarras().getText().length() > 4) {
-//                frm.getCampoBarras().setBorder(normal);
-//            } else {
-//                frm.getCampoBarras().setBorder(vermelha);
-//                valida = false;
-//            }
-//        }
-
         if (frm.getRadioPrep().isSelected()) {
             if (frm.getTabelaIngredientes().getRowCount() > 0) {
                 frm.getTextoErroIngrediente().setVisible(false);
@@ -414,7 +398,9 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaProdutos().getSelectedRow() != -1) {
             Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
-            produtoToForm(produto);
+            if(produto.getIdProd() != 0){
+                produtoToForm(produto);
+            }
         }
     }
 }

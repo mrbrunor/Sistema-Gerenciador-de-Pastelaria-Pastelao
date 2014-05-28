@@ -23,13 +23,14 @@
  */
 package com.au.gui.listener;
 
-import com.au.gui.tmodel.IngredienteTableModel;
 import com.au.gui.TelaCadastrarIngrediente;
+import com.au.gui.tmodel.IngredienteTableModel;
 import com.au.modelo.Ingrediente;
 import com.au.util.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -61,12 +62,21 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         habilitaBotoesParaSalvar();
     }
 
-    public void inicializaTableModel() {
-        tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).listaTodos());
+    public void atualizaTableModel(List<Ingrediente> ingredientes) {
+        if (ingredientes != null && ingredientes.isEmpty()) {
+            Ingrediente ingrediente = new Ingrediente();
+            ingrediente.setDescIng("Nenhum Registro Encontrado");
+            ingredientes.add(ingrediente);
+        }
+        tableModel = new IngredienteTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModel);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaIngredientes().getColumnModel().getColumn(2).setMaxWidth(75);
+    }
+
+    public void inicializaTableModel() {
+        atualizaTableModel(new DAO<>(Ingrediente.class).listaTodos());
     }
 
     public void adicionaListener() {
@@ -93,14 +103,14 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
     }
 
     private void cadastrarIngrediente() {
-        
+
         Ingrediente ingrediente = formToIngrediente();
-        
-        if(!new DAO<>(Ingrediente.class).validaIngrediente(ingrediente)){
+
+        if (!new DAO<>(Ingrediente.class).validaIngrediente(ingrediente)) {
             JOptionPane.showMessageDialog(frm, "Ingrediente ja cadastrado!");
             return;
         }
-        
+
         new DAO<>(Ingrediente.class).adiciona(ingrediente);
 
         JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
@@ -134,11 +144,8 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     public void pesquisaIngredientes() {
         String pesquisa = frm.getCampoPesquisarIngrediente().getText();
-        tableModel = new IngredienteTableModel(new DAO<>(Ingrediente.class).buscaIngredientes(pesquisa));
-        frm.getTabelaIngredientes().setModel(tableModel);
-        frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaIngredientes().getColumnModel().getColumn(2).setMaxWidth(75);
+        limpaCampos();
+        atualizaTableModel(new DAO<>(Ingrediente.class).buscaIngredientes(pesquisa));
     }
 
     private Ingrediente formToIngrediente() {
@@ -214,7 +221,9 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaIngredientes().getSelectedRow() != -1) {
             Ingrediente ingrediente = tableModel.getIngredientes().get(frm.getTabelaIngredientes().getSelectedRow());
-            ingredienteToForm(ingrediente);
+            if (ingrediente.getIdIng() != 0) {
+                ingredienteToForm(ingrediente);
+            }
         }
     }
 }

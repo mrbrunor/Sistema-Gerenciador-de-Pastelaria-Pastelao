@@ -72,6 +72,8 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     public VendasPorFormaPgtoActionListener(TelaVendasPorFormaPgto frm) {
         this.frm = frm;
         normal = frm.getCampoLocalParaSalvar().getBorder();
+        frm.getCampoDataInicio().setBorder(normal);
+        frm.getCampoDataTermino().setBorder(normal);
         adicionaListener();
     }
 
@@ -89,6 +91,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     public void habilitaDinheiro() {
+        limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -98,6 +101,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     public void habilitaCC() {
+        limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -107,6 +111,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     public void habilitaCD() {
+        limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
@@ -116,6 +121,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     public void habilitaVR() {
+        limpaBorda();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -136,6 +142,20 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
 
     public boolean valida() {
         boolean valida = true;
+
+        if (frm.getCampoDataInicio().getDate() != null) {
+            frm.getCampoDataInicio().setBorder(normal);
+        } else {
+            frm.getCampoDataInicio().setBorder(vermelha);
+            valida = false;
+        }
+
+        if (frm.getCampoDataTermino().getDate() != null) {
+            frm.getCampoDataTermino().setBorder(normal);
+        } else {
+            frm.getCampoDataTermino().setBorder(vermelha);
+            valida = false;
+        }
 
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoRadioCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
             limpaBorda();
@@ -174,6 +194,13 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         } else {
             frm.getCaixaSelecaoVR().setBorder(normal);
         }
+
+        if (!"".equals(frm.getCampoLocalParaSalvar().getText())) {
+            frm.getCampoLocalParaSalvar().setBorder(normal);
+        } else {
+            valida = false;
+            frm.getCampoLocalParaSalvar().setBorder(vermelha);
+        }
         return valida;
     }
 
@@ -194,7 +221,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     private void geraRelatorio() throws ParseException {
-        String nome = "src\\com\\au\\resources\\reports\\vendas_por_pagamento.jasper";
+        String nome = "reports\\vendas_por_pagamento.jasper";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
@@ -272,21 +299,20 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
                 habilitaVR();
                 break;
             case "Procurar":
-                if (valida()) {
-                    procuraLocal();
-                }
+                procuraLocal();
                 break;
             case "Gerar Relatório":
-                JOptionPane.showMessageDialog(frm, "A geração de Relatórios pode demorar alguns minutos. \n Aguarde a mensagem de confirmação.");
                 if (valida()) {
+                    JOptionPane.showMessageDialog(frm, "A geração de Relatórios pode demorar alguns minutos. \n Aguarde a mensagem de confirmação.");
                     try {
                         geraRelatorio();
                     } catch (ParseException ex) {
                         Logger.getLogger(VendasPorFormaPgtoActionListener.class
                                 .getName()).log(Level.SEVERE, null, ex);
                     }
+                    frm.dispose();
                 }
-                frm.dispose();
+                
                 break;
             case "Cancelar Geração de Relatório":
                 frm.dispose();

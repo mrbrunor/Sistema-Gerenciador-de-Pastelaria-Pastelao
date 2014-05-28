@@ -33,6 +33,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -70,21 +71,30 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
 
     public FuncionarioActionListener(TelaCadastrarFuncionario frm) {
         this.frm = frm;
+        normal = frm.getCampoNome().getBorder();
         frm.getCampoDtAdm().setBorder(normal);
         frm.getCampoDtNasc().setBorder(normal);
-        normal = frm.getCampoNome().getBorder();
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
     }
-
-    public void inicializaTableModel() {
-        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).listaTodos());
+    
+    public void atualizaTableModel(List<Funcionario> funcionarios) {
+        if(funcionarios != null && funcionarios.isEmpty()){
+            Funcionario funcionario = new Funcionario();
+            funcionario.setNomeFunc("Nenhum Registro Encontrado");
+            funcionarios.add(funcionario);
+        }
+        tableModel = new FuncionarioTableModel(funcionarios);
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
         frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
+    }
+
+    public void inicializaTableModel() {
+        atualizaTableModel(new DAO<>(Funcionario.class).listaTodos());
     }
 
     public void adicionaListener() {
@@ -158,12 +168,8 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     
     public void pesquisaFuncionarios() {
         String pesquisa = frm.getCampoPesquisarFuncionario().getText();
-        tableModel = new FuncionarioTableModel(new DAO<>(Funcionario.class).buscaFuncionarios(pesquisa));
-        frm.getTabelaFuncionarios().setModel(tableModel);
-        frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(2).setMaxWidth(250);
-        frm.getTabelaFuncionarios().getColumnModel().getColumn(3).setMaxWidth(35);
+        limpaCampos();
+        atualizaTableModel(new DAO<>(Funcionario.class).buscaFuncionarios(pesquisa));
     }
     
     private Funcionario formToFuncionario() {
@@ -377,7 +383,9 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     ) {
         if (frm.getTabelaFuncionarios().getSelectedRow() != -1) {
             Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaFuncionarios().getSelectedRow());
-            funcionarioToForm(funcionario);
+            if(funcionario.getIdFunc() != 0){
+                funcionarioToForm(funcionario);
+            }
         }
 
     }

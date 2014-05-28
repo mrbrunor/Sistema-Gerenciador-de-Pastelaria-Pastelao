@@ -23,14 +23,15 @@
  */
 package com.au.gui.listener;
 
-import com.au.gui.tmodel.FornecedorTableModel;
 import com.au.gui.TelaCadastrarFornecedor;
+import com.au.gui.tmodel.FornecedorTableModel;
 import com.au.modelo.Fornecedor;
 import com.au.util.DAO;
 import com.au.util.ValidaEmail;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -65,13 +66,23 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
         inicializaTableModel();
         habilitaBotoesParaSalvar();
     }
-
-    public void inicializaTableModel() {
-        tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).listaTodos());
+    
+    public void atualizaTableModel(List<Fornecedor> fornecedors) {
+        if(fornecedors != null && fornecedors.isEmpty()){
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNomeForn("Nenhum Registro Encontrado");
+            fornecedors.add(fornecedor);
+        }
+        tableModel = new FornecedorTableModel(fornecedors);
         frm.getTabelaFornecedores().setModel(tableModel);
         frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
+    }
+
+
+    public void inicializaTableModel() {
+        atualizaTableModel(new DAO<>(Fornecedor.class).listaTodos());
     }
 
     public void adicionaListener() {
@@ -131,12 +142,8 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
 
     public void pesquisaFornecedores() {
         String pesquisa = frm.getCampoPesquisarFornecedor().getText();
-        tableModel = new FornecedorTableModel(new DAO<>(Fornecedor.class).buscaFornecedores(pesquisa));
-        frm.getTabelaFornecedores().setModel(tableModel);
-        frm.getTabelaFornecedores().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaFornecedores().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaFornecedores().getColumnModel().getColumn(2).setMaxWidth(110);
-
+        limpaCampos();
+        atualizaTableModel(new DAO<>(Fornecedor.class).buscaFornecedores(pesquisa));
     }
 
     private Fornecedor formToFornecedor() {
@@ -233,8 +240,9 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaFornecedores().getSelectedRow() != -1) {
             Fornecedor fornecedor = tableModel.getFornecedores().get(frm.getTabelaFornecedores().getSelectedRow());
-            fornecedorToForm(fornecedor);
+            if(fornecedor.getIdForn() != 0){
+                fornecedorToForm(fornecedor);
+            }            
         }
-
     }
 }
