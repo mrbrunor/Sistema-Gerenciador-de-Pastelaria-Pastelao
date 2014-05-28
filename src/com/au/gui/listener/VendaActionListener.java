@@ -467,6 +467,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Vendas por Ingredientes":
                 new TelaVendasPorIngrediente(frm, true).setVisible(true);
                 break;
+            case "Sair":
+                System.exit(1);
         }
     }
 
