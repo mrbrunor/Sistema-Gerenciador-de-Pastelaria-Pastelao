@@ -100,7 +100,8 @@ public class VendasGeraisActionListener implements ActionListener, ListSelection
     }
 
     private void geraRelatorio() throws ParseException {
-        String nome = "src\\com\\au\\resources\\reports\\vendas_gerais.jasper";
+        String nome = "reports\\vendas_gerais.jasper";
+        
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
