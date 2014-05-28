@@ -27,6 +27,7 @@ import com.au.bd.FabricaConexao;
 import com.au.gui.TelaVendasPorFormaPgto;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -57,15 +60,18 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class VendasPorFormaPgtoActionListener implements ActionListener, ListSelectionListener {
 
     private final TelaVendasPorFormaPgto frm;
+    private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private Border normal;
 
     /**
      * Construtor Default do Listener, o qual recebe o objeto do tipo
- TelaVendasPorFormaPgto
+     * TelaVendasPorFormaPgto
      *
      * @param frm Parâmetro recebido
      */
     public VendasPorFormaPgtoActionListener(TelaVendasPorFormaPgto frm) {
         this.frm = frm;
+        normal = frm.getCampoLocalParaSalvar().getBorder();
         adicionaListener();
     }
 
@@ -81,7 +87,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         frm.getBotaoRadioCartaoDebito().addActionListener(this);
         frm.getBotaoRadioValeRefeicao().addActionListener(this);
     }
-    
+
     public void habilitaDinheiro() {
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
@@ -118,9 +124,57 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
-    private boolean valida() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return true;
+    public void limpaBorda() {
+        frm.getBotaoRadioCartaoDebito().setBorderPainted(false);
+        frm.getBotaoRadioCartaoCredito().setBorderPainted(false);
+        frm.getBotaoRadioDinheiro().setBorderPainted(false);
+        frm.getBotaoRadioValeRefeicao().setBorderPainted(false);
+        frm.getCaixaSelecaoCC().setBorder(normal);
+        frm.getCaixaSelecaoCD().setBorder(normal);
+        frm.getCaixaSelecaoVR().setBorder(normal);
+    }
+
+    public boolean valida() {
+        boolean valida = true;
+
+        if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoRadioCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
+            limpaBorda();
+        } else {
+            valida = false;
+            frm.getBotaoRadioCartaoDebito().setBorder(vermelha);
+            frm.getBotaoRadioCartaoDebito().setBorderPainted(true);
+            frm.getBotaoRadioCartaoCredito().setBorder(vermelha);
+            frm.getBotaoRadioCartaoCredito().setBorderPainted(true);
+            frm.getBotaoRadioDinheiro().setBorder(vermelha);
+            frm.getBotaoRadioDinheiro().setBorderPainted(true);
+            frm.getBotaoRadioValeRefeicao().setBorder(vermelha);
+            frm.getBotaoRadioValeRefeicao().setBorderPainted(true);
+        }
+        if (frm.getBotaoRadioCartaoCredito().isSelected()) {
+            if (frm.getCaixaSelecaoCC().getSelectedIndex() == -1) {
+                valida = false;
+                frm.getCaixaSelecaoCC().setBorder(vermelha);
+            }
+        } else {
+            frm.getCaixaSelecaoCC().setBorder(normal);
+        }
+        if (frm.getBotaoRadioCartaoDebito().isSelected()) {
+            if (frm.getCaixaSelecaoCD().getSelectedIndex() == -1) {
+                valida = false;
+                frm.getCaixaSelecaoCD().setBorder(vermelha);
+            }
+        } else {
+            frm.getCaixaSelecaoCD().setBorder(normal);
+        }
+        if (frm.getBotaoRadioValeRefeicao().isSelected()) {
+            if (frm.getCaixaSelecaoVR().getSelectedIndex() == -1) {
+                valida = false;
+                frm.getCaixaSelecaoVR().setBorder(vermelha);
+            }
+        } else {
+            frm.getCaixaSelecaoVR().setBorder(normal);
+        }
+        return valida;
     }
 
     private void procuraLocal() {
@@ -144,6 +198,8 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         OutputStream saida = null;
+        String tipoPgto = "";
+        String nomePgto = "";
         try {
             saida = new FileOutputStream(frm.getCampoLocalParaSalvar().getText());
         } catch (FileNotFoundException ex) {
@@ -160,8 +216,24 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
         Date dataInicial = sdf.parse(dataIni);
         Date dataFinal = sdf.parse(dataFim);
 
+        if (frm.getBotaoRadioDinheiro().isSelected()) {
+            tipoPgto = "Dinheiro";
+            nomePgto = "Dinheiro";
+        } else if (frm.getBotaoRadioCartaoCredito().isSelected()) {
+            tipoPgto = "Credito";
+            nomePgto = frm.getCaixaSelecaoCC().getSelectedItem().toString();
+        } else if (frm.getBotaoRadioCartaoDebito().isSelected()) {
+            tipoPgto = "Debito";
+            nomePgto = frm.getCaixaSelecaoCD().getSelectedItem().toString();
+        } else if (frm.getBotaoRadioValeRefeicao().isSelected()) {
+            tipoPgto = "Vale";
+            nomePgto = frm.getCaixaSelecaoVR().getSelectedItem().toString();
+        }
+
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);
+        parametros.put("TIPO_PGTO", tipoPgto);
+        parametros.put("NOME_PGTO", nomePgto);
 
         GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
         gerador.geraPdfParaOutputStream(saida);
@@ -178,8 +250,8 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
     }
 
     /**
-     * Método responsável por capturar qualquer ActionPerformed da tela
-     * Vendas Por Forma de Pagamento
+     * Método responsável por capturar qualquer ActionPerformed da tela Vendas
+     * Por Forma de Pagamento
      *
      * @param event Objeto do tipo ActionEvent contendo o ActionPerformed
      */
@@ -205,6 +277,7 @@ public class VendasPorFormaPgtoActionListener implements ActionListener, ListSel
                 }
                 break;
             case "Gerar Relatório":
+                JOptionPane.showMessageDialog(frm, "A geração de Relatórios pode demorar alguns minutos. \n Aguarde a mensagem de confirmação.");
                 if (valida()) {
                     try {
                         geraRelatorio();
