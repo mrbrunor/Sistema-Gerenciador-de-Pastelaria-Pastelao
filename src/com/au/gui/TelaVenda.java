@@ -133,11 +133,11 @@ public class TelaVenda extends javax.swing.JFrame {
         textoNomeFuncionario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoNomeFuncionario.setText("Nome do Funcionário");
 
-        textoData.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        textoData.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoData.setText("DATA");
         textoData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        textoHora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        textoHora.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoHora.setText("HORA");
 
         botaoAlternarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
@@ -266,7 +266,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                     .addGroup(painelPedidoLayout.createSequentialGroup()
                         .addComponent(botaoExcluirItem)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -321,7 +321,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoBusca)
-                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(botaoBuscar)))
                 .addContainerGap())
@@ -338,7 +338,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(botaoBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaBusca)
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addComponent(botaoAdicionarAoPedido)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -428,7 +428,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(painelBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -437,7 +437,7 @@ public class TelaVenda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

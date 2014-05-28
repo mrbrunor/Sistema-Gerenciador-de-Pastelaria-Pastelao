@@ -154,7 +154,7 @@
                   <Component id="painelSuperior" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="painelPedido" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="painelBusca" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -167,7 +167,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="painelPedido" max="32767" attributes="0"/>
                   <Component id="painelBusca" max="32767" attributes="0"/>
@@ -258,7 +258,7 @@
         <Component class="javax.swing.JLabel" name="textoData">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="DATA"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -269,7 +269,7 @@
         <Component class="javax.swing.JLabel" name="textoHora">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="HORA"/>
           </Properties>
@@ -350,7 +350,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="painelScrollTabelaPedido" pref="390" max="32767" attributes="0"/>
+                      <Component id="painelScrollTabelaPedido" pref="375" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -506,7 +506,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="campoBusca" max="32767" attributes="0"/>
-                              <Component id="textoDigiteParaBuscar" pref="255" max="32767" attributes="0"/>
+                              <Component id="textoDigiteParaBuscar" pref="262" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoBuscar" min="-2" max="-2" attributes="0"/>
@@ -530,7 +530,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="painelScrollTabelaBusca" pref="446" max="32767" attributes="0"/>
+                      <Component id="painelScrollTabelaBusca" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="botaoAdicionarAoPedido" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

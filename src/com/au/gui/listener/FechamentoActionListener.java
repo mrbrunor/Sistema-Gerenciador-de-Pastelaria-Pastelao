@@ -126,9 +126,9 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             for (int i = 0; i < caixa.getDespesas().size(); i++) {
                 totalDesp = totalDesp + caixa.getDespesas().get(i).getValorDesp();
             }
-            frm.getTextoValorDespesas().setText(String.format("R$: %.2f", totalDesp));
+            frm.getTextoValorTotalRetiradas().setText(String.format("R$: %.2f", totalDesp));
         } else {
-            frm.getTextoValorDespesas().setText("R$: 0,00");
+            frm.getTextoValorTotalRetiradas().setText("R$: 0,00");
         }
         frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f",(caixa.getFundoCaixa() + totalDesp)));
     }
