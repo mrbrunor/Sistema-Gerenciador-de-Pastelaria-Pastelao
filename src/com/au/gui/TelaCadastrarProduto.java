@@ -28,7 +28,7 @@ import com.au.gui.listener.ProdutoActionListener;
 import com.au.modelo.Fornecedor;
 import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;

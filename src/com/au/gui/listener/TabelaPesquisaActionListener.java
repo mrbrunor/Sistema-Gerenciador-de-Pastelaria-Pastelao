@@ -26,7 +26,7 @@ package com.au.gui.listener;
 import com.au.gui.TelaVenda;
 import com.au.gui.tmodel.ProdutoTableModel;
 import com.au.modelo.Produto;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

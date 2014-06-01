@@ -23,7 +23,7 @@
  */
 package com.au.gui.listener;
 
-import com.au.bd.FabricaConexao;
+import com.au.conexao.FabricaConexao;
 import com.au.gui.TelaVendasPorIngrediente;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;

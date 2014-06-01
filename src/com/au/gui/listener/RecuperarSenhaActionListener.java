@@ -25,7 +25,7 @@ package com.au.gui.listener;
 
 import com.au.gui.TelaCriarNovaSenha;
 import com.au.modelo.Funcionario;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import com.au.util.HexSha;
 import java.awt.Color;
 import java.awt.event.ActionEvent;

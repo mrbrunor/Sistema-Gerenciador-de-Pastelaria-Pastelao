@@ -26,7 +26,7 @@ package com.au.gui.listener;
 import com.au.gui.TelaCadastrarFornecedor;
 import com.au.gui.tmodel.FornecedorTableModel;
 import com.au.modelo.Fornecedor;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import com.au.util.ValidaEmail;
 import java.awt.Color;
 import java.awt.event.ActionEvent;

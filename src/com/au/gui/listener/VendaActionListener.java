@@ -43,7 +43,7 @@ import com.au.modelo.Itempedido;
 import com.au.modelo.ItempedidoPK;
 import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;

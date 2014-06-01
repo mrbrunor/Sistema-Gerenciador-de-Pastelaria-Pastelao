@@ -24,7 +24,7 @@
 
 package com.au.dao;
 
-import com.au.bd.FabricaConexao;
+import com.au.conexao.FabricaConexao;
 import com.au.modelo.Despesa;
 import java.sql.Connection;
 import java.sql.Date;
@@ -57,7 +57,7 @@ public class DespesaDao {
         try {
             conexao.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DespesaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     //CRUD
@@ -79,7 +79,7 @@ public class DespesaDao {
             conexao.close();
             resultado = true;
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DespesaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
     }
@@ -105,7 +105,7 @@ public class DespesaDao {
                 listaResDesp.add(despesa);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DespesaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaResDesp;
     }
@@ -130,7 +130,7 @@ public class DespesaDao {
             resultado = true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class
+            Logger.getLogger(DespesaDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
@@ -152,7 +152,7 @@ public class DespesaDao {
             resultado = true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class
+            Logger.getLogger(DespesaDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;

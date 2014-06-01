@@ -28,7 +28,7 @@ import com.au.gui.TelaFechamentoCaixa;
 import com.au.modelo.Caixa;
 import com.au.modelo.Despesa;
 import com.au.util.Bematech;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -44,108 +44,95 @@ import javax.swing.JOptionPane;
  * @author BrunoRicardo
  */
 public class FechamentoActionListener implements ActionListener, KeyListener {
-
+    
     private final TelaFechamentoCaixa frm;
     private Caixa caixa;
     private double dinheiroCaixa;
 
+    /**
+     *
+     * @param frm Construtor do ActionListener Recebe uma TelaFechamentoCaixa
+     * como parametro
+     */
     public FechamentoActionListener(TelaFechamentoCaixa frm) {
         this.frm = frm;
+        /**
+         * Pega o id do Caixa ativo e recupera todas as informações contidas no
+         * Banco
+         */
         caixa = new DAO<>(Caixa.class).buscaPorId(frm.getIdCaixa());
         inicializaCampos();
         adicionaListener();
     }
 
+    /**
+     * Função responsavel por inicializar os valores dos campos, e chama as funções para
+     * calcular a quantidade vendida por forma de pagamento.
+     */
     public void inicializaCampos() {
         frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
         frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
         calculaReducoes();
-        calculaDinheiro();
-        calculaCC();
-        calculaCD();
-        calculaVR();
+        calculaTipoPagamento();
     }
-
-    public void calculaDinheiro() {
+    /**
+     * Função responsavel por caulcular o valor de cada Tipo de forma de Pagamento
+     */
+    public void calculaTipoPagamento() {
         if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
             double totalDinheiro = 0;
-
+            double totalCredito = 0;
+            double totalDebito = 0;
+            double totalVale = 0;
+            
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                    totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
+                if ("Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
+                    if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Credito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalCredito = totalCredito + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Debito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalDebito = totalDebito + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Vale".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
+                    }
                 }
             }
             frm.getTextoValorDinheiro().setText(String.format("R$: %.2f", totalDinheiro));
-        } else {
-            frm.getTextoValorDinheiro().setText("R$: 0,00");
-        }
-    }
-
-    public void calculaCC() {
-        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            double totalCredito = 0;
-
-            for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Credito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                    totalCredito = totalCredito + caixa.getPedidos().get(i).getTotPedido();
-                }
-            }
             frm.getTextoValorCartaoDeCredito().setText(String.format("R$: %.2f", totalCredito));
-        } else {
-            frm.getTextoValorCartaoDeCredito().setText("R$: 0,00");
-        }
-    }
-
-    public void calculaCD() {
-        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            double totalDebito = 0;
-
-            for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Debito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                    totalDebito = totalDebito + caixa.getPedidos().get(i).getTotPedido();
-                }
-            }
             frm.getTextoValorCartaoDeDebito().setText(String.format("R$: %.2f", totalDebito));
-        } else {
-            frm.getTextoValorCartaoDeDebito().setText("R$: 0,00");
-        }
-    }
-
-    public void calculaVR() {
-        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
-            double totalVale = 0;
-
-            for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Vale".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                    totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
-                }
-            }
             frm.getTextoValorValeRefeicao().setText(String.format("R$: %.2f", totalVale));
         } else {
+            frm.getTextoValorDinheiro().setText("R$: 0,00");
+            frm.getTextoValorCartaoDeCredito().setText("R$: 0,00");
+            frm.getTextoValorCartaoDeDebito().setText("R$: 0,00");
             frm.getTextoValorValeRefeicao().setText("R$: 0,00");
         }
     }
-
+    /**
+     * Função responsavel por calcular as retiradas de caixa
+     */
     public void calculaReducoes() {
         double totalDesp = 0;
         List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
-        System.out.println(despesas.size());
         if (despesas != null && !despesas.isEmpty()) {
-            for (int i = 0; i < despesas.size(); i++) {
-                totalDesp = totalDesp + despesas.get(i).getValorDesp();
+            for (Despesa despesa : despesas) {
+                totalDesp = totalDesp + despesa.getValorDesp();
             }
             frm.getTextoValorTotalRetiradas().setText(String.format("R$: %.2f", totalDesp));
         } else {
             frm.getTextoValorTotalRetiradas().setText("R$: 0,00");
         }
         frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f", totalDesp));
-
+        
         frm.getTextoValorRetiradas().setText(String.format("R$: %.2f", totalDesp));
         frm.getTextoValorFaturamentos().setText(String.format("R$: %.2f", caixa.getTotalCaixa()));
         frm.getTextoValorTotalCaixa().setText(String.format("R$: %.2f", caixa.getTotalCaixa() - totalDesp));
-
-    }
-
+        
+    }    
+    /**
+     * Função responsavel por adicionar este action listenner aos botões e campos da TelaFechamentoCaixa
+     */
     public void adicionaListener() {
         frm.getBotaoCancelarFechamentoDeCaixa().addActionListener(this);
         frm.getBotaoConfirmarFechamentoDeCaixa().addActionListener(this);
@@ -161,10 +148,12 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         frm.getCampoMoedaUmReal().addKeyListener(this);
         frm.getCampoMoedaVinteCincoCentavos().addKeyListener(this);
     }
-
+    /**
+     * Função responsavel por calcular o valor de cada tipo de Moeda ou Cedula Digitada no campo correspondente da Tela.
+     */
     public void calculaDinheiroEmCaixa() {
         dinheiroCaixa = 0;
-
+        
         if (!"".equals(frm.getCampoMoedaCincoCentavos().getText())) {
             dinheiroCaixa += Integer.valueOf((frm.getCampoMoedaCincoCentavos().getText())) * 0.05;
         }
@@ -198,19 +187,26 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         if (!"".equals(frm.getCampoCedulaVinteReais().getText())) {
             dinheiroCaixa += Double.valueOf((frm.getCampoCedulaVinteReais().getText())) * 20;
         }
-
+        
         frm.getTextoValorTotalEmCaixa().setText(String.format("R$: %.2f", dinheiroCaixa));
     }
-
+    /**
+     * Função responsavel por Efetuar o Fechamento do caixa
+     */
     public void fecharCaixa() {
-
+        //Captura a data atual do Sistema
         Date data = new Date();
         caixa.setDataFechamentoCaixa(data);
+        //captura apenas a hora da data recem capturada
         caixa.setFechamentoCaixa(new Time(data.getTime()));
+        //Seta 0 para informar que o caixa esta fechado
         caixa.setEstaAberto((byte) 0);
+        //Pede para o Hibernate Atualizar o Caixa
         new DAO<>(Caixa.class).atualiza(caixa);
+        //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
         TelaFechamentoCaixa.setFechou(true);
-
+        
+        //Cria e Imprime o Relatório do caixa fechado
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
         Bematech bematech = new Bematech();
@@ -221,7 +217,12 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.");
         }
     }
-
+    
+    /**
+     * 
+     * @param event 
+     * Função responsavel por pegar o ActionEvent e executar a função apropriada
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
@@ -234,17 +235,30 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                 break;
         }
     }
-
+    /**
+     * 
+     * @param e 
+     * Implementação obrigatória, sem uso nesta classe
+     */
     @Override
-    public void keyTyped(KeyEvent e) {
-
+    public void keyTyped(KeyEvent e) {        
     }
-
+    /**
+     * 
+     * @param e 
+     * Implementação obrigatória, sem uso nesta classe
+     */
     @Override
-    public void keyPressed(KeyEvent e) {
-
+    public void keyPressed(KeyEvent e) {        
     }
-
+    
+    /**
+     * 
+     * @param e 
+     * Função responsavel por chamar a Função calculaDinheiroEmCaixa 
+     *  toda vez que uma tecla for "Despressionada" em um dos campos da 
+     *  Seção "Dinheiro em caixa"
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         calculaDinheiroEmCaixa();

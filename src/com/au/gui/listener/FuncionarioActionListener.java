@@ -26,7 +26,7 @@ package com.au.gui.listener;
 import com.au.gui.tmodel.FuncionarioTableModel;
 import com.au.gui.TelaCadastrarFuncionario;
 import com.au.modelo.Funcionario;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import com.au.util.HexSha;
 import com.au.util.ValidaEmail;
 import java.awt.Color;

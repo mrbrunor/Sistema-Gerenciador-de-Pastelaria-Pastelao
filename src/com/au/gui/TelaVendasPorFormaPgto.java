@@ -26,7 +26,7 @@ package com.au.gui;
 import com.au.gui.listener.VendasPorFormaPgtoActionListener;
 import com.au.modelo.FormaPagamento;
 import com.au.util.CustomComboBoxInt;
-import com.au.util.DAO;
+import com.au.dao.DAO;
 import com.toedter.calendar.JDateChooser;
 import java.util.ArrayList;
 import java.util.List;

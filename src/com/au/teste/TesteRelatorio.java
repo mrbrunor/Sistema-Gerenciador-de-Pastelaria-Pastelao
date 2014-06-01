@@ -24,7 +24,7 @@
 
 package com.au.teste;
 
-import com.au.bd.FabricaConexao;
+import com.au.conexao.FabricaConexao;
 import com.au.util.GeradorRelatorio;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
