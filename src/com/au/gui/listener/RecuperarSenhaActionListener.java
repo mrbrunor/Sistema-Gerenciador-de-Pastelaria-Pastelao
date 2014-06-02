@@ -95,9 +95,9 @@ public class RecuperarSenhaActionListener implements ActionListener {
     public void alterarSenha(){
         if(!new DAO<>(Funcionario.class).validaCPF(formToFuncionario())){
             new DAO<>(Funcionario.class).alterarSenha(formToFuncionario());
-            JOptionPane.showMessageDialog(frm, "Senha Alterada com Sucesso");
+            JOptionPane.showMessageDialog(frm, "Senha Alterada com Sucesso!", "Recuperação de Senha", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(frm, "CPF não encontrado!");
+            JOptionPane.showMessageDialog(frm, "CPF não encontrado!", "Recuperação de Senha", JOptionPane.WARNING_MESSAGE);
         }
     }
 

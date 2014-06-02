@@ -115,7 +115,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
 //        }
         new DAO<>(FormaPagamento.class).adiciona(formaPagamento);
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Forma de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Forma de Pagamento Cadastrada Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -125,7 +125,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     private void atualizarFormaPagamento() {
         new DAO<>(FormaPagamento.class).atualiza(formToFormaPagamento());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Forma de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Forma de Pagamento Atualizada Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -135,7 +135,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     private void excluirFormaPagamento() {
         new DAO<>(FormaPagamento.class).remove(formToFormaPagamento());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Forma de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Forma de Pagamento Removida Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 

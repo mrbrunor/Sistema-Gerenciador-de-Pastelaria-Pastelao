@@ -158,13 +158,13 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         Produto produto = formToProduto();
         
         if(!new DAO<>(Produto.class).validaProduto(produto)){
-            JOptionPane.showMessageDialog(frm, "Produto ja cadastrado!");
+            JOptionPane.showMessageDialog(frm, "Produto já cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         new DAO<>(Produto.class).adiciona(produto);
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Produto Cadastrado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -179,7 +179,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     public void atualizarProduto() {
         new DAO<>(Produto.class).atualiza(formToProduto());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Produto Atualizado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -190,7 +190,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     public void excluirProduto() {
         new DAO<>(Produto.class).remove(formToProduto());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Produto", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Produto Removido Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -294,7 +294,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             frm.getTabelaIngredientes().setEnabled(valida);
         } else if(valida){
             Integer resposta = null;
-            resposta = JOptionPane.showConfirmDialog(frm, "Para cadastrar um produto preparado, é necessário cadastrar ao menos um ingrediente primeiro. Deseja cadastrar os ingredientes?", null, JOptionPane.YES_NO_OPTION);
+            resposta = JOptionPane.showConfirmDialog(frm, "Antes de cadastrar um produto preparado, é necessário ter ao menos um ingrediente cadastrado. \nDeseja cadastrar um novo ingrediente agora?", "Cadastro de Produtos", JOptionPane.YES_NO_OPTION);
             if(resposta == 0){
                 frm.dispose();
                 new TelaCadastrarIngrediente(null, true).setVisible(true);

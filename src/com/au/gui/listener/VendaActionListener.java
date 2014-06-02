@@ -181,7 +181,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 indexCaixa = frm.getFuncionario().getCaixas().size() - 1;
                 caixaAberto();
             } else {
-                JOptionPane.showMessageDialog(frm, "Abertura de Caixa Cancelada!");
+                JOptionPane.showMessageDialog(frm, "Abertura de Caixa Cancelada!", "Abertura de Caixa", JOptionPane.WARNING_MESSAGE);
                 caixaFechado();
             }
         }
@@ -244,7 +244,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         itempedido.setId(itempedidoPK);
         itempedido.setQtdProd(-1);
         while (itempedido.getQtdProd() == -1) {
-            String aux = JOptionPane.showInputDialog("Digite a Quantidade");
+            String aux = JOptionPane.showInputDialog(frm ,"Digite a Quantidade", 1);
             if (aux == null) {
                 return;
             } else if (aux.matches(padrao)) {
@@ -293,15 +293,15 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         caixa.setFuncionario(frm.getFuncionario());
         caixa.setFundoCaixa(0);
         String padrao = "[0-9]{1,3}";
-        String msg = "Digite o Valor do Fundo de Caixa";
+        String msg = "Digite o valor do fundo de caixa";
         while (caixa.getFundoCaixa() == 0) {
-            String aux = JOptionPane.showInputDialog(frm, msg);
+            String aux = JOptionPane.showInputDialog(frm, msg, "Fundo de Caixa", JOptionPane.INFORMATION_MESSAGE);
             if (aux == null) {
                 return null;
             } else if (aux.matches(padrao)) {
                 caixa.setFundoCaixa(Double.valueOf(aux));
             } else {
-                msg = "Digite o Valor do Fundo de Caixa, Ex.: 80";
+                msg = "Digite o valor do fundo de caixa, Ex.: 80";
             }
         }
         caixa.setTotalCaixa(0);
@@ -311,7 +311,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     public boolean fecharCaixa(Integer index) {
         new TelaFechamentoCaixa(frm, true, frm.getFuncionario().getCaixas().get(index).getIdCaixa()).setVisible(true);
         if (TelaFechamentoCaixa.isFechou()) {
-            JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso");
+            JOptionPane.showMessageDialog(frm, "Caixa Fechado com Sucesso!", "Fechamento de Caixa", JOptionPane.INFORMATION_MESSAGE);
             return true;
         }
         return false;
@@ -326,7 +326,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                     caixaAberto();
                     return i;
                 } else {
-                    JOptionPane.showMessageDialog(frm, "Você não fechou o caixa do ultimo dia, antes de iniciar um novo caixa, devemos fechar o anterior. Clique em OK para Fechar o Caixa");
+                    JOptionPane.showMessageDialog(frm, "Você possui um caixa aberto com data anterior ao dia de hoje. \nPor favor, clique em OK para fechar o caixa anterior", "Caixa anterior encontrado", JOptionPane.WARNING_MESSAGE);
                     while (!TelaFechamentoCaixa.isFechou()) {
                         fecharCaixa(i);
                     }
@@ -371,7 +371,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         boolean valida = true;
         if ("0".equals(frm.getCampoAdicionarItem().getText())) {
             valida = false;
-            JOptionPane.showMessageDialog(frm, "Insira o ID do produto para adiciona-lo ao pedido.");
+            JOptionPane.showMessageDialog(frm, "Insira o ID do produto para adiciona-lo ao pedido.", "Inserir ID", JOptionPane.INFORMATION_MESSAGE);
         }
         if ("".equals(frm.getCampoAdicionarItem().getText())) {
             if (validaPedido()) {
@@ -386,7 +386,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         boolean valida = true;
         if (frm.getTabelaPedido().getSelectedRow() == -1) {
             valida = false;
-            JOptionPane.showMessageDialog(frm, "Selecione um item para remover!");
+            JOptionPane.showMessageDialog(frm, "Selecione um item para remover!", "Selecione um item", JOptionPane.INFORMATION_MESSAGE);
         }
         return valida;
     }
@@ -395,7 +395,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         boolean valida = true;
         if (frm.getTabelaPedido().getRowCount() == 0) {
             valida = false;
-            JOptionPane.showMessageDialog(frm, "Adicione um item ao pedido antes!");
+            JOptionPane.showMessageDialog(frm, "É necessário ao menos um item no pedido para concluí-lo!", "Pedido sem Itens", JOptionPane.WARNING_MESSAGE);
         }
         return valida;
     }
@@ -409,7 +409,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                         atualizaTableModelVenda();
                         adicionaItempedido();
                     } catch (NullPointerException e) {
-                        JOptionPane.showMessageDialog(frm, "Este Código não Existe");
+                        JOptionPane.showMessageDialog(frm, "Este código é inválido. Por favor, insira um código válido.", "Código Inválido", JOptionPane.WARNING_MESSAGE);
                         frm.getCampoAdicionarItem().setText("");
                     }
                 }

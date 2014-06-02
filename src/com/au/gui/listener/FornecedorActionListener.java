@@ -111,7 +111,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
     private void cadastrarFornecedor() {
         new DAO<>(Fornecedor.class).adiciona(formToFornecedor());
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Fornecedor Cadastrado Com Sucesso", "Cadastro de Fornecedores", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -121,7 +121,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
     public void atualizarFornecedor() {
         new DAO<>(Fornecedor.class).atualiza(formToFornecedor());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Fornecedor Atualizado Com Sucesso", "Cadastro de Fornecedores", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -132,7 +132,7 @@ public class FornecedorActionListener implements ActionListener, ListSelectionLi
     public void excluirFornecedor() {
         new DAO<>(Fornecedor.class).remove(formToFornecedor());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Fornecedor", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Fornecedor Removido Com Sucesso", "Cadastro de Fornecedores", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 

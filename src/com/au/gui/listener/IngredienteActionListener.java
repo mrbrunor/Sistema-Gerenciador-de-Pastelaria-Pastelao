@@ -107,13 +107,13 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
         Ingrediente ingrediente = formToIngrediente();
 
         if (!new DAO<>(Ingrediente.class).validaIngrediente(ingrediente)) {
-            JOptionPane.showMessageDialog(frm, "Ingrediente ja cadastrado!");
+            JOptionPane.showMessageDialog(frm, "Ingrediente já cadastrado!", "Cadastro de Ingredientes", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         new DAO<>(Ingrediente.class).adiciona(ingrediente);
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Ingrediente Cadastrado Com Sucesso", "Cadastro de Ingredientes", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -123,7 +123,7 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
     public void atualizarIngrediente() {
         new DAO<>(Ingrediente.class).atualiza(formToIngrediente());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Ingrediente Atualizado Com Sucesso", "Cadastro de Ingredientes", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -134,7 +134,7 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
     public void excluirIngrediente() {
         new DAO<>(Ingrediente.class).remove(formToIngrediente());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Ingrediente Removido Com Sucesso", "Cadastro de Ingredientes", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 

@@ -70,7 +70,7 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
         
         new DAO<>(Despesa.class).adiciona(despesa);
         
-        JOptionPane.showMessageDialog(frm, "Retirada Efetuada com Sucesso!");
+        JOptionPane.showMessageDialog(frm, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public boolean valida(){

@@ -175,7 +175,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             bematech.imprime("\n\n\n\n\n\n\n\n\n"); //espaço necessário para um cupom não sair "colado" com outro
             Bematech.impressora = null;
         } else {
-            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. o cupom não será impresso.");
+            JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O cupom não será impresso.", "Impressão de Cupom", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -197,7 +197,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             bematech.imprime("\n\n\n\n\n\n\n\n\n\n\n");
             Bematech.impressora = null;
         } else {
-            JOptionPane.showMessageDialog(frm, "Impressora Cozinha não foi encontrada. o cupom não será impresso.");
+            JOptionPane.showMessageDialog(frm, "Impressora Cozinha não foi encontrada. O cupom não será impresso.", "Impressão de Cupom", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -263,7 +263,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             atualizaTotal();
         } 
         else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()){
-            JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.");
+            JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
             atualizaTotal();
         }

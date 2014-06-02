@@ -128,18 +128,18 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         
         
         if(!new DAO<>(Funcionario.class).validaCPF(funcionario)){
-            JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!");
+            JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!", "Cadastro de Funcionários", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if(!new DAO<>(Funcionario.class).validaUser(funcionario)){
-            JOptionPane.showMessageDialog(frm, "Usuario ja existe!");
+            JOptionPane.showMessageDialog(frm, "Usuário já existe!", "Cadastro de Funcionários", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         new DAO<>(Funcionario.class).adiciona(funcionario);
 
-        JOptionPane.showMessageDialog(frm, "Cadastrado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Funcionário Cadastrado Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -149,7 +149,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     private void atualizarFuncionario() {
         new DAO<>(Funcionario.class).atualiza(formToFuncionario());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Atualizado Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Funcionário Atualizado Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 
@@ -159,7 +159,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     private void excluirFuncionario() {
         new DAO<>(Funcionario.class).remove(formToFuncionario());
 
-        JOptionPane.showMessageDialog(frm, "Cadastro Removido Com Sucesso", "Cadastro de Funcionario", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Funcionário Removido Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
 
         limpaCampos();
 

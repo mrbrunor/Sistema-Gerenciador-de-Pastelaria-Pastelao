@@ -72,7 +72,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
         funcionario = new DAO<>(Funcionario.class).buscarLogin(login.getUserFunc(), login.getPassFunc());
 
         if (funcionario == null) {
-            JOptionPane.showMessageDialog(frm, "Senha ou Usuario Invalidos");
+            JOptionPane.showMessageDialog(frm, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
         } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc())) {
             new TelaVenda(funcionario).setVisible(true);
             frm.dispose();
@@ -91,7 +91,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
                     logar();
                 } catch (ExceptionInInitializerError ex) {
                     Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(frm, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.");
+                    JOptionPane.showMessageDialog(frm, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
                 }
                 break;
             case "Esqueci a minha senha":
