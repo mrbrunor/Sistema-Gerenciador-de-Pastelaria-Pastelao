@@ -315,9 +315,11 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                 bematech.imprime("\n\nTotal de Cancelamentos: " + String.format("R$: %.2f", totalCanc));
             } else {
                 bematech.imprime("\nSem Cancelamentos\n");
-            }
-            
-
+            }            
+            bematech.imprime("\n");
+            bematech.imprime("\n");
+            bematech.imprime("\n________________________________________________\n");
+            bematech.imprime("\n\t" + caixa.getFuncionario().getNomeFunc());
         } else {
             JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.");
         }
