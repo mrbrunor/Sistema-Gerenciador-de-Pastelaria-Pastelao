@@ -57,6 +57,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     private VendaTableModel tableModelVenda;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
+    
 
     public PagamentoActionListener(TelaConfirmacaoPagamento frm) {
         this.frm = frm;
@@ -98,10 +99,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     private void atualizaTotal() {
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.setTotal(frm.getSubTotal());
-            frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
+            frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
         } else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
-            frm.getTextoValorTotal().setText("Valor Total: " + String.valueOf(frm.getTotal()));
+            frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
         }
     }
 
@@ -250,11 +251,16 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public boolean valida() {
         boolean valida = true;
+        if(!"".equals(frm.getCampoDesconto().getText())){
+            System.out.println("Desc: " + Double.valueOf(frm.getCampoDesconto().getText()));
+            System.out.println("Total: " + frm.getPedido().getSubTotPedido());
+            
+        }
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.getCampoDesconto().setText("0");
             atualizaTotal();
         } 
-        else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getPedido().getTotPedido()){
+        else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()){
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.");
             frm.getCampoDesconto().setText("");
             atualizaTotal();
