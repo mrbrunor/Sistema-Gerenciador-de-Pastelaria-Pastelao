@@ -163,11 +163,13 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                     + "\n\nCodigo\t\tQT\tUnit\tTotal");
 
             for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
-                bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + frm.getPedido().getItempedidos().get(i).getProduto().getValorProd() + "\t" + frm.getPedido().getItempedidos().get(i).getTotProd());
+                bematech.imprime("\n" + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + "\tx\t" + frm.getPedido().getItempedidos().get(i).getQtdProd() + "\t" + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getProduto().getValorProd()) + "\t" + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getTotProd()));
                 bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
             }
 
-            bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n");
+            bematech.imprime("\n\n\t\t\tSUBTOTAL.......... " + String.format("%.2f", frm.getPedido().getSubTotPedido()));
+            bematech.imprime("\t\t\tDESCONTO.......... " + String.format("%.2f", frm.getPedido().getDescPedido()));
+            bematech.imprime("\t\t\tTOTAL............. " + String.format("%.2f", frm.getPedido().getTotPedido()) + "\n\n");
             bematech.imprime("\tESTE CUPOM NAO TEM VALIDADE FISCAL\n");
             bematech.imprime("\tObrigado pela preferencia, volte sempre!");
             bematech.imprime("\n\n\n\n\n\n\n\n\n"); //espaço necessário para um cupom não sair "colado" com outro
