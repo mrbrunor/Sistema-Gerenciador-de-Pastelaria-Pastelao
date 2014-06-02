@@ -216,7 +216,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("Caixa");
         if (Bematech.impressora != null) {
-            bematech.imprime("\n\tFechamrnto de Caixa\n");
+            bematech.imprime("\n\tFechamento de Caixa\n");
             bematech.imprime("\n\tFuncionario: " + caixa.getFuncionario().getNomeFunc());
             bematech.imprime(dataStr + "                    " + caixa.getDataFechamentoCaixa());
             bematech.imprime("\nDinheiro: " + frm.getTextoValorDinheiro().getText());
