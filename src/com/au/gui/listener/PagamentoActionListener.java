@@ -166,7 +166,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 bematech.imprime(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()));
             }
 
-            bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n\n\n\n\n\n\n\n");
+            bematech.imprime("\n\n\t\t\tTOTAL.......... " + frm.getPedido().getTotPedido() + "\n\n");
+            bematech.imprime("\tESTE CUPOM NAO TEM VALIDADE FISCAL\n");
+            bematech.imprime("\tObrigado pela preferencia, volte sempre!");
+            bematech.imprime("\n\n\n\n\n\n\n\n\n"); //espaço necessário para um cupom não sair "colado" com outro
             Bematech.impressora = null;
         } else {
             JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. o cupom não será impresso.");
@@ -180,7 +183,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("Cozinha");
         if (Bematech.impressora != null) {
-            bematech.imprime("P A S T E L A O \n\n"
+            bematech.imprime("P A S T E L A O  \nV I A  D A  C O Z I N H A\n\n"
                     + dataStr + "                    " + frm.getPedido().getHoraPedido()
                     + "\n\nPEDIDO NUMERO:     " + frm.getPedido().getNumPedido()
                     + "\n\nCodigo\t\tQT");
