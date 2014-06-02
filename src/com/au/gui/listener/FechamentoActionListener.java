@@ -48,6 +48,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
     private final TelaFechamentoCaixa frm;
     private Caixa caixa;
     private double dinheiroCaixa;
+    private double descontoTotal = 0;
 
     /**
      *
@@ -95,6 +96,9 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                         totalDebito = totalDebito + caixa.getPedidos().get(i).getTotPedido();
                     } else if ("Vale".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
                         totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
+                    }
+                    if(caixa.getPedidos().get(i).getDescPedido() != 0){
+                        descontoTotal += caixa.getPedidos().get(i).getDescPedido();
                     }
                 }
             }
@@ -212,7 +216,39 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("Caixa");
         if (Bematech.impressora != null) {
-            bematech.imprime("Dados do Fechamento Aqui :D");
+            bematech.imprime("\n\tFechamrnto de Caixa\n");
+            bematech.imprime("\n\tFuncionario: " + caixa.getFuncionario().getNomeFunc());
+            bematech.imprime(dataStr + "                    " + caixa.getDataFechamentoCaixa());
+            bematech.imprime("\nDinheiro: " + frm.getTextoValorDinheiro().getText());
+            bematech.imprime("\nCredito: " + frm.getTextoValorCartaoDeCredito().getText());
+            bematech.imprime("\nDebito: " + frm.getTextoValorCartaoDeDebito().getText());
+            bematech.imprime("\nVale: " + frm.getTextoValorValeRefeicao().getText());
+            bematech.imprime("\n--------------------------------------------------------------\n");
+            bematech.imprime("\n");
+            bematech.imprime("\nTotal Faturado: " + caixa.getTotalCaixa());
+            bematech.imprime("\nTotal retiradas: " + frm.getTextoValorTotalRetiradas());
+            bematech.imprime("\nTotal Caixa: " + frm.getTextoValorTotalCaixa());
+            bematech.imprime("\n--------------------------------------------------------------\n");
+            bematech.imprime("\n");
+            bematech.imprime("\nLista de Retiradas\n");
+            
+            List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
+            if (despesas != null && !despesas.isEmpty()) {
+                for (int i = 0; despesas.size() > i ;i++) {
+                    bematech.imprime("\n");
+                    bematech.imprime("\nDespesa " + (i+1));
+                    bematech.imprime("\nMotivo: " + despesas.get(i).getDescDesp());
+                    bematech.imprime("\nValor: " + despesas.get(i).getValorDesp());
+                    bematech.imprime("\n");
+                    bematech.imprime("\n");
+                }
+            } else {
+                bematech.imprime("\nSem Retiradas\n");
+            }
+            bematech.imprime("\n--------------------------------------------------------------\n");
+            bematech.imprime("\nTotal de Descontos: " + String.format("R$: %.2f", descontoTotal));
+            
+            
         } else {
             JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.");
         }
