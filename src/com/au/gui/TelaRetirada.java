@@ -74,7 +74,7 @@ public class TelaRetirada extends javax.swing.JDialog {
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoBemVindo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        textoBemVindo.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         textoBemVindo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBemVindo.setText("Retirada de Caixa");
 
@@ -90,7 +90,7 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(textoBemVindo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoInsiraDados, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                    .addComponent(textoInsiraDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
@@ -126,8 +126,8 @@ public class TelaRetirada extends javax.swing.JDialog {
                     .addComponent(textoValor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoValor, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(campoValor)
+                    .addComponent(campoMotivo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -144,10 +144,10 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        botaoCancelarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/help-32.png"))); // NOI18N
+        botaoCancelarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarRetirada.setText("Cancelar Retirada");
 
-        botaoRegistrarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/login-32.png"))); // NOI18N
+        botaoRegistrarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoRegistrarRetirada.setText("Registrar Retirada");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,7 +172,7 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelarRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRegistrarRetirada))

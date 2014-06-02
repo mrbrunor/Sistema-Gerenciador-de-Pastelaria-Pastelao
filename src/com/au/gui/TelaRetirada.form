@@ -45,7 +45,7 @@
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="painelInferior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoCancelarRetirada" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="botaoRegistrarRetirada" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="textoBemVindo" alignment="1" max="32767" attributes="0"/>
-                      <Component id="textoInsiraDados" alignment="1" pref="390" max="32767" attributes="0"/>
+                      <Component id="textoInsiraDados" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -94,7 +94,7 @@
         <Component class="javax.swing.JLabel" name="textoBemVindo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="24" style="0"/>
+              <Font name="Tahoma" size="48" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Retirada de Caixa"/>
@@ -131,8 +131,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="campoValor" pref="354" max="32767" attributes="0"/>
-                      <Component id="campoMotivo" alignment="1" pref="354" max="32767" attributes="0"/>
+                      <Component id="campoValor" max="32767" attributes="0"/>
+                      <Component id="campoMotivo" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -188,7 +188,7 @@
     <Component class="javax.swing.JButton" name="botaoCancelarRetirada">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/au/resources/icons/help-32.png"/>
+          <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar Retirada"/>
       </Properties>
@@ -196,7 +196,7 @@
     <Component class="javax.swing.JButton" name="botaoRegistrarRetirada">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/au/resources/icons/login-32.png"/>
+          <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Registrar Retirada"/>
       </Properties>
