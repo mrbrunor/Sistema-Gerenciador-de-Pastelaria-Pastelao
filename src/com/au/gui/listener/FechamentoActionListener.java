@@ -237,89 +237,83 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         Bematech bematech = new Bematech();
         bematech.detectaImpressoras("Caixa");
         if (Bematech.impressora != null) {
-            bematech.imprime("\n\tFechamento de Caixa\n");
-            bematech.imprime("\nFuncionario: " + caixa.getFuncionario().getNomeFunc());
-            bematech.imprime("\n");
-            bematech.imprime("\nQuantidade de Pedidos: " + qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale);
-            bematech.imprime("\nDinheiro: " + qtdPedDinheiro);
-            bematech.imprime("\nCredito: " + qtdPedCred);
-            bematech.imprime("\nDebito: " + qtdPedDeb);
-            bematech.imprime("\nVale: " + qtdPedVale);
-            bematech.imprime("\n--------------------------------------------------------------\n");
-            bematech.imprime("\n");
-            bematech.imprime("\nFundo de Caixa: " + caixa.getFundoCaixa());
-            bematech.imprime("\n");
-            bematech.imprime(dataStr + "                    " + caixa.getDataFechamentoCaixa());
-            bematech.imprime("\nDinheiro: " + frm.getTextoValorDinheiro().getText());
-            bematech.imprime("\nCredito: " + frm.getTextoValorCartaoDeCredito().getText());
-            bematech.imprime("\nDebito: " + frm.getTextoValorCartaoDeDebito().getText());
-            bematech.imprime("\nVale: " + frm.getTextoValorValeRefeicao().getText());
-            bematech.imprime("\n--------------------------------------------------------------\n");
-            bematech.imprime("\n");
-            bematech.imprime("\nTotal Faturado: " + caixa.getTotalCaixa());
-            bematech.imprime("\nTotal retiradas: " + frm.getTextoValorTotalRetiradas());
-            bematech.imprime("\nTotal Caixa: " + frm.getTextoValorTotalCaixa());
-            bematech.imprime("\n--------------------------------------------------------------\n");
-            bematech.imprime("\n");
+            bematech.imprime("\n\t\tFechamento de Caixa\n");
+            bematech.imprime(dataStr + "                    " + new SimpleDateFormat("HH:mm").format(caixa.getDataFechamentoCaixa()));
+            bematech.imprime("Funcionario: " + caixa.getFuncionario().getNomeFunc());
+            bematech.imprime("Quantidade de Pedidos: " + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale));
+            bematech.imprime("Dinheiro: " + qtdPedDinheiro);
+            bematech.imprime("Credito: " + qtdPedCred);
+            bematech.imprime("Debito: " + qtdPedDeb);
+            bematech.imprime("Vale: " + qtdPedVale);
+            bematech.imprime("\n--------------------------------------------------\n");
+            bematech.imprime(String.format("Fundo de Caixa: R$: %.2f" , caixa.getFundoCaixa()));
+            bematech.imprime("Dinheiro: " + frm.getTextoValorDinheiro().getText());
+            bematech.imprime("Credito: " + frm.getTextoValorCartaoDeCredito().getText());
+            bematech.imprime("Debito: " + frm.getTextoValorCartaoDeDebito().getText());
+            bematech.imprime("Vale: " + frm.getTextoValorValeRefeicao().getText());
+            bematech.imprime("\n--------------------------------------------------\n");
+            bematech.imprime(String.format("Total Faturado: R$ %.2f", caixa.getTotalCaixa()));
+            bematech.imprime("Total Retiradas: " + frm.getTextoValorTotalRetiradas().getText());
+            bematech.imprime("Total Caixa: R$ " + frm.getTextoValorTotalCaixa().getText());
+            bematech.imprime("\n--------------------------------------------------\n");
 
             List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
 
             if (despesas != null && !despesas.isEmpty()) {
-                bematech.imprime("\nQuantidade de Retiradas: " + despesas.size());
-                bematech.imprime("\n\nLista de Retiradas\n");
+                bematech.imprime("Quantidade de Retiradas: " + despesas.size());
+                bematech.imprime("\nLista de Retiradas");
                 for (int i = 0; despesas.size() > i; i++) {
-                    bematech.imprime("\n");
-                    bematech.imprime("\nDespesa " + (i + 1));
-                    bematech.imprime("\nMotivo: " + despesas.get(i).getDescDesp());
-                    bematech.imprime("\nValor: " + despesas.get(i).getValorDesp());
-                    bematech.imprime("\n");
-                    bematech.imprime("\n");
+                    bematech.imprime("\nRetirada " + (i + 1));
+                    bematech.imprime("Motivo: " + despesas.get(i).getDescDesp());
+                    bematech.imprime(String.format("Valor: R$ %.2f", despesas.get(i).getValorDesp()));
                 }
             } else {
-                bematech.imprime("\nSem Retiradas\n");
-            }            
-            if(caixa.getPedidos() != null && caixa.getPedidos().size() > 0){
-                bematech.imprime("\n--------------------------------------------------------------\n");
-                bematech.imprime("\nQuantidade de Descontos: " + qtdPedDesc);
-                bematech.imprime("\n\nLista de Descontos\n");
-                for (int i = 0; caixa.getPedidos().size() > i; i++){
-                    if(caixa.getPedidos().get(i).getDescPedido() > 0){
-                        bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
-                        bematech.imprime("\nValor do Pedido: " + caixa.getPedidos().get(i).getSubTotPedido());
-                        bematech.imprime("\nValor do Desconto: " + caixa.getPedidos().get(i).getDescPedido());
-                        bematech.imprime("\n");
-                        bematech.imprime("\n");
-                    }
-                }
-                bematech.imprime("\n--------------------------------------------------------------\n");
-                bematech.imprime("\n\nTotal de Descontos: " + String.format("R$: %.2f", descontoTotal));
-            } else {
-                bematech.imprime("\nSem Descontos\n");
+                bematech.imprime("\nSem Retiradas");
             }
-            
-            if(caixa.getPedidos() != null && caixa.getPedidos().size() > 0){
-                bematech.imprime("\n--------------------------------------------------------------\n");
-                bematech.imprime("\nQuantidade de Cancelamentos: " + qtdPedCanc);
-                bematech.imprime("\n\nLista de Cancelamentos\n");
-                double totalCanc = 0;
-                for (int i = 0; caixa.getPedidos().size() > i; i++){
-                    if("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())){
-                        totalCanc += caixa.getPedidos().get(i).getSubTotPedido();
-                        bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
-                        bematech.imprime("\nValor do Pedido: " + caixa.getPedidos().get(i).getSubTotPedido());
-                        bematech.imprime("\n");
-                        bematech.imprime("\n");
+            if (caixa.getPedidos() != null && caixa.getPedidos().size() > 0) {
+                bematech.imprime("\n--------------------------------------------------\n");
+                bematech.imprime("\nQuantidade de Descontos: " + qtdPedDesc);
+                if (qtdPedDesc == 0) {
+                    bematech.imprime("\nSem Descontos\n");
+                } else {
+                    bematech.imprime("\nLista de Descontos");
+
+                    for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                        if (caixa.getPedidos().get(i).getDescPedido() > 0) {
+
+                            bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
+                            bematech.imprime(String.format("Valor do Pedido: R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()));
+                            bematech.imprime(String.format("Valor do Desconto: R$ %.2f", caixa.getPedidos().get(i).getDescPedido()));
+                        }
                     }
+
+                    bematech.imprime("\n--------------------------------------------------\n");
+                    bematech.imprime("Total de Descontos: " + String.format("R$: %.2f", descontoTotal));
                 }
-                bematech.imprime("\n--------------------------------------------------------------\n");
-                bematech.imprime("\n\nTotal de Cancelamentos: " + String.format("R$: %.2f", totalCanc));
-            } else {
-                bematech.imprime("\nSem Cancelamentos\n");
-            }            
-            bematech.imprime("\n");
-            bematech.imprime("\n");
-            bematech.imprime("\n________________________________________________\n");
-            bematech.imprime("\n\t" + caixa.getFuncionario().getNomeFunc());
+            }
+
+            if (caixa.getPedidos() != null && caixa.getPedidos().size() > 0) {
+                bematech.imprime("\n--------------------------------------------------\n");
+                bematech.imprime("Quantidade de Cancelamentos: " + qtdPedCanc);
+                if (qtdPedCanc == 0) {
+                    bematech.imprime("\nSem Cancelamentos\n");
+                } else {
+                    bematech.imprime("\nLista de Cancelamentos\n");
+                    double totalCanc = 0;
+                    for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                        if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
+                            totalCanc += caixa.getPedidos().get(i).getSubTotPedido();
+                            bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
+                            bematech.imprime(String.format("\nValor do Pedido: R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()));
+                        }
+                    }
+                    bematech.imprime("\n--------------------------------------------------\n");
+                    bematech.imprime("\n\nTotal de Cancelamentos: " + String.format("R$: %.2f", totalCanc));
+                }
+            }
+            bematech.imprime("\n________________________________________________");
+            bematech.imprime("\t" + caixa.getFuncionario().getNomeFunc());
+            bematech.imprime("\n\n\n\n\n\n\n\n\n\n\n");
         } else {
             JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.");
         }
@@ -331,7 +325,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      * função apropriada
      */
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(ActionEvent event
+    ) {
         switch (event.getActionCommand()) {
             case "Cancelar Fechamento de Caixa":
                 this.frm.dispose();
@@ -348,7 +343,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      * @param e Implementação obrigatória, sem uso nesta classe
      */
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e
+    ) {
     }
 
     /**
@@ -356,7 +352,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      * @param e Implementação obrigatória, sem uso nesta classe
      */
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e
+    ) {
     }
 
     /**
@@ -366,7 +363,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      * "Dinheiro em caixa"
      */
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e
+    ) {
         calculaDinheiroEmCaixa();
     }
 }
