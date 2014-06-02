@@ -37,7 +37,11 @@ public class FabricaConexao {
     String senha = "27639932xD";
     String url = "jdbc:mysql://sistemapastelao.no-ip.biz:3306/sistemapastelao";
     Connection ready = null;
-    
+    /**
+     * 
+     * @return 
+     * Função para criar uma conexão e retorna-la
+     */
     public Connection getConexao(){
         try{
             ready = DriverManager.getConnection(url, usuario, senha);

@@ -42,17 +42,23 @@ import java.util.logging.Logger;
 public class DespesaDao {
     Connection conexao = null;
     
-    //Construtor
+    /**
+     * Construtor
+     */
     public DespesaDao(){
         conexao = new FabricaConexao().getConexao();
     }
     
-    //Inicia Conexão
+    /**
+     * Inicia Conexão
+     */
     public void abreConnection() {
         conexao = new FabricaConexao().getConexao();
     }
 
-    //Finaliza Conexão
+    /**
+     * Finaliza Conexão
+     */
     public void fechaConnection() {
         try {
             conexao.close();
@@ -60,9 +66,17 @@ public class DespesaDao {
             Logger.getLogger(DespesaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //CRUD
-    //CREATE    
+    /**
+     * CRUD     
+     */
+    
+    /**
+     * CREATE    
+     * @param novaDesp
+     * @return boolean
+     */
     public boolean adicionaDespesa(Despesa novaDesp) {
+        //sql de inserção
         String sql = "INSERT INTO Despesa(dataDesp,descDesp,valorDesp,idCaixa,retirada) values(?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
@@ -84,8 +98,13 @@ public class DespesaDao {
         return resultado;
     }
 
-    //READ
+    /**
+     * READ
+     * @param idCaixa
+     * @return List<Despesa>
+     */
     public List<Despesa> getLista(int idCaixa) {
+        //sql de busca
         String sql = "SELECT * FROM Despesa where idCaixa = ?";
         PreparedStatement stmt;
         ResultSet res;
@@ -95,6 +114,7 @@ public class DespesaDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, idCaixa);
             res = stmt.executeQuery();
+            //Enquanto a lista de resultado tiver elemento 
             while (res.next()) {
                 Despesa despesa = new Despesa();
                 despesa.setIdDesp(res.getInt("idCaixa"));
@@ -110,7 +130,11 @@ public class DespesaDao {
         return listaResDesp;
     }
 
-//UPDATE
+    /**
+     * UPDATE
+     * @param novaDespesa
+     * @return boolean
+     */
     public boolean atualizaDesp(Despesa novaDespesa) {
         String sql = "UPDATE Despesa SET dataDesp=?, descDesp=?, valorDesp=?, idCaixa=?, retirada=? WHERE idDesp=?";
         PreparedStatement stmt;
