@@ -65,7 +65,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buscaFormasPagamento();
         initComponents();
         campoDesconto.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
-        campoMesa.setDocument(new LimitaDigitos((3), "[^0-9]"));
+        campoMesa.setDocument(new LimitaDigitos((2), "[^0-9]"));
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);

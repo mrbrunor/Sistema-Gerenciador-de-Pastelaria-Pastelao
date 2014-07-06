@@ -136,7 +136,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         if(frm.getBotaoRadioBalcao().isSelected()){
             frm.getPedido().setFormaConsumo("Balcao");
         } else if (frm.getBotaoRadioMesa().isSelected()){
-            frm.getPedido().setFormaConsumo(String.format("Mesa %03d", Integer.valueOf(frm.getCampoMesa().getText())));
+            frm.getPedido().setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(frm.getCampoMesa().getText())));
         } else if (frm.getBotaoRadioViagem().isSelected()){
             frm.getPedido().setFormaConsumo("Viagem");
         }
