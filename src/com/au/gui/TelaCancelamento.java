@@ -44,7 +44,6 @@ public class TelaCancelamento extends javax.swing.JDialog {
     public TelaCancelamento(java.awt.Frame parent, boolean modal, Caixa caixa) {
         super(parent, modal);
         initComponents();
-        campoMotivo.setDocument(new LimitaDigitos((300), ""));
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         listener = new CancelamentoActionListener(this);
         this.caixa = caixa;
@@ -64,9 +63,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
         textoInsiraDados = new javax.swing.JLabel();
         painelInferior = new javax.swing.JPanel();
         textoValor = new javax.swing.JLabel();
-        textoSenha = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
-        campoMotivo = new javax.swing.JTextField();
         botaoSair = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
 
@@ -108,12 +105,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
         textoValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         textoValor.setText("Número do Pedido");
 
-        textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoSenha.setText("Motivo");
-
         campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        campoMotivo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -121,13 +113,9 @@ public class TelaCancelamento extends javax.swing.JDialog {
             painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoSenha)
-                    .addComponent(textoValor))
+                .addComponent(textoValor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoNumeroPedido)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(campoNumeroPedido)
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -137,11 +125,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoValor)
                     .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(textoSenha))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
@@ -172,11 +156,11 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCancelarPedido))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,14 +180,6 @@ public class TelaCancelamento extends javax.swing.JDialog {
 
     public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
         this.botaoCancelarPedido = botaoCancelarPedido;
-    }
-
-    public JTextField getCampoMotivo() {
-        return campoMotivo;
-    }
-
-    public void setCampoMotivo(JTextField campoMotivo) {
-        this.campoMotivo = campoMotivo;
     }
 
     public JTextField getCampoNumeroPedido() {
@@ -228,13 +204,11 @@ public class TelaCancelamento extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JButton botaoSair;
-    private javax.swing.JTextField campoMotivo;
     private javax.swing.JTextField campoNumeroPedido;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoBemVindo;
     private javax.swing.JLabel textoInsiraDados;
-    private javax.swing.JLabel textoSenha;
     private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables
 }

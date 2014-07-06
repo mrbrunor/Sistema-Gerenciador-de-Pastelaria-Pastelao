@@ -25,13 +25,10 @@ package com.au.gui.listener;
 
 import com.au.dao.DAO;
 import com.au.gui.TelaCancelamento;
-import com.au.modelo.Caixa;
 import com.au.modelo.Pedido;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -40,7 +37,7 @@ import javax.swing.border.MatteBorder;
  *
  * @author BrunoRicardo
  */
-public class CancelamentoActionListener implements ActionListener, KeyListener {
+public class CancelamentoActionListener implements ActionListener {
 
     private final TelaCancelamento frm;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
@@ -55,19 +52,7 @@ public class CancelamentoActionListener implements ActionListener, KeyListener {
     public void adicionaListener() {
         frm.getBotaoSair().addActionListener(this);
         frm.getBotaoCancelarPedido().addActionListener(this);
-        frm.getCampoMotivo().addActionListener(this);
-        frm.getCampoNumeroPedido().addKeyListener(this);
-    }
-
-    public void registrarCancelamento(int idPedido) {
-
-        for (int i = 0; i < frm.getCaixa().getPedidos().size(); i++) {
-            if (frm.getCaixa().getPedidos().get(i).getIdPedido() == idPedido) {
-
-            }
-        }
-
-        JOptionPane.showMessageDialog(frm, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
+        frm.getCampoNumeroPedido().addActionListener(this);
     }
 
     public boolean valida() {
@@ -75,36 +60,29 @@ public class CancelamentoActionListener implements ActionListener, KeyListener {
 
         if (!"".equals(frm.getCampoNumeroPedido().getText())) {
             frm.getCampoNumeroPedido().setBorder(normal);
+            valida = validaPedido();
         } else {
             frm.getCampoNumeroPedido().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 10) {
-            frm.getCampoMotivo().setBorder(normal);
-        } else {
-            frm.getCampoMotivo().setBorder(vermelha);
             valida = false;
         }
         return valida;
     }
 
-    public void validaPedido() {
-        System.out.println("Entrou Função");
+    public boolean validaPedido() {
         for (int i = 0; i < frm.getCaixa().getPedidos().size(); i++) {
-            System.out.println("Entrou For - i=" + i);
             if (frm.getCaixa().getPedidos().get(i).getNumPedido() == Integer.valueOf(frm.getCampoNumeroPedido().getText())) {
-                System.out.println("Entrou IF - Numero Pedido");
                 if (frm.getCaixa().getPedidos().get(i).getEstadoPedido().equals("Cancelado")) {
-                    System.out.println("Entrou IF Ja Cancelado");
                     JOptionPane.showMessageDialog(frm, "Pedido informado já esta Cancelado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    return false;
                 }
                 frm.getCaixa().getPedidos().get(i).setEstadoPedido("Cancelado");
                 new DAO<>(Pedido.class).atualiza(frm.getCaixa().getPedidos().get(i));
-            }
-            
+                JOptionPane.showMessageDialog(frm, "Pedido cancelado com sucesso!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                return true;
+            }            
         }
-        System.out.println("Saiu For e Função");
+        JOptionPane.showMessageDialog(frm, "Pedido não foi encontrado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        return false;
     }
 
     @Override
@@ -112,29 +90,13 @@ public class CancelamentoActionListener implements ActionListener, KeyListener {
         switch (event.getActionCommand()) {
             case "Cancelar Pedido":
                 if (valida()) {
-                    validaPedido();
                     frm.dispose();
-                }
+                }                
                 break;
 
             case "Sair":
                 frm.dispose();
                 break;
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            frm.getCampoMotivo().requestFocus();
         }
     }
 }

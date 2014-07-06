@@ -81,6 +81,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         painelDadosPedido = new javax.swing.JPanel();
         campoDesconto = new javax.swing.JTextField();
         campoDesconto.setActionCommand("Desconto");
@@ -105,6 +106,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoIconeVR = new javax.swing.JLabel();
         botaoConfirmarPedido = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        botaoRadioBalcao = new javax.swing.JRadioButton();
+        botaoRadioMesa = new javax.swing.JRadioButton();
+        botaoRadioViagem = new javax.swing.JRadioButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Confirmação de Pedido");
@@ -160,7 +166,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1)
                         .addGap(18, 18, 18)
-                        .addComponent(textoValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)))
+                        .addComponent(textoValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelDadosPedidoLayout.setVerticalGroup(
@@ -169,7 +175,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addComponent(textoConfiraDadosPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textoValorTotal)
@@ -242,7 +248,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                                 .addComponent(botaoRadioValeRefeicao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(textoIconeVR)))))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelFormasDePagamentoLayout.setVerticalGroup(
             painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +276,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                             .addComponent(textoIconeCD))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botaoConfirmarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
@@ -278,6 +284,50 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarPedido.setText("Cancelar Pedido");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Consumo"));
+
+        buttonGroup2.add(botaoRadioBalcao);
+        botaoRadioBalcao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botaoRadioBalcao.setText("Balcão");
+
+        buttonGroup2.add(botaoRadioMesa);
+        botaoRadioMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botaoRadioMesa.setText("Mesa");
+
+        buttonGroup2.add(botaoRadioViagem);
+        botaoRadioViagem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botaoRadioViagem.setText("Viagem");
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoRadioBalcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
+                .addComponent(botaoRadioMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(botaoRadioViagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoRadioBalcao)
+                    .addComponent(botaoRadioMesa)
+                    .addComponent(botaoRadioViagem)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,23 +339,32 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(painelDadosPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoConfirmarPedido)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoConfirmarPedido)
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelDadosPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCancelarPedido)
-                    .addComponent(botaoConfirmarPedido))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoCancelarPedido)
+                            .addComponent(botaoConfirmarPedido)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelDadosPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -463,6 +522,30 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         TelaConfirmacaoPagamento.caixa = caixa;
     }
 
+    public JRadioButton getBotaoRadioBalcao() {
+        return botaoRadioBalcao;
+    }
+
+    public void setBotaoRadioBalcao(JRadioButton botaoRadioBalcao) {
+        this.botaoRadioBalcao = botaoRadioBalcao;
+    }
+
+    public JRadioButton getBotaoRadioMesa() {
+        return botaoRadioMesa;
+    }
+
+    public void setBotaoRadioMesa(JRadioButton botaoRadioMesa) {
+        this.botaoRadioMesa = botaoRadioMesa;
+    }
+
+    public JRadioButton getBotaoRadioViagem() {
+        return botaoRadioViagem;
+    }
+
+    public void setBotaoRadioViagem(JRadioButton botaoRadioViagem) {
+        this.botaoRadioViagem = botaoRadioViagem;
+    }
+       
     public void buscaFormasPagamento() {
         System.out.println("Chegou na Busca");
         listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
@@ -534,16 +617,22 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;
     private javax.swing.JButton botaoConfirmarPedido;
+    private javax.swing.JRadioButton botaoRadioBalcao;
     private javax.swing.JRadioButton botaoRadioCartaoCredito;
     private javax.swing.JRadioButton botaoRadioDinheiro;
+    private javax.swing.JRadioButton botaoRadioMesa;
     private javax.swing.JRadioButton botaoRadioValeRefeicao;
+    private javax.swing.JRadioButton botaoRadioViagem;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox caixaSelecaoCC;
     private javax.swing.JComboBox caixaSelecaoCD;
     private javax.swing.JComboBox caixaSelecaoVR;
     private javax.swing.JTextField campoDesconto;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel painelDadosPedido;
     private javax.swing.JPanel painelFormasDePagamento;
     private javax.swing.JTable tabelaPedido;

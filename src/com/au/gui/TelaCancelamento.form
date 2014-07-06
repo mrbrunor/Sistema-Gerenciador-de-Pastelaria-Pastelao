@@ -45,12 +45,12 @@
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="painelInferior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoSair" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="botaoCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -125,15 +125,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="textoValor" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="textoValor" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="campoNumeroPedido" max="32767" attributes="0"/>
-                      <Component id="campoMotivo" alignment="1" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="campoNumeroPedido" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -146,12 +140,7 @@
                       <Component id="textoValor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="campoNumeroPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoMotivo" alignment="3" pref="51" max="32767" attributes="0"/>
-                      <Component id="textoSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,20 +152,7 @@
             <Property name="text" type="java.lang.String" value="N&#xfa;mero do Pedido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="textoSenha">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Motivo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="campoNumeroPedido">
-          <Properties>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor de Texto"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoMotivo">
           <Properties>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Texto"/>
