@@ -194,9 +194,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
 
     private void fecharPedido() {
         if (numeroPedidoVerificado) {
-            pedido.setNumPedido(numPedido++);
+            pedido.setNumPedido(numPedido);
+            numPedido++;
         } else {
             pedido.setNumPedido(verificaNumeroPedido());
+            numPedido++;
         }
         new TelaConfirmacaoPagamento(frm, true, frm.getFuncionario(), pedido, indexCaixa, totalPedido).setVisible(true);
         if (TelaConfirmacaoPagamento.isCadastrou()) {

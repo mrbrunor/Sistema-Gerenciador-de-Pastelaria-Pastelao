@@ -403,8 +403,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    geraComandaVenda();
-                    geraComandaCozinha();
+                   // geraComandaVenda();
+                   // geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }
