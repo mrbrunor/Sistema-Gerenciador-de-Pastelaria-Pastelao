@@ -23,6 +23,7 @@
  */
 package com.au.gui.listener;
 
+import com.au.dao.DAO;
 import com.au.gui.TelaConfirmacaoPagamento;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.modelo.Caixa;
@@ -30,8 +31,9 @@ import com.au.modelo.FormaPagamento;
 import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
 import com.au.util.Bematech;
+import com.au.util.BematechComandosDiretos;
+import com.au.util.BematechNFiscal;
 import com.au.util.CustomComboBoxInt;
-import com.au.dao.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +59,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     private VendaTableModel tableModelVenda;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
-    
 
     public PagamentoActionListener(TelaConfirmacaoPagamento frm) {
         this.frm = frm;
@@ -150,6 +151,47 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     private void geraComandaVenda() {
+        int iRetorno;
+        String iComando;
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String dataStr = formatador.format(frm.getPedido().getDataPedido());
+
+        BematechNFiscal cupom = BematechNFiscal.Instance;
+
+        iRetorno = cupom.ConfiguraModeloImpressora(5);
+        iRetorno = cupom.IniciaPorta("LPT1");
+        iRetorno = cupom.PrintNVBitmap(1, 0);
+        iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + frm.getPedido().getHoraPedido() + "\r\n");
+        iRetorno = cupom.BematechTX("AGUARDE PELO NUMERO:   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getNumPedido() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.FormataTX("Codigo\t\tQT\tUnit\tTotal\r\n", 3, 0, 0, 0, 0);
+        for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + " x " + frm.getPedido().getItempedidos().get(i).getQtdProd() + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + "\t"
+                    + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getProduto().getValorProd()) + "\t"
+                    + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getTotProd()) + "\r\n");
+            iRetorno = cupom.FormataTX(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()), 3, 0, 0, 0, 1);
+        }
+        iRetorno = cupom.FormataTX("\n\t\t\tSUBTOTAL.......... " + String.format("%.2f", frm.getPedido().getSubTotPedido()) + "\r\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.FormataTX("\t\t\tDESCONTO.......... " + String.format("%.2f", frm.getPedido().getDescPedido()) + "\r\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.FormataTX("\t\t\tTOTAL............. " + String.format("%.2f", frm.getPedido().getTotPedido()) + "\r\n\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("ESTE CUPOM NAO TEM VALIDADE FISCAL\r\n", 3, 1, 0, 0, 0);
+        iRetorno = cupom.FormataTX("Obrigado pela Preferencia, Volte Sempre!\r\n", 3, 1, 0, 0, 1);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        iComando = "" + (char) 10;
+        for (int i = 0; i < 9; i++) {
+            iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        }
+        iRetorno = cupom.FechaPorta();
+        /*
+         iRetorno = cupom.FormataTX("TEXTO ITÁLICO\r\n", 2, 1, 0, 0, 0);
+         iRetorno = cupom.FormataTX("TEXTO NEGRITO\r\n", 2, 0, 0, 0, 1);
+         iRetorno = cupom.FormataTX("TEXTO SUBLINHADO\r\n", 2, 0, 1, 0, 0);
+         iRetorno = cupom.FormataTX("TEXTO CONDENSADO\r\n", 1, 0, 0, 0, 0);
+         iRetorno = cupom.FormataTX("TEXTO ELITE\r\n", 3, 0, 0, 0, 0);
+         iRetorno = cupom.FormataTX("TEXTO NORMAL\r\n", 2, 0, 0, 0, 0);*/
+    }
+
+    private void geraComandaVendaAntiga() {
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(frm.getPedido().getDataPedido());
@@ -253,16 +295,15 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public boolean valida() {
         boolean valida = true;
-        if(!"".equals(frm.getCampoDesconto().getText())){
+        if (!"".equals(frm.getCampoDesconto().getText())) {
             System.out.println("Desc: " + Double.valueOf(frm.getCampoDesconto().getText()));
             System.out.println("Total: " + frm.getPedido().getSubTotPedido());
-            
+
         }
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.getCampoDesconto().setText("0");
             atualizaTotal();
-        } 
-        else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()){
+        } else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()) {
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
             atualizaTotal();
