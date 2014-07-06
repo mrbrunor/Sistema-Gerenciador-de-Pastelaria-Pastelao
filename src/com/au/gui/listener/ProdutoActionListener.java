@@ -27,7 +27,6 @@ import com.au.gui.TelaCadastrarIngrediente;
 import com.au.gui.TelaCadastrarProduto;
 import com.au.gui.tmodel.ProdutoIngredientesTableModel;
 import com.au.gui.tmodel.ProdutoTableModel;
-import com.au.modelo.Fornecedor;
 import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
 import com.au.util.CustomComboBoxInt;
@@ -58,7 +57,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public void limpaCampos() {
         frm.limpaCampos();
-        frm.getCaixaSelecaoForn().setBorder(normal);
         frm.getCaixaSelecaoIng().setBorder(normal);
         frm.getCampoBarras().setBorder(normal);
         frm.getCampoNome().setBorder(normal);
@@ -227,9 +225,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         produto.setDescProd(frm.getCampoNome().getText());
         produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
 
-        CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoForn().getSelectedItem();
-        produto.setFornecedor(new DAO<>(Fornecedor.class).buscaPorId(ob.getId()));
-
         if (frm.getRadioInd().isSelected()) {
             produto.setEIndustrializado((byte) 1);
             if ("".equals(frm.getCampoBarras().getText())) {
@@ -255,14 +250,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCampoId().setText(String.valueOf(produto.getIdProd()));
         frm.getCampoNome().setText(produto.getDescProd());
         frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
-        //Fornecedor
-        List<Fornecedor> fornecedores = frm.getListaResForn();
-        for (int i = 0; i < frm.getCaixaSelecaoForn().getItemCount(); i++) {
-            if (produto.getFornecedor().getIdForn() == fornecedores.get(i).getIdForn()) {
-                frm.getCaixaSelecaoForn().setSelectedIndex(i);
-            }
-        }
-        //
         if (produto.getEIndustrializado() == (byte) 1) {
             frm.getRadioInd().doClick();
             frm.getRadioPrep().setSelected(false);
@@ -327,13 +314,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             frm.getRadioPrep().setBorderPainted(true);
             frm.getRadioPrep().setBorder(vermelha);
             frm.getRadioInd().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (frm.getCaixaSelecaoForn().getSelectedIndex() != -1) {
-            frm.getCaixaSelecaoForn().setBorder(normal);
-        } else {
-            frm.getCaixaSelecaoForn().setBorder(vermelha);
             valida = false;
         }
 

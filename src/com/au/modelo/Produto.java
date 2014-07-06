@@ -41,15 +41,6 @@ public class Produto implements Serializable {
 	@OneToMany(mappedBy="produto")
 	private List<Itempedido> itempedidos;
 
-	//bi-directional many-to-one association to Notaproduto
-	@OneToMany(mappedBy="produto")
-	private List<Notaproduto> notaprodutos;
-
-	//bi-directional many-to-one association to Fornecedor
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idForn", nullable=false)
-	private Fornecedor fornecedor;
-
 	//bi-directional many-to-many association to Ingrediente
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
@@ -61,7 +52,7 @@ public class Produto implements Serializable {
 			@JoinColumn(name="idIng", nullable=false)
 			}
 		)
-	private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+	private List<Ingrediente> ingredientes = new ArrayList<>();
 
 	public Produto() {
 	}
@@ -136,36 +127,6 @@ public class Produto implements Serializable {
 		return itempedido;
 	}
 
-	public List<Notaproduto> getNotaprodutos() {
-		return this.notaprodutos;
-	}
-
-	public void setNotaprodutos(List<Notaproduto> notaprodutos) {
-		this.notaprodutos = notaprodutos;
-	}
-
-	public Notaproduto addNotaproduto(Notaproduto notaproduto) {
-		getNotaprodutos().add(notaproduto);
-		notaproduto.setProduto(this);
-
-		return notaproduto;
-	}
-
-	public Notaproduto removeNotaproduto(Notaproduto notaproduto) {
-		getNotaprodutos().remove(notaproduto);
-		notaproduto.setProduto(null);
-
-		return notaproduto;
-	}
-
-	public Fornecedor getFornecedor() {
-		return this.fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-	
 	public List<Ingrediente> getIngredientes() {
 		return this.ingredientes;
 	}

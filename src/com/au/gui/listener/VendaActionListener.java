@@ -24,7 +24,6 @@
 package com.au.gui.listener;
 
 import com.au.gui.TelaCadastrarFormasDePagamento;
-import com.au.gui.TelaCadastrarFornecedor;
 import com.au.gui.TelaCadastrarFuncionario;
 import com.au.gui.TelaCadastrarIngrediente;
 import com.au.gui.TelaCadastrarProduto;
@@ -450,9 +449,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Formas de Pagamento":
                 new TelaCadastrarFormasDePagamento(frm, true).setVisible(true);
-                break;
-            case "Fornecedores":
-                new TelaCadastrarFornecedor(frm, true).setVisible(true);
                 break;
             case "Funcionários":
                 new TelaCadastrarFuncionario(frm, true).setVisible(true);

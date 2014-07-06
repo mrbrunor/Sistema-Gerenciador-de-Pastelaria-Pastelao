@@ -3,8 +3,6 @@ package com.au.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-
 
 /**
  * The persistent class for the despesa database table.
@@ -39,9 +37,6 @@ public class Despesa implements Serializable {
 	@JoinColumn(name="idCaixa", nullable=false)
 	private Caixa caixa;
 
-	//bi-directional many-to-one association to Notafiscal
-	@OneToMany(mappedBy="despesa")
-	private List<Notafiscal> notafiscals;
 
 	public Despesa() {
 	}
@@ -93,27 +88,4 @@ public class Despesa implements Serializable {
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
 	}
-
-	public List<Notafiscal> getNotafiscals() {
-		return this.notafiscals;
-	}
-
-	public void setNotafiscals(List<Notafiscal> notafiscals) {
-		this.notafiscals = notafiscals;
-	}
-
-	public Notafiscal addNotafiscal(Notafiscal notafiscal) {
-		getNotafiscals().add(notafiscal);
-		notafiscal.setDespesa(this);
-
-		return notafiscal;
-	}
-
-	public Notafiscal removeNotafiscal(Notafiscal notafiscal) {
-		getNotafiscals().remove(notafiscal);
-		notafiscal.setDespesa(null);
-
-		return notafiscal;
-	}
-
 }

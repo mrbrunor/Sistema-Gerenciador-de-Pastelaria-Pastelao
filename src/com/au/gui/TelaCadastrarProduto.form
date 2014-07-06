@@ -160,12 +160,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="painelDadosProduto" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="painelProdutoIndustrializado" max="32767" attributes="0"/>
-                      <Component id="painelProdutoPreparado" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="painelDadosProduto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="painelProdutoIndustrializado" min="-2" max="-2" attributes="0"/>
+                      <Component id="painelProdutoPreparado" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -192,7 +192,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="textoTipo" max="32767" attributes="0"/>
-                          <Component id="textoFornecedor" max="32767" attributes="0"/>
                           <Component id="textoValor" alignment="0" max="32767" attributes="0"/>
                           <Component id="textoNome" max="32767" attributes="0"/>
                           <Component id="textoId" min="-2" pref="110" max="-2" attributes="0"/>
@@ -209,7 +208,6 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="radioPrep" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="caixaSelecaoForn" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="campoNome" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -240,13 +238,9 @@
                           <Component id="radioInd" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="radioPrep" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="caixaSelecaoForn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="textoErroIngrediente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -255,11 +249,6 @@
             <Component class="javax.swing.JLabel" name="textoId">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Id Produto:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="textoFornecedor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fornecedor:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campoId">
@@ -280,12 +269,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Valor Produto:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="caixaSelecaoForn">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox(getForns())"/>
-                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TelaCadastraProduto_caixaSelecaoForn"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="textoTipo">
               <Properties>
@@ -369,7 +352,7 @@
                           <Component id="textoBarras" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="campoBarras" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="128" max="32767" attributes="0"/>
+                      <EmptySpace pref="131" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -556,7 +539,6 @@
                   <Component id="textoCliqueParaEditar" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="painelScrollTabela" pref="0" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

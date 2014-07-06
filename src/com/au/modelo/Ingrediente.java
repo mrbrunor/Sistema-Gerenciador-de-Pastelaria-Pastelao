@@ -26,10 +26,6 @@ public class Ingrediente implements Serializable {
 	@Column(nullable=false)
 	private double valorIng;
 
-	//bi-directional many-to-one association to Notaingrediente
-	@OneToMany(mappedBy="ingrediente")
-	private List<Notaingrediente> notaingredientes;
-
 	//bi-directional many-to-many association to Produto
 	@ManyToMany(mappedBy="ingredientes")
 	private List<Produto> produtos;
@@ -59,28 +55,6 @@ public class Ingrediente implements Serializable {
 
 	public void setValorIng(double valorIng) {
 		this.valorIng = valorIng;
-	}
-
-	public List<Notaingrediente> getNotaingredientes() {
-		return this.notaingredientes;
-	}
-
-	public void setNotaingredientes(List<Notaingrediente> notaingredientes) {
-		this.notaingredientes = notaingredientes;
-	}
-
-	public Notaingrediente addNotaingrediente(Notaingrediente notaingrediente) {
-		getNotaingredientes().add(notaingrediente);
-		notaingrediente.setIngrediente(this);
-
-		return notaingrediente;
-	}
-
-	public Notaingrediente removeNotaingrediente(Notaingrediente notaingrediente) {
-		getNotaingredientes().remove(notaingrediente);
-		notaingrediente.setIngrediente(null);
-
-		return notaingrediente;
 	}
 
 	public List<Produto> getProdutos() {

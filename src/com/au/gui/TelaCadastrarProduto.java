@@ -25,7 +25,6 @@ package com.au.gui;
 
 import com.au.util.LimitaDigitos;
 import com.au.gui.listener.ProdutoActionListener;
-import com.au.modelo.Fornecedor;
 import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
@@ -44,7 +43,6 @@ import javax.swing.JTextField;
 public class TelaCadastrarProduto extends javax.swing.JDialog {
 
     private ProdutoActionListener listener;
-    private List<Fornecedor>listaResForn;
     
     /**
      * Creates new form TelaCadastrarUsuario
@@ -57,7 +55,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
         campoPesquisarProduto.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-]"));
-        caixaSelecaoForn.setSelectedIndex(-1);
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
@@ -83,13 +80,11 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         painelAdicionarModificarProdutos = new javax.swing.JPanel();
         painelDadosProduto = new javax.swing.JPanel();
         textoId = new javax.swing.JLabel();
-        textoFornecedor = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
         textoNome = new javax.swing.JLabel();
         campoValor = new javax.swing.JTextField();
         campoNome = new javax.swing.JTextField();
         textoValor = new javax.swing.JLabel();
-        caixaSelecaoForn = new javax.swing.JComboBox(getForns());
         textoTipo = new javax.swing.JLabel();
         radioInd = new javax.swing.JRadioButton();
         radioPrep = new javax.swing.JRadioButton();
@@ -163,8 +158,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         textoId.setText("Id Produto:");
 
-        textoFornecedor.setText("Fornecedor:");
-
         campoId.setEnabled(false);
 
         textoNome.setText("Nome Produto:");
@@ -190,7 +183,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,7 +196,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                             .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addComponent(radioPrep))
-                    .addComponent(caixaSelecaoForn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -228,12 +219,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(radioInd)
                     .addComponent(radioPrep))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoFornecedor)
-                    .addComponent(caixaSelecaoForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoErroIngrediente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoErroIngrediente)
+                .addContainerGap())
         );
 
         painelProdutoIndustrializado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Industrializado")));
@@ -274,7 +262,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBarras)
                     .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
@@ -344,12 +332,12 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         painelAdicionarModificarProdutosLayout.setVerticalGroup(
             painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelDadosProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelDadosProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         painelProcurarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Produto Existente"));
@@ -404,8 +392,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
@@ -494,14 +481,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         this.textoErroIngrediente = textoErroIngrediente;
     }
 
-    public List<Fornecedor> getListaResForn() {
-        return listaResForn;
-    }
-
-    public void setListaResForn(List<Fornecedor> listaResForn) {
-        this.listaResForn = listaResForn;
-    }
-
     public JButton getBotaoAdicionarIngrediente() {
         return botaoAdicionarIngrediente;
     }
@@ -564,14 +543,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
     public void setBotaoProcurarProduto(JButton botaoProcurarProduto) {
         this.botaoProcurarProduto = botaoProcurarProduto;
-    }
-
-    public JComboBox getCaixaSelecaoForn() {
-        return caixaSelecaoForn;
-    }
-
-    public void setCaixaSelecaoForn(JComboBox caixaSelecaoForn) {
-        this.caixaSelecaoForn = caixaSelecaoForn;
     }
 
     public JComboBox getCaixaSelecaoIng() {
@@ -654,19 +625,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         this.tabelaProdutos = tabelaProdutos;
     }
 
-   
-    
-    private CustomComboBoxInt[] getForns() {
-        listaResForn = new DAO<>(Fornecedor.class).listaTodos();
-        
-        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResForn.size()];
-        
-        for (int i = 0; i < listaResForn.size(); i++) {
-            oItems[i] = new CustomComboBoxInt(listaResForn.get(i).getNomeForn(), listaResForn.get(i).getIdForn());
-        }
-        return oItems;
-    }
-
     private CustomComboBoxInt[] getIngs() {
         List<Ingrediente>listaResIng = new DAO<>(Ingrediente.class).listaTodos();
         
@@ -684,7 +642,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         campoQtd.setText("");
         campoValor.setText("");
         buttonGroup1.clearSelection();
-        caixaSelecaoForn.setSelectedIndex(-1);
         caixaSelecaoIng.setSelectedIndex(-1);        
     }     
  
@@ -699,7 +656,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JButton botaoProcurarProduto;
     private javax.swing.JButton botaoRemoverIngrediente;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox caixaSelecaoForn;
     private javax.swing.JComboBox caixaSelecaoIng;
     private javax.swing.JTextField campoBarras;
     private javax.swing.JTextField campoId;
@@ -724,7 +680,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JLabel textoBarras;
     private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoErroIngrediente;
-    private javax.swing.JLabel textoFornecedor;
     private javax.swing.JLabel textoIconeNovoProduto;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;

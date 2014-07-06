@@ -1,7 +1,6 @@
 package com.au.dao;
 
 import com.au.modelo.FormaPagamento;
-import com.au.modelo.Fornecedor;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
@@ -108,16 +107,6 @@ public class DAO<T> {
         List<Produto> produtos = q.getResultList();
 
         return produtos;
-    }
-    
-    public List<Fornecedor> buscaFornecedores(String pesquisa) {
-        EntityManager em = new FabricaConexaoJPA().getEntityManager();
-
-        Query q = em.createQuery("from Fornecedor f where f.nomeForn like '%" + pesquisa + "%'");
-
-        List<Fornecedor> fornecedores = q.getResultList();
-
-        return fornecedores;
     }
     
     public List<Funcionario> buscaFuncionarios(String pesquisa) {
