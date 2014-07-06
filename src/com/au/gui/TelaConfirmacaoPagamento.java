@@ -65,6 +65,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buscaFormasPagamento();
         initComponents();
         campoDesconto.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
+        campoMesa.setDocument(new LimitaDigitos((3), "[^0-9]"));
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);
@@ -110,7 +111,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioBalcao = new javax.swing.JRadioButton();
         botaoRadioMesa = new javax.swing.JRadioButton();
         botaoRadioViagem = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
+        campoMesa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Confirmação de Pedido");
@@ -299,8 +300,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioViagem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioViagem.setText("Viagem");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.setEnabled(false);
+        campoMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        campoMesa.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,7 +313,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addGap(65, 65, 65)
                 .addComponent(botaoRadioMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(botaoRadioViagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -325,7 +326,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(botaoRadioBalcao)
                     .addComponent(botaoRadioMesa)
                     .addComponent(botaoRadioViagem)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -545,7 +546,15 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public void setBotaoRadioViagem(JRadioButton botaoRadioViagem) {
         this.botaoRadioViagem = botaoRadioViagem;
     }
-       
+
+    public JTextField getCampoMesa() {
+        return campoMesa;
+    }
+
+    public void setCampoMesa(JTextField campoMesa) {
+        this.campoMesa = campoMesa;
+    }
+    
     public void buscaFormasPagamento() {
         System.out.println("Chegou na Busca");
         listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
@@ -629,10 +638,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JComboBox caixaSelecaoCD;
     private javax.swing.JComboBox caixaSelecaoVR;
     private javax.swing.JTextField campoDesconto;
+    private javax.swing.JTextField campoMesa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel painelDadosPedido;
     private javax.swing.JPanel painelFormasDePagamento;
     private javax.swing.JTable tabelaPedido;

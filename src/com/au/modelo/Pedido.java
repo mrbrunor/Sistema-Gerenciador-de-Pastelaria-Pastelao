@@ -32,6 +32,9 @@ public class Pedido implements Serializable {
 
     @Column(nullable = false, length = 20)
     private String estadoPedido;
+    
+    @Column(nullable = false, length = 50)
+    private String formaConsumo;
 
     //bi-directional many-to-one association to FormaPagamento
     @ManyToOne(fetch = FetchType.EAGER)
@@ -109,6 +112,14 @@ public class Pedido implements Serializable {
 
     public void setHoraPedido(Time horaPedido) {
         this.horaPedido = horaPedido;
+    }
+
+    public String getFormaConsumo() {
+        return formaConsumo;
+    }
+
+    public void setFormaConsumo(String formaConsumo) {
+        this.formaConsumo = formaConsumo;
     }
 
     public int getNumPedido() {

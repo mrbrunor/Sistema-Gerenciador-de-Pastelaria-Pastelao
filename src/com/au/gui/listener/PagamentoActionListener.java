@@ -95,6 +95,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getBotaoRadioValeRefeicao().addActionListener(this);
         frm.getCampoDesconto().addKeyListener(this);
         frm.getCampoDesconto().addActionListener(this);
+        frm.getBotaoRadioBalcao().addActionListener(this);
+        frm.getBotaoRadioMesa().addActionListener(this);
+        frm.getBotaoRadioViagem().addActionListener(this);
     }
 
     private void atualizaTotal() {
@@ -125,10 +128,18 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoVR().getSelectedItem();
             frm.getPedido().setFormaPagamento((new DAO<>(FormaPagamento.class).buscaPorId(ob.getId())));
         }
-
+        
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
+        
+        if(frm.getBotaoRadioBalcao().isSelected()){
+            frm.getPedido().setFormaConsumo("Balcao");
+        } else if (frm.getBotaoRadioMesa().isSelected()){
+            frm.getPedido().setFormaConsumo(String.format("Mesa %03d", Integer.valueOf(frm.getCampoMesa().getText())));
+        } else if (frm.getBotaoRadioViagem().isSelected()){
+            frm.getPedido().setFormaConsumo("Viagem");
+        }
 
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
@@ -243,7 +254,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         }
     }
 
-    public void limpaBorda() {
+    public void limpaBordaPagamento() {
         frm.getBotaoCartaoDebito().setBorderPainted(false);
         frm.getBotaoRadioCartaoCredito().setBorderPainted(false);
         frm.getBotaoRadioDinheiro().setBorderPainted(false);
@@ -252,9 +263,16 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCD().setBorder(normal);
         frm.getCaixaSelecaoVR().setBorder(normal);
     }
+    
+    public void limpaBordaConsumo() {
+        frm.getBotaoRadioBalcao().setBorderPainted(false);
+        frm.getBotaoRadioMesa().setBorderPainted(false);
+        frm.getBotaoRadioViagem().setBorderPainted(false);
+        frm.getCampoMesa().setBorder(normal);
+    }
 
     public void habilitaDinheiro() {
-        limpaBorda();
+        limpaBordaPagamento();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -264,7 +282,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void habilitaCC() {
-        limpaBorda();
+        limpaBordaPagamento();
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -274,7 +292,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void habilitaCD() {
-        limpaBorda();
+        limpaBordaPagamento();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
@@ -284,13 +302,19 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void habilitaVR() {
-        limpaBorda();
+        limpaBordaPagamento();
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
         frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(true);
         frm.getCaixaSelecaoVR().setSelectedIndex(-1);
+    }
+    
+    public void habilitaMesa(boolean valida) {
+        limpaBordaConsumo();
+        frm.getCampoMesa().setEnabled(valida);
+        frm.getCampoMesa().setText("");
     }
 
     public boolean valida() {
@@ -310,7 +334,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         }
 
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
-            limpaBorda();
+            limpaBordaPagamento();
         } else {
             valida = false;
             frm.getBotaoCartaoDebito().setBorder(vermelha);
@@ -346,6 +370,25 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         } else {
             frm.getCaixaSelecaoVR().setBorder(normal);
         }
+        
+        if (frm.getBotaoRadioBalcao().isSelected() || frm.getBotaoRadioMesa().isSelected() || frm.getBotaoRadioViagem().isSelected()){
+            limpaBordaConsumo();
+        } else{
+            valida = false;
+            frm.getBotaoRadioBalcao().setBorder(vermelha);
+            frm.getBotaoRadioBalcao().setBorderPainted(true);
+            frm.getBotaoRadioMesa().setBorder(vermelha);
+            frm.getBotaoRadioMesa().setBorderPainted(true);
+            frm.getBotaoRadioViagem().setBorder(vermelha);
+            frm.getBotaoRadioViagem().setBorderPainted(true);
+        }
+        
+        if (frm.getBotaoRadioMesa().isSelected()){
+            if(frm.getCampoMesa().getText().equals("")){
+                valida = false;
+                frm.getCampoMesa().setBorder(vermelha);
+            }
+        }
         return valida;
     }
 
@@ -378,6 +421,15 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Vale Refeição":
                 habilitaVR();
+                break;
+            case "Balcão":
+                habilitaMesa(false);
+                break;
+            case "Mesa":
+                habilitaMesa(true);
+                break;
+            case "Viagem":
+                habilitaMesa(false);
                 break;
             case "Cancelar Pedido":
                 TelaConfirmacaoPagamento.setCadastrou(false);

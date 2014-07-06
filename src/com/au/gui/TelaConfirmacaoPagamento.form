@@ -474,7 +474,7 @@
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="botaoRadioMesa" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Component id="campoMesa" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                   <Component id="botaoRadioViagem" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -489,7 +489,7 @@
                       <Component id="botaoRadioBalcao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoRadioMesa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoRadioViagem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoMesa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -530,7 +530,7 @@
             <Property name="text" type="java.lang.String" value="Viagem"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="campoMesa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
