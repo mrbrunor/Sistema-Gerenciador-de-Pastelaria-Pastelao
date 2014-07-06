@@ -44,6 +44,7 @@ import com.au.modelo.ItempedidoPK;
 import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
 import com.au.dao.DAO;
+import com.au.gui.TelaCancelamento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -131,12 +132,15 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getCampoAdicionarItem().addActionListener(this);
         frm.getItemMenuVendasFiltradasFormaPgto().addActionListener(this);
         frm.getItemMenuVendasFiltradasIngredientes().addActionListener(this);
+        frm.getItemMenuCancelarCupom().addActionListener(this);
     }
 
     public void caixaAberto() {
         frm.getBotaoCaixa().setText("Fechar Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(false);
         frm.getItemMenuFecharCaixa().setEnabled(true);
+        frm.getItemMenuRetiradaDeCaixa().setEnabled(true);
+        frm.getItemMenuCancelarCupom().setEnabled(true);
 
         frm.getCampoAdicionarItem().setEnabled(true);
         frm.getCampoBusca().setEnabled(true);
@@ -156,6 +160,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getBotaoCaixa().setText("Abrir Caixa");
         frm.getItemMenuAbrirCaixa().setEnabled(true);
         frm.getItemMenuFecharCaixa().setEnabled(false);
+        frm.getItemMenuRetiradaDeCaixa().setEnabled(false);
+        frm.getItemMenuCancelarCupom().setEnabled(false);
 
         frm.getCampoAdicionarItem().setEnabled(false);
         frm.getCampoBusca().setEnabled(false);
@@ -434,6 +440,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Cancelar Pedido":
                 limparPedido();
+                break;
+            case "Cancelar Cupom":
+                new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa)).setVisible(true);
+                frm.getFuncionario().getCaixas().set(indexCaixa, new DAO<>(Caixa.class).buscaPorId(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()));
                 break;
             case "Deslogar":
                 deslogar();

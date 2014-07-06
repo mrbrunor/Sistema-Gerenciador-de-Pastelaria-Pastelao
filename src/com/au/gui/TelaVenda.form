@@ -19,6 +19,11 @@
                 <Property name="text" type="java.lang.String" value="Fechar Caixa"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuCancelarCupom">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelar Cupom"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuRetiradaDeCaixa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Retirada de Caixa"/>
