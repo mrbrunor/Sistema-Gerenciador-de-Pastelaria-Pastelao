@@ -118,7 +118,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuAbrirCaixa().addActionListener(this);
         frm.getItemMenuDeslogar().addActionListener(this);
         frm.getItemMenuFecharCaixa().addActionListener(this);
-        frm.getItemMenuFornecedores().addActionListener(this);
         frm.getItemMenuFuncionarios().addActionListener(this);
         frm.getItemMenuIngredientes().addActionListener(this);
         frm.getItemMenuProdutos().addActionListener(this);

@@ -58,11 +58,6 @@
                 <Property name="text" type="java.lang.String" value="Formas de Pagamento"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFornecedores">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fornecedores"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuFuncionarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rios"/>

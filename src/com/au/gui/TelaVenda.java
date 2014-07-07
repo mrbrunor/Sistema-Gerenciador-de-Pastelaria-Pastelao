@@ -110,7 +110,6 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuSair = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
         itemMenuFormaPagamento = new javax.swing.JMenuItem();
-        itemMenuFornecedores = new javax.swing.JMenuItem();
         itemMenuFuncionarios = new javax.swing.JMenuItem();
         itemMenuIngredientes = new javax.swing.JMenuItem();
         itemMenuProdutos = new javax.swing.JMenuItem();
@@ -376,9 +375,6 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuFormaPagamento.setText("Formas de Pagamento");
         menuCadastros.add(itemMenuFormaPagamento);
 
-        itemMenuFornecedores.setText("Fornecedores");
-        menuCadastros.add(itemMenuFornecedores);
-
         itemMenuFuncionarios.setText("Funcionários");
         menuCadastros.add(itemMenuFuncionarios);
 
@@ -522,14 +518,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
     public void setItemMenuFecharCaixa(JMenuItem itemMenuFecharCaixa) {
         this.itemMenuFecharCaixa = itemMenuFecharCaixa;
-    }
-
-    public JMenuItem getItemMenuFornecedores() {
-        return itemMenuFornecedores;
-    }
-
-    public void setItemMenuFornecedores(JMenuItem itemMenuFornecedores) {
-        this.itemMenuFornecedores = itemMenuFornecedores;
     }
 
     public JMenuItem getItemMenuFuncionarios() {
@@ -792,7 +780,6 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuDeslogar;
     private javax.swing.JMenuItem itemMenuFecharCaixa;
     private javax.swing.JMenuItem itemMenuFormaPagamento;
-    private javax.swing.JMenuItem itemMenuFornecedores;
     private javax.swing.JMenuItem itemMenuFuncionarios;
     private javax.swing.JMenuItem itemMenuIngredientes;
     private javax.swing.JMenuItem itemMenuProdutos;
