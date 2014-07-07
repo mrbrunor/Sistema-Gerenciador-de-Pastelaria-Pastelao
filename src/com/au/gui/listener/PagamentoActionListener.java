@@ -110,8 +110,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
         }
-        
-        if ("".equals(frm.getCampoValorRecebido().getText())){
+
+        if ("".equals(frm.getCampoValorRecebido().getText())) {
             frm.getTextoValorTroco().setText("R$ 0,00");
         } else {
             frm.getTextoValorTroco().setText(String.format("R$ %.2f", (Double.valueOf(frm.getCampoValorRecebido().getText())) - frm.getTotal()));
@@ -147,9 +147,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getPedido().setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(frm.getCampoMesa().getText())));
         } else if (frm.getBotaoRadioViagem().isSelected()) {
             frm.getPedido().setFormaConsumo("Viagem");
-        }        
+        }
         frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebido().getText()));
-        
+
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
         TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
@@ -210,8 +210,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         iRetorno = cupom.FormataTX("\t\t" + BematechComandosDiretos.avanco(5) + "TOTAL............. " + String.format("%.2f", frm.getPedido().getTotPedido()) + "\r\n\n", 3, 0, 0, 0, 1);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON);
         iRetorno = cupom.BematechTX("Forma de Pagamento: " + frm.getPedido().getFormaPagamento().getTipoFormaPgto() + "\r\n");
-        iRetorno = cupom.BematechTX("\tValor Recebido ==> " + "\r\n");
-        iRetorno = cupom.BematechTX("\tTroco          ==> " + "\r\n\n");
+        iRetorno = cupom.BematechTX("\tValor Recebido ==> " + String.format("%.2f", frm.getPedido().getValorRecebido()) + "\r\n");
+        iRetorno = cupom.BematechTX("\tTroco          ==> " + String.format("%.2f", (frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido())) + "\r\n\n");
         iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_OFF);
 
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
@@ -308,7 +308,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getTextoValorRecebido().setVisible(true);
         frm.getCampoValorRecebido().setVisible(true);
         frm.getTextoValorTroco().setVisible(true);
-        frm.getTextoTroco().setVisible(true);        
+        frm.getTextoTroco().setVisible(true);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -323,7 +323,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
         frm.getTextoValorTroco().setVisible(false);
-        frm.getTextoTroco().setVisible(false);        
+        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -384,7 +384,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             atualizaTotal();
             valida = false;
         }
-        
+
         if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getTotal()) {
             JOptionPane.showMessageDialog(frm, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoValorRecebido().setText("");
@@ -405,14 +405,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoRadioValeRefeicao().setBorder(vermelha);
             frm.getBotaoRadioValeRefeicao().setBorderPainted(true);
         }
-        if(frm.getBotaoRadioDinheiro().isSelected()){
-            if(frm.getCampoValorRecebido().getText().equals("")){
+        if (frm.getBotaoRadioDinheiro().isSelected()) {
+            if (frm.getCampoValorRecebido().getText().equals("")) {
                 valida = false;
                 frm.getCampoValorRecebido().setBorder(vermelha);
-            } else{
+            } else {
                 frm.getCampoValorRecebido().setBorder(normal);
             }
-        }        
+        }
         if (frm.getBotaoRadioCartaoCredito().isSelected()) {
             if (frm.getCaixaSelecaoCC().getSelectedIndex() == -1) {
                 valida = false;
@@ -470,7 +470,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    //geraComandaVenda();
+                    geraComandaVenda();
                     // geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
