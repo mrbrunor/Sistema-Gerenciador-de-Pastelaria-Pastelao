@@ -66,9 +66,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         initComponents();
         campoDesconto.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
         campoMesa.setDocument(new LimitaDigitos((2), "[^0-9]"));
+        campoValorRecebido.setDocument(new LimitaDigitos((6), "[^0-9\\.]"));
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);
+        campoValorRecebido.setVisible(false);
+        textoValorRecebido.setVisible(false);
+        textoTroco.setVisible(false);
+        textoValorTroco.setVisible(false);
         listener = new PagamentoActionListener(this);
     }
 
@@ -236,11 +241,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(textoSelecioneFormaPagamento)
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                         .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(botaoRadioDinheiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textoValorRecebido))
-                            .addComponent(textoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
+                                .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoValorRecebido)
+                                    .addComponent(textoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFormasDePagamentoLayout.createSequentialGroup()
+                                .addComponent(botaoRadioDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                                 .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,9 +303,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
                         .addComponent(botaoRadioDinheiro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(7, 7, 7)
                         .addComponent(textoValorRecebido))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFormasDePagamentoLayout.createSequentialGroup()
                         .addComponent(textoIconeDinheiro)
@@ -421,8 +428,40 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         return textoValorTotal;
     }
 
+    public JLabel getTextoTroco() {
+        return textoTroco;
+    }
+
+    public void setTextoTroco(JLabel textoTroco) {
+        this.textoTroco = textoTroco;
+    }
+
+    public JLabel getTextoValorRecebido() {
+        return textoValorRecebido;
+    }
+
+    public void setTextoValorRecebido(JLabel textoValorRecebido) {
+        this.textoValorRecebido = textoValorRecebido;
+    }
+
+    public JLabel getTextoValorTroco() {
+        return textoValorTroco;
+    }
+
+    public void setTextoValorTroco(JLabel textoValorTroco) {
+        this.textoValorTroco = textoValorTroco;
+    }
+
     public void setTextoValorTotal(JLabel textoValorTotal) {
         this.textoValorTotal = textoValorTotal;
+    }
+
+    public JTextField getCampoValorRecebido() {
+        return campoValorRecebido;
+    }
+
+    public void setCampoValorRecebido(JTextField campoValorRecebido) {
+        this.campoValorRecebido = campoValorRecebido;
     }
 
     public Integer getIndexCaixa() {
@@ -586,9 +625,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     }
     
     public void buscaFormasPagamento() {
-        System.out.println("Chegou na Busca");
         listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
-        System.out.println(listaResFormasPagamento.size());
 
     }
 

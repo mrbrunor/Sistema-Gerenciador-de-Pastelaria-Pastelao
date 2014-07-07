@@ -98,6 +98,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getBotaoRadioBalcao().addActionListener(this);
         frm.getBotaoRadioMesa().addActionListener(this);
         frm.getBotaoRadioViagem().addActionListener(this);
+        frm.getCampoValorRecebido().addActionListener(this);
+        frm.getCampoValorRecebido().addKeyListener(this);
     }
 
     private void atualizaTotal() {
@@ -107,6 +109,12 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         } else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
+        }
+        
+        if ("".equals(frm.getCampoValorRecebido().getText())){
+            frm.getTextoValorTroco().setText("R$ 0,00");
+        } else {
+            frm.getTextoValorTroco().setText(String.format("R$ %.2f", (Double.valueOf(frm.getCampoValorRecebido().getText())) - frm.getTotal()));
         }
     }
 
@@ -139,8 +147,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getPedido().setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(frm.getCampoMesa().getText())));
         } else if (frm.getBotaoRadioViagem().isSelected()) {
             frm.getPedido().setFormaConsumo("Viagem");
-        }
-
+        }        
+        frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebido().getText()));
+        
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
         TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
@@ -283,6 +292,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCC().setBorder(normal);
         frm.getCaixaSelecaoCD().setBorder(normal);
         frm.getCaixaSelecaoVR().setBorder(normal);
+        frm.getCampoValorRecebido().setBorder(normal);
     }
 
     public void limpaBordaConsumo() {
@@ -294,6 +304,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public void habilitaDinheiro() {
         limpaBordaPagamento();
+        frm.getCampoValorRecebido().setText("");
+        frm.getTextoValorRecebido().setVisible(true);
+        frm.getCampoValorRecebido().setVisible(true);
+        frm.getTextoValorTroco().setVisible(true);
+        frm.getTextoTroco().setVisible(true);        
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -304,6 +319,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public void habilitaCC() {
         limpaBordaPagamento();
+        frm.getCampoValorRecebido().setText("");
+        frm.getTextoValorRecebido().setVisible(false);
+        frm.getCampoValorRecebido().setVisible(false);
+        frm.getTextoValorTroco().setVisible(false);
+        frm.getTextoTroco().setVisible(false);        
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -314,6 +334,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public void habilitaCD() {
         limpaBordaPagamento();
+        frm.getCampoValorRecebido().setText("");
+        frm.getTextoValorRecebido().setVisible(false);
+        frm.getCampoValorRecebido().setVisible(false);
+        frm.getTextoValorTroco().setVisible(false);
+        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
@@ -324,6 +349,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public void habilitaVR() {
         limpaBordaPagamento();
+        frm.getCampoValorRecebido().setText("");
+        frm.getTextoValorRecebido().setVisible(false);
+        frm.getCampoValorRecebido().setVisible(false);
+        frm.getTextoValorTroco().setVisible(false);
+        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -352,6 +382,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
             atualizaTotal();
+            valida = false;
+        }
+        
+        if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getTotal()) {
+            JOptionPane.showMessageDialog(frm, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+            frm.getCampoValorRecebido().setText("");
+            atualizaTotal();
+            valida = false;
         }
 
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
@@ -367,6 +405,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoRadioValeRefeicao().setBorder(vermelha);
             frm.getBotaoRadioValeRefeicao().setBorderPainted(true);
         }
+        if(frm.getBotaoRadioDinheiro().isSelected()){
+            if(frm.getCampoValorRecebido().getText().equals("")){
+                valida = false;
+                frm.getCampoValorRecebido().setBorder(vermelha);
+            } else{
+                frm.getCampoValorRecebido().setBorder(normal);
+            }
+        }        
         if (frm.getBotaoRadioCartaoCredito().isSelected()) {
             if (frm.getCaixaSelecaoCC().getSelectedIndex() == -1) {
                 valida = false;
@@ -424,7 +470,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    geraComandaVenda();
+                    //geraComandaVenda();
                     // geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();

@@ -52,6 +52,9 @@ public class Pedido implements Serializable {
 
     @Column(nullable = false)
     private double totPedido;
+    
+    @Column(nullable = false)
+    private double valorRecebido;
 
     //bi-directional many-to-one association to Itempedido
     @OneToMany(mappedBy = "pedido")
@@ -68,6 +71,14 @@ public class Pedido implements Serializable {
 
     public int getIdPedido() {
         return this.idPedido;
+    }
+
+    public double getValorRecebido() {
+        return valorRecebido;
+    }
+
+    public void setValorRecebido(double valorRecebido) {
+        this.valorRecebido = valorRecebido;
     }
 
     public void setIdPedido(int idPedido) {
