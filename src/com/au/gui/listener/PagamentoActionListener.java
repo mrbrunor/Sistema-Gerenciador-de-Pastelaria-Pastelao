@@ -148,7 +148,12 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         } else if (frm.getBotaoRadioViagem().isSelected()) {
             frm.getPedido().setFormaConsumo("Viagem");
         }
-        frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebido().getText()));
+
+        if (frm.getBotaoRadioDinheiro().isSelected()) {
+            frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebido().getText()));
+        } else {
+            frm.getPedido().setValorRecebido(frm.getTotal());
+        }
 
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
@@ -385,13 +390,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             valida = false;
         }
 
-        if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getTotal()) {
-            JOptionPane.showMessageDialog(frm, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
-            frm.getCampoValorRecebido().setText("");
-            atualizaTotal();
-            valida = false;
-        }
-
         if (frm.getBotaoRadioDinheiro().isSelected() || frm.getBotaoRadioCartaoCredito().isSelected() || frm.getBotaoCartaoDebito().isSelected() || frm.getBotaoRadioValeRefeicao().isSelected()) {
             limpaBordaPagamento();
         } else {
@@ -410,6 +408,12 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 valida = false;
                 frm.getCampoValorRecebido().setBorder(vermelha);
             } else {
+                if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getTotal()) {
+                    JOptionPane.showMessageDialog(frm, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+                    frm.getCampoValorRecebido().setText("");
+                    atualizaTotal();
+                    valida = false;
+                }
                 frm.getCampoValorRecebido().setBorder(normal);
             }
         }
