@@ -128,16 +128,16 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             CustomComboBoxInt ob = (CustomComboBoxInt) frm.getCaixaSelecaoVR().getSelectedItem();
             frm.getPedido().setFormaPagamento((new DAO<>(FormaPagamento.class).buscaPorId(ob.getId())));
         }
-        
+
         frm.getPedido().setHoraPedido(new Time(data.getTime()));
         frm.getPedido().setSubTotPedido(frm.getSubTotal());
         frm.getPedido().setTotPedido(frm.getTotal());
-        
-        if(frm.getBotaoRadioBalcao().isSelected()){
+
+        if (frm.getBotaoRadioBalcao().isSelected()) {
             frm.getPedido().setFormaConsumo("Balcao");
-        } else if (frm.getBotaoRadioMesa().isSelected()){
+        } else if (frm.getBotaoRadioMesa().isSelected()) {
             frm.getPedido().setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(frm.getCampoMesa().getText())));
-        } else if (frm.getBotaoRadioViagem().isSelected()){
+        } else if (frm.getBotaoRadioViagem().isSelected()) {
             frm.getPedido().setFormaConsumo("Viagem");
         }
 
@@ -174,16 +174,24 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + frm.getPedido().getHoraPedido() + "\r\n");
         iRetorno = cupom.BematechTX("AGUARDE PELO NUMERO:   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getNumPedido() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-        iRetorno = cupom.FormataTX("Codigo\t\tQT\tUnit\tTotal\r\n", 3, 0, 0, 0, 0);
+        iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getFormaConsumo() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX("" + (char) 10);
+        iRetorno = cupom.FormataTX("Codigo\t\tQTD\tUnit\tTotal\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; frm.getPedido().getItempedidos().size() > i; i++) {
-            iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + " x " + frm.getPedido().getItempedidos().get(i).getQtdProd() + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + "\t"
-                    + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getProduto().getValorProd()) + "\t"
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + frm.getPedido().getItempedidos().get(i).getProduto().getIdProd() + BematechComandosDiretos.avanco(5) + "x " + frm.getPedido().getItempedidos().get(i).getQtdProd() + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(5)
+                    + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(6)
                     + String.format("%.2f", frm.getPedido().getItempedidos().get(i).getTotProd()) + "\r\n");
-            iRetorno = cupom.FormataTX(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()), 3, 0, 0, 0, 1);
+            iRetorno = cupom.FormataTX(removeAcentos(frm.getPedido().getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
         }
-        iRetorno = cupom.FormataTX("\n\t\t\tSUBTOTAL.......... " + String.format("%.2f", frm.getPedido().getSubTotPedido()) + "\r\n", 3, 0, 0, 0, 1);
-        iRetorno = cupom.FormataTX("\t\t\tDESCONTO.......... " + String.format("%.2f", frm.getPedido().getDescPedido()) + "\r\n", 3, 0, 0, 0, 1);
-        iRetorno = cupom.FormataTX("\t\t\tTOTAL............. " + String.format("%.2f", frm.getPedido().getTotPedido()) + "\r\n\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.FormataTX("\n\t\tSUBTOTAL.......... " + String.format("%.2f", frm.getPedido().getSubTotPedido()) + "\r\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.FormataTX("\t\tDESCONTO.......... " + String.format("%.2f", frm.getPedido().getDescPedido()) + "\r\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.FormataTX("\t\tTOTAL............. " + String.format("%.2f", frm.getPedido().getTotPedido()) + "\r\n\n", 3, 0, 0, 0, 1);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON);
+        iRetorno = cupom.BematechTX("Forma de Pagamento: " + frm.getPedido().getFormaPagamento().getTipoFormaPgto() + "\r\n");
+        iRetorno = cupom.BematechTX("\tValor Recebido ==> " + "\r\n");
+        iRetorno = cupom.BematechTX("\tTroco          ==> " + "\r\n\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_OFF);
+
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
         iRetorno = cupom.FormataTX("ESTE CUPOM NAO TEM VALIDADE FISCAL\r\n", 3, 1, 0, 0, 0);
         iRetorno = cupom.FormataTX("Obrigado pela Preferencia, Volte Sempre!\r\n", 3, 1, 0, 0, 1);
@@ -263,7 +271,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCD().setBorder(normal);
         frm.getCaixaSelecaoVR().setBorder(normal);
     }
-    
+
     public void limpaBordaConsumo() {
         frm.getBotaoRadioBalcao().setBorderPainted(false);
         frm.getBotaoRadioMesa().setBorderPainted(false);
@@ -310,7 +318,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoVR().setVisible(true);
         frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
-    
+
     public void habilitaMesa(boolean valida) {
         limpaBordaConsumo();
         frm.getCampoMesa().setEnabled(valida);
@@ -370,10 +378,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         } else {
             frm.getCaixaSelecaoVR().setBorder(normal);
         }
-        
-        if (frm.getBotaoRadioBalcao().isSelected() || frm.getBotaoRadioMesa().isSelected() || frm.getBotaoRadioViagem().isSelected()){
+
+        if (frm.getBotaoRadioBalcao().isSelected() || frm.getBotaoRadioMesa().isSelected() || frm.getBotaoRadioViagem().isSelected()) {
             limpaBordaConsumo();
-        } else{
+        } else {
             valida = false;
             frm.getBotaoRadioBalcao().setBorder(vermelha);
             frm.getBotaoRadioBalcao().setBorderPainted(true);
@@ -382,9 +390,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoRadioViagem().setBorder(vermelha);
             frm.getBotaoRadioViagem().setBorderPainted(true);
         }
-        
-        if (frm.getBotaoRadioMesa().isSelected()){
-            if(frm.getCampoMesa().getText().equals("")){
+
+        if (frm.getBotaoRadioMesa().isSelected()) {
+            if (frm.getCampoMesa().getText().equals("")) {
                 valida = false;
                 frm.getCampoMesa().setBorder(vermelha);
             }
@@ -403,8 +411,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                   // geraComandaVenda();
-                   // geraComandaCozinha();
+                    geraComandaVenda();
+                    // geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }

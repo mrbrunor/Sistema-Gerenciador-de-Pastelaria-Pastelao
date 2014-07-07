@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.au.util;
 
 /**
@@ -22,12 +21,13 @@ package com.au.util;
  * @author Tiago
  */
 public class BematechComandosDiretos {
-        //Códigos para Funções Diretas
+
+    //Códigos para Funções Diretas
     public static final char ESC = 27; //escape   
     public static final char AT = 64; //@   
     public static final char LINE_FEED = 10; //line feed/new line   
-    public static final char PARENTHESIS_LEFT = 40;   
-    public static final char BACKSLASH = 92;   
+    public static final char PARENTHESIS_LEFT = 40;
+    public static final char BACKSLASH = 92;
     public static final char CR = 13; //carriage return   
     public static final char TAB = 9; //horizontal tab   
     public static final char FF = 12; //form feed   
@@ -47,24 +47,37 @@ public class BematechComandosDiretos {
     public static final char SO = 14; //Ativa modo expandido na linha atual
     public static final char DC4 = 20; //Desativa a impressão expandida por linha setada pelos comandos ESC SO ou SO.
     public static final char a = 97; //Configura o alinhamento horizontal
+    public static final char f = 102; //Usado para avanço horizontal
+    public static final char AVANC = 48; //Usado para avanço horizontal
     public static final char SUBLINHADO = 45;
     public static final char ITALIC_ON = 52; //set font italic   
     public static final char ITALIC_OFF = 53; //unset font italic   
-    public static final char CONDENSED_ON = 15;   
+    public static final char CONDENSED_ON = 15;
     public static final char CONDENSED_OFF = 18;
-    
+
     //Funções Diretas 
     public static final String NEGRITO_ON = "" + ESC + E;
     public static final String NEGRITO_OFF = "" + ESC + F;
     public static final String ITALICO_ON = "" + ESC + ITALIC_ON;
     public static final String ITALICO_OFF = "" + ESC + ITALIC_OFF;
-    
-    
-    public static String alinhamento (int posicao) {
-        return "" + ESC + a + (char)posicao;
+
+    public static String alinhamento(int posicao) {
+        return "" + ESC + a + (char) posicao;
     }
-    
-    public static String sublinhado (int estado) {
-        return "" + ESC + SUBLINHADO + (char)estado;
+
+    public static String avanco(int caracteres) {
+        return "" + ESC + f + AVANC + (char) caracteres;
+    }
+
+    public static String sublinhado(int estado) {
+        return "" + ESC + SUBLINHADO + (char) estado;
+    }
+
+    public static String margemEsquerda(int valor) {
+        return "" + ESC + Q + (char) valor;
+    }
+
+    public static String margemDireita(int valor) {
+        return "" + ESC + l + (char) valor;
     }
 }
