@@ -34,6 +34,7 @@ import com.au.util.Bematech;
 import com.au.util.BematechComandosDiretos;
 import com.au.util.BematechNFiscal;
 import com.au.util.CustomComboBoxInt;
+import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -474,7 +475,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    geraComandaVenda();
+                    new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
+                    new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+                    //geraComandaVenda();
                     // geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
