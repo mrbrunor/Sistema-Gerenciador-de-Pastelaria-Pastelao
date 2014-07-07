@@ -28,7 +28,8 @@ public class BematechComandosDiretos {
     public static final char LINE_FEED = 10; //line feed/new line   
     public static final char PARENTHESIS_LEFT = 40;
     public static final char BACKSLASH = 92;
-    public static final char CR = 13; //carriage return   
+    public static final char CR = 13; //carriage return
+    public static final char LF = 10; //Line Feed - Pulo de Linha
     public static final char TAB = 9; //horizontal tab   
     public static final char FF = 12; //form feed   
     public static final char P = 80; //10cpi pitch   
@@ -43,11 +44,12 @@ public class BematechComandosDiretos {
     public static final char J = 74; //used for advancing paper vertically   
     public static final char Q = 81; //used for setting right margin   
     public static final char $ = 36; //used for absolute horizontal positioning
-    public static final char d = 100; //
+    public static final char d = 100; //Usado para altura dupla
     public static final char SO = 14; //Ativa modo expandido na linha atual
     public static final char DC4 = 20; //Desativa a impressão expandida por linha setada pelos comandos ESC SO ou SO.
     public static final char a = 97; //Configura o alinhamento horizontal
     public static final char f = 102; //Usado para avanço horizontal
+    public static final char W = 87; //Usado para largura dupla
     public static final char AVANC = 48; //Usado para avanço horizontal
     public static final char SUBLINHADO = 45;
     public static final char ITALIC_ON = 52; //set font italic   
@@ -79,5 +81,12 @@ public class BematechComandosDiretos {
 
     public static String margemDireita(int valor) {
         return "" + ESC + l + (char) valor;
+    }
+
+    public static String alturaDupla(int estado) {
+        return "" + ESC + d + (char) estado;
+    }
+    public static String larguraDupla (int estado) {
+        return "" + ESC + W + (char) estado;
     }
 }

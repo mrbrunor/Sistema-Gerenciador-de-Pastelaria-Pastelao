@@ -80,12 +80,12 @@ public class TestaIMP {
 
         iRetorno = cupom.ConfiguraModeloImpressora(5);
         iRetorno = cupom.IniciaPorta("LPT1");
-        iRetorno = cupom.PrintNVBitmap(1, 0);
-        iRetorno = cupom.BematechTX("Codigo   QT" + BematechComandosDiretos.TAB + "Unit" + BematechComandosDiretos.TAB + "Total\n");
-        iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + 5 + " x " + 3 + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.TAB
-                    + 10 + BematechComandosDiretos.TAB
-                    + 30 + "\r\n");
-        iRetorno = cupom.FormataTX("Produto Tica Laca Tica", 3, 0, 0, 0, 1);
+        //iRetorno = cupom.PrintNVBitmap(1, 0);
+        iRetorno = cupom.BematechTX("Texto Simples" + (char) 10);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.larguraDupla(1) + "Texto com Largura Dupla" + BematechComandosDiretos.larguraDupla(0) + (char) 10);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.alturaDupla(1) + "Texto com Altura Dupla" + BematechComandosDiretos.alturaDupla(0) + (char) 10);
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.alturaDupla(1) + BematechComandosDiretos.larguraDupla(1) + "Texto com Altura e Largura Dupla" + BematechComandosDiretos.larguraDupla(0) + BematechComandosDiretos.alturaDupla(0) + (char) 10);
+        iRetorno = cupom.BematechTX("Texto Simples");
         iComando = "" + (char) 10;
         for (int i = 0;
                 i < 8; i++) {
