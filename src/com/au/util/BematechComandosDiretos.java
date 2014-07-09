@@ -62,6 +62,7 @@ public class BematechComandosDiretos {
     public static final String NEGRITO_OFF = "" + ESC + F;
     public static final String ITALICO_ON = "" + ESC + ITALIC_ON;
     public static final String ITALICO_OFF = "" + ESC + ITALIC_OFF;
+    public static final String INICIALIZA = "" + ESC + AT; //Reinicia todas as configurações da impressora
 
     public static String alinhamento(int posicao) {
         return "" + ESC + a + (char) posicao;
@@ -86,7 +87,8 @@ public class BematechComandosDiretos {
     public static String alturaDupla(int estado) {
         return "" + ESC + d + (char) estado;
     }
-    public static String larguraDupla (int estado) {
+
+    public static String larguraDupla(int estado) {
         return "" + ESC + W + (char) estado;
     }
 }

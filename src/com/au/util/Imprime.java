@@ -24,6 +24,7 @@ import com.au.modelo.Despesa;
 import com.au.modelo.Pedido;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -173,6 +174,155 @@ public class Imprime {
     }
 
     public void geraRelatorioFechamento(int idCaixa, String totalRetirada, String totalCaixa) {
+        Caixa caixa = new DAO<>(Caixa.class).buscaPorId(idCaixa);
+        calculaTipoPagamento(caixa);
+        int iRetorno;
+        String iComando;
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
+        SimpleDateFormat formataHora = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat mesExtenso = new SimpleDateFormat("MMMMM");
+        String mes = mesExtenso.format(caixa.getDataFechamentoCaixa());
+
+        BematechNFiscal cupom = BematechNFiscal.Instance;
+
+        iRetorno = cupom.ConfiguraModeloImpressora(5);
+        iRetorno = cupom.IniciaPorta("LPT1");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
+        iRetorno = cupom.PrintNVBitmap(1, 0);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iRetorno = cupom.FormataTX("\r\nFECHAMENTO DE CAIXA\r\n", 3, 0, 0, 1, 1);
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iRetorno = cupom.FormataTX("Informacoes Gerais\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        iRetorno = cupom.BematechTX(dataStr + "                    " + formataHora.format(caixa.getDataFechamentoCaixa()) + "\r\n");
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "ID do Caixa: " +BematechComandosDiretos.NEGRITO_OFF + caixa.getIdCaixa() + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Funcionario: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getFuncionario().getNomeFunc() + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Fundo de Caixa: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$: %.2f", caixa.getFundoCaixa()) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Pedidos: " + BematechComandosDiretos.NEGRITO_OFF + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tPagos com Dinheiro: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedDinheiro + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tPagos com Credito: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedCred + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tPagos com Debito: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedDeb + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tPagos com Vale: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedVale + "\r\n");
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("Informacoes de Faturamento\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON);
+        iRetorno = cupom.BematechTX("Total Faturado: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getTotalCaixa()) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tDinheiro: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", totalDinheiro) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tCredito: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", totalCredito) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tDebito: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", totalDebito) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\tVale: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", totalVale) + "\r\n");
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("Informacoes de Balanco do Caixa\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Total Faturado: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getTotalCaixa()) + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Total Retiradas: " + BematechComandosDiretos.NEGRITO_OFF + totalRetirada + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Total Caixa: " + BematechComandosDiretos.NEGRITO_OFF + totalCaixa + "\r\n");
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("Informacoes de Retiradas\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
+
+        if (despesas != null && !despesas.isEmpty()) {
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Retiradas: " + BematechComandosDiretos.NEGRITO_OFF + despesas.size() + "\r\n\r\n");
+            iRetorno = cupom.FormataTX("Lista de Retiradas\r\n\r\n", 3, 1, 0, 0, 0);
+            for (int i = 0; despesas.size() > i; i++) {
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Retirada " + (i + 1) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Motivo: " + removeAcentos(despesas.get(i).getDescDesp()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", despesas.get(i).getValorDesp()) + "\r\n");
+            }
+        } else {
+            iRetorno = cupom.BematechTX("Sem Retiradas\r\n");
+        }
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("Informacoes de Descontos\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        if (caixa.getPedidos() != null && caixa.getPedidos().size() > 0) {
+            if (qtdPedDesc == 0) {
+                iRetorno = cupom.BematechTX("Sem Descontos");
+            } else {
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Descontos: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedDesc + "\r\n\r\n");
+                iRetorno = cupom.FormataTX("Lista de Descontos\r\n\r\n", 3, 1, 0, 0, 0);
+                for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                    if (caixa.getPedidos().get(i).getDescPedido() > 0) {
+                        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getPedidos().get(i).getNumPedido() + "\r\n");
+                        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\r\n");
+                        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Desconto: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()) + "\r\n");
+                    }
+                }
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\r\nTotal de Descontos: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", descontoTotal) + "\r\n");
+            }
+        }
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("Informacoes de Cancelamentos\r\n\r\n", 3, 1, 0, 0, 1);
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        if (qtdPedCanc == 0) {
+            iRetorno = cupom.BematechTX("Sem Cancelamentos\r\n");
+        } else {
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Cancelamentos: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedCanc + "\r\n\r\n");
+            iRetorno = cupom.FormataTX("Lista de Cancelamentos\r\n\r\n", 3, 1, 0, 0, 0);
+            double totalCanc = 0;
+            for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
+                    totalCanc += caixa.getPedidos().get(i).getSubTotPedido();
+                    iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getPedidos().get(i).getNumPedido() + "\r\n");
+                    iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\r\n");
+                }
+            }
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "\r\nTotal de Cancelamentos: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", totalCanc) + "\r\n");
+        }
+        iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 1;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
+        iRetorno = cupom.FormataTX("\r\nLi e reconheco as informacoes acima citadas\r\n", 3, 1, 0, 0, 0);
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(caixa.getDataFechamentoCaixa());
+        iRetorno = cupom.BematechTX("Curitiba, " + String.format("%02d", calendario.get(Calendar.DAY_OF_MONTH)) + " de " + mes + " de " + calendario.get(Calendar.YEAR) + "\r\n");
+        iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
+        iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
+        iRetorno = cupom.BematechTX("\r\n________________________________________________\r\n");
+        iRetorno = cupom.FormataTX(caixa.getFuncionario().getNomeFunc(), 3, 0, 0, 1, 0);
+        iComando = "" + (char) 10;
+        for (int i = 0; i < 10; i++) {
+            iRetorno = cupom.ComandoTX(iComando, iComando.length());
+        }
+        iRetorno = cupom.FechaPorta();
+    }
+
+    public void geraRelatorioFechamentoAntigo(int idCaixa, String totalRetirada, String totalCaixa) {
 
         Caixa caixa = new DAO<>(Caixa.class).buscaPorId(idCaixa);
 
