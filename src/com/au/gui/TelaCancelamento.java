@@ -36,17 +36,17 @@ import javax.swing.JTextField;
  */
 public class TelaCancelamento extends javax.swing.JDialog {
     private final CancelamentoActionListener listener;
-    private Caixa caixa;
+    private int idCaixa;
 
     /**
      * Creates new form TelaRetirada
      */
-    public TelaCancelamento(java.awt.Frame parent, boolean modal, Caixa caixa) {
+    public TelaCancelamento(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         listener = new CancelamentoActionListener(this);
-        this.caixa = caixa;
+        this.idCaixa = idCaixa;
     }
 
     /**
@@ -190,14 +190,13 @@ public class TelaCancelamento extends javax.swing.JDialog {
         this.campoNumeroPedido = campoNumeroPedido;
     }
 
-    public Caixa getCaixa() {
-        return caixa;
+    public int getIdCaixa() {
+        return idCaixa;
     }
 
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
+    public void setIdCaixa(int idCaixa) {
+        this.idCaixa = idCaixa;
     }
-
     /**
      * @param args the command line arguments
      */

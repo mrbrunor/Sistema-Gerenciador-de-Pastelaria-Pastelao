@@ -25,6 +25,7 @@ package com.au.gui.listener;
 
 import com.au.dao.DAO;
 import com.au.gui.TelaCancelamento;
+import com.au.modelo.Caixa;
 import com.au.modelo.Pedido;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -69,14 +70,15 @@ public class CancelamentoActionListener implements ActionListener {
     }
 
     public boolean validaPedido() {
-        for (int i = 0; i < frm.getCaixa().getPedidos().size(); i++) {
-            if (frm.getCaixa().getPedidos().get(i).getNumPedido() == Integer.valueOf(frm.getCampoNumeroPedido().getText())) {
-                if (frm.getCaixa().getPedidos().get(i).getEstadoPedido().equals("Cancelado")) {
+        Caixa caixa = new DAO<>(Caixa.class).buscaPorId(frm.getIdCaixa());
+        for (int i = 0; i < caixa.getPedidos().size(); i++) {
+            if (caixa.getPedidos().get(i).getNumPedido() == Integer.valueOf(frm.getCampoNumeroPedido().getText())) {
+                if (caixa.getPedidos().get(i).getEstadoPedido().equals("Cancelado")) {
                     JOptionPane.showMessageDialog(frm, "Pedido informado já esta Cancelado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
                     return false;
                 }
-                frm.getCaixa().getPedidos().get(i).setEstadoPedido("Cancelado");
-                new DAO<>(Pedido.class).atualiza(frm.getCaixa().getPedidos().get(i));
+                caixa.getPedidos().get(i).setEstadoPedido("Cancelado");
+                new DAO<>(Pedido.class).atualiza(caixa.getPedidos().get(i));
                 JOptionPane.showMessageDialog(frm, "Pedido cancelado com sucesso!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
                 return true;
             }            

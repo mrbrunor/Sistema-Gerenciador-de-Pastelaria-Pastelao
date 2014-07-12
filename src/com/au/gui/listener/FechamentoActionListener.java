@@ -27,7 +27,6 @@ import com.au.dao.DespesaDao;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.modelo.Caixa;
 import com.au.modelo.Despesa;
-import com.au.util.Bematech;
 import com.au.dao.DAO;
 import com.au.util.Imprime;
 import java.awt.event.ActionEvent;
@@ -35,10 +34,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -79,9 +76,9 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      */
     public void inicializaCampos() {
         frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
-        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
         calculaReducoes();
         calculaTipoPagamento();
+        frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
     }
 
     /**
@@ -114,6 +111,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                         descontoTotal += caixa.getPedidos().get(i).getDescPedido();
                         qtdPedDesc += 1;
                     }
+                    caixa.setTotalCaixa(caixa.getTotalCaixa() + caixa.getPedidos().get(i).getTotPedido());
                 } else {
                     qtdPedCanc += 1;
                 }

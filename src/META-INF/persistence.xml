@@ -4,16 +4,10 @@
 		<class>com.au.pastelao.modelo.Caixa</class>
 		<class>com.au.pastelao.modelo.Despesa</class>
 		<class>com.au.pastelao.modelo.FormaPagamento</class>
-		<class>com.au.pastelao.modelo.Fornecedor</class>
 		<class>com.au.pastelao.modelo.Funcionario</class>
 		<class>com.au.pastelao.modelo.Ingrediente</class>
 		<class>com.au.pastelao.modelo.Itempedido</class>
 		<class>com.au.pastelao.modelo.ItempedidoPK</class>
-		<class>com.au.pastelao.modelo.Notafiscal</class>
-		<class>com.au.pastelao.modelo.Notaingrediente</class>
-		<class>com.au.pastelao.modelo.NotaingredientePK</class>
-		<class>com.au.pastelao.modelo.Notaproduto</class>
-		<class>com.au.pastelao.modelo.NotaprodutoPK</class>
 		<class>com.au.pastelao.modelo.Pedido</class>
 		<class>com.au.pastelao.modelo.Produto</class>
 		<properties>

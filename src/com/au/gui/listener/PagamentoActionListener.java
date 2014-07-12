@@ -158,7 +158,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
         TelaConfirmacaoPagamento.setCaixa(frm.getFuncionario().getCaixas().get(frm.getIndexCaixa()));
         new DAO<>(Pedido.class).adiciona(frm.getPedido());
-        TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
+        //TelaConfirmacaoPagamento.getCaixa().setTotalCaixa(TelaConfirmacaoPagamento.getCaixa().getTotalCaixa() + frm.getPedido().getTotPedido());
         new DAO<>(Caixa.class).atualiza(TelaConfirmacaoPagamento.getCaixa());
 
         if (frm.getPedido().getItempedidos() != null) {
@@ -504,7 +504,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
                     //new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
                     geraComandaVenda();
-                    geraComandaCozinha();
+                    //geraComandaCozinha();
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }

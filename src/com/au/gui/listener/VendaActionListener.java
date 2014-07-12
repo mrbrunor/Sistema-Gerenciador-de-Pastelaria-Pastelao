@@ -442,8 +442,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 limparPedido();
                 break;
             case "Cancelar Cupom":
-                new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa)).setVisible(true);
-                frm.getFuncionario().getCaixas().set(indexCaixa, new DAO<>(Caixa.class).buscaPorId(frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()));
+                new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
+                new DAO<>(Caixa.class).atualiza(frm.getFuncionario().getCaixas().get(indexCaixa));
                 break;
             case "Deslogar":
                 deslogar();
