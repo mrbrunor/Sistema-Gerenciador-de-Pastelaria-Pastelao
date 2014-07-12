@@ -55,15 +55,10 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         frm.limpaCampos();
         frm.getCaixaAtivo().setBorder(normal);
         frm.getCaixaNivel().setBorder(normal);
-        frm.getCaixaSexo().setBorder(normal);
         frm.getCampoCelular().setBorder(normal);
         frm.getCampoCpf().setBorder(normal);
-        frm.getCampoDtAdm().setBorder(normal);
-        frm.getCampoDtNasc().setBorder(normal);
         frm.getCampoEmail().setBorder(normal);
         frm.getCampoNome().setBorder(normal);
-        frm.getCampoRg().setBorder(normal);
-        frm.getCampoSalario().setBorder(normal);
         frm.getCampoSenha().setBorder(normal);
         frm.getCampoSenha2().setBorder(normal);
         frm.getCampoUser().setBorder(normal);
@@ -72,8 +67,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     public FuncionarioActionListener(TelaCadastrarFuncionario frm) {
         this.frm = frm;
         normal = frm.getCampoNome().getBorder();
-        frm.getCampoDtAdm().setBorder(normal);
-        frm.getCampoDtNasc().setBorder(normal);
         adicionaListener();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -177,21 +170,10 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             func.setIdFunc(Integer.parseInt(frm.getCampoId().getText()));
         }
         func.setNomeFunc(frm.getCampoNome().getText());
-        data = new java.sql.Date(frm.getCampoDtNasc().getDate().getTime());
-        func.setNascFunc(data);
-        if (frm.getCaixaSexo().getSelectedItem() == "Feminino") {
-            func.setSexoFunc("F");
-        } else {
-            func.setSexoFunc("M");
-        }
-        func.setRgFunc(frm.getCampoRg().getText());
         func.setCpfFunc(frm.getCampoCpf().getText());
         func.setMailFunc(frm.getCampoEmail().getText());
         func.setFoneFunc(frm.getCampoTelefone().getText());
         func.setCelFunc(frm.getCampoCelular().getText());
-        data = new java.sql.Date(frm.getCampoDtAdm().getDate().getTime());
-        func.setDtAdmFunc(data);
-        func.setSalFunc(Double.valueOf(frm.getCampoSalario().getText()));
         func.setUserFunc(frm.getCampoUser().getText());
 
         HexSha hexSha = new HexSha(String.valueOf(frm.getCampoSenha().getPassword()));
@@ -213,19 +195,10 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     private void funcionarioToForm(Funcionario funcionario) {
         frm.getCampoId().setText(String.valueOf(funcionario.getIdFunc()));
         frm.getCampoNome().setText(funcionario.getNomeFunc());
-        frm.getCampoDtNasc().setDate(funcionario.getNascFunc());
-        if (funcionario.getSexoFunc().equals("F")) {
-            frm.getCaixaSexo().setSelectedIndex(1);
-        } else {
-            frm.getCaixaSexo().setSelectedIndex(2);
-        }
-        frm.getCampoRg().setText(funcionario.getRgFunc());
         frm.getCampoCpf().setText(funcionario.getCpfFunc());
         frm.getCampoEmail().setText(funcionario.getMailFunc());
         frm.getCampoTelefone().setText(funcionario.getFoneFunc());
         frm.getCampoCelular().setText(funcionario.getCelFunc());
-        frm.getCampoDtAdm().setDate(funcionario.getDtAdmFunc());
-        frm.getCampoSalario().setText(String.valueOf(funcionario.getSalFunc()));
         frm.getCampoUser().setText(funcionario.getUserFunc());
         if (funcionario.getNivelFunc() == 1) {
             frm.getCaixaNivel().setSelectedIndex(1);
@@ -249,26 +222,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             valida = false;
         }
 
-        if (frm.getCampoDtNasc().getDate() != null) {
-            frm.getCampoDtNasc().setBorder(normal);
-        } else {
-            frm.getCampoDtNasc().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (frm.getCaixaSexo().getSelectedIndex() != 0) {
-            frm.getCaixaSexo().setBorder(normal);
-        } else {
-            frm.getCaixaSexo().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (!"".equals(frm.getCampoRg().getText()) && frm.getCampoRg().getText().length() > 4) {
-            frm.getCampoRg().setBorder(normal);
-        } else {
-            frm.getCampoRg().setBorder(vermelha);
-            valida = false;
-        }
 
         if (!"".equals(frm.getCampoCpf().getText()) && frm.getCampoCpf().getText().length() > 10) {
             frm.getCampoCpf().setBorder(normal);
@@ -288,20 +241,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             frm.getCampoCelular().setBorder(normal);
         } else {
             frm.getCampoCelular().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (frm.getCampoDtAdm().getDate() != null) {
-            frm.getCampoDtAdm().setBorder(normal);
-        } else {
-            frm.getCampoDtAdm().setBorder(vermelha);
-            valida = false;
-        }
-
-        if (!"".equals(frm.getCampoSalario().getText()) && frm.getCampoSalario().getText().length() > 2) {
-            frm.getCampoSalario().setBorder(normal);
-        } else {
-            frm.getCampoSalario().setBorder(vermelha);
             valida = false;
         }
 

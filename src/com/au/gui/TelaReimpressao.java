@@ -25,6 +25,7 @@
 package com.au.gui;
 
 import com.au.gui.listener.CancelamentoActionListener;
+import com.au.gui.listener.ReimpressaoActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -34,7 +35,7 @@ import javax.swing.JTextField;
  * @author BrunoRicardo
  */
 public class TelaReimpressao extends javax.swing.JDialog {
-    private final CancelamentoActionListener listener;
+    private final ReimpressaoActionListener listener;
     private int idCaixa;
 
     /**

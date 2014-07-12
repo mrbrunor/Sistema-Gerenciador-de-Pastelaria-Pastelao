@@ -60,7 +60,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         frm.getCaixaSelecaoIng().setBorder(normal);
         frm.getCampoBarras().setBorder(normal);
         frm.getCampoNome().setBorder(normal);
-        frm.getCampoQtd().setBorder(normal);
         frm.getCampoValor().setBorder(normal);
         frm.getTextoErroIngrediente().setVisible(false);
         limpaInd();
@@ -72,7 +71,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public void limpaInd() {
         frm.getRadioInd().setBorderPainted(false);
-        frm.getCampoQtd().setBorder(normal);
         frm.getCampoBarras().setBorder(normal);
     }
 
@@ -228,17 +226,11 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         if (frm.getRadioInd().isSelected()) {
             produto.setEIndustrializado((byte) 1);
             if ("".equals(frm.getCampoBarras().getText())) {
-                produto.setQtdProd(null);
-            } else {
-                produto.setQtdProd(Integer.valueOf(frm.getCampoQtd().getText()));
-            }
-            if ("".equals(frm.getCampoBarras().getText())) {
                 produto.setCodBarras(null);
             } else {
                 produto.setCodBarras(frm.getCampoBarras().getText());
             }
         } else {
-            produto.setQtdProd(null);
             produto.setCodBarras(null);
             produto.setEIndustrializado((byte) 0);
             produto.setIngredientes(ingredientes);
@@ -253,7 +245,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         if (produto.getEIndustrializado() == (byte) 1) {
             frm.getRadioInd().doClick();
             frm.getRadioPrep().setSelected(false);
-            frm.getCampoQtd().setText(String.valueOf(produto.getQtdProd()));
             frm.getCampoBarras().setText(produto.getCodBarras());
         } else {
             frm.getRadioPrep().doClick();
@@ -266,8 +257,6 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     public void habilitaInd(boolean valida) {
-        frm.getCampoQtd().setText("");
-        frm.getCampoQtd().setEnabled(valida);
         frm.getCampoBarras().setText("");
         frm.getCampoBarras().setEnabled(valida);
     }
