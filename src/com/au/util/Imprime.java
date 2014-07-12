@@ -106,13 +106,6 @@ public class Imprime {
             iRetorno = cupom.ComandoTX(iComando, iComando.length());
         }
         iRetorno = cupom.FechaPorta();
-        /*
-         iRetorno = cupom.FormataTX("TEXTO ITÁLICO\r\n", 2, 1, 0, 0, 0);
-         iRetorno = cupom.FormataTX("TEXTO NEGRITO\r\n", 2, 0, 0, 0, 1);
-         iRetorno = cupom.FormataTX("TEXTO SUBLINHADO\r\n", 2, 0, 1, 0, 0);
-         iRetorno = cupom.FormataTX("TEXTO CONDENSADO\r\n", 1, 0, 0, 0, 0);
-         iRetorno = cupom.FormataTX("TEXTO ELITE\r\n", 3, 0, 0, 0, 0);
-         iRetorno = cupom.FormataTX("TEXTO NORMAL\r\n", 2, 0, 0, 0, 0);*/
     }
 
     public void geraComandaCozinha(int idPedido) {
@@ -285,6 +278,7 @@ public class Imprime {
             iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Descontos: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedDesc + "\r\n\r\n");
             iRetorno = cupom.FormataTX("Lista de Descontos\r\n\r\n", 3, 1, 0, 0, 0);
             System.out.println("Lista de Descontos");
+            System.out.println("Pedidos.size() " + caixa.getPedidos().size());
             for (int i = 0; caixa.getPedidos().size() > i; i++) {
                 if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
                     System.out.println("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido() + "\n"

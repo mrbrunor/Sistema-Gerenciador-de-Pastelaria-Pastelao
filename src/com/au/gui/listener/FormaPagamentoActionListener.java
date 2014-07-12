@@ -109,10 +109,6 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
 
         FormaPagamento formaPagamento = formToFormaPagamento();
 
-//        if(!new DAO<>(FormaPagamento.class).validaNomeTipo(formaPagamento)){
-//            JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!");
-//            return;
-//        }
         new DAO<>(FormaPagamento.class).adiciona(formaPagamento);
 
         JOptionPane.showMessageDialog(frm, "Forma de Pagamento Cadastrada Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);

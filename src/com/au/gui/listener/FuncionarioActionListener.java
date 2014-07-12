@@ -125,8 +125,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         
         Funcionario funcionario = formToFuncionario();
         
-        
-        
         if(!new DAO<>(Funcionario.class).validaCPF(funcionario)){
             JOptionPane.showMessageDialog(frm, "CPF ja cadastrado!", "Cadastro de Funcionários", JOptionPane.WARNING_MESSAGE);
             return;
@@ -209,7 +207,6 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
         } else {
             func.setEstaAtivo((byte) 1);
         }
-
         return func;
     }
 

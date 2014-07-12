@@ -98,7 +98,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
         frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
         frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
-        //}
     }
 
     public void inicializaData() {
@@ -270,9 +269,6 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         pedido = new Pedido();
         pedido.setItempedidos(new ArrayList<Itempedido>());
         atualizaTableModelVenda();
-//        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
-//        frm.getTabelaPedido().setModel(tableModelVenda);
-//        frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
         totalPedido = 0;
         atualizaTotal();
         atualizaTableModelVenda();

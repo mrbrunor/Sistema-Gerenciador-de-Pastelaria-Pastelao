@@ -107,7 +107,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
                         totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
                         qtdPedVale += 1;
                     }
-                    if (caixa.getPedidos().get(i).getDescPedido() != 0) {
+                    if (caixa.getPedidos().get(i).getDescPedido() > 0) {
                         descontoTotal += caixa.getPedidos().get(i).getDescPedido();
                         qtdPedDesc += 1;
                     }

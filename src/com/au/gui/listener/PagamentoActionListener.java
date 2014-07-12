@@ -30,9 +30,6 @@ import com.au.modelo.Caixa;
 import com.au.modelo.FormaPagamento;
 import com.au.modelo.Itempedido;
 import com.au.modelo.Pedido;
-import com.au.util.Bematech;
-import com.au.util.BematechComandosDiretos;
-import com.au.util.BematechNFiscal;
 import com.au.util.CustomComboBoxInt;
 import com.au.util.Imprime;
 import java.awt.Color;
@@ -41,8 +38,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -75,7 +70,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void atualizaTableModelVenda() {
-        //if (!frm.getPedido().getItempedidos().isEmpty()) {
         tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
@@ -83,7 +77,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(100);
         frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
         frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
-        //}
     }
 
     public void adicionaListener() {
