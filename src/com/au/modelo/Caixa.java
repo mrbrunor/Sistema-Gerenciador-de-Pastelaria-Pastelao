@@ -1,10 +1,12 @@
 package com.au.modelo;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * The persistent class for the caixa database table.
@@ -50,10 +52,12 @@ public class Caixa implements Serializable {
 
     //bi-directional many-to-one association to Despesa
     @OneToMany(mappedBy = "caixa", fetch = FetchType.EAGER)
+    @Fetch (FetchMode.SELECT)
     private List<Despesa> despesas;
 
     //bi-directional many-to-one association to Pedido
     @OneToMany(mappedBy = "caixa", fetch = FetchType.EAGER)
+    @Fetch (FetchMode.SELECT)
     private List<Pedido> pedidos;
 
     public Caixa() {

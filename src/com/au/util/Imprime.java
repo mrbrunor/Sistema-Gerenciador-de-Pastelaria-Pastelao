@@ -17,7 +17,6 @@
 package com.au.util;
 
 import com.au.dao.DAO;
-import com.au.dao.DespesaDao;
 import com.au.modelo.Caixa;
 import com.au.modelo.Despesa;
 import com.au.modelo.Pedido;
@@ -150,7 +149,6 @@ public class Imprime {
             totalCredito = 0;
             totalDebito = 0;
             totalVale = 0;
-
             for (int i = 0; i < caixa.getPedidos().size(); i++) {
                 if ("Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
                     if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
@@ -245,22 +243,17 @@ public class Imprime {
         iComando = "" + BematechComandosDiretos.ESC + BematechComandosDiretos.a + (char) 0;
         iRetorno = cupom.ComandoTX(iComando, iComando.length());
         //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
-        List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
-
-        if (despesas != null && !despesas.isEmpty()) {
-            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Retiradas: " + BematechComandosDiretos.NEGRITO_OFF + despesas.size() + "\r\n\r\n");
+        
+        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Retiradas: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getDespesas().size() + "\r\n\r\n");
             iRetorno = cupom.FormataTX("Lista de Retiradas\r\n\r\n", 3, 1, 0, 0, 0);
-            System.out.println("Lista de Retiradas");
-            for (int i = 0; despesas.size() > i; i++) {
-                System.out.println("Retirada " + (i + 1));
-                System.out.println("Motivo: " + removeAcentos(despesas.get(i).getDescDesp()));
-                System.out.println("Valor: " + String.format("R$ %.2f", despesas.get(i).getValorDesp()));
+            for (int i = 0; caixa.getDespesas().size() > i; i++) {
                 iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Retirada " + (i + 1) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Motivo: " + BematechComandosDiretos.NEGRITO_OFF + removeAcentos(despesas.get(i).getDescDesp()) + "\r\n");
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", despesas.get(i).getValorDesp()) + "\r\n\r\n");
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Motivo: " + BematechComandosDiretos.NEGRITO_OFF + removeAcentos(caixa.getDespesas().get(i).getDescDesp()) + "\r\n");
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getDespesas().get(i).getValorDesp()) + "\r\n\r\n");
             }
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Total de Retiradas: " + BematechComandosDiretos.NEGRITO_OFF + totalRetirada + "\r\n");
         } else {
-            System.out.println("Sem Retiradas");
             iRetorno = cupom.BematechTX("Sem Retiradas\r\n");
         }
         iRetorno = cupom.BematechTX("\r\n------------------------------------------------\r\n");
@@ -273,17 +266,11 @@ public class Imprime {
         //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
         if (qtdPedDesc == 0) {
             iRetorno = cupom.BematechTX("Sem Descontos\r\n");
-            System.out.println("Sem Descontos");
         } else {
             iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Descontos: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedDesc + "\r\n\r\n");
             iRetorno = cupom.FormataTX("Lista de Descontos\r\n\r\n", 3, 1, 0, 0, 0);
-            System.out.println("Lista de Descontos");
-            System.out.println("Pedidos.size() " + caixa.getPedidos().size());
             for (int i = 0; caixa.getPedidos().size() > i; i++) {
                 if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
-                    System.out.println("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido() + "\n"
-                            + "Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\n"
-                            + "Valor do Desconto: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()) + "\n");
                     iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getPedidos().get(i).getNumPedido() + "\r\n");
                     iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\r\n");
                     iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Desconto: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()) + "\r\n\r\n");
@@ -301,17 +288,13 @@ public class Imprime {
         //iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
         if (qtdPedCanc == 0) {
             iRetorno = cupom.BematechTX("Sem Cancelamentos\r\n");
-            System.out.println("Sem Cancelamentos");
         } else {
             iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Quantidade de Cancelamentos: " + BematechComandosDiretos.NEGRITO_OFF + qtdPedCanc + "\r\n\r\n");
             iRetorno = cupom.FormataTX("Lista de Cancelamentos\r\n\r\n", 3, 1, 0, 0, 0);
-            System.out.println("Lista de Cancelamentos");
             double totalCanc = 0;
             for (int i = 0; caixa.getPedidos().size() > i; i++) {
                 if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
                     totalCanc += caixa.getPedidos().get(i).getSubTotPedido();
-                    System.out.println("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido() + "\n"
-                            + "Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\n");
                     iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + caixa.getPedidos().get(i).getNumPedido() + "\r\n");
                     iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Valor do Pedido: " + BematechComandosDiretos.NEGRITO_OFF + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()) + "\r\n\r\n");
                 }
@@ -337,99 +320,4 @@ public class Imprime {
         }
         iRetorno = cupom.FechaPorta();
     }
-
-    public void geraRelatorioFechamentoAntigo(int idCaixa, String totalRetirada, String totalCaixa) {
-
-        Caixa caixa = new DAO<>(Caixa.class).buscaPorId(idCaixa);
-
-        calculaTipoPagamento(caixa);
-
-        //Cria e Imprime o Relatório do caixa fechado
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-        String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
-        Bematech bematech = new Bematech();
-        bematech.detectaImpressoras("Caixa");
-        if (Bematech.impressora != null) {
-            bematech.imprime("\n\t\tFechamento de Caixa\n");
-            bematech.imprime(dataStr + "                    " + new SimpleDateFormat("HH:mm").format(caixa.getDataFechamentoCaixa()));
-            bematech.imprime("Funcionario: " + caixa.getFuncionario().getNomeFunc());
-            bematech.imprime("Quantidade de Pedidos: " + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale));
-            bematech.imprime("Dinheiro: " + qtdPedDinheiro);
-            bematech.imprime("Credito: " + qtdPedCred);
-            bematech.imprime("Debito: " + qtdPedDeb);
-            bematech.imprime("Vale: " + qtdPedVale);
-            bematech.imprime("\n--------------------------------------------------\n");
-            bematech.imprime(String.format("Fundo de Caixa: R$: %.2f", caixa.getFundoCaixa()));
-            bematech.imprime(String.format("Dinheiro: R$: %.2f", totalDinheiro));
-            bematech.imprime(String.format("Credito: R$: %.2f", totalCredito));
-            bematech.imprime(String.format("Debito: R$: %.2f", totalDebito));
-            bematech.imprime(String.format("Vale: R$: %.2f", totalVale));
-            bematech.imprime("\n--------------------------------------------------\n");
-            bematech.imprime(String.format("Total Faturado: R$ %.2f", caixa.getTotalCaixa()));
-            bematech.imprime("Total Retiradas: " + totalRetirada);
-            bematech.imprime("Total Caixa: R$ " + totalCaixa);
-            bematech.imprime("\n--------------------------------------------------\n");
-
-            List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
-
-            if (despesas != null && !despesas.isEmpty()) {
-                bematech.imprime("Quantidade de Retiradas: " + despesas.size());
-                bematech.imprime("\nLista de Retiradas");
-                for (int i = 0; despesas.size() > i; i++) {
-                    bematech.imprime("\nRetirada " + (i + 1));
-                    bematech.imprime("Motivo: " + despesas.get(i).getDescDesp());
-                    bematech.imprime(String.format("Valor: R$ %.2f", despesas.get(i).getValorDesp()));
-                }
-            } else {
-                bematech.imprime("\nSem Retiradas");
-            }
-            if (caixa.getPedidos() != null && caixa.getPedidos().size() > 0) {
-                bematech.imprime("\n--------------------------------------------------\n");
-                bematech.imprime("\nQuantidade de Descontos: " + qtdPedDesc);
-                if (qtdPedDesc == 0) {
-                    bematech.imprime("\nSem Descontos\n");
-                } else {
-                    bematech.imprime("\nLista de Descontos");
-
-                    for (int i = 0; caixa.getPedidos().size() > i; i++) {
-                        if (caixa.getPedidos().get(i).getDescPedido() > 0) {
-
-                            bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
-                            bematech.imprime(String.format("Valor do Pedido: R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()));
-                            bematech.imprime(String.format("Valor do Desconto: R$ %.2f", caixa.getPedidos().get(i).getDescPedido()));
-                        }
-                    }
-
-                    bematech.imprime("\n--------------------------------------------------\n");
-                    bematech.imprime("Total de Descontos: " + String.format("R$: %.2f", descontoTotal));
-                }
-            }
-
-            if (caixa.getPedidos() != null && caixa.getPedidos().size() > 0) {
-                bematech.imprime("\n--------------------------------------------------\n");
-                bematech.imprime("Quantidade de Cancelamentos: " + qtdPedCanc);
-                if (qtdPedCanc == 0) {
-                    bematech.imprime("\nSem Cancelamentos\n");
-                } else {
-                    bematech.imprime("\nLista de Cancelamentos\n");
-                    double totalCanc = 0;
-                    for (int i = 0; caixa.getPedidos().size() > i; i++) {
-                        if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
-                            totalCanc += caixa.getPedidos().get(i).getSubTotPedido();
-                            bematech.imprime("\nNumero do Pedido: " + caixa.getPedidos().get(i).getNumPedido());
-                            bematech.imprime(String.format("\nValor do Pedido: R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()));
-                        }
-                    }
-                    bematech.imprime("\n--------------------------------------------------\n");
-                    bematech.imprime("\n\nTotal de Cancelamentos: " + String.format("R$: %.2f", totalCanc));
-                }
-            }
-            bematech.imprime("\n________________________________________________");
-            bematech.imprime("\t" + caixa.getFuncionario().getNomeFunc());
-            bematech.imprime("\n\n\n\n\n\n\n\n\n\n\n");
-        } else {
-            //JOptionPane.showMessageDialog(frm, "Impressora Caixa não foi encontrada. O relatório de caixa não será impresso.", "Impressão de Relatório", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
 }

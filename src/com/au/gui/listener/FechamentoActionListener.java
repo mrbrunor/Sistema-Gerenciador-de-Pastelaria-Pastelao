@@ -23,7 +23,6 @@
  */
 package com.au.gui.listener;
 
-import com.au.dao.DespesaDao;
 import com.au.gui.TelaFechamentoCaixa;
 import com.au.modelo.Caixa;
 import com.au.modelo.Despesa;
@@ -66,6 +65,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
          * Banco
          */
         caixa = new DAO<>(Caixa.class).buscaPorId(frm.getIdCaixa());
+        new DAO<>(Caixa.class).atualiza(caixa);
         inicializaCampos();
         adicionaListener();
     }
@@ -76,8 +76,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      */
     public void inicializaCampos() {
         frm.getTextoValorFundoDeCaixa().setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
-        calculaReducoes();
         calculaTipoPagamento();
+        calculaReducoes();
         frm.getTextoValorTotalFaturado().setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
     }
 
@@ -133,9 +133,8 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
      */
     public void calculaReducoes() {
         double totalDesp = 0;
-        List<Despesa> despesas = new DespesaDao().getLista(caixa.getIdCaixa());
-        if (despesas != null && !despesas.isEmpty()) {
-            for (Despesa despesa : despesas) {
+        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
+            for (Despesa despesa : caixa.getDespesas()) {
                 totalDesp = totalDesp + despesa.getValorDesp();
             }
             frm.getTextoValorTotalRetiradas().setText(String.format("R$: %.2f", totalDesp));
@@ -143,7 +142,6 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
             frm.getTextoValorTotalRetiradas().setText("R$: 0,00");
         }
         frm.getTextoValorTotalDeReducoes().setText(String.format("R$: %.2f", totalDesp));
-
         frm.getTextoValorRetiradas().setText(String.format("R$: %.2f", totalDesp));
         frm.getTextoValorFaturamentos().setText(String.format("R$: %.2f", caixa.getTotalCaixa()));
         frm.getTextoValorTotalCaixa().setText(String.format("R$: %.2f", caixa.getTotalCaixa() - totalDesp));
@@ -229,7 +227,6 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         new DAO<>(Caixa.class).atualiza(caixa);
         //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
         TelaFechamentoCaixa.setFechou(true);
-        
         new Imprime().geraRelatorioFechamento(caixa.getIdCaixa(), frm.getTextoValorTotalRetiradas().getText(), frm.getTextoValorTotalCaixa().getText());        
     }
 

@@ -251,11 +251,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public boolean valida() {
         boolean valida = true;
-        if (!"".equals(frm.getCampoDesconto().getText())) {
-            System.out.println("Desc: " + Double.valueOf(frm.getCampoDesconto().getText()));
-            System.out.println("Total: " + frm.getPedido().getSubTotPedido());
-
-        }
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.getCampoDesconto().setText("0");
             atualizaTotal();
