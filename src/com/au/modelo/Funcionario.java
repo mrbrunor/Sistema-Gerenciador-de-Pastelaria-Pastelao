@@ -27,10 +27,6 @@ public class Funcionario implements Serializable {
 	@Column(unique=true, nullable=false, length=15)
 	private String cpfFunc;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date dtAdmFunc;
-
 	@Column(nullable=false)
 	private byte estaAtivo;
 
@@ -40,10 +36,6 @@ public class Funcionario implements Serializable {
 	@Column(nullable=false, length=150)
 	private String mailFunc;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date nascFunc;
-
 	@Column(nullable=false)
 	private int nivelFunc;
 
@@ -52,15 +44,6 @@ public class Funcionario implements Serializable {
 
 	@Column(nullable=false, length=64)
 	private String passFunc;
-
-	@Column(length=15)
-	private String rgFunc;
-
-	@Column(nullable=false)
-	private double salFunc;
-
-	@Column(nullable=false, length=1)
-	private String sexoFunc;
 
         @Column(unique=true, nullable=false, length=50)
 	private String userFunc;
@@ -96,14 +79,6 @@ public class Funcionario implements Serializable {
 		this.cpfFunc = cpfFunc;
 	}
 
-	public Date getDtAdmFunc() {
-		return this.dtAdmFunc;
-	}
-
-	public void setDtAdmFunc(Date dtAdmFunc) {
-		this.dtAdmFunc = dtAdmFunc;
-	}
-
 	public byte getEstaAtivo() {
 		return this.estaAtivo;
 	}
@@ -128,14 +103,6 @@ public class Funcionario implements Serializable {
 		this.mailFunc = mailFunc;
 	}
 
-	public Date getNascFunc() {
-		return this.nascFunc;
-	}
-
-	public void setNascFunc(Date nascFunc) {
-		this.nascFunc = nascFunc;
-	}
-
 	public int getNivelFunc() {
 		return this.nivelFunc;
 	}
@@ -158,30 +125,6 @@ public class Funcionario implements Serializable {
 
 	public void setPassFunc(String passFunc) {
 		this.passFunc = passFunc;
-	}
-
-	public String getRgFunc() {
-		return this.rgFunc;
-	}
-
-	public void setRgFunc(String rgFunc) {
-		this.rgFunc = rgFunc;
-	}
-
-	public double getSalFunc() {
-		return this.salFunc;
-	}
-
-	public void setSalFunc(double salFunc) {
-		this.salFunc = salFunc;
-	}
-
-	public String getSexoFunc() {
-		return this.sexoFunc;
-	}
-
-	public void setSexoFunc(String sexoFunc) {
-		this.sexoFunc = sexoFunc;
 	}
 
 	public String getUserFunc() {
