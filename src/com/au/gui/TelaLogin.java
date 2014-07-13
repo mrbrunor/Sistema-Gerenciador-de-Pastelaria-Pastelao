@@ -115,8 +115,18 @@ public class TelaLogin extends javax.swing.JFrame {
         campoUsuario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         campoUsuario.setNextFocusableComponent(campoSenha);
+        campoUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoUsuarioFocusGained(evt);
+            }
+        });
 
         campoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoSenhaFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -189,6 +199,14 @@ public class TelaLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUsuarioFocusGained
+        campoUsuario.selectAll();
+    }//GEN-LAST:event_campoUsuarioFocusGained
+
+    private void campoSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenhaFocusGained
+        campoSenha.selectAll();
+    }//GEN-LAST:event_campoSenhaFocusGained
 
     public JPasswordField getCampoSenha() {
         return campoSenha;

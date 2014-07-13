@@ -157,26 +157,51 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoNome.setText("Nome Completo:");
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNomeFocusGained(evt);
+            }
+        });
 
         textoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCpf.setText("CPF:");
 
         campoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCpfFocusGained(evt);
+            }
+        });
 
         textoEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEmail.setText("E-mail:");
 
         campoEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoEmailFocusGained(evt);
+            }
+        });
 
         textoTelefone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoTelefone.setText("Telefone:");
 
         campoTelefone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoTelefoneFocusGained(evt);
+            }
+        });
 
         textoCelular.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCelular.setText("Celular:");
 
         campoCelular.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCelularFocusGained(evt);
+            }
+        });
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
 
@@ -189,6 +214,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         caixaNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Administrador", "Funcionário" }));
 
         campoSenha2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoSenha2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoSenha2FocusGained(evt);
+            }
+        });
 
         textoSenha2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSenha2.setText("Redigite a Senha:");
@@ -197,8 +227,18 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoSenha.setText("Senha:");
 
         campoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoSenhaFocusGained(evt);
+            }
+        });
 
         campoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoUserFocusGained(evt);
+            }
+        });
 
         textoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoUser.setText("Nome de Usuário:");
@@ -314,6 +354,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoProcurarFuncionario.setText("Procurar Funcionário:");
 
         campoPesquisarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoPesquisarFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPesquisarFuncionarioFocusGained(evt);
+            }
+        });
 
         botaoProcurarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
@@ -454,6 +499,42 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained
+        campoNome.selectAll();
+    }//GEN-LAST:event_campoNomeFocusGained
+
+    private void campoCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFocusGained
+        campoCpf.selectAll();
+    }//GEN-LAST:event_campoCpfFocusGained
+
+    private void campoEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusGained
+        campoEmail.selectAll();
+    }//GEN-LAST:event_campoEmailFocusGained
+
+    private void campoTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoTelefoneFocusGained
+        campoTelefone.selectAll();
+    }//GEN-LAST:event_campoTelefoneFocusGained
+
+    private void campoCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFocusGained
+        campoCelular.selectAll();
+    }//GEN-LAST:event_campoCelularFocusGained
+
+    private void campoUserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUserFocusGained
+        campoUser.selectAll();
+    }//GEN-LAST:event_campoUserFocusGained
+
+    private void campoSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenhaFocusGained
+        campoSenha.selectAll();
+    }//GEN-LAST:event_campoSenhaFocusGained
+
+    private void campoSenha2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenha2FocusGained
+        campoSenha2.selectAll();
+    }//GEN-LAST:event_campoSenha2FocusGained
+
+    private void campoPesquisarFuncionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPesquisarFuncionarioFocusGained
+        campoPesquisarFuncionario.selectAll();
+    }//GEN-LAST:event_campoPesquisarFuncionarioFocusGained
 
     public JButton getBotaoAtualizarFuncionario() {
         return botaoAtualizarFuncionario;

@@ -188,6 +188,9 @@
               <ComponentRef name="campoSenha"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoUsuarioFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoSenha">
           <Properties>
@@ -195,6 +198,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoSenhaFocusGained"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoSenha.setActionCommand(&quot;Entrar no Sistema&quot;);  "/>
           </AuxValues>

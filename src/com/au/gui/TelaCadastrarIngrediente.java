@@ -125,6 +125,11 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
         painelAdicionarModificarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Ingrediente"));
 
         campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoValorFocusGained(evt);
+            }
+        });
 
         textoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValor.setText("Valor Ingrediente:");
@@ -133,6 +138,11 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
         textoNome.setText("Nome Ingrediente:");
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNomeFocusGained(evt);
+            }
+        });
 
         campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoId.setEnabled(false);
@@ -178,6 +188,11 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
         painelProcurarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Ingrediente Existente"));
 
         campoPesquisarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoPesquisarIngrediente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPesquisarIngredienteFocusGained(evt);
+            }
+        });
 
         botaoProcurarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
@@ -322,6 +337,18 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained
+        campoNome.selectAll();
+    }//GEN-LAST:event_campoNomeFocusGained
+
+    private void campoValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusGained
+        campoValor.selectAll();
+    }//GEN-LAST:event_campoValorFocusGained
+
+    private void campoPesquisarIngredienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPesquisarIngredienteFocusGained
+        campoPesquisarIngrediente.selectAll();
+    }//GEN-LAST:event_campoPesquisarIngredienteFocusGained
 
     public JButton getBotaoAtualizarIngrediente() {
         return botaoAtualizarIngrediente;

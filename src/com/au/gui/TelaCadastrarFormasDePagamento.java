@@ -130,6 +130,11 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
         textoNome.setText("Nome Forma de Pagamento:");
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNomeFocusGained(evt);
+            }
+        });
 
         campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoId.setEnabled(false);
@@ -191,6 +196,11 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
         painelProcurarFormaPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Formas de Pagamento Existente"));
 
         campoPesquisarFormapagamento.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoPesquisarFormapagamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPesquisarFormapagamentoFocusGained(evt);
+            }
+        });
 
         botaoProcurarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
@@ -330,6 +340,14 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained
+        campoNome.selectAll();
+    }//GEN-LAST:event_campoNomeFocusGained
+
+    private void campoPesquisarFormapagamentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPesquisarFormapagamentoFocusGained
+        campoPesquisarFormapagamento.selectAll();
+    }//GEN-LAST:event_campoPesquisarFormapagamentoFocusGained
 
     public JButton getBotaoAtualizarFormaPagamento() {
         return botaoAtualizarFormaPagamento;

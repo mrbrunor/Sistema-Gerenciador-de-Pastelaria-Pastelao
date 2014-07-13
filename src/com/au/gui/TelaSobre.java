@@ -52,7 +52,6 @@ public class TelaSobre extends javax.swing.JDialog {
         textoSistemaDesenvolvidoPor = new javax.swing.JLabel();
         textoBrunoRicardo = new javax.swing.JLabel();
         textoIconeSobre = new javax.swing.JLabel();
-        textoLuisGustavo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -75,10 +74,6 @@ public class TelaSobre extends javax.swing.JDialog {
 
         textoIconeSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/info-128.png"))); // NOI18N
 
-        textoLuisGustavo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        textoLuisGustavo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoLuisGustavo.setText("Luis Gustavo Gequelin Francisco");
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tiago Hoinack de Carvalho");
@@ -99,12 +94,12 @@ public class TelaSobre extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textoIconeSobre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textoSistemaPastelao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoSistemaDesenvolvidoPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoBrunoRicardo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoLuisGustavo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textoSistemaPastelao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoSistemaDesenvolvidoPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoBrunoRicardo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -121,8 +116,6 @@ public class TelaSobre extends javax.swing.JDialog {
                         .addComponent(textoSistemaDesenvolvidoPor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoBrunoRicardo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textoLuisGustavo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
@@ -162,7 +155,6 @@ public class TelaSobre extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel textoBrunoRicardo;
     private javax.swing.JLabel textoIconeSobre;
-    private javax.swing.JLabel textoLuisGustavo;
     private javax.swing.JLabel textoSistemaDesenvolvidoPor;
     private javax.swing.JLabel textoSistemaPastelao;
     // End of variables declaration//GEN-END:variables

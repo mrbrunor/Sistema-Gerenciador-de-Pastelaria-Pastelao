@@ -200,6 +200,11 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoAdicionarItem.setToolTipText("Clique aqui para adicionar o produto ao pedido");
 
         campoAdicionarItem.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoAdicionarItem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoAdicionarItemFocusGained(evt);
+            }
+        });
 
         botaoFecharPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoFecharPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
@@ -291,6 +296,11 @@ public class TelaVenda extends javax.swing.JFrame {
         textoDigiteParaBuscar.setText("Digite o nome do produto para buscar:");
 
         campoBusca.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoBusca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoBuscaFocusGained(evt);
+            }
+        });
 
         botaoBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
@@ -454,6 +464,14 @@ public class TelaVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoBuscaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBuscaFocusGained
+        campoBusca.selectAll();
+    }//GEN-LAST:event_campoBuscaFocusGained
+
+    private void campoAdicionarItemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdicionarItemFocusGained
+        campoAdicionarItem.selectAll();
+    }//GEN-LAST:event_campoAdicionarItemFocusGained
 
     public void setItemMenuCancelarCupom(JMenuItem itemMenuCancelarCupom) {
         this.itemMenuCancelarCupom = itemMenuCancelarCupom;

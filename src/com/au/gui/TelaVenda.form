@@ -406,6 +406,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoAdicionarItemFocusGained"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoAdicionarItem.setActionCommand(&quot;Adicionar Item&quot;);  "/>
           </AuxValues>
@@ -588,6 +591,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoBuscaFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoBuscar">
           <Properties>

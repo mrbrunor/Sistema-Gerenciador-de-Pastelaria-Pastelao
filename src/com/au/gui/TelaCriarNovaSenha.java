@@ -118,10 +118,27 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         textoCpfFuncionario.setText("CPF do Funcionário:");
 
         campoCpfFuncionario.setNextFocusableComponent(campoNovaSenha);
+        campoCpfFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCpfFuncionarioFocusGained(evt);
+            }
+        });
 
         textoDigiteNovaSenha.setText("Digite a Nova Senha:");
 
         textoConfirmeNovaSenha.setText("Confirme a Nova Senha:");
+
+        campoNovaSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNovaSenhaFocusGained(evt);
+            }
+        });
+
+        campoConfirmacaoNovaSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoConfirmacaoNovaSenhaFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelDadosFuncionarioLayout = new javax.swing.GroupLayout(painelDadosFuncionario);
         painelDadosFuncionario.setLayout(painelDadosFuncionarioLayout);
@@ -204,6 +221,18 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoCpfFuncionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFuncionarioFocusGained
+        campoCpfFuncionario.selectAll();
+    }//GEN-LAST:event_campoCpfFuncionarioFocusGained
+
+    private void campoNovaSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNovaSenhaFocusGained
+        campoNovaSenha.selectAll();
+    }//GEN-LAST:event_campoNovaSenhaFocusGained
+
+    private void campoConfirmacaoNovaSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConfirmacaoNovaSenhaFocusGained
+        campoConfirmacaoNovaSenha.selectAll();
+    }//GEN-LAST:event_campoConfirmacaoNovaSenhaFocusGained
 
     public JButton getBotaoCancelarNovaSenha() {
         return botaoCancelarNovaSenha;

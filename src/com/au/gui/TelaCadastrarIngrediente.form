@@ -193,6 +193,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoValorFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValor">
           <Properties>
@@ -216,6 +219,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoId">
           <Properties>
@@ -298,6 +304,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPesquisarIngredienteFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarIngrediente">
           <Properties>

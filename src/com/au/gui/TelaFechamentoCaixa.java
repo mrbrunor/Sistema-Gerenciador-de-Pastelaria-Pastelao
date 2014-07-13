@@ -160,18 +160,43 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         campoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaCincoCentavos.setNextFocusableComponent(campoMoedaDezCentavos);
+        campoMoedaCincoCentavos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMoedaCincoCentavosFocusGained(evt);
+            }
+        });
 
         campoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaDezCentavos.setNextFocusableComponent(campoMoedaVinteCincoCentavos);
+        campoMoedaDezCentavos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMoedaDezCentavosFocusGained(evt);
+            }
+        });
 
         campoMoedaVinteCincoCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaVinteCincoCentavos.setNextFocusableComponent(campoMoedaCinquentaCentavos);
+        campoMoedaVinteCincoCentavos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMoedaVinteCincoCentavosFocusGained(evt);
+            }
+        });
 
         campoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaCinquentaCentavos.setNextFocusableComponent(campoMoedaUmReal);
+        campoMoedaCinquentaCentavos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMoedaCinquentaCentavosFocusGained(evt);
+            }
+        });
 
         campoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaUmReal.setNextFocusableComponent(campoCedulaDoisReais);
+        campoMoedaUmReal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMoedaUmRealFocusGained(evt);
+            }
+        });
 
         textoMoedaCincoCentavos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoMoedaCincoCentavos.setText("0,05:");
@@ -193,36 +218,66 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         campoCedulaDoisReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaDoisReais.setNextFocusableComponent(campoCedulaCincoReais);
+        campoCedulaDoisReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaDoisReaisFocusGained(evt);
+            }
+        });
 
         textoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCincoReais.setText("5,00:");
 
         campoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaCincoReais.setNextFocusableComponent(campoCedulaDezReais);
+        campoCedulaCincoReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaCincoReaisFocusGained(evt);
+            }
+        });
 
         textoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaDezReais.setText("10,00:");
 
         campoCedulaDezReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaDezReais.setNextFocusableComponent(campoCedulaVinteReais);
+        campoCedulaDezReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaDezReaisFocusGained(evt);
+            }
+        });
 
         textoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaVinteReais.setText("20,00:");
 
         campoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaVinteReais.setNextFocusableComponent(campoCedulaCinquentaReais);
+        campoCedulaVinteReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaVinteReaisFocusGained(evt);
+            }
+        });
 
         textoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCinquentaReais.setText("50,00:");
 
         campoCedulaCinquentaReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaCinquentaReais.setNextFocusableComponent(campoCedulaCemReais);
+        campoCedulaCinquentaReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaCinquentaReaisFocusGained(evt);
+            }
+        });
 
         textoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCemReais.setText("100,00:");
 
         campoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoCedulaCemReais.setNextFocusableComponent(botaoConfirmarFechamentoDeCaixa);
+        campoCedulaCemReais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCedulaCemReaisFocusGained(evt);
+            }
+        });
 
         textoDinheiroTotalEmCaixa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoDinheiroTotalEmCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -646,6 +701,50 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoMoedaCincoCentavosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaCincoCentavosFocusGained
+        campoMoedaCincoCentavos.selectAll();
+    }//GEN-LAST:event_campoMoedaCincoCentavosFocusGained
+
+    private void campoMoedaDezCentavosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaDezCentavosFocusGained
+        campoMoedaDezCentavos.selectAll();
+    }//GEN-LAST:event_campoMoedaDezCentavosFocusGained
+
+    private void campoMoedaVinteCincoCentavosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaVinteCincoCentavosFocusGained
+        campoMoedaVinteCincoCentavos.selectAll();
+    }//GEN-LAST:event_campoMoedaVinteCincoCentavosFocusGained
+
+    private void campoMoedaCinquentaCentavosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaCinquentaCentavosFocusGained
+        campoMoedaCinquentaCentavos.selectAll();
+    }//GEN-LAST:event_campoMoedaCinquentaCentavosFocusGained
+
+    private void campoMoedaUmRealFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaUmRealFocusGained
+        campoMoedaUmReal.selectAll();
+    }//GEN-LAST:event_campoMoedaUmRealFocusGained
+
+    private void campoCedulaDoisReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaDoisReaisFocusGained
+       campoCedulaDoisReais.selectAll();
+    }//GEN-LAST:event_campoCedulaDoisReaisFocusGained
+
+    private void campoCedulaCincoReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaCincoReaisFocusGained
+        campoCedulaCincoReais.selectAll();
+    }//GEN-LAST:event_campoCedulaCincoReaisFocusGained
+
+    private void campoCedulaDezReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaDezReaisFocusGained
+        campoCedulaDezReais.selectAll();
+    }//GEN-LAST:event_campoCedulaDezReaisFocusGained
+
+    private void campoCedulaVinteReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaVinteReaisFocusGained
+        campoCedulaVinteReais.selectAll();
+    }//GEN-LAST:event_campoCedulaVinteReaisFocusGained
+
+    private void campoCedulaCinquentaReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaCinquentaReaisFocusGained
+        campoCedulaCinquentaReais.selectAll();
+    }//GEN-LAST:event_campoCedulaCinquentaReaisFocusGained
+
+    private void campoCedulaCemReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaCemReaisFocusGained
+        campoCedulaCemReais.selectAll();
+    }//GEN-LAST:event_campoCedulaCemReaisFocusGained
 
     public static boolean isFechou() {
         return fechou;

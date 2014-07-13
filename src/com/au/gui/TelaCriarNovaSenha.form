@@ -197,6 +197,9 @@
               <ComponentRef name="campoNovaSenha"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCpfFuncionarioFocusGained"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoCpfFuncionario.setActionCommand(&quot;CPF&quot;);  "/>
           </AuxValues>
@@ -212,8 +215,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoNovaSenha">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNovaSenhaFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoConfirmacaoNovaSenha">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoConfirmacaoNovaSenhaFocusGained"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -158,6 +158,11 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         campoBarras.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoBarras.setEnabled(false);
+        campoBarras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoBarrasFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelProdutoIndustrializadoLayout = new javax.swing.GroupLayout(painelProdutoIndustrializado);
         painelProdutoIndustrializado.setLayout(painelProdutoIndustrializadoLayout);
@@ -249,8 +254,18 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         textoValor.setText("Valor Produto:");
 
         campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoValorFocusGained(evt);
+            }
+        });
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNomeFocusGained(evt);
+            }
+        });
 
         textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoNome.setText("Nome Produto:");
@@ -283,8 +298,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                                     .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)
                                 .addComponent(radioPrep))
-                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                         .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoErroIngrediente)
@@ -334,6 +348,11 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         textoProcurarProduto.setText("Procurar Produto:");
 
         campoPesquisarProduto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoPesquisarProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPesquisarProdutoFocusGained(evt);
+            }
+        });
 
         botaoProcurarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
@@ -470,6 +489,22 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained
+        campoNome.selectAll();
+    }//GEN-LAST:event_campoNomeFocusGained
+
+    private void campoValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusGained
+        campoValor.selectAll();
+    }//GEN-LAST:event_campoValorFocusGained
+
+    private void campoBarrasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBarrasFocusGained
+        campoBarras.selectAll();
+    }//GEN-LAST:event_campoBarrasFocusGained
+
+    private void campoPesquisarProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPesquisarProdutoFocusGained
+        campoPesquisarProduto.selectAll();
+    }//GEN-LAST:event_campoPesquisarProdutoFocusGained
 
     public JLabel getTextoErroIngrediente() {
         return textoErroIngrediente;

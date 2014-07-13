@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.text.html.CSS;
 
 /**
  *
@@ -113,9 +112,11 @@ public class LoginActionListener implements ActionListener, KeyListener {
 
         if (funcionario == null) {
             JOptionPane.showMessageDialog(frm, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
-        } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc())) {
+        } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc()) && funcionario.getEstaAtivo() == 1) {
             new TelaVenda(funcionario).setVisible(true);
             frm.dispose();
+        } else {
+            JOptionPane.showMessageDialog(frm, "Esta conta foi desativada pelo Administrador", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
         }
     }
 

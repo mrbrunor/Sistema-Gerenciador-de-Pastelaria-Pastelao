@@ -294,6 +294,9 @@
               <ComponentRef name="campoMoedaDezCentavos"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaCincoCentavosFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaDezCentavos">
           <Properties>
@@ -304,6 +307,9 @@
               <ComponentRef name="campoMoedaVinteCincoCentavos"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaDezCentavosFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaVinteCincoCentavos">
           <Properties>
@@ -314,6 +320,9 @@
               <ComponentRef name="campoMoedaCinquentaCentavos"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaVinteCincoCentavosFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaCinquentaCentavos">
           <Properties>
@@ -324,6 +333,9 @@
               <ComponentRef name="campoMoedaUmReal"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaCinquentaCentavosFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaUmReal">
           <Properties>
@@ -334,6 +346,9 @@
               <ComponentRef name="campoCedulaDoisReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaUmRealFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoMoedaCincoCentavos">
           <Properties>
@@ -392,6 +407,9 @@
               <ComponentRef name="campoCedulaCincoReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaDoisReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCincoReais">
           <Properties>
@@ -410,6 +428,9 @@
               <ComponentRef name="campoCedulaDezReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCincoReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaDezReais">
           <Properties>
@@ -428,6 +449,9 @@
               <ComponentRef name="campoCedulaVinteReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaDezReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaVinteReais">
           <Properties>
@@ -446,6 +470,9 @@
               <ComponentRef name="campoCedulaCinquentaReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaVinteReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCinquentaReais">
           <Properties>
@@ -464,6 +491,9 @@
               <ComponentRef name="campoCedulaCemReais"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCinquentaReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCemReais">
           <Properties>
@@ -482,6 +512,9 @@
               <ComponentRef name="botaoConfirmarFechamentoDeCaixa"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCemReaisFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoDinheiroTotalEmCaixa">
           <Properties>

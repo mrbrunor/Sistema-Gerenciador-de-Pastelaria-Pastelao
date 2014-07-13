@@ -115,6 +115,11 @@ public class TelaRetirada extends javax.swing.JDialog {
 
         campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoValor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoValorFocusGained(evt);
+            }
+        });
 
         campoMotivo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoMotivo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -187,6 +192,10 @@ public class TelaRetirada extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campoValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusGained
+        campoValor.selectAll();
+    }//GEN-LAST:event_campoValorFocusGained
 
     public JButton getBotaoCancelarRetirada() {
         return botaoCancelarRetirada;

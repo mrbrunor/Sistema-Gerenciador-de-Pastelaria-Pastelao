@@ -303,6 +303,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCpf">
           <Properties>
@@ -318,6 +321,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCpfFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoEmail">
           <Properties>
@@ -333,6 +339,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEmailFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoTelefone">
           <Properties>
@@ -348,6 +357,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoTelefoneFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCelular">
           <Properties>
@@ -363,6 +375,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCelularFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaAtivo">
           <Properties>
@@ -408,6 +423,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoSenha2FocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoSenha2">
           <Properties>
@@ -431,6 +449,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoSenhaFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoUser">
           <Properties>
@@ -438,6 +459,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoUserFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoUser">
           <Properties>
@@ -516,6 +540,9 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPesquisarFuncionarioFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarFuncionario">
           <Properties>
