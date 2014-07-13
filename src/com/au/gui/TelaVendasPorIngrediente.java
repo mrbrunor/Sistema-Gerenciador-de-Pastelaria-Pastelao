@@ -88,7 +88,8 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
 
         textoIconeVendasPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/tag-64.png"))); // NOI18N
 
-        textoPreenchaOsCampos.setText("Preencha o campos abaixo para gerar o relatório de vendas gerais, filtradas por ingredientes:");
+        textoPreenchaOsCampos.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoPreenchaOsCampos.setText("<html>Preencha o campos abaixo para gerar o relatório de <br />vendas gerais, filtradas por ingredientes:");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -97,12 +98,12 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoPreenchaOsCampos)
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
                         .addComponent(textoIconeVendasPorPeriodo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textoPreenchaOsCampos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(textoVendasPorPeriodo)))
+                .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,27 +112,36 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoIconeVendasPorPeriodo)
                     .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoPreenchaOsCampos)
+                .addGap(18, 18, 18)
+                .addComponent(textoPreenchaOsCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataInicio.setText("Data de Início:");
 
+        textoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataTermino.setText("Data de Término:");
 
         campoDataInicio.setDateFormatString("dd-MM-yyyy");
+        campoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         campoDataTermino.setDateFormatString("dd-MM-yyyy");
+        campoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        textoEscolhaOLocal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 
+        campoLocalParaSalvar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarLocal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/folder-26.png"))); // NOI18N
         botaoProcurarLocal.setText("Procurar");
 
+        textoingrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoingrediente.setText("Ingrediente:");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
@@ -147,17 +157,20 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarLocal))
                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoDataInicio)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoDataTermino)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoingrediente)
-                        .addGap(18, 18, 18)
-                        .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(textoDataTermino)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(textoingrediente)
+                                .addGap(18, 18, 18)
+                                .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(textoDataInicio)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
 
@@ -187,9 +200,11 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        botaoGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoGerarRelatorio.setText("Gerar Relatório");
 
+        botaoCancelarGeracaoDeRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setText("Cancelar Geração de Relatório");
 
@@ -199,15 +214,14 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(painelInferior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoCancelarGeracaoDeRelatorio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoCancelarGeracaoDeRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

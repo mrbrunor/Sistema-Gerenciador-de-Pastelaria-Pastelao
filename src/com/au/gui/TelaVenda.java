@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
 import com.au.gui.listener.TabelaPesquisaActionListener;
@@ -42,14 +41,15 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaVenda extends javax.swing.JFrame {
+
     private Caixa caixa;
     private Funcionario funcionario;
     private final VendaActionListener listener;
     private final TabelaPesquisaActionListener listener2;
-    
 
     /**
      * Creates new form TelaVenda
+     *
      * @param funcionario
      */
     public TelaVenda(Funcionario funcionario) {
@@ -60,9 +60,9 @@ public class TelaVenda extends javax.swing.JFrame {
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
         listener = new VendaActionListener(this);
         listener2 = new TabelaPesquisaActionListener(this);
-        this.setExtendedState(this.MAXIMIZED_BOTH); 
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +104,7 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuAbrirCaixa = new javax.swing.JMenuItem();
         itemMenuFecharCaixa = new javax.swing.JMenuItem();
         itemMenuCancelarCupom = new javax.swing.JMenuItem();
+        itemMenuReimprimirCupom = new javax.swing.JMenuItem();
         itemMenuRetiradaDeCaixa = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemMenuTrocarSenha = new javax.swing.JMenuItem();
@@ -380,6 +381,9 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuCancelarCupom.setText("Cancelar Cupom");
         menuPrincipal.add(itemMenuCancelarCupom);
 
+        itemMenuReimprimirCupom.setText("Reimiprimir Cupom");
+        menuPrincipal.add(itemMenuReimprimirCupom);
+
         itemMenuRetiradaDeCaixa.setText("Retirada de Caixa");
         menuPrincipal.add(itemMenuRetiradaDeCaixa);
         menuPrincipal.add(jSeparator1);
@@ -529,8 +533,6 @@ public class TelaVenda extends javax.swing.JFrame {
         this.textoData = textoData;
     }
 
-    
-    
     public JMenuItem getItemMenuAbrirCaixa() {
         return itemMenuAbrirCaixa;
     }
@@ -538,7 +540,6 @@ public class TelaVenda extends javax.swing.JFrame {
     public void setItemMenuAbrirCaixa(JMenuItem itemMenuAbrirCaixa) {
         this.itemMenuAbrirCaixa = itemMenuAbrirCaixa;
     }
-
 
     public JMenuItem getItemMenuDeslogar() {
         return itemMenuDeslogar;
@@ -627,7 +628,7 @@ public class TelaVenda extends javax.swing.JFrame {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    
+
     public JButton getBotaoAdicionarAoPedido() {
         return botaoAdicionarAoPedido;
     }
@@ -763,8 +764,15 @@ public class TelaVenda extends javax.swing.JFrame {
     public void setItemMenuVendasGerais(JMenuItem itemMenuVendasGerais) {
         this.itemMenuVendasGerais = itemMenuVendasGerais;
     }
-    
-       
+
+    public JMenuItem getItemMenuReimprimirCupom() {
+        return itemMenuReimprimirCupom;
+    }
+
+    public void setItemMenuReimprimirCupom(JMenuItem itemMenuReimprimirCupom) {
+        this.itemMenuReimprimirCupom = itemMenuReimprimirCupom;
+    }
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -819,6 +827,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuFuncionarios;
     private javax.swing.JMenuItem itemMenuIngredientes;
     private javax.swing.JMenuItem itemMenuProdutos;
+    private javax.swing.JMenuItem itemMenuReimprimirCupom;
     private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JMenuItem itemMenuSobre;

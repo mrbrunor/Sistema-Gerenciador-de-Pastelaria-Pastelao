@@ -107,6 +107,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
         textoIconeVendasPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/tag-64.png"))); // NOI18N
 
+        textoPreenchaOsCampos.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoPreenchaOsCampos.setText("Preencha o campos abaixo para gerar o relatório de vendas gerais:");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -120,7 +121,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
                         .addComponent(textoIconeVendasPorPeriodo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textoVendasPorPeriodo)))
                 .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
@@ -130,33 +131,43 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoIconeVendasPorPeriodo)
                     .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(textoPreenchaOsCampos)
                 .addContainerGap())
         );
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataInicio.setText("Data de Início:");
 
         campoDataInicio.setDateFormatString("dd-MM-yyyy");
+        campoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        textoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataTermino.setText("Data de Término:");
 
         campoDataTermino.setDateFormatString("dd-MM-yyyy");
+        campoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        textoEscolhaOLocal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 
+        campoLocalParaSalvar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarLocal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/folder-26.png"))); // NOI18N
         botaoProcurarLocal.setText("Procurar");
 
         textoIconeVR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/barcode-26.png"))); // NOI18N
 
         buttonGroupFormasPgto.add(botaoRadioDinheiro);
+        botaoRadioDinheiro.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoRadioDinheiro.setText("Dinheiro");
 
         buttonGroupFormasPgto.add(botaoRadioCartaoDebito);
+        botaoRadioCartaoDebito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoRadioCartaoDebito.setText("Cartão de Débito");
 
         textoIconeCD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bank_cards-26.png"))); // NOI18N
@@ -164,13 +175,16 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         textoIconeCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/mastercard-26.png"))); // NOI18N
 
         buttonGroupFormasPgto.add(botaoRadioCartaoCredito);
+        botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoRadioCartaoCredito.setText("Cartão de Crédito");
 
         textoIconeDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/banknotes-26.png"))); // NOI18N
 
         buttonGroupFormasPgto.add(botaoRadioValeRefeicao);
+        botaoRadioValeRefeicao.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoRadioValeRefeicao.setText("Vale Refeição");
 
+        textoSelecioneFormaPgto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSelecioneFormaPgto.setText("Selecione a forma de pagamento desejada:");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
@@ -183,44 +197,48 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                     .addComponent(textoSelecioneFormaPgto)
                     .addGroup(painelInferiorLayout.createSequentialGroup()
                         .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataTermino)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(textoEscolhaOLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painelInferiorLayout.createSequentialGroup()
                                 .addComponent(campoLocalParaSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoProcurarLocal))
                             .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(botaoRadioDinheiro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textoIconeDinheiro)
-                                .addGap(18, 18, 18)
                                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                                        .addComponent(botaoRadioCartaoCredito)
+                                        .addComponent(botaoRadioDinheiro)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textoIconeCC))
-                                    .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                                        .addComponent(botaoRadioCartaoDebito)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textoIconeCD))
-                                    .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                                        .addComponent(botaoRadioValeRefeicao)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textoIconeVR))
-                                    .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(textoIconeDinheiro)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                                .addComponent(botaoRadioCartaoCredito)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(textoIconeCC))
+                                            .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                                .addComponent(botaoRadioCartaoDebito)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(textoIconeCD))
+                                            .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                                .addComponent(botaoRadioValeRefeicao)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(textoIconeVR))
+                                            .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
+                                            .addComponent(textoDataTermino)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
+                                            .addComponent(textoDataInicio)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
 
@@ -265,9 +283,11 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        botaoGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoGerarRelatorio.setText("Gerar Relatório");
 
+        botaoCancelarGeracaoDeRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setText("Cancelar Geração de Relatório");
 

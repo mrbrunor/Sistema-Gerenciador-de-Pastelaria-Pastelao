@@ -80,7 +80,8 @@ public class TelaVendasGerais extends javax.swing.JDialog {
 
         textoIconeVendasPorPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/tag-64.png"))); // NOI18N
 
-        textoPreenchaOsCampos.setText("Preencha o campos abaixo para gerar o relatório de vendas gerais:");
+        textoPreenchaOsCampos.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoPreenchaOsCampos.setText("<html>Preencha o campos abaixo para gerar o relatório <br/>de vendas gerais:");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -91,9 +92,9 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                 .addComponent(textoIconeVendasPorPeriodo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoVendasPorPeriodo)
-                    .addComponent(textoPreenchaOsCampos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textoPreenchaOsCampos)
+                    .addComponent(textoVendasPorPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,23 +105,31 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
                         .addComponent(textoVendasPorPeriodo)
                         .addGap(18, 18, 18)
-                        .addComponent(textoPreenchaOsCampos)))
+                        .addComponent(textoPreenchaOsCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataInicio.setText("Data de Início:");
 
+        textoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataTermino.setText("Data de Término:");
 
         campoDataInicio.setDateFormatString("dd-MM-yyyy");
+        campoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         campoDataTermino.setDateFormatString("dd-MM-yyyy");
+        campoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        textoEscolhaOLocal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 
+        campoLocalParaSalvar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarLocal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/folder-26.png"))); // NOI18N
         botaoProcurarLocal.setText("Procurar");
 
@@ -133,17 +142,20 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoEscolhaOLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoDataInicio)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoDataTermino)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
                         .addComponent(campoLocalParaSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoProcurarLocal)))
+                        .addComponent(botaoProcurarLocal))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(textoDataTermino)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(textoDataInicio)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
 
@@ -169,9 +181,11 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        botaoGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoGerarRelatorio.setText("Gerar Relatório");
 
+        botaoCancelarGeracaoDeRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setText("Cancelar Geração de Relatório");
 
@@ -182,14 +196,14 @@ public class TelaVendasGerais extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(painelInferior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botaoCancelarGeracaoDeRelatorio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
