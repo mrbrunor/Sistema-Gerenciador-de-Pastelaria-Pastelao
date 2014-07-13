@@ -24,8 +24,7 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.RetiradaActionListener;
-import com.au.modelo.Caixa;
+import com.au.gui.listener.CancelamentoActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -34,20 +33,19 @@ import javax.swing.JTextField;
  *
  * @author BrunoRicardo
  */
-public class TelaRetirada extends javax.swing.JDialog {
-    private final RetiradaActionListener listener;
-    private Caixa caixa;
+public class TelaReimpressao extends javax.swing.JDialog {
+    private final CancelamentoActionListener listener;
+    private int idCaixa;
 
     /**
      * Creates new form TelaRetirada
      */
-    public TelaRetirada(java.awt.Frame parent, boolean modal, Caixa caixa) {
+    public TelaReimpressao(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
-        campoMotivo.setDocument(new LimitaDigitos((300), ""));
-        campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
-        listener = new RetiradaActionListener(this);
-        this.caixa = caixa;
+        campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
+        listener = new ReimpressaoActionListener(this);
+        this.idCaixa = idCaixa;
     }
 
     /**
@@ -60,27 +58,25 @@ public class TelaRetirada extends javax.swing.JDialog {
     private void initComponents() {
 
         painelSuperior = new javax.swing.JPanel();
-        textoRetiradaCaixa = new javax.swing.JLabel();
+        textoReimpressaoPedido = new javax.swing.JLabel();
         textoInsiraDados = new javax.swing.JLabel();
         painelInferior = new javax.swing.JPanel();
-        textoValor = new javax.swing.JLabel();
-        textoSenha = new javax.swing.JLabel();
-        campoValor = new javax.swing.JTextField();
-        campoMotivo = new javax.swing.JTextField();
-        botaoCancelarRetirada = new javax.swing.JButton();
-        botaoRegistrarRetirada = new javax.swing.JButton();
+        textoNumeroPedido = new javax.swing.JLabel();
+        campoNumeroPedido = new javax.swing.JTextField();
+        botaoSair = new javax.swing.JButton();
+        botaoCancelarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoRetiradaCaixa.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        textoRetiradaCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoRetiradaCaixa.setText("Retirada de Caixa");
+        textoReimpressaoPedido.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        textoReimpressaoPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoReimpressaoPedido.setText("Reimpressão de Pedido");
 
         textoInsiraDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoInsiraDados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoInsiraDados.setText("Insira os dados abaixo para efetuar a retirada:");
+        textoInsiraDados.setText("Insira os dados abaixo para efetuar a reimpressão do cupom do pedido:");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -89,7 +85,7 @@ public class TelaRetirada extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textoRetiradaCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoReimpressaoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoInsiraDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -97,7 +93,7 @@ public class TelaRetirada extends javax.swing.JDialog {
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoRetiradaCaixa)
+                .addComponent(textoReimpressaoPedido)
                 .addGap(18, 18, 18)
                 .addComponent(textoInsiraDados)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -105,19 +101,12 @@ public class TelaRetirada extends javax.swing.JDialog {
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoValor.setText("Valor");
+        textoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNumeroPedido.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        textoNumeroPedido.setText("Número do Pedido:");
 
-        textoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoSenha.setText("Motivo");
-
-        campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        campoValor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        campoMotivo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        campoMotivo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -125,13 +114,9 @@ public class TelaRetirada extends javax.swing.JDialog {
             painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoSenha)
-                    .addComponent(textoValor))
+                .addComponent(textoNumeroPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoValor)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(campoNumeroPedido)
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -139,22 +124,18 @@ public class TelaRetirada extends javax.swing.JDialog {
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoValor)
-                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(textoSenha))
-                .addContainerGap())
+                    .addComponent(textoNumeroPedido)
+                    .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        botaoCancelarRetirada.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        botaoCancelarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        botaoCancelarRetirada.setText("Cancelar Retirada");
+        botaoSair.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoSair.setText("Sair");
 
-        botaoRegistrarRetirada.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        botaoRegistrarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoRegistrarRetirada.setText("Registrar Retirada");
+        botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoCancelarPedido.setText("Reimprimir Cupom do Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,9 +147,9 @@ public class TelaRetirada extends javax.swing.JDialog {
                     .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelInferior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoCancelarRetirada)
+                        .addComponent(botaoSair)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoRegistrarRetirada)))
+                        .addComponent(botaoCancelarPedido)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -178,69 +159,58 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCancelarRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRegistrarRetirada))
-                .addContainerGap())
+                    .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCancelarPedido))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JButton getBotaoCancelarRetirada() {
-        return botaoCancelarRetirada;
+    public JButton getBotaoSair() {
+        return botaoSair;
     }
 
-    public void setBotaoCancelarRetirada(JButton botaoCancelarRetirada) {
-        this.botaoCancelarRetirada = botaoCancelarRetirada;
+    public void setBotaoSair(JButton botaoSair) {
+        this.botaoSair = botaoSair;
     }
 
-    public JButton getBotaoRegistrarRetirada() {
-        return botaoRegistrarRetirada;
+    public JButton getBotaoCancelarPedido() {
+        return botaoCancelarPedido;
     }
 
-    public void setBotaoRegistrarRetirada(JButton botaoRegistrarRetirada) {
-        this.botaoRegistrarRetirada = botaoRegistrarRetirada;
+    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
+        this.botaoCancelarPedido = botaoCancelarPedido;
     }
 
-    public JTextField getCampoMotivo() {
-        return campoMotivo;
+    public JTextField getCampoNumeroPedido() {
+        return campoNumeroPedido;
     }
 
-    public void setCampoMotivo(JTextField campoMotivo) {
-        this.campoMotivo = campoMotivo;
+    public void setCampoNumeroPedido(JTextField campoNumeroPedido) {
+        this.campoNumeroPedido = campoNumeroPedido;
     }
 
-    public JTextField getCampoValor() {
-        return campoValor;
+    public int getIdCaixa() {
+        return idCaixa;
     }
 
-    public void setCampoValor(JTextField campoValor) {
-        this.campoValor = campoValor;
+    public void setIdCaixa(int idCaixa) {
+        this.idCaixa = idCaixa;
     }
-
-    public Caixa getCaixa() {
-        return caixa;
-    }
-
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
-    }
-
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCancelarRetirada;
-    private javax.swing.JButton botaoRegistrarRetirada;
-    private javax.swing.JTextField campoMotivo;
-    private javax.swing.JTextField campoValor;
+    private javax.swing.JButton botaoCancelarPedido;
+    private javax.swing.JButton botaoSair;
+    private javax.swing.JTextField campoNumeroPedido;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoInsiraDados;
-    private javax.swing.JLabel textoRetiradaCaixa;
-    private javax.swing.JLabel textoSenha;
-    private javax.swing.JLabel textoValor;
+    private javax.swing.JLabel textoNumeroPedido;
+    private javax.swing.JLabel textoReimpressaoPedido;
     // End of variables declaration//GEN-END:variables
 }

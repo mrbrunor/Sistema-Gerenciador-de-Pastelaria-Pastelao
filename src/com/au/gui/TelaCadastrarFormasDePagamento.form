@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -23,22 +23,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="painelSuperior" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="painelAdicionarModificarFormasPagamento" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="painelProcurarFormaPagamento" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="painelBotoes" min="-2" max="-2" attributes="0"/>
+                      <Component id="painelAdicionarModificarFormasPagamento" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="painelProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="painelBotoes" alignment="1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -118,6 +115,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="textoPreencherDados">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="16" style="2"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Preencha os dados abaixo para adicionar uma nova forma de pagamento."/>
           </Properties>
         </Component>
@@ -141,21 +141,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textoId" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textoTipo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textoNome" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="textoAtiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="textoId" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoAtiva" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoNome" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoTipo" linkSize="2" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="caixaAtivo" min="-2" max="-2" attributes="0"/>
-                      <Component id="campoNome" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
                       <Component id="campoId" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                       <Component id="caixaTipo" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoNome" min="-2" pref="210" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -192,24 +189,41 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="textoTipo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo F. Pagamento:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tipo Forma de Pagamento:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome F. Pagamento:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nome Forma de Pagamento:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoNome">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoId">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ID F. Pagamento:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ID Forma de Pagamento:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaTipo">
@@ -238,6 +252,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="textoAtiva">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ativa:"/>
           </Properties>
         </Component>
@@ -261,24 +278,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="painelScrollTabela" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="textoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="campoPesquisarFormapagamento" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="botaoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="campoPesquisarFormapagamento" min="-2" pref="249" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoProcurarFormaPagamento" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="textoCliqueParaEditar" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="painelScrollTabela" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textoCliqueParaEditar" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -295,8 +304,8 @@
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="textoCliqueParaEditar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="painelScrollTabela" pref="276" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="painelScrollTabela" pref="271" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -304,9 +313,17 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="campoPesquisarFormapagamento">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
             </Property>
@@ -315,11 +332,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="textoProcurarFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Procurar Forma de Pagamento:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCliqueParaEditar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Clique na forma de pagamento desejada na lista para edit&#xe1;-la no painel ao lado:"/>
           </Properties>
         </Component>
@@ -372,8 +396,8 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="botaoLimparCampos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="botaoExcluirFormaPagamento" min="-2" max="-2" attributes="0"/>
@@ -406,6 +430,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="botaoCancelarFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
             </Property>
@@ -414,14 +441,20 @@
         </Component>
         <Component class="javax.swing.JButton" name="botaoCadastrarFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar F. Pagamento"/>
+            <Property name="text" type="java.lang.String" value="Cadastrar Forma Pgto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botaoLimparCampos">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/erase-32.png"/>
             </Property>
@@ -430,18 +463,24 @@
         </Component>
         <Component class="javax.swing.JButton" name="botaoAtualizarFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/refresh-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Atualizar F. Pagamento"/>
+            <Property name="text" type="java.lang.String" value="Atualizar Forma Pgto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botaoExcluirFormaPagamento">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/delete-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Excluir F. Pagamento"/>
+            <Property name="text" type="java.lang.String" value="Excluir Forma Pgto"/>
           </Properties>
         </Component>
       </SubComponents>

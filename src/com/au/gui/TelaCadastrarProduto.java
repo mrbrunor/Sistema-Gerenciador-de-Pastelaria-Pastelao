@@ -43,7 +43,7 @@ import javax.swing.JTextField;
 public class TelaCadastrarProduto extends javax.swing.JDialog {
 
     private ProdutoActionListener listener;
-    
+
     /**
      * Creates new form TelaCadastrarUsuario
      */
@@ -52,15 +52,14 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         initComponents();
         campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
-        campoQtd.setDocument(new LimitaDigitos((15), "[^0-9]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
         campoPesquisarProduto.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-]"));
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
-        
+
         listener = new ProdutoActionListener(this);
-        
+
     }
 
     /**
@@ -78,21 +77,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         textoIconeNovoProduto = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
         painelAdicionarModificarProdutos = new javax.swing.JPanel();
-        painelDadosProduto = new javax.swing.JPanel();
-        textoId = new javax.swing.JLabel();
-        campoId = new javax.swing.JTextField();
-        textoNome = new javax.swing.JLabel();
-        campoValor = new javax.swing.JTextField();
-        campoNome = new javax.swing.JTextField();
-        textoValor = new javax.swing.JLabel();
-        textoTipo = new javax.swing.JLabel();
-        radioInd = new javax.swing.JRadioButton();
-        radioPrep = new javax.swing.JRadioButton();
-        textoErroIngrediente = new javax.swing.JLabel();
         painelProdutoIndustrializado = new javax.swing.JPanel();
-        textoQtd = new javax.swing.JLabel();
         textoBarras = new javax.swing.JLabel();
-        campoQtd = new javax.swing.JTextField();
         campoBarras = new javax.swing.JTextField();
         painelProdutoPreparado = new javax.swing.JPanel();
         caixaSelecaoIng = new javax.swing.JComboBox(getIngs());
@@ -100,6 +86,16 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         tabelaIngredientes = new javax.swing.JTable();
         botaoAdicionarIngrediente = new javax.swing.JButton();
         botaoRemoverIngrediente = new javax.swing.JButton();
+        textoErroIngrediente = new javax.swing.JLabel();
+        radioPrep = new javax.swing.JRadioButton();
+        radioInd = new javax.swing.JRadioButton();
+        textoTipo = new javax.swing.JLabel();
+        textoValor = new javax.swing.JLabel();
+        campoValor = new javax.swing.JTextField();
+        campoNome = new javax.swing.JTextField();
+        textoNome = new javax.swing.JLabel();
+        textoId = new javax.swing.JLabel();
+        campoId = new javax.swing.JTextField();
         painelProcurarProdutos = new javax.swing.JPanel();
         textoCliqueParaEditar = new javax.swing.JLabel();
         textoProcurarProduto = new javax.swing.JLabel();
@@ -124,6 +120,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         textoIconeNovoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/beer_glass-64.png"))); // NOI18N
 
+        textoPreencherDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar um novo produto.");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -154,84 +151,12 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
         painelAdicionarModificarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Produto"));
 
-        painelDadosProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados Produto"));
-
-        textoId.setText("Id Produto:");
-
-        campoId.setEnabled(false);
-
-        textoNome.setText("Nome Produto:");
-
-        textoValor.setText("Valor Produto:");
-
-        textoTipo.setText("Tipo Produto:");
-
-        buttonGroup1.add(radioInd);
-        radioInd.setText("Industrializado");
-
-        buttonGroup1.add(radioPrep);
-        radioPrep.setText("Preparado");
-
-        textoErroIngrediente.setForeground(new java.awt.Color(255, 0, 0));
-        textoErroIngrediente.setText("Pelo menos 1 Ingrediente deve ser adicionado ao produto!");
-
-        javax.swing.GroupLayout painelDadosProdutoLayout = new javax.swing.GroupLayout(painelDadosProduto);
-        painelDadosProduto.setLayout(painelDadosProdutoLayout);
-        painelDadosProdutoLayout.setHorizontalGroup(
-            painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoErroIngrediente)
-                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                        .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
-                        .addComponent(radioPrep))
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        painelDadosProdutoLayout.setVerticalGroup(
-            painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosProdutoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoId)
-                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoNome)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoValor)
-                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(radioInd)
-                    .addComponent(radioPrep))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textoErroIngrediente)
-                .addContainerGap())
-        );
-
         painelProdutoIndustrializado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Industrializado")));
 
-        textoQtd.setText("Quantidade");
-
+        textoBarras.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoBarras.setText("Código Barras");
 
-        campoQtd.setEnabled(false);
-
+        campoBarras.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoBarras.setEnabled(false);
 
         javax.swing.GroupLayout painelProdutoIndustrializadoLayout = new javax.swing.GroupLayout(painelProdutoIndustrializado);
@@ -240,15 +165,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProdutoIndustrializadoLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoBarras)
-                    .addComponent(textoQtd))
+                .addComponent(textoBarras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoBarras)
-                    .addGroup(painelProdutoIndustrializadoLayout.createSequentialGroup()
-                        .addComponent(campoQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                        .addGap(84, 84, 84)))
+                .addComponent(campoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelProdutoIndustrializadoLayout.setVerticalGroup(
@@ -256,13 +175,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             .addGroup(painelProdutoIndustrializadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoQtd)
-                    .addComponent(campoQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBarras)
                     .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
@@ -311,9 +226,40 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRemoverIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        textoErroIngrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoErroIngrediente.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroIngrediente.setText("Pelo menos 1 Ingrediente deve ser adicionado ao produto!");
+
+        buttonGroup1.add(radioPrep);
+        radioPrep.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioPrep.setText("Preparado");
+
+        buttonGroup1.add(radioInd);
+        radioInd.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioInd.setText("Industrializado");
+
+        textoTipo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoTipo.setText("Tipo Produto:");
+
+        textoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValor.setText("Valor Produto:");
+
+        campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNome.setText("Nome Produto:");
+
+        textoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoId.setText("Id Produto:");
+
+        campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoId.setEnabled(false);
 
         javax.swing.GroupLayout painelAdicionarModificarProdutosLayout = new javax.swing.GroupLayout(painelAdicionarModificarProdutos);
         painelAdicionarModificarProdutos.setLayout(painelAdicionarModificarProdutosLayout);
@@ -322,30 +268,74 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelDadosProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
-                        .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
+                                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addComponent(radioPrep))
+                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
+                        .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoErroIngrediente)
+                            .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
+                                .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelAdicionarModificarProdutosLayout.setVerticalGroup(
             painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(painelDadosProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoId)
+                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoNome)
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoValor)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioInd)
+                    .addComponent(radioPrep))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroIngrediente)
+                .addGap(16, 16, 16)
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        painelAdicionarModificarProdutosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {painelProdutoIndustrializado, painelProdutoPreparado});
 
         painelProcurarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Produto Existente"));
 
+        textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCliqueParaEditar.setText("Clique no produto desejado na lista para editá-lo no painel ao lado:");
 
+        textoProcurarProduto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoProcurarProduto.setText("Procurar Produto:");
 
+        campoPesquisarProduto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarProduto.setText("Procurar");
 
@@ -368,10 +358,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             painelProcurarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProcurarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelProcurarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelProcurarProdutosLayout.createSequentialGroup()
-                        .addComponent(textoCliqueParaEditar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(painelProcurarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textoCliqueParaEditar)
                     .addGroup(painelProcurarProdutosLayout.createSequentialGroup()
                         .addComponent(textoProcurarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -379,7 +367,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarProduto)))
                 .addContainerGap())
-            .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(painelProcurarProdutosLayout.createSequentialGroup()
+                .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         painelProcurarProdutosLayout.setVerticalGroup(
             painelProcurarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,22 +381,28 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(botaoProcurarProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
+        botaoCancelarCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarCadastro.setText("Cancelar Cadastro");
 
+        botaoCadastrarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarProduto.setText("Cadastrar Produto");
 
+        botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
 
+        botaoAtualizarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarProduto.setText("Atualizar Produto");
 
+        botaoExcluirProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirProduto.setText("Excluir Produto");
 
@@ -449,13 +445,14 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(painelAdicionarModificarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelAdicionarModificarProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProcurarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painelProcurarProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,7 +464,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(painelAdicionarModificarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelProcurarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -577,14 +575,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         this.campoNome = campoNome;
     }
 
-    public JTextField getCampoQtd() {
-        return campoQtd;
-    }
-
-    public void setCampoQtd(JTextField campoQtd) {
-        this.campoQtd = campoQtd;
-    }
-
     public JTextField getCampoValor() {
         return campoValor;
     }
@@ -626,25 +616,24 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     }
 
     private CustomComboBoxInt[] getIngs() {
-        List<Ingrediente>listaResIng = new DAO<>(Ingrediente.class).listaTodos();
-        
+        List<Ingrediente> listaResIng = new DAO<>(Ingrediente.class).listaTodos();
+
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
         for (int i = 0; i < listaResIng.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
         }
         return oItems;
     }
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         campoId.setText("");
         campoBarras.setText("");
         campoNome.setText("");
-        campoQtd.setText("");
         campoValor.setText("");
         buttonGroup1.clearSelection();
-        caixaSelecaoIng.setSelectedIndex(-1);        
-    }     
- 
+        caixaSelecaoIng.setSelectedIndex(-1);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAdicionarIngrediente;
@@ -661,12 +650,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPesquisarProduto;
-    private javax.swing.JTextField campoQtd;
     private javax.swing.JTextField campoValor;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel painelAdicionarModificarProdutos;
     private javax.swing.JPanel painelBotoes;
-    private javax.swing.JPanel painelDadosProduto;
     private javax.swing.JPanel painelProcurarProdutos;
     private javax.swing.JPanel painelProdutoIndustrializado;
     private javax.swing.JPanel painelProdutoPreparado;
@@ -685,7 +672,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
     private javax.swing.JLabel textoProcurarProduto;
-    private javax.swing.JLabel textoQtd;
     private javax.swing.JLabel textoTipo;
     private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables

@@ -23,12 +23,13 @@
  */
 package com.au.gui.listener;
 
+import com.au.dao.DAO;
 import com.au.gui.TelaCriarNovaSenha;
 import com.au.gui.TelaLogin;
 import com.au.gui.TelaVenda;
 import com.au.modelo.Funcionario;
-import com.au.dao.DAO;
 import com.au.util.HexSha;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,9 @@ import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.html.CSS;
 
 /**
  *
@@ -52,6 +56,7 @@ public class LoginActionListener implements ActionListener, KeyListener {
     public LoginActionListener(TelaLogin frm) {
         this.frm = frm;
         adicionaListener();
+        setaFonteAvisos();
     }
 
     public void adicionaListener() {
@@ -59,6 +64,41 @@ public class LoginActionListener implements ActionListener, KeyListener {
         frm.getBotaoEsqueciSenha().addActionListener(this);
         frm.getCampoSenha().addActionListener(this);
         frm.getCampoUsuario().addKeyListener(this);
+    }
+
+    private void setaFonteAvisos() {
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("Tahoma", Font.PLAIN, 16)));
+        //UIManager.put("Button.font", /* font of your liking */);
+        //UIManager.put("ToggleButton.font", /* font of your liking */);
+        //UIManager.put("RadioButton.font", /* font of your liking */);
+        //UIManager.put("CheckBox.font", /* font of your liking */);
+        //UIManager.put("ColorChooser.font", /* font of your liking */);
+        UIManager.put("ComboBox.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        //UIManager.put("Label.font", /* font of your liking */);
+        //UIManager.put("List.font", /* font of your liking */);
+        UIManager.put("MenuBar.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 18)));
+        UIManager.put("MenuItem.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 16)));
+        //UIManager.put("RadioButtonMenuItem.font", /* font of your liking */);
+        //UIManager.put("CheckBoxMenuItem.font", /* font of your liking */);
+        //UIManager.put("Menu.font", /* font of your liking */);
+        //UIManager.put("PopupMenu.font", /* font of your liking */);
+        //UIManager.put("OptionPane.font", /* font of your liking */);
+        //UIManager.put("Panel.font", /* font of your liking */);
+        //UIManager.put("ProgressBar.font", /* font of your liking */);
+        //UIManager.put("ScrollPane.font", /* font of your liking */);
+        //UIManager.put("Viewport.font", /* font of your liking */);
+        //UIManager.put("TabbedPane.font", /* font of your liking */);
+        UIManager.put("Table.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        UIManager.put("TableHeader.font", new FontUIResource(new Font("Tahoma", Font.BOLD, 15)));
+        //UIManager.put("TextField.font", /* font of your liking */);
+        //UIManager.put("PasswordField.font", /* font of your liking */);
+        //UIManager.put("TextArea.font", /* font of your liking */);
+        //UIManager.put("TextPane.font", /* font of your liking */);
+        //UIManager.put("EditorPane.font", /* font of your liking */);
+        UIManager.put("TitledBorder.font", new FontUIResource(new Font("Tahoma", Font.BOLD, 15)));
+        //UIManager.put("ToolBar.font", /* font of your liking */);
+        //UIManager.put("ToolTip.font", /* font of your liking */); 
     }
 
     private void logar() throws ExceptionInInitializerError {

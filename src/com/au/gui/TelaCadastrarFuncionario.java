@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
 import com.au.gui.listener.FuncionarioActionListener;
@@ -38,6 +37,7 @@ import javax.swing.JTextField;
  * @author BrunoRicardo
  */
 public class TelaCadastrarFuncionario extends javax.swing.JDialog {
+
     private FuncionarioActionListener listener;
 
     /**
@@ -51,8 +51,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoEmail.setDocument(new LimitaDigitos((150), "[^0-9._@a-zA-Z\\-]"));
         campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü]"));
         campoPesquisarFuncionario.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
-        campoRg.setDocument(new LimitaDigitos((15), "[^0-9.-]"));
-        campoSalario.setDocument(new LimitaDigitos((8), "[^0-9.]"));
         campoSenha.setDocument(new LimitaDigitos((64), ""));
         campoSenha2.setDocument(new LimitaDigitos((64), ""));
         campoTelefone.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));
@@ -78,12 +76,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoId = new javax.swing.JTextField();
         textoNome = new javax.swing.JLabel();
         campoNome = new javax.swing.JTextField();
-        textoDtNasc = new javax.swing.JLabel();
-        campoDtNasc = new com.toedter.calendar.JDateChooser();
         textoSexo = new javax.swing.JLabel();
         caixaSexo = new javax.swing.JComboBox();
-        textoRg = new javax.swing.JLabel();
-        campoRg = new javax.swing.JTextField();
         textoCpf = new javax.swing.JLabel();
         campoCpf = new javax.swing.JTextField();
         textoEmail = new javax.swing.JLabel();
@@ -102,10 +96,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoSenha = new javax.swing.JPasswordField();
         campoUser = new javax.swing.JTextField();
         textoUser = new javax.swing.JLabel();
-        textoSalario = new javax.swing.JLabel();
-        campoSalario = new javax.swing.JTextField();
-        campoDtAdm = new com.toedter.calendar.JDateChooser();
-        textoDtAdm = new javax.swing.JLabel();
         painelProcurarFuncionarios = new javax.swing.JPanel();
         textoProcurarFuncionario = new javax.swing.JLabel();
         campoPesquisarFuncionario = new javax.swing.JTextField();
@@ -129,6 +119,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoAdicionarNovoFuncionario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoAdicionarNovoFuncionario.setText("Adicionar Novo Funcionário");
 
+        textoPreencherDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar um novo funcionário.");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -142,7 +133,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoAdicionarNovoFuncionario)
                     .addComponent(textoPreencherDados))
-                .addContainerGap(566, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,49 +150,66 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         painelAdicionarModificarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Funcionário"));
 
+        textoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoId.setText("ID:");
 
+        campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoId.setEnabled(false);
 
+        textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoNome.setText("Nome Completo:");
 
-        textoDtNasc.setText("Data de Nascimento:");
+        campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
-        campoDtNasc.setDateFormatString("dd-MM-yyyy");
-
+        textoSexo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSexo.setText("Sexo:");
 
         caixaSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Feminino", "Masculino" }));
 
-        textoRg.setText("RG:");
-
+        textoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCpf.setText("CPF:");
 
+        campoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEmail.setText("E-mail:");
 
+        campoEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoTelefone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoTelefone.setText("Telefone:");
 
+        campoTelefone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoCelular.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCelular.setText("Celular:");
+
+        campoCelular.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
 
+        textoAtivo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoAtivo.setText("Ativo");
 
+        textoNivel.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoNivel.setText("Nivel:");
 
         caixaNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Administrador", "Funcionário" }));
 
+        campoSenha2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoSenha2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSenha2.setText("Redigite a Senha:");
 
+        textoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSenha.setText("Senha:");
 
+        campoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        campoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoUser.setText("Nome de Usuário:");
-
-        textoSalario.setText("Salário:");
-
-        campoDtAdm.setDateFormatString("dd-MM-yyyy");
-
-        textoDtAdm.setText("Data de Admissão:");
 
         javax.swing.GroupLayout painelAdicionarModificarFuncionariosLayout = new javax.swing.GroupLayout(painelAdicionarModificarFuncionarios);
         painelAdicionarModificarFuncionarios.setLayout(painelAdicionarModificarFuncionariosLayout);
@@ -212,28 +220,28 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoDtNasc)
-                            .addComponent(textoSexo)
-                            .addComponent(textoRg)
-                            .addComponent(textoCpf)
-                            .addComponent(textoEmail)
-                            .addComponent(textoTelefone)
-                            .addComponent(textoCelular)
                             .addComponent(textoNome)
                             .addComponent(textoId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                            .addComponent(caixaSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(campoTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(campoRg, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoNome)))
+                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoCpf)
+                            .addComponent(textoEmail)
+                            .addComponent(textoTelefone)
+                            .addComponent(textoCelular))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoEmail)
+                            .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(campoTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 68, Short.MAX_VALUE))))
                     .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoSenha2)
@@ -243,14 +251,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(caixaAtivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(caixaNivel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                        .addComponent(textoDtAdm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoDtAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                        .addComponent(textoSalario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(campoSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
@@ -260,11 +260,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(campoUser, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                .addComponent(campoSenha)))))
+                                .addComponent(campoSenha))))
+                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addComponent(textoSexo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(caixaSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        painelAdicionarModificarFuncionariosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoAtivo, textoCelular, textoCpf, textoDtAdm, textoDtNasc, textoEmail, textoId, textoNivel, textoNome, textoRg, textoSalario, textoSenha, textoSenha2, textoSexo, textoTelefone, textoUser});
+        painelAdicionarModificarFuncionariosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoAtivo, textoCelular, textoCpf, textoEmail, textoId, textoNivel, textoNome, textoSenha, textoSenha2, textoSexo, textoTelefone, textoUser});
 
         painelAdicionarModificarFuncionariosLayout.setVerticalGroup(
             painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,17 +282,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                     .addComponent(textoNome)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoDtNasc)
-                    .addComponent(campoDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoSexo)
                     .addComponent(caixaSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoRg)
-                    .addComponent(campoRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCpf)
@@ -305,14 +301,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCelular)
                     .addComponent(campoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textoDtAdm)
-                    .addComponent(campoDtAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoSalario)
-                    .addComponent(campoSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoUser)
@@ -338,11 +326,17 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
         painelProcurarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Funcionário Existente"));
 
+        textoProcurarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoProcurarFuncionario.setText("Procurar Funcionário:");
 
+        campoPesquisarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarFuncionario.setText("Procurar");
 
+        textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCliqueParaEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoCliqueParaEditar.setText("Clique no funcionário desejado na lista para editá-lo no painel ao lado:");
 
         tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -368,16 +362,14 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
-                        .addGroup(painelProcurarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelProcurarFuncionariosLayout.createSequentialGroup()
-                                .addComponent(textoProcurarFuncionario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoProcurarFuncionario))
-                            .addComponent(textoCliqueParaEditar))
-                        .addGap(0, 128, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addComponent(textoProcurarFuncionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoPesquisarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoProcurarFuncionario)
+                        .addGap(0, 65, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelProcurarFuncionariosLayout.setVerticalGroup(
@@ -390,23 +382,28 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                     .addComponent(botaoProcurarFuncionario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueParaEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
 
+        botaoExcluirFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirFuncionario.setText("Excluir Funcionário");
 
+        botaoAtualizarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarFuncionario.setText("Atualizar Funcionário");
 
+        botaoCancelarCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarCadastro.setText("Cancelar Cadastro");
 
+        botaoCadastrarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFuncionario.setText("Cadastrar Funcionário");
 
@@ -464,8 +461,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelProcurarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelAdicionarModificarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelAdicionarModificarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelProcurarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -541,11 +538,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     public JTextField getCampoId() {
         return campoId;
     }
-    
+
     public void setCampoId(JTextField campoId) {
         this.campoId = campoId;
     }
-    
+
     public JComboBox getCaixaAtivo() {
         return caixaAtivo;
     }
@@ -586,22 +583,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         this.campoCpf = campoCpf;
     }
 
-    public JDateChooser getCampoDtAdm() {
-        return campoDtAdm;
-    }
-
-    public void setCampoDtAdm(JDateChooser campoDtAdm) {
-        this.campoDtAdm = campoDtAdm;
-    }
-
-    public JDateChooser getCampoDtNasc() {
-        return campoDtNasc;
-    }
-
-    public void setCampoDtNasc(JDateChooser campoDtNasc) {
-        this.campoDtNasc = campoDtNasc;
-    }
-
     public JTextField getCampoEmail() {
         return campoEmail;
     }
@@ -616,22 +597,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
     public void setCampoNome(JTextField campoNome) {
         this.campoNome = campoNome;
-    }
-
-    public JTextField getCampoRg() {
-        return campoRg;
-    }
-
-    public void setCampoRg(JTextField campoRg) {
-        this.campoRg = campoRg;
-    }
-
-    public JTextField getCampoSalario() {
-        return campoSalario;
-    }
-
-    public void setCampoSalario(JTextField campoSalario) {
-        this.campoSalario = campoSalario;
     }
 
     public JPasswordField getCampoSenha() {
@@ -665,16 +630,12 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     public void setCampoUser(JTextField campoUser) {
         this.campoUser = campoUser;
     }
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         campoCelular.setText("");
         campoCpf.setText("");
-        campoDtAdm.setDate(null);
-        campoDtNasc.setDate(null);
         campoEmail.setText("");
         campoNome.setText("");
-        campoRg.setText("");
-        campoSalario.setText("");
         campoSenha.setText("");
         campoSenha2.setText("");
         campoTelefone.setText("");
@@ -696,14 +657,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JComboBox caixaSexo;
     private javax.swing.JTextField campoCelular;
     private javax.swing.JTextField campoCpf;
-    private com.toedter.calendar.JDateChooser campoDtAdm;
-    private com.toedter.calendar.JDateChooser campoDtNasc;
     private javax.swing.JTextField campoEmail;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPesquisarFuncionario;
-    private javax.swing.JTextField campoRg;
-    private javax.swing.JTextField campoSalario;
     private javax.swing.JPasswordField campoSenha;
     private javax.swing.JPasswordField campoSenha2;
     private javax.swing.JTextField campoTelefone;
@@ -719,8 +676,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel textoCelular;
     private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoCpf;
-    private javax.swing.JLabel textoDtAdm;
-    private javax.swing.JLabel textoDtNasc;
     private javax.swing.JLabel textoEmail;
     private javax.swing.JLabel textoIconeNovoFuncionario;
     private javax.swing.JLabel textoId;
@@ -728,8 +683,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
     private javax.swing.JLabel textoProcurarFuncionario;
-    private javax.swing.JLabel textoRg;
-    private javax.swing.JLabel textoSalario;
     private javax.swing.JLabel textoSenha;
     private javax.swing.JLabel textoSenha2;
     private javax.swing.JLabel textoSexo;

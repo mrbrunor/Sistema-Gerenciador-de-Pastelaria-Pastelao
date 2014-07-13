@@ -92,6 +92,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
 
         textoIconeNovFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bank_cards-64.png"))); // NOI18N
 
+        textoPreencherDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar uma nova forma de pagamento.");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -122,18 +123,25 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
 
         painelAdicionarModificarFormasPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Forma de Pagamento"));
 
-        textoTipo.setText("Tipo F. Pagamento:");
+        textoTipo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoTipo.setText("Tipo Forma de Pagamento:");
 
-        textoNome.setText("Nome F. Pagamento:");
+        textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNome.setText("Nome Forma de Pagamento:");
 
+        campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoId.setEnabled(false);
 
-        textoId.setText("ID F. Pagamento:");
+        textoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoId.setText("ID Forma de Pagamento:");
 
         caixaTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Dinheiro", "Debito", "Credito", "Vale" }));
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
 
+        textoAtiva.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoAtiva.setText("Ativa:");
 
         javax.swing.GroupLayout painelAdicionarModificarFormasPagamentoLayout = new javax.swing.GroupLayout(painelAdicionarModificarFormasPagamento);
@@ -142,21 +150,22 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
-                        .addComponent(textoAtiva)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(textoId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoAtiva, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        painelAdicionarModificarFormasPagamentoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoAtiva, textoId, textoNome, textoTipo});
+
         painelAdicionarModificarFormasPagamentoLayout.setVerticalGroup(
             painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarModificarFormasPagamentoLayout.createSequentialGroup()
@@ -181,11 +190,17 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
 
         painelProcurarFormaPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Formas de Pagamento Existente"));
 
+        campoPesquisarFormapagamento.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarFormaPagamento.setText("Procurar");
 
+        textoProcurarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoProcurarFormaPagamento.setText("Procurar Forma de Pagamento:");
 
+        textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCliqueParaEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoCliqueParaEditar.setText("Clique na forma de pagamento desejada na lista para editá-la no painel ao lado:");
 
         tabelaFormasPagamento.setModel(new javax.swing.table.DefaultTableModel(
@@ -208,20 +223,15 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarFormaPagamentoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(painelScrollTabela))
+                .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
-                        .addGroup(painelProcurarFormaPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelProcurarFormaPagamentoLayout.createSequentialGroup()
-                                .addComponent(textoProcurarFormaPagamento)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoPesquisarFormapagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoProcurarFormaPagamento))
-                            .addComponent(textoCliqueParaEditar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(textoProcurarFormaPagamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoPesquisarFormapagamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoProcurarFormaPagamento))
+                    .addComponent(painelScrollTabela)
+                    .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelProcurarFormaPagamentoLayout.setVerticalGroup(
@@ -234,32 +244,37 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                     .addComponent(botaoProcurarFormaPagamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueParaEditar)
-                .addGap(18, 18, 18)
-                .addComponent(painelScrollTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(painelScrollTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        botaoCancelarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarFormaPagamento.setText("Cancelar Cadastro");
 
+        botaoCadastrarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoCadastrarFormaPagamento.setText("Cadastrar F. Pagamento");
+        botaoCadastrarFormaPagamento.setText("Cadastrar Forma Pgto");
 
+        botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
 
+        botaoAtualizarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
-        botaoAtualizarFormaPagamento.setText("Atualizar F. Pagamento");
+        botaoAtualizarFormaPagamento.setText("Atualizar Forma Pgto");
 
+        botaoExcluirFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
-        botaoExcluirFormaPagamento.setText("Excluir F. Pagamento");
+        botaoExcluirFormaPagamento.setText("Excluir Forma Pgto");
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
         painelBotoesLayout.setHorizontalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(botaoLimparCampos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoExcluirFormaPagamento)
@@ -290,16 +305,14 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelAdicionarModificarFormasPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(painelAdicionarModificarFormasPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProcurarFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painelProcurarFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(painelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

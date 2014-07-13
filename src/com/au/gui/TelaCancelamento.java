@@ -59,10 +59,10 @@ public class TelaCancelamento extends javax.swing.JDialog {
     private void initComponents() {
 
         painelSuperior = new javax.swing.JPanel();
-        textoBemVindo = new javax.swing.JLabel();
+        textoCancelamentoPedido = new javax.swing.JLabel();
         textoInsiraDados = new javax.swing.JLabel();
         painelInferior = new javax.swing.JPanel();
-        textoValor = new javax.swing.JLabel();
+        textoNumeroPedido = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
         botaoSair = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
@@ -71,9 +71,9 @@ public class TelaCancelamento extends javax.swing.JDialog {
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoBemVindo.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        textoBemVindo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoBemVindo.setText("Cancelamento de Pedido");
+        textoCancelamentoPedido.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        textoCancelamentoPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoCancelamentoPedido.setText("Cancelamento de Pedido");
 
         textoInsiraDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoInsiraDados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,7 +86,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textoBemVindo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoCancelamentoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoInsiraDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -94,7 +94,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoBemVindo)
+                .addComponent(textoCancelamentoPedido)
                 .addGap(18, 18, 18)
                 .addComponent(textoInsiraDados)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -102,9 +102,11 @@ public class TelaCancelamento extends javax.swing.JDialog {
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoValor.setText("Número do Pedido");
+        textoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNumeroPedido.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        textoNumeroPedido.setText("Número do Pedido:");
 
+        campoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
@@ -113,7 +115,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
             painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoValor)
+                .addComponent(textoNumeroPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoNumeroPedido)
                 .addContainerGap())
@@ -123,14 +125,16 @@ public class TelaCancelamento extends javax.swing.JDialog {
             .addGroup(painelInferiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoValor)
+                    .addComponent(textoNumeroPedido)
                     .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        botaoSair.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoSair.setText("Sair");
 
+        botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCancelarPedido.setText("Cancelar Pedido");
 
@@ -206,8 +210,8 @@ public class TelaCancelamento extends javax.swing.JDialog {
     private javax.swing.JTextField campoNumeroPedido;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
-    private javax.swing.JLabel textoBemVindo;
+    private javax.swing.JLabel textoCancelamentoPedido;
     private javax.swing.JLabel textoInsiraDados;
-    private javax.swing.JLabel textoValor;
+    private javax.swing.JLabel textoNumeroPedido;
     // End of variables declaration//GEN-END:variables
 }

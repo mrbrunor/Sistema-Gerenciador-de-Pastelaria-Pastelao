@@ -93,6 +93,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
 
         textoIconeNovoIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/eggs-64.png"))); // NOI18N
 
+        textoPreencherDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoPreencherDados.setText("Preencha os dados abaixo para adicionar um novo ingrediente.");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
@@ -123,12 +124,20 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
 
         painelAdicionarModificarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adicionar/Modificar Ingrediente"));
 
+        campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        textoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValor.setText("Valor Ingrediente:");
 
+        textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoNome.setText("Nome Ingrediente:");
 
+        campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoId.setEnabled(false);
 
+        textoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoId.setText("ID do Ingrediente:");
 
         javax.swing.GroupLayout painelAdicionarModificarIngredientesLayout = new javax.swing.GroupLayout(painelAdicionarModificarIngredientes);
@@ -140,7 +149,7 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                    .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,16 +172,22 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoValor)
                     .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         painelProcurarIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Ingrediente Existente"));
 
+        campoPesquisarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoProcurarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarIngrediente.setText("Procurar");
 
+        textoProcurarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoProcurarIngrediente.setText("Procurar Ingrediente:");
 
+        textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCliqueParaEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoCliqueParaEditar.setText("Clique no ingrediente desejado na lista para editá-lo no painel ao lado:");
 
         tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,19 +211,17 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
             .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelProcurarIngredientesLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(painelScrollTabela))
+                    .addComponent(painelScrollTabela)
                     .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
-                        .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelProcurarIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painelProcurarIngredientesLayout.createSequentialGroup()
                                 .addComponent(textoProcurarIngrediente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(campoPesquisarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoProcurarIngrediente))
-                            .addComponent(textoCliqueParaEditar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(botaoProcurarIngrediente)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelProcurarIngredientesLayout.setVerticalGroup(
@@ -221,23 +234,28 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
                     .addComponent(botaoProcurarIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueParaEditar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelScrollTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        botaoCancelarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarIngrediente.setText("Cancelar Cadastro");
 
+        botaoCadastrarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarIngrediente.setText("Cadastrar Ingrediente");
 
+        botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
 
+        botaoAtualizarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarIngrediente.setText("Atualizar Ingrediente");
 
+        botaoExcluirIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirIngrediente.setText("Excluir Ingrediente");
 
@@ -282,11 +300,11 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelAdicionarModificarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 107, Short.MAX_VALUE)
-                        .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painelProcurarIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
