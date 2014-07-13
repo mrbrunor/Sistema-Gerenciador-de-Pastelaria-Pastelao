@@ -29,9 +29,9 @@
                   <Component id="painelSuperior" alignment="1" max="32767" attributes="0"/>
                   <Component id="painelInferior" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="botaoSair" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoCancelarReimpressao" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="botaoCancelarPedido" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoConfirmarReimpressao" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -43,14 +43,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="painelSuperior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="painelInferior" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botaoSair" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="botaoCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCancelarReimpressao" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="botaoConfirmarReimpressao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,7 +97,7 @@
               <Font name="Tahoma" size="48" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Reimpress&#xe3;o de Pedido"/>
+            <Property name="text" type="java.lang.String" value="Reimpress&#xe3;o de Cupom"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoInsiraDados">
@@ -167,7 +167,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="botaoSair">
+    <Component class="javax.swing.JButton" name="botaoCancelarReimpressao">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="16" style="0"/>
@@ -175,10 +175,10 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/au/resources/icons/cancel-32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Sair"/>
+        <Property name="text" type="java.lang.String" value="Cancelar Reimpress&#xe3;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botaoCancelarPedido">
+    <Component class="javax.swing.JButton" name="botaoConfirmarReimpressao">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="16" style="0"/>
@@ -186,7 +186,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/au/resources/icons/ok-32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Reimprimir Cupom do Pedido"/>
+        <Property name="text" type="java.lang.String" value="Confirmar Reimpress&#xe3;o de Cupom"/>
       </Properties>
     </Component>
   </SubComponents>

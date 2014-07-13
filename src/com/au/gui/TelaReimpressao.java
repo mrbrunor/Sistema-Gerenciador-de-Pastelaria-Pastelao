@@ -64,8 +64,8 @@ public class TelaReimpressao extends javax.swing.JDialog {
         painelInferior = new javax.swing.JPanel();
         textoNumeroPedido = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
-        botaoSair = new javax.swing.JButton();
-        botaoCancelarPedido = new javax.swing.JButton();
+        botaoCancelarReimpressao = new javax.swing.JButton();
+        botaoConfirmarReimpressao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,7 +73,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
 
         textoReimpressaoPedido.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         textoReimpressaoPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoReimpressaoPedido.setText("Reimpressão de Pedido");
+        textoReimpressaoPedido.setText("Reimpressão de Cupom");
 
         textoInsiraDados.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoInsiraDados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,13 +130,13 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        botaoSair.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        botaoSair.setText("Sair");
+        botaoCancelarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelarReimpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
+        botaoCancelarReimpressao.setText("Cancelar Reimpressão");
 
-        botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoCancelarPedido.setText("Reimprimir Cupom do Pedido");
+        botaoConfirmarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoConfirmarReimpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoConfirmarReimpressao.setText("Confirmar Reimpressão de Cupom");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,9 +148,9 @@ public class TelaReimpressao extends javax.swing.JDialog {
                     .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelInferior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoSair)
+                        .addComponent(botaoCancelarReimpressao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoCancelarPedido)))
+                        .addComponent(botaoConfirmarReimpressao)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,32 +158,32 @@ public class TelaReimpressao extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCancelarPedido))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoCancelarReimpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoConfirmarReimpressao))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public JButton getBotaoSair() {
-        return botaoSair;
+        return botaoCancelarReimpressao;
     }
 
     public void setBotaoSair(JButton botaoSair) {
-        this.botaoSair = botaoSair;
+        this.botaoCancelarReimpressao = botaoSair;
     }
 
     public JButton getBotaoCancelarPedido() {
-        return botaoCancelarPedido;
+        return botaoConfirmarReimpressao;
     }
 
     public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
-        this.botaoCancelarPedido = botaoCancelarPedido;
+        this.botaoConfirmarReimpressao = botaoCancelarPedido;
     }
 
     public JTextField getCampoNumeroPedido() {
@@ -205,8 +205,8 @@ public class TelaReimpressao extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCancelarPedido;
-    private javax.swing.JButton botaoSair;
+    private javax.swing.JButton botaoCancelarReimpressao;
+    private javax.swing.JButton botaoConfirmarReimpressao;
     private javax.swing.JTextField campoNumeroPedido;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
