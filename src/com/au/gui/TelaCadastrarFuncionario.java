@@ -25,7 +25,6 @@ package com.au.gui;
 
 import com.au.gui.listener.FuncionarioActionListener;
 import com.au.util.LimitaDigitos;
-import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
@@ -76,8 +75,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoId = new javax.swing.JTextField();
         textoNome = new javax.swing.JLabel();
         campoNome = new javax.swing.JTextField();
-        textoSexo = new javax.swing.JLabel();
-        caixaSexo = new javax.swing.JComboBox();
         textoCpf = new javax.swing.JLabel();
         campoCpf = new javax.swing.JTextField();
         textoEmail = new javax.swing.JLabel();
@@ -160,11 +157,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         textoNome.setText("Nome Completo:");
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-
-        textoSexo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoSexo.setText("Sexo:");
-
-        caixaSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Feminino", "Masculino" }));
 
         textoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCpf.setText("CPF:");
@@ -260,15 +252,11 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(campoUser, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                .addComponent(campoSenha))))
-                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                        .addComponent(textoSexo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(caixaSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(campoSenha)))))
                 .addContainerGap())
         );
 
-        painelAdicionarModificarFuncionariosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoAtivo, textoCelular, textoCpf, textoEmail, textoId, textoNivel, textoNome, textoSenha, textoSenha2, textoSexo, textoTelefone, textoUser});
+        painelAdicionarModificarFuncionariosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoAtivo, textoCelular, textoCpf, textoEmail, textoId, textoNivel, textoNome, textoSenha, textoSenha2, textoTelefone, textoUser});
 
         painelAdicionarModificarFuncionariosLayout.setVerticalGroup(
             painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,10 +269,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNome)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoSexo)
-                    .addComponent(caixaSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCpf)
@@ -559,14 +543,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         this.caixaNivel = caixaNivel;
     }
 
-    public JComboBox getCaixaSexo() {
-        return caixaSexo;
-    }
-
-    public void setCaixaSexo(JComboBox caixaSexo) {
-        this.caixaSexo = caixaSexo;
-    }
-
     public JTextField getCampoCelular() {
         return campoCelular;
     }
@@ -642,7 +618,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoUser.setText("");
         caixaAtivo.setSelectedIndex(0);
         caixaNivel.setSelectedIndex(0);
-        caixaSexo.setSelectedIndex(0);
         campoId.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -654,7 +629,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JButton botaoProcurarFuncionario;
     private javax.swing.JComboBox caixaAtivo;
     private javax.swing.JComboBox caixaNivel;
-    private javax.swing.JComboBox caixaSexo;
     private javax.swing.JTextField campoCelular;
     private javax.swing.JTextField campoCpf;
     private javax.swing.JTextField campoEmail;
@@ -685,7 +659,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel textoProcurarFuncionario;
     private javax.swing.JLabel textoSenha;
     private javax.swing.JLabel textoSenha2;
-    private javax.swing.JLabel textoSexo;
     private javax.swing.JLabel textoTelefone;
     private javax.swing.JLabel textoUser;
     // End of variables declaration//GEN-END:variables
