@@ -40,6 +40,7 @@ import java.awt.event.KeyListener;
 import java.sql.Time;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -55,6 +56,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     private VendaTableModel tableModelVenda;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
+    private double valorTotal = 0;
 
     public PagamentoActionListener(TelaConfirmacaoPagamento frm) {
         this.frm = frm;
@@ -104,7 +106,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
         }
-
+        valorTotal = frm.getTotal();
         if ("".equals(frm.getCampoValorRecebido().getText())) {
             frm.getTextoValorTroco().setText("R$ 0,00");
         } else {
@@ -336,6 +338,11 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         }
         return valida;
     }
+    
+    public void preencheValorRecebido () {
+        frm.getCampoValorRecebido().setText(String.valueOf(valorTotal)); //Necessario acertar troco E Desconto
+        frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
+    }
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
@@ -356,7 +363,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Dinheiro":
                 habilitaDinheiro();
-                frm.getBotaoConfirmarPedido().requestFocus();
+                frm.getCampoValorRecebido().requestFocus();
+                preencheValorRecebido();
+                //frm.getBotaoConfirmarPedido().requestFocus();
                 break;
             case "Cartão de Crédito":
                 habilitaCC();
@@ -382,6 +391,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Desconto":
                 frm.getBotaoRadioDinheiro().requestFocus();
+                preencheValorRecebido();
                 break;
         }
     }

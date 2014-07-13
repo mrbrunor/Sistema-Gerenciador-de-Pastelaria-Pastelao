@@ -104,14 +104,19 @@ public class TelaLogin extends javax.swing.JFrame {
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textoUsuario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         textoUsuario.setText("Usuário:");
 
+        textoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         textoSenha.setText("Senha:");
 
+        campoUsuario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         campoUsuario.setNextFocusableComponent(campoSenha);
+
+        campoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -124,7 +129,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(textoUsuario))
                 .addGap(18, 18, 18)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                    .addComponent(campoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                     .addComponent(campoSenha))
                 .addContainerGap())
         );
@@ -142,9 +147,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        botaoEsqueciSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoEsqueciSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/help-32.png"))); // NOI18N
         botaoEsqueciSenha.setText("Esqueci a minha senha");
 
+        botaoEntrarNoSistema.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoEntrarNoSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/login-32.png"))); // NOI18N
         botaoEntrarNoSistema.setText("Entrar no Sistema");
 

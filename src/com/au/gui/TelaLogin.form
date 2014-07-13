@@ -132,7 +132,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="campoUsuario" pref="368" max="32767" attributes="0"/>
+                      <Component id="campoUsuario" pref="363" max="32767" attributes="0"/>
                       <Component id="campoSenha" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -160,18 +160,27 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="textoUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoSenha">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Senha:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Texto"/>
             </Property>
@@ -181,6 +190,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoSenha">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoSenha.setActionCommand(&quot;Entrar no Sistema&quot;);  "/>
           </AuxValues>
@@ -189,6 +203,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="botaoEsqueciSenha">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="15" style="0"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/au/resources/icons/help-32.png"/>
         </Property>
@@ -197,6 +214,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoEntrarNoSistema">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="15" style="0"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/au/resources/icons/login-32.png"/>
         </Property>

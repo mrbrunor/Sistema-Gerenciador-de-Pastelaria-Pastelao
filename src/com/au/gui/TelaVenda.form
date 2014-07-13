@@ -3,10 +3,18 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuPrincipal">
           <Properties>
             <Property name="text" type="java.lang.String" value="Principal"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuAbrirCaixa">
@@ -51,6 +59,9 @@
         <Menu class="javax.swing.JMenu" name="menuCadastros">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastros"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuFormaPagamento">
@@ -78,6 +89,9 @@
         <Menu class="javax.swing.JMenu" name="MenuRelatorio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasGerais">
@@ -100,6 +114,9 @@
         <Menu class="javax.swing.JMenu" name="MenuAjuda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuSobre">
@@ -267,6 +284,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="botaoAlternarUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="17" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/logout-32.png"/>
             </Property>
@@ -275,6 +295,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="botaoCaixa">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="17" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/moneybox-32.png"/>
             </Property>
@@ -305,13 +328,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="textoDigiteParaAdicionar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="campoAdicionarItem" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="botaoAdicionarItem" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="painelScrollTabelaPedido" max="32767" attributes="0"/>
+                          <Component id="painelScrollTabelaPedido" pref="456" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -338,7 +361,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="painelScrollTabelaPedido" pref="375" max="32767" attributes="0"/>
+                      <Component id="painelScrollTabelaPedido" pref="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="botaoExcluirItem" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -358,12 +381,18 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="textoDigiteParaAdicionar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Digite o c&#xf3;digo do produto para inserir no pedido:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botaoAdicionarItem">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/add_list-26.png"/>
             </Property>
@@ -372,6 +401,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdicionarItem">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoAdicionarItem.setActionCommand(&quot;Adicionar Item&quot;);  "/>
           </AuxValues>
@@ -403,6 +437,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tabelaPedido">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="15" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
                     <Column editable="true" title="Id" type="java.lang.Object"/>
@@ -494,9 +531,9 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="campoBusca" max="32767" attributes="0"/>
-                              <Component id="textoDigiteParaBuscar" pref="262" max="32767" attributes="0"/>
+                              <Component id="textoDigiteParaBuscar" pref="267" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="botaoBuscar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -508,7 +545,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="textoDigiteParaBuscar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -518,7 +555,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="painelScrollTabelaBusca" max="32767" attributes="0"/>
+                      <Component id="painelScrollTabelaBusca" pref="430" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="botaoAdicionarAoPedido" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -532,14 +569,25 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="textoDigiteParaBuscar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Digite o nome do produto para buscar:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoBusca">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botaoBuscar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/au/resources/icons/search-26.png"/>
             </Property>
@@ -556,6 +604,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tabelaBusca">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="15" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="0">
                     <Column editable="true" title="Id" type="java.lang.Object"/>

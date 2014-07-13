@@ -137,9 +137,11 @@ public class TelaVenda extends javax.swing.JFrame {
         textoHora.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoHora.setText("HORA");
 
+        botaoAlternarUsuario.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         botaoAlternarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
         botaoAlternarUsuario.setText("Deslogar");
 
+        botaoCaixa.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         botaoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/moneybox-32.png"))); // NOI18N
         botaoCaixa.setText("Abrir Caixa");
         botaoCaixa.setToolTipText("Clique aqui para fechar o caixa");
@@ -187,12 +189,16 @@ public class TelaVenda extends javax.swing.JFrame {
 
         painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pedido"));
 
+        textoDigiteParaAdicionar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDigiteParaAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoDigiteParaAdicionar.setText("Digite o código do produto para inserir no pedido:");
 
+        botaoAdicionarItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_list-26.png"))); // NOI18N
         botaoAdicionarItem.setText("Adicionar Item");
         botaoAdicionarItem.setToolTipText("Clique aqui para adicionar o produto ao pedido");
+
+        campoAdicionarItem.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         botaoFecharPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoFecharPedido.setText("Fechar Pedido");
@@ -202,6 +208,7 @@ public class TelaVenda extends javax.swing.JFrame {
         botaoCancelarPedido.setText("Cancelar Pedido");
         botaoCancelarPedido.setToolTipText("Clique aqui para cancelar o pedido atual");
 
+        tabelaPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -234,12 +241,12 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPedidoLayout.createSequentialGroup()
                         .addComponent(textoDigiteParaAdicionar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campoAdicionarItem)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelPedidoLayout.createSequentialGroup()
-                        .addComponent(painelScrollTabelaPedido)
+                        .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(botaoExcluirItem))
                     .addGroup(painelPedidoLayout.createSequentialGroup()
@@ -263,7 +270,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(painelPedidoLayout.createSequentialGroup()
                         .addComponent(botaoExcluirItem)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -279,13 +286,18 @@ public class TelaVenda extends javax.swing.JFrame {
 
         painelBusca.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Busca"));
 
+        textoDigiteParaBuscar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDigiteParaBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoDigiteParaBuscar.setText("Digite o nome do produto para buscar:");
 
+        campoBusca.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        botaoBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoBuscar.setText("Buscar");
         botaoBuscar.setToolTipText("Clique aqui para buscar");
 
+        tabelaBusca.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tabelaBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -318,8 +330,8 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoBusca)
-                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(textoDigiteParaBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoBuscar)))
                 .addContainerGap())
         );
@@ -327,7 +339,7 @@ public class TelaVenda extends javax.swing.JFrame {
             painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBuscaLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addComponent(textoDigiteParaBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -335,7 +347,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(botaoBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaBusca)
+                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addComponent(botaoAdicionarAoPedido)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -344,7 +356,10 @@ public class TelaVenda extends javax.swing.JFrame {
 
         botaoAdicionarAoPedido.getAccessibleContext().setAccessibleName("teste");
 
+        barraMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         menuPrincipal.setText("Principal");
+        menuPrincipal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuAbrirCaixa.setText("Abrir Caixa");
         menuPrincipal.add(itemMenuAbrirCaixa);
@@ -371,6 +386,7 @@ public class TelaVenda extends javax.swing.JFrame {
         barraMenu.add(menuPrincipal);
 
         menuCadastros.setText("Cadastros");
+        menuCadastros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuFormaPagamento.setText("Formas de Pagamento");
         menuCadastros.add(itemMenuFormaPagamento);
@@ -387,6 +403,7 @@ public class TelaVenda extends javax.swing.JFrame {
         barraMenu.add(menuCadastros);
 
         MenuRelatorio.setText("Relatórios");
+        MenuRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuVendasGerais.setText("Vendas Gerais");
         MenuRelatorio.add(itemMenuVendasGerais);
@@ -400,6 +417,7 @@ public class TelaVenda extends javax.swing.JFrame {
         barraMenu.add(MenuRelatorio);
 
         MenuAjuda.setText("Ajuda");
+        MenuAjuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuSobre.setText("Sobre");
         MenuAjuda.add(itemMenuSobre);
