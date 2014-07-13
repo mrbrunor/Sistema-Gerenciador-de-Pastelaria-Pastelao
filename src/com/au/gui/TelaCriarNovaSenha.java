@@ -60,8 +60,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
         painelSuperior = new javax.swing.JPanel();
         textoCriarNovaSenha = new javax.swing.JLabel();
+        textoDevidoAManeiraComoSenhaEArmazenada = new javax.swing.JLabel();
+        textoPreenchaInformacoesParaCriarNovaSenha = new javax.swing.JLabel();
         textoNaoEPossivelRecuperarSenhaAntiga = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         painelDadosFuncionario = new javax.swing.JPanel();
         textoCpfFuncionario = new javax.swing.JLabel();
         campoCpfFuncionario = new javax.swing.JTextField();
@@ -81,13 +82,17 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         textoCriarNovaSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoCriarNovaSenha.setText("Criar Nova Senha");
 
-        textoNaoEPossivelRecuperarSenhaAntiga.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        textoNaoEPossivelRecuperarSenhaAntiga.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoNaoEPossivelRecuperarSenhaAntiga.setText("Devido à maneira como a senha é armazenada, não é possível recuperar a senha antiga.");
+        textoDevidoAManeiraComoSenhaEArmazenada.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoDevidoAManeiraComoSenhaEArmazenada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoDevidoAManeiraComoSenhaEArmazenada.setText("Devido à maneira como a senha é armazenada,");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Preencha as informações abaixo para criar uma nova senha.");
+        textoPreenchaInformacoesParaCriarNovaSenha.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoPreenchaInformacoesParaCriarNovaSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoPreenchaInformacoesParaCriarNovaSenha.setText("Preencha as informações abaixo para criar uma nova senha.");
+
+        textoNaoEPossivelRecuperarSenhaAntiga.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoNaoEPossivelRecuperarSenhaAntiga.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoNaoEPossivelRecuperarSenhaAntiga.setText("não é possível recuperar a senha antiga.");
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -95,10 +100,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoCriarNovaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNaoEPossivelRecuperarSenhaAntiga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(textoDevidoAManeiraComoSenhaEArmazenada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoCriarNovaSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoPreenchaInformacoesParaCriarNovaSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoNaoEPossivelRecuperarSenhaAntiga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelSuperiorLayout.setVerticalGroup(
@@ -106,17 +112,21 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             .addGroup(painelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoCriarNovaSenha)
+                .addGap(18, 18, 18)
+                .addComponent(textoDevidoAManeiraComoSenhaEArmazenada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoNaoEPossivelRecuperarSenhaAntiga)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(textoPreenchaInformacoesParaCriarNovaSenha)
+                .addContainerGap())
         );
 
         painelDadosFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do Funcionário"));
 
+        textoCpfFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCpfFuncionario.setText("CPF do Funcionário:");
 
+        campoCpfFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoCpfFuncionario.setNextFocusableComponent(campoNovaSenha);
         campoCpfFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -124,16 +134,20 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             }
         });
 
+        textoDigiteNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDigiteNovaSenha.setText("Digite a Nova Senha:");
 
+        textoConfirmeNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoConfirmeNovaSenha.setText("Confirme a Nova Senha:");
 
+        campoNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNovaSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNovaSenhaFocusGained(evt);
             }
         });
 
+        campoConfirmacaoNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoConfirmacaoNovaSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoConfirmacaoNovaSenhaFocusGained(evt);
@@ -159,7 +173,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                         .addComponent(textoConfirmeNovaSenha)
                         .addGap(18, 18, 18)
                         .addComponent(campoConfirmacaoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelDadosFuncionarioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoConfirmeNovaSenha, textoCpfFuncionario, textoDigiteNovaSenha});
@@ -182,10 +196,12 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 .addGap(14, 14, 14))
         );
 
+        botaoCriarNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCriarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCriarNovaSenha.setText("Criar Nova Senha");
         botaoCriarNovaSenha.setNextFocusableComponent(botaoCancelarNovaSenha);
 
+        botaoCancelarNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarNovaSenha.setText("Cancelar Criação de Nova Senha");
         botaoCancelarNovaSenha.setNextFocusableComponent(campoCpfFuncionario);
@@ -199,10 +215,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelDadosFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(botaoCancelarNovaSenha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCriarNovaSenha)))
+                        .addComponent(botaoCriarNovaSenha)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,7 +227,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelDadosFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -283,13 +300,14 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     private javax.swing.JPasswordField campoConfirmacaoNovaSenha;
     private javax.swing.JTextField campoCpfFuncionario;
     private javax.swing.JPasswordField campoNovaSenha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel painelDadosFuncionario;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoConfirmeNovaSenha;
     private javax.swing.JLabel textoCpfFuncionario;
     private javax.swing.JLabel textoCriarNovaSenha;
+    private javax.swing.JLabel textoDevidoAManeiraComoSenhaEArmazenada;
     private javax.swing.JLabel textoDigiteNovaSenha;
     private javax.swing.JLabel textoNaoEPossivelRecuperarSenhaAntiga;
+    private javax.swing.JLabel textoPreenchaInformacoesParaCriarNovaSenha;
     // End of variables declaration//GEN-END:variables
 }

@@ -97,7 +97,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addComponent(textoCancelamentoPedido)
                 .addGap(18, 18, 18)
                 .addComponent(textoInsiraDados)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -164,7 +164,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCancelarPedido))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();

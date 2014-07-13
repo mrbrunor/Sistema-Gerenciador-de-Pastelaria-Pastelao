@@ -45,6 +45,7 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
     private final TelaRetirada frm;
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
+    private int contaEnter = 0;
 
     public RetiradaActionListener(TelaRetirada frm) {
         this.frm = frm;
@@ -55,41 +56,41 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
     public void adicionaListener() {
         frm.getBotaoCancelarRetirada().addActionListener(this);
         frm.getBotaoRegistrarRetirada().addActionListener(this);
-        frm.getCampoMotivo().addActionListener(this);
-        frm.getCampoValor().addKeyListener(this);
+        frm.getCampoMotivo().addKeyListener(this);
+        frm.getCampoValor().addActionListener(this);
     }
-    
-    public void registrarretirada(){
+
+    public void registrarRetirada() {
         Despesa despesa = new Despesa();
-        
+
         despesa.setDataDesp(new Date());
         despesa.setDescDesp(frm.getCampoMotivo().getText());
         despesa.setValorDesp(Double.valueOf(frm.getCampoValor().getText()));
-        despesa.setRetirada((byte)1);
-        despesa.setCaixa(frm.getCaixa());        
-        
+        despesa.setRetirada((byte) 1);
+        despesa.setCaixa(frm.getCaixa());
+
         new DAO<>(Despesa.class).adiciona(despesa);
-        
+
         JOptionPane.showMessageDialog(frm, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public boolean valida(){
+
+    public boolean valida() {
         boolean valida = true;
-        
-        if(!"".equals(frm.getCampoValor().getText())){
+
+        if (!"".equals(frm.getCampoValor().getText())) {
             frm.getCampoValor().setBorder(normal);
         } else {
             frm.getCampoValor().setBorder(vermelha);
             valida = false;
         }
-        
-        if(!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 10){
+
+        if (!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 10) {
             frm.getCampoMotivo().setBorder(normal);
         } else {
             frm.getCampoMotivo().setBorder(vermelha);
             valida = false;
         }
-        
+
         return valida;
     }
 
@@ -97,13 +98,17 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case "Registrar Retirada":
-                if(valida()){
-                    registrarretirada();
+                if (valida()) {
+                    registrarRetirada();
+                    System.out.println("\"" + frm.getCampoMotivo().getText() + "\"");
                     frm.dispose();
-                }                
+                }
                 break;
             case "Cancelar Retirada":
                 frm.dispose();
+                break;
+            case "Valor":
+                frm.getCampoMotivo().requestFocus();
                 break;
         }
     }
@@ -118,8 +123,13 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            frm.getCampoMotivo().requestFocus();
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            contaEnter++;
+        }
+        if (contaEnter % 2 == 0) {
+            int tamanho = frm.getCampoMotivo().getText().length();
+            frm.getCampoMotivo().setText(frm.getCampoMotivo().getText().substring(0, tamanho - 1));
+            frm.getBotaoRegistrarRetirada().requestFocus();
         }
     }
 }

@@ -60,28 +60,28 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textoSistemaPastelao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textoSistemaPastelao.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         textoSistemaPastelao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoSistemaPastelao.setText("Sistema Gerenciador de Pastelaria - Pastelão");
 
-        textoSistemaDesenvolvidoPor.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        textoSistemaDesenvolvidoPor.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         textoSistemaDesenvolvidoPor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoSistemaDesenvolvidoPor.setText("Sistema desenvolvido por:");
 
-        textoBrunoRicardo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoBrunoRicardo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         textoBrunoRicardo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBrunoRicardo.setText("Bruno Ricardo de Meira Ferreira");
 
         textoIconeSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/info-128.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tiago Hoinack de Carvalho");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel2.setText("<html>Os ícones usados no Sistema fazem parte do Pacote Windows 8 Icons,<br/> disponível em <a href=\"http://icons8.com/\">http://icons8.com/</a>");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel3.setText("<html>Sistema Desenvolvido como forma de obtenção de nota na disciplina de Orientação de<br/> Trabalho de Conclusão de Curso.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,14 +93,13 @@ public class TelaSobre extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textoIconeSobre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textoSistemaPastelao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoSistemaDesenvolvidoPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoBrunoRicardo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textoSistemaPastelao, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                            .addComponent(textoBrunoRicardo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoSistemaDesenvolvidoPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

@@ -28,6 +28,7 @@ import com.au.gui.listener.RetiradaActionListener;
 import com.au.modelo.Caixa;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -66,7 +67,9 @@ public class TelaRetirada extends javax.swing.JDialog {
         textoValor = new javax.swing.JLabel();
         textoSenha = new javax.swing.JLabel();
         campoValor = new javax.swing.JTextField();
-        campoMotivo = new javax.swing.JTextField();
+        campoValor.setActionCommand("Valor");
+        jScrollPane1 = new javax.swing.JScrollPane();
+        campoMotivo = new javax.swing.JTextArea();
         botaoCancelarRetirada = new javax.swing.JButton();
         botaoRegistrarRetirada = new javax.swing.JButton();
 
@@ -100,18 +103,17 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addComponent(textoRetiradaCaixa)
                 .addGap(18, 18, 18)
                 .addComponent(textoInsiraDados)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         textoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoValor.setText("Valor");
+        textoValor.setText("Valor:");
 
         textoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        textoSenha.setText("Motivo");
+        textoSenha.setText("Motivo:");
 
         campoValor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoValor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -121,8 +123,17 @@ public class TelaRetirada extends javax.swing.JDialog {
             }
         });
 
-        campoMotivo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        campoMotivo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoMotivo.setColumns(20);
+        campoMotivo.setRows(5);
+        campoMotivo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoMotivoFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(campoMotivo);
+        campoMotivo.setLineWrap(true);
+
+        campoMotivo.setWrapStyleWord(true);
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -133,12 +144,15 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoSenha)
                     .addComponent(textoValor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoValor)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
+
+        painelInferiorLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoSenha, textoValor});
+
         painelInferiorLayout.setVerticalGroup(
             painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInferiorLayout.createSequentialGroup()
@@ -147,9 +161,9 @@ public class TelaRetirada extends javax.swing.JDialog {
                     .addComponent(textoValor)
                     .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(textoSenha))
+                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoSenha)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -181,9 +195,9 @@ public class TelaRetirada extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelarRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRegistrarRetirada))
@@ -196,6 +210,10 @@ public class TelaRetirada extends javax.swing.JDialog {
     private void campoValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusGained
         campoValor.selectAll();
     }//GEN-LAST:event_campoValorFocusGained
+
+    private void campoMotivoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMotivoFocusGained
+        campoMotivo.selectAll();
+    }//GEN-LAST:event_campoMotivoFocusGained
 
     public JButton getBotaoCancelarRetirada() {
         return botaoCancelarRetirada;
@@ -213,11 +231,11 @@ public class TelaRetirada extends javax.swing.JDialog {
         this.botaoRegistrarRetirada = botaoRegistrarRetirada;
     }
 
-    public JTextField getCampoMotivo() {
+    public JTextArea getCampoMotivo() {
         return campoMotivo;
     }
 
-    public void setCampoMotivo(JTextField campoMotivo) {
+    public void setCampoMotivo(JTextArea campoMotivo) {
         this.campoMotivo = campoMotivo;
     }
 
@@ -243,8 +261,9 @@ public class TelaRetirada extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarRetirada;
     private javax.swing.JButton botaoRegistrarRetirada;
-    private javax.swing.JTextField campoMotivo;
+    private javax.swing.JTextArea campoMotivo;
     private javax.swing.JTextField campoValor;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoInsiraDados;
