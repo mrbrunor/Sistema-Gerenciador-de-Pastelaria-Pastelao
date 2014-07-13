@@ -40,7 +40,6 @@ import java.awt.event.KeyListener;
 import java.sql.Time;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -102,7 +101,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.setTotal(frm.getSubTotal());
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
-        } else {
+        } else if(Double.valueOf(frm.getCampoDesconto().getText()) > frm.getTotal()){
+            JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
+            frm.getCampoDesconto().setText("");
+        }else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
         }
@@ -110,8 +112,13 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         if ("".equals(frm.getCampoValorRecebido().getText())) {
             frm.getTextoValorTroco().setText("R$ 0,00");
         } else {
-            frm.getTextoValorTroco().setText(String.format("R$ %.2f", (Double.valueOf(frm.getCampoValorRecebido().getText())) - frm.getTotal()));
+            frm.getTextoValorTroco().setText(String.format("R$ %.2f", (Double.valueOf(frm.getCampoValorRecebido().getText()) - (frm.getTotal() - Double.valueOf(frm.getCampoDesconto().getText())))));
         }
+    }
+    
+    public void preencheValorRecebido () {
+        frm.getCampoValorRecebido().setText(String.valueOf(valorTotal)); //Necessario acertar troco E Desconto
+        frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
     }
 
     private void criaPedido() {
@@ -334,11 +341,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         return valida;
     }
     
-    public void preencheValorRecebido () {
-        frm.getCampoValorRecebido().setText(String.valueOf(valorTotal)); //Necessario acertar troco E Desconto
-        frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
-    }
-
     @Override
     public void valueChanged(ListSelectionEvent event) {
 
@@ -402,5 +404,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     @Override
     public void keyReleased(KeyEvent e) {
         atualizaTotal();
+        preencheValorRecebido();
     }
 }
