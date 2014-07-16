@@ -44,6 +44,7 @@ import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
 import com.au.dao.DAO;
 import com.au.gui.TelaCancelamento;
+import com.au.gui.TelaVisualizarCaixa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -130,6 +131,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuVendasFiltradasFormaPgto().addActionListener(this);
         frm.getItemMenuVendasFiltradasIngredientes().addActionListener(this);
         frm.getItemMenuCancelarCupom().addActionListener(this);
+        frm.getItemMenuVisualizarCaixas().addActionListener(this);
     }
 
     public void caixaAberto() {
@@ -440,6 +442,9 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
             case "Cancelar Cupom":
                 new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
                 new DAO<>(Caixa.class).atualiza(frm.getFuncionario().getCaixas().get(indexCaixa));
+                break;
+            case "Visualizar Caixas":
+                new TelaVisualizarCaixa(frm, true).setVisible(true);
                 break;
             case "Deslogar":
                 deslogar();

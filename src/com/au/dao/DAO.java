@@ -1,10 +1,11 @@
 package com.au.dao;
 
+import com.au.conexao.FabricaConexaoJPA;
+import com.au.modelo.Caixa;
 import com.au.modelo.FormaPagamento;
 import com.au.modelo.Funcionario;
 import com.au.modelo.Ingrediente;
 import com.au.modelo.Produto;
-import com.au.conexao.FabricaConexaoJPA;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -108,7 +109,7 @@ public class DAO<T> {
 
         return produtos;
     }
-    
+
     public List<Funcionario> buscaFuncionarios(String pesquisa) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
@@ -118,7 +119,7 @@ public class DAO<T> {
 
         return funcionarios;
     }
-    
+
     public List<Ingrediente> buscaIngredientes(String pesquisa) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
@@ -128,7 +129,22 @@ public class DAO<T> {
 
         return ingredientes;
     }
-    
+
+    public List<Caixa> buscaCaixas(String data, boolean estaAberto) {
+        EntityManager em = new FabricaConexaoJPA().getEntityManager();
+        Query q;
+
+        if (estaAberto == true) {
+            q = em.createQuery("from Caixa i where i.dataAberturaCaixa like '%" + data + "%'");
+        } else {
+            q = em.createQuery("from Caixa i where i.dataAberturaCaixa like '%" + data + "%' and i.estaAberto like 0");
+        }
+
+        List<Caixa> caixas = q.getResultList();
+
+        return caixas;
+    }
+
     public List<FormaPagamento> buscaFormasPagamento(String pesquisa) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
@@ -138,46 +154,46 @@ public class DAO<T> {
 
         return formaPagamentos;
     }
-    
+
     public boolean validaUser(Funcionario funcionario) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
         Query q = em.createQuery("from Funcionario f where f.userFunc like '" + funcionario.getUserFunc() + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
+
         return funcionarios == null || funcionarios.isEmpty();
     }
-    
+
     public boolean validaCPF(Funcionario funcionario) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
         Query q = em.createQuery("from Funcionario f where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
+
         return funcionarios == null || funcionarios.isEmpty();
-    }    
-    
+    }
+
     public void alterarSenha(Funcionario funcionario) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
         Funcionario funcionarioNovo = new Funcionario();
         //Query q = em.createQuery("update Funcionario f set f.passFunc = '" + funcionario.getPassFunc() + "' where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
-        
+
         Query q = em.createQuery("from Funcionario f where f.cpfFunc like '" + funcionario.getCpfFunc() + "'");
 
         List<Funcionario> funcionarios = q.getResultList();
-        
+
         for (Funcionario funcionario1 : funcionarios) {
             funcionarioNovo = funcionario1;
         }
-        
+
         funcionarioNovo.setPassFunc(funcionario.getPassFunc());
         System.out.println("");
-        new DAO<>(Funcionario.class).atualiza(funcionarioNovo);  
-    }    
-    
+        new DAO<>(Funcionario.class).atualiza(funcionarioNovo);
+    }
+
     public boolean validaProduto(Produto produto) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
@@ -187,7 +203,7 @@ public class DAO<T> {
 
         return produtos == null || produtos.isEmpty();
     }
-    
+
     public boolean validaIngrediente(Ingrediente ingrediente) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 

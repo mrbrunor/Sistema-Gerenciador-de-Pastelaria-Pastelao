@@ -23,11 +23,12 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.IngredienteActionListener;
-import com.au.util.LimitaDigitos;
+import com.au.gui.listener.VisualizarCaixaActionListener;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 /**
  *
@@ -35,7 +36,7 @@ import javax.swing.JTextField;
  */
 public class TelaVisualizarCaixa extends javax.swing.JDialog {
 
-    private IngredienteActionListener listener;
+    private VisualizarCaixaActionListener listener;
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -43,12 +44,8 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     public TelaVisualizarCaixa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        campoId.setEditable(false);
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü]"));
-        campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
-        campoPesquisarIngrediente.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
-        .requestFocus();
-        //listener = new IngredienteActionListener(this);
+        dateChooserDataAberturaCaixa.requestFocus();
+        listener = new VisualizarCaixaActionListener(this);
     }
 
     /**
@@ -60,7 +57,6 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         painelSuperior = new javax.swing.JPanel();
         textoVisualizarCaixas = new javax.swing.JLabel();
         textoIconeVisualizarCaixas = new javax.swing.JLabel();
@@ -72,41 +68,69 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         comboBoxCaixasAbertos = new javax.swing.JComboBox();
         dateChooserDataAberturaCaixa = new com.toedter.calendar.JDateChooser();
         separadorBuscaResultado = new javax.swing.JSeparator();
-        textoCliqueParaEditar = new javax.swing.JLabel();
+        textoCliqueNoCaixaDesejado = new javax.swing.JLabel();
         painelScrollCaixasEncontrados = new javax.swing.JScrollPane();
         tabelaCaixasEncontrados = new javax.swing.JTable();
+        botaoVisualizarDetalhesCaixa = new javax.swing.JButton();
+        textoParaEditaloNoPainelAoLado = new javax.swing.JLabel();
         painelDetalhesCaixa = new javax.swing.JPanel();
-        painelInformacoesGerais = new javax.swing.JPanel();
-        textoQuantidadePedidos = new javax.swing.JLabel();
-        textoValorQuantidadePedidos = new javax.swing.JLabel();
-        textoValorPagoComDinheiro = new javax.swing.JLabel();
-        textoValorPagoComCredito = new javax.swing.JLabel();
-        textoValorPagoComDebito = new javax.swing.JLabel();
-        textoValorPagoComVale = new javax.swing.JLabel();
-        textoPagoComVale = new javax.swing.JLabel();
-        textoPagoComDebito = new javax.swing.JLabel();
-        textoPagoComCredito = new javax.swing.JLabel();
-        textoPagoComDinheiro = new javax.swing.JLabel();
+        separador1 = new javax.swing.JSeparator();
+        textoInformacoesGerais = new javax.swing.JLabel();
         textoFundoCaixa = new javax.swing.JLabel();
         textoValorFundoCaixa = new javax.swing.JLabel();
-        painelFaturamento = new javax.swing.JPanel();
-        textoValorQuantidadePedidos1 = new javax.swing.JLabel();
+        textoQuantidadePedidos = new javax.swing.JLabel();
+        textoValorQuantidadePedidos = new javax.swing.JLabel();
+        textoPagoComDinheiro = new javax.swing.JLabel();
+        textoValorPagoComDinheiro = new javax.swing.JLabel();
+        textoPagoComCredito = new javax.swing.JLabel();
+        textoValorPagoComCredito = new javax.swing.JLabel();
+        textoPagoComDebito = new javax.swing.JLabel();
+        textoValorPagoComDebito = new javax.swing.JLabel();
+        textoPagoComVale = new javax.swing.JLabel();
+        textoValorPagoComVale = new javax.swing.JLabel();
+        separador2 = new javax.swing.JSeparator();
+        textoBalancoCaixa = new javax.swing.JLabel();
+        textoTotalFaturadoBalanco = new javax.swing.JLabel();
+        textoValorTotalFaturadoBalanco = new javax.swing.JLabel();
+        textoTotalRetiradasBalanco = new javax.swing.JLabel();
+        textoValorTotalRetiradasBalanco = new javax.swing.JLabel();
+        textoTotalCaixa = new javax.swing.JLabel();
+        textoValorTotalCaixa = new javax.swing.JLabel();
+        separador3 = new javax.swing.JSeparator();
+        textoDescontos = new javax.swing.JLabel();
+        textoQuantidadeDescontos = new javax.swing.JLabel();
+        textoValorQuantidadeDescontos = new javax.swing.JLabel();
+        textoValorTotalDescontos = new javax.swing.JLabel();
+        textoTotalDescontos = new javax.swing.JLabel();
+        textoSemDescontos = new javax.swing.JLabel();
+        textoFaturamento = new javax.swing.JLabel();
+        textoTotalFaturadoFaturamento = new javax.swing.JLabel();
+        textoValorTotalFaturadoFaturamento = new javax.swing.JLabel();
         textoDinheiro = new javax.swing.JLabel();
-        textoTotalFaturado = new javax.swing.JLabel();
-        textoValorDinheiro = new javax.swing.JLabel();
-        textoValorCredito = new javax.swing.JLabel();
-        textoPagoComCredito1 = new javax.swing.JLabel();
+        textoCredito = new javax.swing.JLabel();
         textoDebito = new javax.swing.JLabel();
-        textoValorDebito = new javax.swing.JLabel();
-        textoValorVale = new javax.swing.JLabel();
         textoVale = new javax.swing.JLabel();
-        painelBalancoCaixa = new javax.swing.JPanel();
-        painelRetiradas = new javax.swing.JPanel();
-        painelDescontos = new javax.swing.JPanel();
-        painelCancelamentos = new javax.swing.JPanel();
+        textoValorVale = new javax.swing.JLabel();
+        textoValorDebito = new javax.swing.JLabel();
+        textoValorCredito = new javax.swing.JLabel();
+        textoValorDinheiro = new javax.swing.JLabel();
+        separador4 = new javax.swing.JSeparator();
+        textoRetiradas = new javax.swing.JLabel();
+        textoQuantidadeRetiradas = new javax.swing.JLabel();
+        textoValorQuantidadeRetiradas = new javax.swing.JLabel();
+        textoTotalRetiradasRetiradas = new javax.swing.JLabel();
+        textoValorTotalRetiradasRetiradas = new javax.swing.JLabel();
+        textoSemRetiradas = new javax.swing.JLabel();
+        separador5 = new javax.swing.JSeparator();
+        textoCancelamentos = new javax.swing.JLabel();
+        textoQuantidadeCancelamentos = new javax.swing.JLabel();
+        textoValorQuantidadeCancelamentos = new javax.swing.JLabel();
+        textoTotalCancelamentos = new javax.swing.JLabel();
+        textoValorTotalCancelamentos = new javax.swing.JLabel();
+        textoSemCancelamentos = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
-        botaoCancelarIngrediente = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botaoVoltarTelaPrincipal = new javax.swing.JButton();
+        botaoReimprimirRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -164,19 +188,27 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         dateChooserDataAberturaCaixa.setDateFormatString("dd-MM-yyyy");
         dateChooserDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
-        textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoCliqueParaEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoCliqueParaEditar.setText("Clique no caixa desejado na lista para editá-lo no painel ao lado:");
+        textoCliqueNoCaixaDesejado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCliqueNoCaixaDesejado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoCliqueNoCaixaDesejado.setText("Clique no caixa desejado na lista e clique no botão abaixo");
 
         tabelaCaixasEncontrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Funcionário Responsável", "Data de Abertura", "Hora de Abertura", "Hora de Fechamento"
+                "ID", "Funcionário", "Data", "Abertura", "Fechamento"
             }
         ));
         painelScrollCaixasEncontrados.setViewportView(tabelaCaixasEncontrados);
+
+        botaoVisualizarDetalhesCaixa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoVisualizarDetalhesCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/redo-32.png"))); // NOI18N
+        botaoVisualizarDetalhesCaixa.setText("Visualizar Detalhes do Caixa Selecionado");
+
+        textoParaEditaloNoPainelAoLado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoParaEditaloNoPainelAoLado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoParaEditaloNoPainelAoLado.setText("para editá-lo no painel ao lado:");
 
         javax.swing.GroupLayout painelBuscarCaixaLayout = new javax.swing.GroupLayout(painelBuscarCaixa);
         painelBuscarCaixa.setLayout(painelBuscarCaixaLayout);
@@ -185,8 +217,9 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
             .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoParaEditaloNoPainelAoLado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(separadorBuscaResultado)
-                    .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoCliqueNoCaixaDesejado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                         .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
@@ -200,7 +233,8 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarCaixa)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(botaoVisualizarDetalhesCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -223,45 +257,23 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(separadorBuscaResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoCliqueParaEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textoCliqueNoCaixaDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(textoParaEditaloNoPainelAoLado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoVisualizarDetalhesCaixa)
                 .addContainerGap())
         );
 
         painelDetalhesCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Detalhes do Caixa"));
 
-        painelInformacoesGerais.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Informações Gerais"));
+        separador1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        textoQuantidadePedidos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoQuantidadePedidos.setText("Quantidade de Pedidos:");
-
-        textoValorQuantidadePedidos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorQuantidadePedidos.setText("0");
-
-        textoValorPagoComDinheiro.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorPagoComDinheiro.setText("0");
-
-        textoValorPagoComCredito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorPagoComCredito.setText("0");
-
-        textoValorPagoComDebito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorPagoComDebito.setText("0");
-
-        textoValorPagoComVale.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorPagoComVale.setText("0");
-
-        textoPagoComVale.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoPagoComVale.setText("Pagos com Vale:");
-
-        textoPagoComDebito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoPagoComDebito.setText("Pagos com Débito:");
-
-        textoPagoComCredito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoPagoComCredito.setText("Pagos com Crédito:");
-
-        textoPagoComDinheiro.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoPagoComDinheiro.setText("Pagos com Dinheiro:");
+        textoInformacoesGerais.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoInformacoesGerais.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoInformacoesGerais.setText("Informações Gerais");
 
         textoFundoCaixa.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         textoFundoCaixa.setText("Fundo de Caixa:");
@@ -269,255 +281,390 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         textoValorFundoCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValorFundoCaixa.setText("R$ 0,00");
 
-        javax.swing.GroupLayout painelInformacoesGeraisLayout = new javax.swing.GroupLayout(painelInformacoesGerais);
-        painelInformacoesGerais.setLayout(painelInformacoesGeraisLayout);
-        painelInformacoesGeraisLayout.setHorizontalGroup(
-            painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelInformacoesGeraisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelInformacoesGeraisLayout.createSequentialGroup()
-                        .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textoQuantidadePedidos)
-                            .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textoPagoComCredito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoPagoComDinheiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoPagoComDebito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoPagoComVale, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoValorQuantidadePedidos)
-                            .addComponent(textoValorPagoComDinheiro)
-                            .addComponent(textoValorPagoComCredito)
-                            .addComponent(textoValorPagoComDebito)
-                            .addComponent(textoValorPagoComVale)))
-                    .addGroup(painelInformacoesGeraisLayout.createSequentialGroup()
-                        .addComponent(textoFundoCaixa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textoValorFundoCaixa)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        painelInformacoesGeraisLayout.setVerticalGroup(
-            painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelInformacoesGeraisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoFundoCaixa)
-                    .addComponent(textoValorFundoCaixa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoQuantidadePedidos)
-                    .addComponent(textoValorQuantidadePedidos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPagoComDinheiro)
-                    .addComponent(textoValorPagoComDinheiro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPagoComCredito)
-                    .addComponent(textoValorPagoComCredito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPagoComDebito)
-                    .addComponent(textoValorPagoComDebito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelInformacoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPagoComVale)
-                    .addComponent(textoValorPagoComVale))
-                .addContainerGap())
-        );
+        textoQuantidadePedidos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoQuantidadePedidos.setText("Quantidade de Pedidos:");
 
-        painelFaturamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Faturamento"));
+        textoValorQuantidadePedidos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorQuantidadePedidos.setText("0");
 
-        textoValorQuantidadePedidos1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorQuantidadePedidos1.setText("R$ 0,00");
+        textoPagoComDinheiro.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoPagoComDinheiro.setText("Pagos com Dinheiro:");
+
+        textoValorPagoComDinheiro.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorPagoComDinheiro.setText("0");
+
+        textoPagoComCredito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoPagoComCredito.setText("Pagos com Crédito:");
+
+        textoValorPagoComCredito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorPagoComCredito.setText("0");
+
+        textoPagoComDebito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoPagoComDebito.setText("Pagos com Débito:");
+
+        textoValorPagoComDebito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorPagoComDebito.setText("0");
+
+        textoPagoComVale.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoPagoComVale.setText("Pagos com Vale:");
+
+        textoValorPagoComVale.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorPagoComVale.setText("0");
+
+        textoBalancoCaixa.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoBalancoCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoBalancoCaixa.setText("Balanço do Caixa");
+
+        textoTotalFaturadoBalanco.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalFaturadoBalanco.setText("Total Faturado:");
+
+        textoValorTotalFaturadoBalanco.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalFaturadoBalanco.setText("R$ 0,00");
+
+        textoTotalRetiradasBalanco.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalRetiradasBalanco.setText("Total Retiradas:");
+
+        textoValorTotalRetiradasBalanco.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalRetiradasBalanco.setText("R$ 0,00");
+
+        textoTotalCaixa.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalCaixa.setText("Total do Caixa:");
+
+        textoValorTotalCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalCaixa.setText("R$ 0,00");
+
+        textoDescontos.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoDescontos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoDescontos.setText("Descontos");
+
+        textoQuantidadeDescontos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoQuantidadeDescontos.setText("Quantidade de Descontos:");
+
+        textoValorQuantidadeDescontos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorQuantidadeDescontos.setText("0");
+
+        textoValorTotalDescontos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalDescontos.setText("R$ 0,00");
+
+        textoTotalDescontos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalDescontos.setText("Total Descontos:");
+
+        textoSemDescontos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoSemDescontos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoSemDescontos.setText("Sem Descontos");
+
+        textoFaturamento.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoFaturamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoFaturamento.setText("Faturamento");
+
+        textoTotalFaturadoFaturamento.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalFaturadoFaturamento.setText("Total Faturado:");
+
+        textoValorTotalFaturadoFaturamento.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalFaturadoFaturamento.setText("R$ 0,00");
 
         textoDinheiro.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         textoDinheiro.setText("Dinheiro:");
 
-        textoTotalFaturado.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoTotalFaturado.setText("Total Faturado:");
-
-        textoValorDinheiro.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorDinheiro.setText("R$ 0,00");
-
-        textoValorCredito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorCredito.setText("R$ 0,00");
-
-        textoPagoComCredito1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoPagoComCredito1.setText("Crédito:");
+        textoCredito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoCredito.setText("Crédito:");
 
         textoDebito.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         textoDebito.setText("Débito:");
 
-        textoValorDebito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorDebito.setText("R$ 0,00");
+        textoVale.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoVale.setText("Vale:");
 
         textoValorVale.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValorVale.setText("R$ 0,00");
 
-        textoVale.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        textoVale.setText("Vale:");
+        textoValorDebito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorDebito.setText("R$ 0,00");
 
-        javax.swing.GroupLayout painelFaturamentoLayout = new javax.swing.GroupLayout(painelFaturamento);
-        painelFaturamento.setLayout(painelFaturamentoLayout);
-        painelFaturamentoLayout.setHorizontalGroup(
-            painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelFaturamentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelFaturamentoLayout.createSequentialGroup()
-                        .addComponent(textoTotalFaturado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textoValorQuantidadePedidos1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFaturamentoLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(textoVale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoDebito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoPagoComCredito1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoValorDinheiro)
-                            .addComponent(textoValorCredito)
-                            .addComponent(textoValorDebito)
-                            .addComponent(textoValorVale))))
-                .addContainerGap())
-        );
-        painelFaturamentoLayout.setVerticalGroup(
-            painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelFaturamentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoTotalFaturado)
-                    .addComponent(textoValorQuantidadePedidos1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoDinheiro)
-                    .addComponent(textoValorDinheiro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPagoComCredito1)
-                    .addComponent(textoValorCredito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoDebito)
-                    .addComponent(textoValorDebito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelFaturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoVale)
-                    .addComponent(textoValorVale))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        textoValorCredito.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorCredito.setText("R$ 0,00");
 
-        painelBalancoCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Balanço do Caixa"));
+        textoValorDinheiro.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorDinheiro.setText("R$ 0,00");
 
-        javax.swing.GroupLayout painelBalancoCaixaLayout = new javax.swing.GroupLayout(painelBalancoCaixa);
-        painelBalancoCaixa.setLayout(painelBalancoCaixaLayout);
-        painelBalancoCaixaLayout.setHorizontalGroup(
-            painelBalancoCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        painelBalancoCaixaLayout.setVerticalGroup(
-            painelBalancoCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        textoRetiradas.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoRetiradas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoRetiradas.setText("Retiradas");
 
-        painelRetiradas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Retiradas"));
+        textoQuantidadeRetiradas.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoQuantidadeRetiradas.setText("Quantidade de Retiradas:");
 
-        javax.swing.GroupLayout painelRetiradasLayout = new javax.swing.GroupLayout(painelRetiradas);
-        painelRetiradas.setLayout(painelRetiradasLayout);
-        painelRetiradasLayout.setHorizontalGroup(
-            painelRetiradasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        painelRetiradasLayout.setVerticalGroup(
-            painelRetiradasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        textoValorQuantidadeRetiradas.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorQuantidadeRetiradas.setText("0");
 
-        painelDescontos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descontos"));
+        textoTotalRetiradasRetiradas.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalRetiradasRetiradas.setText("Total Retiradas:");
 
-        javax.swing.GroupLayout painelDescontosLayout = new javax.swing.GroupLayout(painelDescontos);
-        painelDescontos.setLayout(painelDescontosLayout);
-        painelDescontosLayout.setHorizontalGroup(
-            painelDescontosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        painelDescontosLayout.setVerticalGroup(
-            painelDescontosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        textoValorTotalRetiradasRetiradas.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalRetiradasRetiradas.setText("R$ 0,00");
 
-        painelCancelamentos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cancelamentos"));
+        textoSemRetiradas.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoSemRetiradas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoSemRetiradas.setText("Sem Retiradas");
 
-        javax.swing.GroupLayout painelCancelamentosLayout = new javax.swing.GroupLayout(painelCancelamentos);
-        painelCancelamentos.setLayout(painelCancelamentosLayout);
-        painelCancelamentosLayout.setHorizontalGroup(
-            painelCancelamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        painelCancelamentosLayout.setVerticalGroup(
-            painelCancelamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        textoCancelamentos.setFont(new java.awt.Font("Verdana", 2, 15)); // NOI18N
+        textoCancelamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoCancelamentos.setText("Cancelamentos");
+
+        textoQuantidadeCancelamentos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoQuantidadeCancelamentos.setText("Quantidade de Cancelamentos:");
+
+        textoValorQuantidadeCancelamentos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorQuantidadeCancelamentos.setText("0");
+
+        textoTotalCancelamentos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoTotalCancelamentos.setText("Total Cancelamentos:");
+
+        textoValorTotalCancelamentos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorTotalCancelamentos.setText("R$ 0,00");
+
+        textoSemCancelamentos.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoSemCancelamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoSemCancelamentos.setText("Sem Cancelamentos");
 
         javax.swing.GroupLayout painelDetalhesCaixaLayout = new javax.swing.GroupLayout(painelDetalhesCaixa);
         painelDetalhesCaixa.setLayout(painelDetalhesCaixaLayout);
         painelDetalhesCaixaLayout.setHorizontalGroup(
             painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoBalancoCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoDescontos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(separador2)
+                            .addComponent(separador3)
+                            .addComponent(textoInformacoesGerais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoFundoCaixa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorFundoCaixa))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoTotalFaturadoBalanco)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorTotalFaturadoBalanco))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoTotalRetiradasBalanco)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorTotalRetiradasBalanco))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoTotalCaixa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorTotalCaixa))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(textoQuantidadePedidos)
+                                            .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(textoPagoComCredito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(textoPagoComDinheiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(textoPagoComDebito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(textoPagoComVale, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(textoValorQuantidadePedidos)
+                                            .addComponent(textoValorPagoComDinheiro)
+                                            .addComponent(textoValorPagoComCredito)
+                                            .addComponent(textoValorPagoComDebito)
+                                            .addComponent(textoValorPagoComVale)))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoQuantidadeDescontos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorQuantidadeDescontos))
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoTotalDescontos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorTotalDescontos)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDetalhesCaixaLayout.createSequentialGroup()
-                        .addComponent(painelBalancoCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(painelRetiradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoSemDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(separador1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
                         .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
-                                .addComponent(painelInformacoesGerais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(painelFaturamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
-                                .addComponent(painelDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(painelCancelamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                            .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textoSemCancelamentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDetalhesCaixaLayout.createSequentialGroup()
+                                    .addComponent(textoQuantidadeCancelamentos)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textoValorQuantidadeCancelamentos))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDetalhesCaixaLayout.createSequentialGroup()
+                                    .addComponent(textoTotalCancelamentos)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textoValorTotalCancelamentos))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDetalhesCaixaLayout.createSequentialGroup()
+                                    .addComponent(textoQuantidadeRetiradas)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textoValorQuantidadeRetiradas))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDetalhesCaixaLayout.createSequentialGroup()
+                                    .addComponent(textoTotalRetiradasRetiradas)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textoValorTotalRetiradasRetiradas))
+                                .addComponent(separador5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(separador4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoRetiradas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoCancelamentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoSemRetiradas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textoFaturamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoDinheiro)
+                            .addComponent(textoCredito)
+                            .addComponent(textoDebito)
+                            .addComponent(textoVale)
+                            .addComponent(textoTotalFaturadoFaturamento))
+                        .addGap(18, 18, 18)
+                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoValorTotalFaturadoFaturamento)
+                            .addComponent(textoValorDinheiro)
+                            .addComponent(textoValorCredito)
+                            .addComponent(textoValorDebito)
+                            .addComponent(textoValorVale))
+                        .addGap(0, 0, 0))))
         );
+
+        painelDetalhesCaixaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoTotalCaixa, textoTotalFaturadoBalanco, textoTotalRetiradasBalanco});
+
+        painelDetalhesCaixaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoPagoComCredito, textoPagoComDebito, textoPagoComDinheiro, textoPagoComVale, textoQuantidadePedidos});
+
         painelDetalhesCaixaLayout.setVerticalGroup(
             painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDetalhesCaixaLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
                 .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelFaturamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelInformacoesGerais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelRetiradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelBalancoCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelCancelamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(separador1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                .addComponent(textoFaturamento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoTotalFaturadoFaturamento)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoDinheiro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoCredito)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoDebito)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoVale))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDetalhesCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoValorTotalFaturadoFaturamento)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorDinheiro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorCredito)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorDebito)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoValorVale)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(separador4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(textoRetiradas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoQuantidadeRetiradas)
+                                    .addComponent(textoValorQuantidadeRetiradas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalRetiradasRetiradas)
+                                    .addComponent(textoValorTotalRetiradasRetiradas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textoSemRetiradas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(separador5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(textoCancelamentos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoQuantidadeCancelamentos)
+                                    .addComponent(textoValorQuantidadeCancelamentos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalCancelamentos)
+                                    .addComponent(textoValorTotalCancelamentos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textoSemCancelamentos))
+                            .addGroup(painelDetalhesCaixaLayout.createSequentialGroup()
+                                .addComponent(textoInformacoesGerais)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoFundoCaixa)
+                                    .addComponent(textoValorFundoCaixa))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoQuantidadePedidos)
+                                    .addComponent(textoValorQuantidadePedidos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoPagoComDinheiro)
+                                    .addComponent(textoValorPagoComDinheiro))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoPagoComCredito)
+                                    .addComponent(textoValorPagoComCredito))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoPagoComDebito)
+                                    .addComponent(textoValorPagoComDebito))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoPagoComVale)
+                                    .addComponent(textoValorPagoComVale))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(separador2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(textoBalancoCaixa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalFaturadoBalanco)
+                                    .addComponent(textoValorTotalFaturadoBalanco))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalRetiradasBalanco)
+                                    .addComponent(textoValorTotalRetiradasBalanco))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalCaixa)
+                                    .addComponent(textoValorTotalCaixa))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(separador3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(textoDescontos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoQuantidadeDescontos)
+                                    .addComponent(textoValorQuantidadeDescontos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelDetalhesCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoTotalDescontos)
+                                    .addComponent(textoValorTotalDescontos))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoSemDescontos)))
+                .addGap(0, 0, 0))
         );
 
-        botaoCancelarIngrediente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        botaoCancelarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
-        botaoCancelarIngrediente.setText("Cancelar Cadastro");
+        botaoVoltarTelaPrincipal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoVoltarTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/undo-32.png"))); // NOI18N
+        botaoVoltarTelaPrincipal.setText("Voltar à Tela Principal");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/check-32.png"))); // NOI18N
-        jButton1.setText("Reimprimir Relatório de Fechamento de Caixa");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        botaoReimprimirRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoReimprimirRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/check-32.png"))); // NOI18N
+        botaoReimprimirRelatorio.setText("Reimprimir Relatório de Fechamento de Caixa");
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -525,9 +672,9 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBotoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoCancelarIngrediente)
+                .addComponent(botaoVoltarTelaPrincipal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(botaoReimprimirRelatorio)
                 .addContainerGap())
         );
         painelBotoesLayout.setVerticalGroup(
@@ -535,15 +682,16 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
             .addGroup(painelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCancelarIngrediente)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoVoltarTelaPrincipal)
+                    .addComponent(botaoReimprimirRelatorio))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,11 +699,9 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,10 +709,10 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -574,61 +720,364 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    public JButton getBotaoCancelarIngrediente() {
-        return botaoCancelarIngrediente;
-    }
-
-    public void setBotaoCancelarIngrediente(JButton botaoCancelarIngrediente) {
-        this.botaoCancelarIngrediente = botaoCancelarIngrediente;
-    }
-
-    public JButton getBotaoProcurarIngrediente() {
+    public JButton getBotaoProcurarCaixa() {
         return botaoProcurarCaixa;
     }
 
-    public void setBotaoProcurarIngrediente(JButton botaoProcurarIngrediente) {
-        this.botaoProcurarCaixa = botaoProcurarIngrediente;
+    public void setBotaoProcurarCaixa(JButton botaoProcurarCaixa) {
+        this.botaoProcurarCaixa = botaoProcurarCaixa;
     }
 
+    public JButton getBotaoReimprimirRelatorio() {
+        return botaoReimprimirRelatorio;
+    }
+
+    public void setBotaoReimprimirRelatorio(JButton botaoReimprimirRelatorio) {
+        this.botaoReimprimirRelatorio = botaoReimprimirRelatorio;
+    }
+
+    public JButton getBotaoVoltarTelaPrincipal() {
+        return botaoVoltarTelaPrincipal;
+    }
+
+    public void setBotaoVoltarTelaPrincipal(JButton botaoVoltarTelaPrincipal) {
+        this.botaoVoltarTelaPrincipal = botaoVoltarTelaPrincipal;
+    }
+
+    public JComboBox getComboBoxCaixasAbertos() {
+        return comboBoxCaixasAbertos;
+    }
+
+    public void setComboBoxCaixasAbertos(JComboBox comboBoxCaixasAbertos) {
+        this.comboBoxCaixasAbertos = comboBoxCaixasAbertos;
+    }
+
+    public JDateChooser getDateChooserDataAberturaCaixa() {
+        return dateChooserDataAberturaCaixa;
+    }
+
+    public void setDateChooserDataAberturaCaixa(JDateChooser dateChooserDataAberturaCaixa) {
+        this.dateChooserDataAberturaCaixa = dateChooserDataAberturaCaixa;
+    }
+
+    public JTable getTabelaCaixasEncontrados() {
+        return tabelaCaixasEncontrados;
+    }
+
+    public void setTabelaCaixasEncontrados(JTable tabelaCaixasEncontrados) {
+        this.tabelaCaixasEncontrados = tabelaCaixasEncontrados;
+    }
+
+    public JButton getBotaoVisualizarDetalhesCaixa() {
+        return botaoVisualizarDetalhesCaixa;
+    }
+
+    public void setBotaoVisualizarDetalhesCaixa(JButton botaoVisualizarDetalhesCaixa) {
+        this.botaoVisualizarDetalhesCaixa = botaoVisualizarDetalhesCaixa;
+    }
+
+    public JLabel getTextoQuantidadeCancelamentos() {
+        return textoQuantidadeCancelamentos;
+    }
+
+    public void setTextoQuantidadeCancelamentos(JLabel textoQuantidadeCancelamentos) {
+        this.textoQuantidadeCancelamentos = textoQuantidadeCancelamentos;
+    }
+
+    public JLabel getTextoQuantidadeDescontos() {
+        return textoQuantidadeDescontos;
+    }
+
+    public void setTextoQuantidadeDescontos(JLabel textoQuantidadeDescontos) {
+        this.textoQuantidadeDescontos = textoQuantidadeDescontos;
+    }
+
+    public JLabel getTextoQuantidadePedidos() {
+        return textoQuantidadePedidos;
+    }
+
+    public void setTextoQuantidadePedidos(JLabel textoQuantidadePedidos) {
+        this.textoQuantidadePedidos = textoQuantidadePedidos;
+    }
+
+    public JLabel getTextoQuantidadeRetiradas() {
+        return textoQuantidadeRetiradas;
+    }
+
+    public void setTextoQuantidadeRetiradas(JLabel textoQuantidadeRetiradas) {
+        this.textoQuantidadeRetiradas = textoQuantidadeRetiradas;
+    }
+
+    public JLabel getTextoRetiradas() {
+        return textoRetiradas;
+    }
+
+    public void setTextoRetiradas(JLabel textoRetiradas) {
+        this.textoRetiradas = textoRetiradas;
+    }
+
+    public JLabel getTextoSemCancelamentos() {
+        return textoSemCancelamentos;
+    }
+
+    public void setTextoSemCancelamentos(JLabel textoSemCancelamentos) {
+        this.textoSemCancelamentos = textoSemCancelamentos;
+    }
+
+    public JLabel getTextoSemDescontos() {
+        return textoSemDescontos;
+    }
+
+    public void setTextoSemDescontos(JLabel textoSemDescontos) {
+        this.textoSemDescontos = textoSemDescontos;
+    }
+
+    public JLabel getTextoValorCredito() {
+        return textoValorCredito;
+    }
+
+    public void setTextoValorCredito(JLabel textoValorCredito) {
+        this.textoValorCredito = textoValorCredito;
+    }
+
+    public JLabel getTextoValorDebito() {
+        return textoValorDebito;
+    }
+
+    public void setTextoValorDebito(JLabel textoValorDebito) {
+        this.textoValorDebito = textoValorDebito;
+    }
+
+    public JLabel getTextoValorDinheiro() {
+        return textoValorDinheiro;
+    }
+
+    public void setTextoValorDinheiro(JLabel textoValorDinheiro) {
+        this.textoValorDinheiro = textoValorDinheiro;
+    }
+
+    public JLabel getTextoValorFundoCaixa() {
+        return textoValorFundoCaixa;
+    }
+
+    public void setTextoValorFundoCaixa(JLabel textoValorFundoCaixa) {
+        this.textoValorFundoCaixa = textoValorFundoCaixa;
+    }
+
+    public JLabel getTextoValorPagoComCredito() {
+        return textoValorPagoComCredito;
+    }
+
+    public void setTextoValorPagoComCredito(JLabel textoValorPagoComCredito) {
+        this.textoValorPagoComCredito = textoValorPagoComCredito;
+    }
+
+    public JLabel getTextoValorPagoComDebito() {
+        return textoValorPagoComDebito;
+    }
+
+    public void setTextoValorPagoComDebito(JLabel textoValorPagoComDebito) {
+        this.textoValorPagoComDebito = textoValorPagoComDebito;
+    }
+
+    public JLabel getTextoValorPagoComDinheiro() {
+        return textoValorPagoComDinheiro;
+    }
+
+    public void setTextoValorPagoComDinheiro(JLabel textoValorPagoComDinheiro) {
+        this.textoValorPagoComDinheiro = textoValorPagoComDinheiro;
+    }
+
+    public JLabel getTextoValorPagoComVale() {
+        return textoValorPagoComVale;
+    }
+
+    public void setTextoValorPagoComVale(JLabel textoValorPagoComVale) {
+        this.textoValorPagoComVale = textoValorPagoComVale;
+    }
+
+    public JLabel getTextoValorQuantidadeCancelamentos() {
+        return textoValorQuantidadeCancelamentos;
+    }
+
+    public void setTextoValorQuantidadeCancelamentos(JLabel textoValorQuantidadeCancelamentos) {
+        this.textoValorQuantidadeCancelamentos = textoValorQuantidadeCancelamentos;
+    }
+
+    public JLabel getTextoValorQuantidadeDescontos() {
+        return textoValorQuantidadeDescontos;
+    }
+
+    public void setTextoValorQuantidadeDescontos(JLabel textoValorQuantidadeDescontos) {
+        this.textoValorQuantidadeDescontos = textoValorQuantidadeDescontos;
+    }
+
+    public JLabel getTextoValorQuantidadePedidos() {
+        return textoValorQuantidadePedidos;
+    }
+
+    public void setTextoValorQuantidadePedidos(JLabel textoValorQuantidadePedidos) {
+        this.textoValorQuantidadePedidos = textoValorQuantidadePedidos;
+    }
+
+    public JLabel getTextoValorQuantidadeRetiradas() {
+        return textoValorQuantidadeRetiradas;
+    }
+
+    public void setTextoValorQuantidadeRetiradas(JLabel textoValorQuantidadeRetiradas) {
+        this.textoValorQuantidadeRetiradas = textoValorQuantidadeRetiradas;
+    }
+
+    public JLabel getTextoValorTotalCaixa() {
+        return textoValorTotalCaixa;
+    }
+
+    public void setTextoValorTotalCaixa(JLabel textoValorTotalCaixa) {
+        this.textoValorTotalCaixa = textoValorTotalCaixa;
+    }
+
+    public JLabel getTextoValorTotalCancelamentos() {
+        return textoValorTotalCancelamentos;
+    }
+
+    public void setTextoValorTotalCancelamentos(JLabel textoValorTotalCancelamentos) {
+        this.textoValorTotalCancelamentos = textoValorTotalCancelamentos;
+    }
+
+    public JLabel getTextoValorTotalDescontos() {
+        return textoValorTotalDescontos;
+    }
+
+    public void setTextoValorTotalDescontos(JLabel textoValorTotalDescontos) {
+        this.textoValorTotalDescontos = textoValorTotalDescontos;
+    }
+
+    public JLabel getTextoValorTotalFaturadoBalanco() {
+        return textoValorTotalFaturadoBalanco;
+    }
+
+    public void setTextoValorTotalFaturadoBalanco(JLabel textoValorTotalFaturadoBalanco) {
+        this.textoValorTotalFaturadoBalanco = textoValorTotalFaturadoBalanco;
+    }
+
+    public JLabel getTextoValorTotalFaturadoFaturamento() {
+        return textoValorTotalFaturadoFaturamento;
+    }
+
+    public void setTextoValorTotalFaturadoFaturamento(JLabel textoValorTotalFaturadoFaturamento) {
+        this.textoValorTotalFaturadoFaturamento = textoValorTotalFaturadoFaturamento;
+    }
+
+    public JLabel getTextoValorTotalRetiradasBalanco() {
+        return textoValorTotalRetiradasBalanco;
+    }
+
+    public void setTextoValorTotalRetiradasBalanco(JLabel textoValorTotalRetiradasBalanco) {
+        this.textoValorTotalRetiradasBalanco = textoValorTotalRetiradasBalanco;
+    }
+
+    public JLabel getTextoValorTotalRetiradasRetiradas() {
+        return textoValorTotalRetiradasRetiradas;
+    }
+
+    public void setTextoValorTotalRetiradasRetiradas(JLabel textoValorTotalRetiradasRetiradas) {
+        this.textoValorTotalRetiradasRetiradas = textoValorTotalRetiradasRetiradas;
+    }
+
+    public JLabel getTextoValorVale() {
+        return textoValorVale;
+    }
+
+    public void setTextoValorVale(JLabel textoValorVale) {
+        this.textoValorVale = textoValorVale;
+    }
+
+    public JLabel getTextoSemRetiradas() {
+        return textoSemRetiradas;
+    }
+
+    public void setTextoSemRetiradas(JLabel textoSemRetiradas) {
+        this.textoSemRetiradas = textoSemRetiradas;
+    }
+
+    public JLabel getTextoTotalCancelamentos() {
+        return textoTotalCancelamentos;
+    }
+
+    public void setTextoTotalCancelamentos(JLabel textoTotalCancelamentos) {
+        this.textoTotalCancelamentos = textoTotalCancelamentos;
+    }
+
+    public JLabel getTextoTotalDescontos() {
+        return textoTotalDescontos;
+    }
+
+    public void setTextoTotalDescontos(JLabel textoTotalDescontos) {
+        this.textoTotalDescontos = textoTotalDescontos;
+    }
+
+    public JLabel getTextoTotalRetiradasRetiradas() {
+        return textoTotalRetiradasRetiradas;
+    }
+
+    public void setTextoTotalRetiradasRetiradas(JLabel textoTotalRetiradasRetiradas) {
+        this.textoTotalRetiradasRetiradas = textoTotalRetiradasRetiradas;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCancelarIngrediente;
     private javax.swing.JButton botaoProcurarCaixa;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton botaoReimprimirRelatorio;
+    private javax.swing.JButton botaoVisualizarDetalhesCaixa;
+    private javax.swing.JButton botaoVoltarTelaPrincipal;
     private javax.swing.JComboBox comboBoxCaixasAbertos;
     private com.toedter.calendar.JDateChooser dateChooserDataAberturaCaixa;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel painelBalancoCaixa;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelBuscarCaixa;
-    private javax.swing.JPanel painelCancelamentos;
-    private javax.swing.JPanel painelDescontos;
     private javax.swing.JPanel painelDetalhesCaixa;
-    private javax.swing.JPanel painelFaturamento;
-    private javax.swing.JPanel painelInformacoesGerais;
-    private javax.swing.JPanel painelRetiradas;
     private javax.swing.JScrollPane painelScrollCaixasEncontrados;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JSeparator separador1;
+    private javax.swing.JSeparator separador2;
+    private javax.swing.JSeparator separador3;
+    private javax.swing.JSeparator separador4;
+    private javax.swing.JSeparator separador5;
     private javax.swing.JSeparator separadorBuscaResultado;
     private javax.swing.JTable tabelaCaixasEncontrados;
+    private javax.swing.JLabel textoBalancoCaixa;
     private javax.swing.JLabel textoCaixasAbertos;
-    private javax.swing.JLabel textoCliqueParaEditar;
+    private javax.swing.JLabel textoCancelamentos;
+    private javax.swing.JLabel textoCliqueNoCaixaDesejado;
+    private javax.swing.JLabel textoCredito;
     private javax.swing.JLabel textoDataAberturaCaixa;
     private javax.swing.JLabel textoDebito;
+    private javax.swing.JLabel textoDescontos;
     private javax.swing.JLabel textoDinheiro;
+    private javax.swing.JLabel textoFaturamento;
     private javax.swing.JLabel textoFundoCaixa;
     private javax.swing.JLabel textoIconeVisualizarCaixas;
+    private javax.swing.JLabel textoInformacoesGerais;
     private javax.swing.JLabel textoPagoComCredito;
-    private javax.swing.JLabel textoPagoComCredito1;
     private javax.swing.JLabel textoPagoComDebito;
     private javax.swing.JLabel textoPagoComDinheiro;
     private javax.swing.JLabel textoPagoComVale;
+    private javax.swing.JLabel textoParaEditaloNoPainelAoLado;
     private javax.swing.JLabel textoPreencherDados;
+    private javax.swing.JLabel textoQuantidadeCancelamentos;
+    private javax.swing.JLabel textoQuantidadeDescontos;
     private javax.swing.JLabel textoQuantidadePedidos;
-    private javax.swing.JLabel textoTotalFaturado;
+    private javax.swing.JLabel textoQuantidadeRetiradas;
+    private javax.swing.JLabel textoRetiradas;
+    private javax.swing.JLabel textoSemCancelamentos;
+    private javax.swing.JLabel textoSemDescontos;
+    private javax.swing.JLabel textoSemRetiradas;
+    private javax.swing.JLabel textoTotalCaixa;
+    private javax.swing.JLabel textoTotalCancelamentos;
+    private javax.swing.JLabel textoTotalDescontos;
+    private javax.swing.JLabel textoTotalFaturadoBalanco;
+    private javax.swing.JLabel textoTotalFaturadoFaturamento;
+    private javax.swing.JLabel textoTotalRetiradasBalanco;
+    private javax.swing.JLabel textoTotalRetiradasRetiradas;
     private javax.swing.JLabel textoVale;
     private javax.swing.JLabel textoValorCredito;
     private javax.swing.JLabel textoValorDebito;
@@ -638,8 +1087,17 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     private javax.swing.JLabel textoValorPagoComDebito;
     private javax.swing.JLabel textoValorPagoComDinheiro;
     private javax.swing.JLabel textoValorPagoComVale;
+    private javax.swing.JLabel textoValorQuantidadeCancelamentos;
+    private javax.swing.JLabel textoValorQuantidadeDescontos;
     private javax.swing.JLabel textoValorQuantidadePedidos;
-    private javax.swing.JLabel textoValorQuantidadePedidos1;
+    private javax.swing.JLabel textoValorQuantidadeRetiradas;
+    private javax.swing.JLabel textoValorTotalCaixa;
+    private javax.swing.JLabel textoValorTotalCancelamentos;
+    private javax.swing.JLabel textoValorTotalDescontos;
+    private javax.swing.JLabel textoValorTotalFaturadoBalanco;
+    private javax.swing.JLabel textoValorTotalFaturadoFaturamento;
+    private javax.swing.JLabel textoValorTotalRetiradasBalanco;
+    private javax.swing.JLabel textoValorTotalRetiradasRetiradas;
     private javax.swing.JLabel textoValorVale;
     private javax.swing.JLabel textoVisualizarCaixas;
     // End of variables declaration//GEN-END:variables

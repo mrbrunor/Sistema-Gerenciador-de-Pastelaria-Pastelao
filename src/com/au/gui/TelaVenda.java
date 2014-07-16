@@ -106,6 +106,7 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuCancelarCupom = new javax.swing.JMenuItem();
         itemMenuReimprimirCupom = new javax.swing.JMenuItem();
         itemMenuRetiradaDeCaixa = new javax.swing.JMenuItem();
+        itemMenuVisualizarCaixas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemMenuTrocarSenha = new javax.swing.JMenuItem();
         itemMenuDeslogar = new javax.swing.JMenuItem();
@@ -386,6 +387,9 @@ public class TelaVenda extends javax.swing.JFrame {
 
         itemMenuRetiradaDeCaixa.setText("Retirada de Caixa");
         menuPrincipal.add(itemMenuRetiradaDeCaixa);
+
+        itemMenuVisualizarCaixas.setText("Visualizar Caixas");
+        menuPrincipal.add(itemMenuVisualizarCaixas);
         menuPrincipal.add(jSeparator1);
 
         itemMenuTrocarSenha.setText("Trocar Senha");
@@ -773,6 +777,14 @@ public class TelaVenda extends javax.swing.JFrame {
         this.itemMenuReimprimirCupom = itemMenuReimprimirCupom;
     }
 
+    public JMenuItem getItemMenuVisualizarCaixas() {
+        return itemMenuVisualizarCaixas;
+    }
+
+    public void setItemMenuVisualizarCaixas(JMenuItem itemMenuVisualizarCaixas) {
+        this.itemMenuVisualizarCaixas = itemMenuVisualizarCaixas;
+    }
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -835,6 +847,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
     private javax.swing.JMenuItem itemMenuVendasFiltradasIngredientes;
     private javax.swing.JMenuItem itemMenuVendasGerais;
+    private javax.swing.JMenuItem itemMenuVisualizarCaixas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPrincipal;
