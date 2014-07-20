@@ -23,19 +23,22 @@
  */
 package com.au.gui.listener;
 
+import com.au.dao.DAO;
 import com.au.gui.TelaCadastrarFormasDePagamento;
 import com.au.gui.tmodel.FormaPagamentoTableModel;
 import com.au.modelo.FormaPagamento;
-import com.au.dao.DAO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javafx.scene.text.TextAlignment;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -75,6 +78,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
         frm.getTabelaFormasPagamento().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFormasPagamento().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaFormasPagamento().getColumnModel().getColumn(2).setMaxWidth(110);
+        frm.getTabelaFormasPagamento().getColumnModel().getColumn(3).setMaxWidth(110);
     }
 
     public void inicializaTableModel() {

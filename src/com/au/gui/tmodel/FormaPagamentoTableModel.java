@@ -40,7 +40,7 @@ public class FormaPagamentoTableModel extends AbstractTableModel{
     
     public FormaPagamentoTableModel(List<FormaPagamento> formaPagamentos){
         this.formaPagamentos = formaPagamentos;
-        colunas = Arrays.asList("Id", "Descrição", "Tipo");
+        colunas = Arrays.asList("Id", "Descrição", "Tipo", "Ativo");
     }
 
     @Override
@@ -65,6 +65,12 @@ public class FormaPagamentoTableModel extends AbstractTableModel{
             case 0: return formaPagamento.getIdFormaPgto();
             case 1: return formaPagamento.getNomeFormaPgto();
             case 2: return formaPagamento.getTipoFormaPgto();
+            case 3: 
+                if(formaPagamento.getEstaAtivo() == 1){
+                    return "Sim";
+                } else {
+                    return "Não";
+                }
         }
         return null;
     }

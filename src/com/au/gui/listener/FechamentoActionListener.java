@@ -227,7 +227,7 @@ public class FechamentoActionListener implements ActionListener, KeyListener {
         new DAO<>(Caixa.class).atualiza(caixa);
         //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
         TelaFechamentoCaixa.setFechou(true);
-        new Imprime().geraRelatorioFechamento(caixa.getIdCaixa(), frm.getTextoValorTotalRetiradas().getText(), frm.getTextoValorTotalCaixa().getText());        
+        new Imprime().geraRelatorioFechamento(caixa.getIdCaixa());        
     }
 
     /**

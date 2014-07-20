@@ -65,7 +65,12 @@ public class FuncionarioTableModel extends AbstractTableModel{
             case 0: return funcionario.getIdFunc();
             case 1: return funcionario.getNomeFunc();
             case 2: return funcionario.getUserFunc();
-            case 3: return funcionario.getNivelFunc();
+            case 3: 
+                if(funcionario.getNivelFunc() == 1){
+                    return "Admin";
+                } else {
+                    return "Func";
+                }
         }
         return null;
     }

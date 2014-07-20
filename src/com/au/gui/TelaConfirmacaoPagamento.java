@@ -36,6 +36,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -227,6 +228,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoIconeVR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/barcode-26.png"))); // NOI18N
 
         campoValorRecebido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValorRecebido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoValorRecebidoKeyReleased(evt);
+            }
+        });
 
         textoValorRecebido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValorRecebido.setText("Valor Recebido:");
@@ -412,6 +418,13 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void campoValorRecebidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoKeyReleased
+        
+        
+    }//GEN-LAST:event_campoValorRecebidoKeyReleased
+
+    
+    
     public double getSubTotal() {
         return subTotal;
     }

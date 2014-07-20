@@ -101,18 +101,26 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.setTotal(frm.getSubTotal());
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
+            frm.getPedido().setSubTotPedido(frm.getTotal());
+            frm.getPedido().setTotPedido(frm.getTotal());
         } else if(Double.valueOf(frm.getCampoDesconto().getText()) > frm.getTotal()){
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
+            atualizaTotal();
         }else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
+            frm.getPedido().setSubTotPedido(frm.getTotal());
+            frm.getPedido().setTotPedido(frm.getTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
         }
-        valorTotal = frm.getTotal();
-        if ("".equals(frm.getCampoValorRecebido().getText())) {
+        if("".equals(frm.getCampoValorRecebido().getText())){
             frm.getTextoValorTroco().setText("R$ 0,00");
+        } else if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getPedido().getTotPedido()){
+            JOptionPane.showMessageDialog(frm, "O valor recebido não deve ser inferior ao valor do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+            frm.getCampoValorRecebido().setText("");
+            atualizaTotal();
         } else {
-            frm.getTextoValorTroco().setText(String.format("R$ %.2f", (Double.valueOf(frm.getCampoValorRecebido().getText()) - (frm.getTotal() - Double.valueOf(frm.getCampoDesconto().getText())))));
+            frm.getTextoValorTroco().setText(String.format("R$ %.2f", Double.valueOf(frm.getCampoValorRecebido().getText()) - frm.getPedido().getTotPedido()));
         }
     }
     
@@ -404,6 +412,5 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     @Override
     public void keyReleased(KeyEvent e) {
         atualizaTotal();
-        preencheValorRecebido();
     }
 }
