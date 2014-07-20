@@ -95,10 +95,13 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
 
-        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(75);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
-        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(65);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMinWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMinWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMinWidth(115);
     }
 
     public void inicializaData() {
