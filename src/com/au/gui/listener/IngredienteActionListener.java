@@ -168,7 +168,7 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     public boolean valida() {
         boolean valida = true;
-        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
+        if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 2) {
             frm.getCampoNome().setBorder(normal);
         } else {
             frm.getCampoNome().setBorder(vermelha);

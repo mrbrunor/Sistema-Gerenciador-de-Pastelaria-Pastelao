@@ -34,7 +34,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuReimprimirCupom">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reimiprimir Cupom"/>
+                <Property name="text" type="java.lang.String" value="Reimprimir Cupom"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuRetiradaDeCaixa">
@@ -44,7 +44,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVisualizarCaixas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Visualizar Caixas"/>
+                <Property name="text" type="java.lang.String" value="Reimprimir Relat&#xf3;rio de Caixa"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">

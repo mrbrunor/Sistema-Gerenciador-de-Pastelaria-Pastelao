@@ -201,6 +201,24 @@ public class TelaReimpressao extends javax.swing.JDialog {
     public void setIdCaixa(int idCaixa) {
         this.idCaixa = idCaixa;
     }
+
+    public JButton getBotaoCancelarReimpressao() {
+        return botaoCancelarReimpressao;
+    }
+
+    public void setBotaoCancelarReimpressao(JButton botaoCancelarReimpressao) {
+        this.botaoCancelarReimpressao = botaoCancelarReimpressao;
+    }
+
+    public JButton getBotaoConfirmarReimpressao() {
+        return botaoConfirmarReimpressao;
+    }
+
+    public void setBotaoConfirmarReimpressao(JButton botaoConfirmarReimpressao) {
+        this.botaoConfirmarReimpressao = botaoConfirmarReimpressao;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

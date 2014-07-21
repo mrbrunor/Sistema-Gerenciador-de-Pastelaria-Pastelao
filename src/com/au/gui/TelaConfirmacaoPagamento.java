@@ -36,7 +36,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -73,8 +72,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         caixaSelecaoVR.setVisible(false);
         campoValorRecebido.setVisible(false);
         textoValorRecebido.setVisible(false);
-        textoTroco.setVisible(false);
-        textoValorTroco.setVisible(false);
         listener = new PagamentoActionListener(this);
     }
 
@@ -113,8 +110,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoIconeVR = new javax.swing.JLabel();
         campoValorRecebido = new javax.swing.JTextField();
         textoValorRecebido = new javax.swing.JLabel();
-        textoTroco = new javax.swing.JLabel();
-        textoValorTroco = new javax.swing.JLabel();
         botaoConfirmarPedido = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -237,12 +232,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorRecebido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValorRecebido.setText("Valor Recebido:");
 
-        textoTroco.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoTroco.setText("Troco:");
-
-        textoValorTroco.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoValorTroco.setText("R$ 0,00");
-
         javax.swing.GroupLayout painelFormasDePagamentoLayout = new javax.swing.GroupLayout(painelFormasDePagamento);
         painelFormasDePagamento.setLayout(painelFormasDePagamentoLayout);
         painelFormasDePagamentoLayout.setHorizontalGroup(
@@ -259,14 +248,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(textoIconeDinheiro))
                             .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
-                                .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textoValorRecebido)
-                                    .addComponent(textoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(textoValorRecebido)
                                 .addGap(13, 13, 13)
-                                .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textoValorTroco))))
-                        .addGap(12, 12, 12)
+                                .addComponent(campoValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
@@ -321,12 +306,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                             .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(textoValorRecebido))
-                            .addComponent(campoValorRecebido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textoTroco)
-                            .addComponent(textoValorTroco))))
-                .addContainerGap())
+                            .addComponent(campoValorRecebido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(36, 36, 36))
         );
 
         botaoConfirmarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -423,8 +404,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         
     }//GEN-LAST:event_campoValorRecebidoKeyReleased
 
-    
-    
     public double getSubTotal() {
         return subTotal;
     }
@@ -445,28 +424,12 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         return textoValorTotal;
     }
 
-    public JLabel getTextoTroco() {
-        return textoTroco;
-    }
-
-    public void setTextoTroco(JLabel textoTroco) {
-        this.textoTroco = textoTroco;
-    }
-
     public JLabel getTextoValorRecebido() {
         return textoValorRecebido;
     }
 
     public void setTextoValorRecebido(JLabel textoValorRecebido) {
         this.textoValorRecebido = textoValorRecebido;
-    }
-
-    public JLabel getTextoValorTroco() {
-        return textoValorTroco;
-    }
-
-    public void setTextoValorTroco(JLabel textoValorTroco) {
-        this.textoValorTroco = textoValorTroco;
     }
 
     public void setTextoValorTotal(JLabel textoValorTotal) {
@@ -737,9 +700,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoIconeDinheiro;
     private javax.swing.JLabel textoIconeVR;
     private javax.swing.JLabel textoSelecioneFormaPagamento;
-    private javax.swing.JLabel textoTroco;
     private javax.swing.JLabel textoValorRecebido;
     private javax.swing.JLabel textoValorTotal;
-    private javax.swing.JLabel textoValorTroco;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,9 +42,9 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         campoId.setEditable(false);
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-üçÇ]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
-        campoPesquisarIngrediente.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
+        campoPesquisarIngrediente.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9çÇ]"));
         campoNome.requestFocus();
         listener = new IngredienteActionListener(this);
     }

@@ -35,7 +35,7 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaTrocarSenha extends javax.swing.JDialog {
-    private final RecuperarSenhaActionListener listener;
+    //private final RecuperarSenhaActionListener listener;
 
     /**
      * Creates new form TelaRecuperarSenha
@@ -44,9 +44,9 @@ public class TelaTrocarSenha extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         campoConfirmacaoNovaSenha.setDocument(new LimitaDigitos((64), ""));
-        campoCpfFuncionario.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
+        //campoCpfFuncionario.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
         campoNovaSenha.setDocument(new LimitaDigitos((64), ""));
-        listener = new TrocarSenhaActionListener(this);
+        //listener = new TrocarSenhaActionListener(this);
     }
 
     /**
@@ -227,14 +227,6 @@ public class TelaTrocarSenha extends javax.swing.JDialog {
 
     public void setCampoConfirmacaoNovaSenha(JPasswordField campoConfirmacaoNovaSenha) {
         this.campoConfirmacaoNovaSenha = campoConfirmacaoNovaSenha;
-    }
-
-    public JTextField getCampoCpfFuncionario() {
-        return campoCpfFuncionario;
-    }
-
-    public void setCampoCpfFuncionario(JTextField campoCpfFuncionario) {
-        this.campoCpfFuncionario = campoCpfFuncionario;
     }
 
     public JPasswordField getCampoNovaSenha() {

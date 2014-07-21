@@ -48,8 +48,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoCelular.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));
         campoCpf.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
         campoEmail.setDocument(new LimitaDigitos((150), "[^0-9._@a-zA-Z\\-]"));
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü]"));
-        campoPesquisarFuncionario.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-üçÇ]"));
+        campoPesquisarFuncionario.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9çÇ]"));
         campoSenha.setDocument(new LimitaDigitos((64), ""));
         campoSenha2.setDocument(new LimitaDigitos((64), ""));
         campoTelefone.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));

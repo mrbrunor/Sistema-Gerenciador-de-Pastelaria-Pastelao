@@ -44,6 +44,8 @@ import com.au.modelo.Pedido;
 import com.au.modelo.Produto;
 import com.au.dao.DAO;
 import com.au.gui.TelaCancelamento;
+import com.au.gui.TelaReimpressao;
+import com.au.gui.TelaReimprimirRelatorio;
 import com.au.gui.TelaVisualizarCaixa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -96,12 +98,12 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
 
         frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(65);
-        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(115);
-        frm.getTabelaPedido().getColumnModel().getColumn(2).setMinWidth(115);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(115);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMinWidth(115);
-        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(115);
-        frm.getTabelaPedido().getColumnModel().getColumn(4).setMinWidth(115);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(85);
+        frm.getTabelaPedido().getColumnModel().getColumn(2).setMinWidth(85);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(55);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMinWidth(55);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(85);
+        frm.getTabelaPedido().getColumnModel().getColumn(4).setMinWidth(85);
     }
 
     public void inicializaData() {
@@ -135,6 +137,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuVendasFiltradasIngredientes().addActionListener(this);
         frm.getItemMenuCancelarCupom().addActionListener(this);
         frm.getItemMenuVisualizarCaixas().addActionListener(this);
+        frm.getItemMenuReimprimirCupom().addActionListener(this);
     }
 
     public void caixaAberto() {
@@ -446,8 +449,11 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
                 new DAO<>(Caixa.class).atualiza(frm.getFuncionario().getCaixas().get(indexCaixa));
                 break;
-            case "Visualizar Caixas":
-                new TelaVisualizarCaixa(frm, true).setVisible(true);
+            case "Reimprimir Cupom":
+                new TelaReimpressao(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
+                break;
+            case "Reimprimir Relatório de Caixa":
+                new TelaReimprimirRelatorio(frm, true).setVisible(true);
                 break;
             case "Deslogar":
                 deslogar();
@@ -490,6 +496,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         if (frm.getTabelaPedido().getSelectedRow() != -1) {
             Itempedido itempedido = tableModelVenda.getItemspedido().get(frm.getTabelaPedido().getSelectedRow());
             vendaToForm(itempedido);
+            
         }
+        frm.getCampoAdicionarItem().requestFocus();
     }
 }

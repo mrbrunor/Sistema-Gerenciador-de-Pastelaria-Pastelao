@@ -382,13 +382,13 @@ public class TelaVenda extends javax.swing.JFrame {
         itemMenuCancelarCupom.setText("Cancelar Cupom");
         menuPrincipal.add(itemMenuCancelarCupom);
 
-        itemMenuReimprimirCupom.setText("Reimiprimir Cupom");
+        itemMenuReimprimirCupom.setText("Reimprimir Cupom");
         menuPrincipal.add(itemMenuReimprimirCupom);
 
         itemMenuRetiradaDeCaixa.setText("Retirada de Caixa");
         menuPrincipal.add(itemMenuRetiradaDeCaixa);
 
-        itemMenuVisualizarCaixas.setText("Visualizar Caixas");
+        itemMenuVisualizarCaixas.setText("Reimprimir Relatório de Caixa");
         menuPrincipal.add(itemMenuVisualizarCaixas);
         menuPrincipal.add(jSeparator1);
 

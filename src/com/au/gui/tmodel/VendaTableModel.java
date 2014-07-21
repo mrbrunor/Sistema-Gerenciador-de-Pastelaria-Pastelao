@@ -40,7 +40,7 @@ public class VendaTableModel extends AbstractTableModel{
     
     public VendaTableModel(List<Itempedido> itemspedido){
         this.itemspedido = itemspedido;
-        colunas = Arrays.asList("Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total");
+        colunas = Arrays.asList("Id", "Descrição", "Vlr Unit", "Qtd", "Vlr Total");
     }
 
     @Override

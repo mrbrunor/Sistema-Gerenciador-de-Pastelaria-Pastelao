@@ -27,6 +27,7 @@ import com.au.dao.DAO;
 import com.au.gui.TelaReimpressao;
 import com.au.modelo.Caixa;
 import com.au.modelo.Pedido;
+import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +53,7 @@ public class ReimpressaoActionListener implements ActionListener {
 
     public void adicionaListener() {
         frm.getBotaoSair().addActionListener(this);
-        frm.getBotaoCancelarPedido().addActionListener(this);
+        frm.getBotaoConfirmarReimpressao().addActionListener(this);
         frm.getCampoNumeroPedido().addActionListener(this);
     }
 
@@ -86,14 +87,18 @@ public class ReimpressaoActionListener implements ActionListener {
         JOptionPane.showMessageDialog(frm, "Pedido não foi encontrado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
         return false;
     }
+    
+    public void ImprimeCupom () {
+        int numeroPedido = Integer.getInteger(frm.getCampoNumeroPedido().getText());
+        new Imprime().geraComandaVenda(numeroPedido);
+    }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Cancelar Pedido":
-                if (valida()) {
-                    frm.dispose();
-                }                
+            case "Confirmar Reimpressão de Cupom":
+                ImprimeCupom();
+                frm.dispose();                
                 break;
             case "Sair":
                 frm.dispose();

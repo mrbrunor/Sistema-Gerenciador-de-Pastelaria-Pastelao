@@ -244,7 +244,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoUser().getText()) && frm.getCampoUser().getText().length() > 4) {
+        if (!"".equals(frm.getCampoUser().getText()) && frm.getCampoUser().getText().length() > 2) {
             frm.getCampoUser().setBorder(normal);
         } else {
             frm.getCampoUser().setBorder(vermelha);

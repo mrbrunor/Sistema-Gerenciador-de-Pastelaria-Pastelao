@@ -103,28 +103,19 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
             frm.getPedido().setSubTotPedido(frm.getTotal());
             frm.getPedido().setTotPedido(frm.getTotal());
-        } else if(Double.valueOf(frm.getCampoDesconto().getText()) > frm.getTotal()){
+        } else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getTotal()) {
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
             atualizaTotal();
-        }else {
+        } else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
             frm.getPedido().setSubTotPedido(frm.getTotal());
             frm.getPedido().setTotPedido(frm.getTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
         }
-        if("".equals(frm.getCampoValorRecebido().getText())){
-            frm.getTextoValorTroco().setText("R$ 0,00");
-        } else if (Double.valueOf(frm.getCampoValorRecebido().getText()) < frm.getPedido().getTotPedido()){
-            JOptionPane.showMessageDialog(frm, "O valor recebido não deve ser inferior ao valor do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
-            frm.getCampoValorRecebido().setText("");
-            atualizaTotal();
-        } else {
-            frm.getTextoValorTroco().setText(String.format("R$ %.2f", Double.valueOf(frm.getCampoValorRecebido().getText()) - frm.getPedido().getTotPedido()));
-        }
     }
-    
-    public void preencheValorRecebido () {
+
+    public void preencheValorRecebido() {
         frm.getCampoValorRecebido().setText(String.valueOf(valorTotal)); //Necessario acertar troco E Desconto
         frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
     }
@@ -203,8 +194,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(true);
         frm.getCampoValorRecebido().setVisible(true);
-        frm.getTextoValorTroco().setVisible(true);
-        frm.getTextoTroco().setVisible(true);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -218,8 +207,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
-        frm.getTextoValorTroco().setVisible(false);
-        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -233,8 +220,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
-        frm.getTextoValorTroco().setVisible(false);
-        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
@@ -248,8 +233,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
-        frm.getTextoValorTroco().setVisible(false);
-        frm.getTextoTroco().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -348,7 +331,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         }
         return valida;
     }
-    
+
     @Override
     public void valueChanged(ListSelectionEvent event) {
 
@@ -360,8 +343,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
+                    JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.WARNING_MESSAGE);
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
-                    new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+                     try {
+                         new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+                     } catch (UnsatisfiedLinkError e) {
+                         System.out.println("Erro ao Imprimir o Cupom.\n"
+                                 + "Verifique a Impressora e Tente Novamente");
+                     }
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }
