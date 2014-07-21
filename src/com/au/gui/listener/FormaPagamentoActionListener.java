@@ -210,7 +210,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
-            case "Cadastrar F. Pagamento":
+            case "Cadastrar Forma Pgto":
                 if (valida()) {
                     cadastrarFormaPagamento();
                 }
@@ -219,13 +219,13 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
                 limpaCampos();
                 habilitaBotoesParaSalvar();
                 break;
-            case "Excluir F. Pagamento":
+            case "Excluir Forma Pgto":
                 if (valida()) {
                     excluirFormaPagamento();
                     habilitaBotoesParaSalvar();
                 }
                 break;
-            case "Atualizar F. Pagamento":
+            case "Atualizar Forma Pgto":
                 if (valida()) {
                     atualizarFormaPagamento();
                     habilitaBotoesParaSalvar();

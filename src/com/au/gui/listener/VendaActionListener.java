@@ -97,7 +97,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
 
-        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(65);
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(55);
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(85);
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMinWidth(85);
         frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(55);
@@ -397,6 +397,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         if (frm.getTabelaPedido().getSelectedRow() == -1) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "Selecione um item para remover!", "Selecione um item", JOptionPane.INFORMATION_MESSAGE);
+            frm.getCampoAdicionarItem().requestFocus();
         }
         return valida;
     }
@@ -406,6 +407,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         if (frm.getTabelaPedido().getRowCount() == 0) {
             valida = false;
             JOptionPane.showMessageDialog(frm, "É necessário ao menos um item no pedido para concluí-lo!", "Pedido sem Itens", JOptionPane.WARNING_MESSAGE);
+            frm.getCampoAdicionarItem().requestFocus();
         }
         return valida;
     }
@@ -418,15 +420,18 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                     try {
                         atualizaTableModelVenda();
                         adicionaItempedido();
+                        frm.getCampoAdicionarItem().requestFocus();
                     } catch (NullPointerException e) {
                         JOptionPane.showMessageDialog(frm, "Este código é inválido. Por favor, insira um código válido.", "Código Inválido", JOptionPane.WARNING_MESSAGE);
                         frm.getCampoAdicionarItem().setText("");
+                        frm.getCampoAdicionarItem().requestFocus();
                     }
                 }
                 break;
             case "Remover Item":
                 if (validaDelItem()) {
                     removerItem();
+                    frm.getCampoAdicionarItem().requestFocus();
                 }
                 break;
             case "Fechar Caixa":
@@ -436,55 +441,70 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 break;
             case "Abrir Caixa":
                 abrirCaixa();
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Fechar Pedido":
                 if (validaPedido()) {
                     fecharPedido();
+                    frm.getCampoAdicionarItem().requestFocus();
                 }
                 break;
             case "Cancelar Pedido":
                 limparPedido();
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Cancelar Cupom":
                 new TelaCancelamento(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
                 new DAO<>(Caixa.class).atualiza(frm.getFuncionario().getCaixas().get(indexCaixa));
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Reimprimir Cupom":
                 new TelaReimpressao(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa).getIdCaixa()).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Reimprimir Relatório de Caixa":
                 new TelaReimprimirRelatorio(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Deslogar":
                 deslogar();
                 break;
             case "Formas de Pagamento":
                 new TelaCadastrarFormasDePagamento(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Funcionários":
                 new TelaCadastrarFuncionario(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Ingredientes":
                 new TelaCadastrarIngrediente(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Produtos":
                 new TelaCadastrarProduto(frm, true).setVisible(true);
                 frm.getBotaoBuscar().doClick();
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Vendas Gerais":
                 new TelaVendasGerais(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Retirada de Caixa":
                 new TelaRetirada(frm, true, frm.getFuncionario().getCaixas().get(indexCaixa)).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Vendas por  Forma de Pagamento":
                 new TelaVendasPorFormaPgto(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Vendas por Ingredientes":
                 new TelaVendasPorIngrediente(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Sobre":
                 new TelaSobre(frm, true).setVisible(true);
+                frm.getCampoAdicionarItem().requestFocus();
                 break;
             case "Sair":
                 System.exit(1);
