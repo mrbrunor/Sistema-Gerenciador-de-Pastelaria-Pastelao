@@ -35,6 +35,7 @@ import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
@@ -84,17 +85,27 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
         frm.getBotaoCancelarPedido().addActionListener(this);
         frm.getBotaoCartaoDebito().addActionListener(this);
+        frm.getBotaoCartaoDebito().addKeyListener(this);
         frm.getBotaoConfirmarPedido().addActionListener(this);
         frm.getBotaoRadioCartaoCredito().addActionListener(this);
+        frm.getBotaoRadioCartaoCredito().addKeyListener(this);
         frm.getBotaoRadioDinheiro().addActionListener(this);
+        frm.getBotaoRadioDinheiro().addKeyListener(this);
         frm.getBotaoRadioValeRefeicao().addActionListener(this);
+        frm.getBotaoRadioValeRefeicao().addKeyListener(this);
         frm.getCampoDesconto().addKeyListener(this);
         frm.getCampoDesconto().addActionListener(this);
         frm.getBotaoRadioBalcao().addActionListener(this);
+        frm.getBotaoRadioBalcao().addKeyListener(this);
         frm.getBotaoRadioMesa().addActionListener(this);
+        frm.getBotaoRadioMesa().addKeyListener(this);
         frm.getBotaoRadioViagem().addActionListener(this);
-        frm.getCampoValorRecebido().addActionListener(this);
+        frm.getBotaoRadioViagem().addKeyListener(this);
         frm.getCampoValorRecebido().addKeyListener(this);
+        frm.getCaixaSelecaoCC().addKeyListener(this);
+        frm.getCaixaSelecaoCD().addKeyListener(this);
+        frm.getCaixaSelecaoVR().addKeyListener(this);
+        frm.getCampoMesa().addKeyListener(this);
     }
 
     private void atualizaTotal() {
@@ -208,6 +219,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(true);
+        frm.getCaixaSelecaoCC().requestFocus();
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
         frm.getCaixaSelecaoCD().setSelectedIndex(-1);
@@ -223,6 +235,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
+        frm.getCaixaSelecaoCD().requestFocus();
         frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(false);
         frm.getCaixaSelecaoVR().setSelectedIndex(-1);
@@ -238,6 +251,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCD().setVisible(false);
         frm.getCaixaSelecaoCD().setSelectedIndex(-1);
         frm.getCaixaSelecaoVR().setVisible(true);
+        frm.getCaixaSelecaoVR().requestFocus();
         frm.getCaixaSelecaoVR().setSelectedIndex(-1);
     }
 
@@ -343,15 +357,15 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    if (frm.getPedido().getFormaPagamento().getIdFormaPgto()== 1) {
+                    if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1) {
                         JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
                     }
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
-                     try {
-                         new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
-                     } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
-                         JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                     }
+                    try {
+                        new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+                    } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                        JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                    }
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
                 }
@@ -397,6 +411,84 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (frm.getBotaoRadioDinheiro().isFocusOwner()) {
+                frm.getBotaoRadioDinheiro().doClick();
+            } else if (frm.getBotaoRadioCartaoCredito().isFocusOwner()) {
+                frm.getBotaoRadioCartaoCredito().doClick();
+                frm.getCaixaSelecaoCC().requestFocus();
+            } else if (frm.getBotaoCartaoDebito().isFocusOwner()) {
+                frm.getBotaoCartaoDebito().doClick();
+                frm.getCaixaSelecaoCD().requestFocus();
+            } else if (frm.getBotaoRadioValeRefeicao().isFocusOwner()) {
+                frm.getBotaoRadioValeRefeicao().doClick();
+                frm.getCaixaSelecaoVR().requestFocus();
+            }
+
+            if (frm.getBotaoRadioBalcao().isFocusOwner()) {
+                frm.getBotaoRadioBalcao().doClick();
+                frm.getBotaoConfirmarPedido().requestFocus();
+            } else if (frm.getBotaoRadioMesa().isFocusOwner()) {
+                frm.getBotaoRadioMesa().doClick();
+                frm.getCampoMesa().requestFocus();
+            } else if (frm.getBotaoRadioViagem().isFocusOwner()) {
+                frm.getBotaoRadioViagem().doClick();
+                frm.getBotaoConfirmarPedido().requestFocus();
+            }
+
+            if (frm.getCaixaSelecaoCC().isFocusOwner() || frm.getCaixaSelecaoCD().isFocusOwner() || frm.getCaixaSelecaoVR().isFocusOwner()) {
+                frm.getBotaoRadioBalcao().requestFocus();
+            }
+            
+            if (frm.getCampoValorRecebido().isFocusOwner()) {
+                frm.getBotaoRadioBalcao().requestFocus();
+            }
+            
+            if (frm.getCampoMesa().isFocusOwner()) {
+                frm.getBotaoConfirmarPedido().requestFocus();
+            }
+            
+        } else if (e.getKeyCode() == KeyEvent.VK_C) {
+            frm.getBotaoRadioCartaoCredito().doClick();
+            frm.getCaixaSelecaoCC().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
+            frm.getBotaoCartaoDebito().doClick();
+            frm.getCaixaSelecaoCD().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_R) {
+            frm.getBotaoRadioValeRefeicao().doClick();
+            frm.getCaixaSelecaoVR().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_M) {
+            frm.getBotaoRadioMesa().doClick();
+            frm.getCampoMesa().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_V) {
+            frm.getBotaoRadioViagem().doClick();
+            frm.getBotaoConfirmarPedido().requestFocus();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (frm.getBotaoCartaoDebito().isFocusOwner()) {
+                frm.getBotaoRadioCartaoCredito().requestFocus();
+            } else if (frm.getBotaoRadioViagem().isFocusOwner()) {
+                frm.getBotaoRadioMesa().requestFocus();
+            } else if (frm.getBotaoRadioValeRefeicao().isFocusOwner()) {
+                frm.getBotaoCartaoDebito().requestFocus();
+            } else if (frm.getBotaoRadioMesa().isFocusOwner()) {
+                frm.getBotaoRadioBalcao().requestFocus();
+            } else if (frm.getBotaoRadioCartaoCredito().isFocusOwner()) {
+                frm.getBotaoRadioDinheiro().requestFocus();
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (frm.getBotaoCartaoDebito().isFocusOwner()) {
+                frm.getBotaoRadioValeRefeicao().requestFocus();
+            } else if (frm.getBotaoRadioMesa().isFocusOwner()) {
+                frm.getBotaoRadioViagem().requestFocus();
+            } else if (frm.getBotaoRadioDinheiro().isFocusOwner()) {
+                frm.getBotaoRadioCartaoCredito().requestFocus();
+            } else if (frm.getBotaoRadioCartaoCredito().isFocusOwner()) {
+                frm.getBotaoCartaoDebito().requestFocus();
+            } else if (frm.getBotaoRadioBalcao().isFocusOwner()) {
+                frm.getBotaoRadioMesa().requestFocus();
+            }
+        }
     }
 
     @Override
