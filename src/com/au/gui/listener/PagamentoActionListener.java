@@ -349,7 +349,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
                      try {
                          new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
-                     } catch (UnsatisfiedLinkError e) {
+                     } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
                          JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                      }
                     TelaConfirmacaoPagamento.setCadastrou(true);
