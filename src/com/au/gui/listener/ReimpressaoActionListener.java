@@ -23,7 +23,10 @@
  */
 package com.au.gui.listener;
 
+import com.au.dao.DAO;
 import com.au.gui.TelaReimpressao;
+import com.au.modelo.Caixa;
+import com.au.modelo.Pedido;
 import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -59,19 +62,34 @@ public class ReimpressaoActionListener implements ActionListener {
 
         if (!"".equals(frm.getCampoNumeroPedido().getText())) {
             frm.getCampoNumeroPedido().setBorder(normal);
-            valida = true;
+            valida = validaPedido();
         } else {
             frm.getCampoNumeroPedido().setBorder(vermelha);
             valida = false;
         }
         return valida;
     }
-    
-    public void imprimeCupom () {
-        int numeroPedido = 0;
-        numeroPedido = Integer.getInteger(frm.getCampoNumeroPedido().getText());
-        System.out.println(numeroPedido);
-        new Imprime().geraComandaVenda(numeroPedido);
+
+    public boolean validaPedido() {
+        Caixa caixa = new DAO<>(Caixa.class).buscaPorId(frm.getIdCaixa());
+        for (int i = 0; i < caixa.getPedidos().size(); i++) {
+            if (caixa.getPedidos().get(i).getNumPedido() == Integer.valueOf(frm.getCampoNumeroPedido().getText())) {
+                if (caixa.getPedidos().get(i).getEstadoPedido().equals("Cancelado") && JOptionPane.showConfirmDialog(frm, "Este pedido foi cancelado. Deseja Reimprimir mesmo assim?", "Pedido Cancelado", JOptionPane.YES_NO_OPTION) == 1) {
+                    return false;
+                }
+                try {
+                    new Imprime().geraComandaVenda(caixa.getPedidos().get(i).getIdPedido());
+                    JOptionPane.showMessageDialog(frm, "Pedido cancelado com sucesso!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+
+            }
+        }
+        JOptionPane.showMessageDialog(frm, "Pedido não foi encontrado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        return false;
     }
 
     @Override
@@ -79,11 +97,7 @@ public class ReimpressaoActionListener implements ActionListener {
         switch (event.getActionCommand()) {
             case "Confirmar Reimpressão de Cupom":
                 if (valida()) {
-                    try {
-                        imprimeCupom();
-                    } catch (NullPointerException e) {
-                        JOptionPane.showMessageDialog(frm, "Erro ao Reimprimir o Cupom. O número do pedido não foi encontrado no caixa atual.", "Reimpressão de Cupom", JOptionPane.ERROR_MESSAGE);
-                    }
+                    frm.dispose();
                 }
                 break;
             case "Cancelar Reimpressão":

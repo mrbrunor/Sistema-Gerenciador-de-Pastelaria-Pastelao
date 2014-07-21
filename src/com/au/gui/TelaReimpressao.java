@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.CancelamentoActionListener;
 import com.au.gui.listener.ReimpressaoActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
