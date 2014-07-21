@@ -116,7 +116,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void preencheValorRecebido() {
-        frm.getCampoValorRecebido().setText(String.valueOf(valorTotal)); //Necessario acertar troco E Desconto
+        frm.getCampoValorRecebido().setText(String.valueOf(frm.getPedido().getTotPedido())); //Necessario acertar troco E Desconto
         frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
     }
 
