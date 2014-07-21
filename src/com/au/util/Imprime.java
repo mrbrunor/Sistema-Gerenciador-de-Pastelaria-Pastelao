@@ -50,7 +50,7 @@ public class Imprime {
         return str;
     }
 
-    public void geraComandaVenda(int idPedido) {
+    public void geraComandaVenda(int idPedido) throws UnsatisfiedLinkError {
         int iRetorno;
         String iComando;
 
@@ -112,7 +112,7 @@ public class Imprime {
         iRetorno = cupom.FechaPorta();
     }
 
-    public void geraComandaCozinha(int idPedido) {
+    public void geraComandaCozinha(int idPedido) throws UnsatisfiedLinkError {
         int iRetorno;
         String iComando;
 
@@ -188,7 +188,7 @@ public class Imprime {
         }
     }
 
-    public void geraRelatorioFechamento(int idCaixa) {
+    public void geraRelatorioFechamento(int idCaixa) throws UnsatisfiedLinkError {
         Caixa caixa = new DAO<>(Caixa.class).buscaPorId(idCaixa);
         calculaTipoPagamento(caixa);
         calculaReducoes(caixa);

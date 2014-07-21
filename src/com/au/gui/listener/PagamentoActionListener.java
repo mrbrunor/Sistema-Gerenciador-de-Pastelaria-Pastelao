@@ -343,13 +343,14 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.WARNING_MESSAGE);
+                    if (frm.getPedido().getFormaPagamento().getIdFormaPgto()== 1) {
+                        JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
                      try {
                          new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
                      } catch (UnsatisfiedLinkError e) {
-                         System.out.println("Erro ao Imprimir o Cupom.\n"
-                                 + "Verifique a Impressora e Tente Novamente");
+                         JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                      }
                     TelaConfirmacaoPagamento.setCadastrou(true);
                     frm.dispose();
