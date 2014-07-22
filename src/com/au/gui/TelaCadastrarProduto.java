@@ -50,10 +50,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-çÇ]"));
+        campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-çÇ/_]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
-        campoPesquisarProduto.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-çÇ]"));
+        campoPesquisarProduto.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-çÇ/_]"));
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
