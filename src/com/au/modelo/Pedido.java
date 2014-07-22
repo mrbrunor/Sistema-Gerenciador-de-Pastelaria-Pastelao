@@ -58,6 +58,7 @@ public class Pedido implements Serializable {
 
     //bi-directional many-to-one association to Itempedido
     @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @OrderBy("ordemProduto")
     private List<Itempedido> itempedidos;
 
     //bi-directional many-to-one association to Caixa

@@ -217,9 +217,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     private Produto formToProduto() {
         Produto produto = new Produto();
 
-        if (!"".equals(frm.getCampoId().getText())) {
-            produto.setIdProd(Integer.valueOf(frm.getCampoId().getText()));
-        }
+        produto.setNumProd(Integer.valueOf(frm.getCampoCodigo().getText()));
         produto.setDescProd(frm.getCampoNome().getText());
         produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
 
@@ -239,7 +237,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     private void produtoToForm(Produto produto) {
-        frm.getCampoId().setText(String.valueOf(produto.getIdProd()));
+        frm.getCampoCodigo().setText(String.valueOf(produto.getNumProd()));
         frm.getCampoNome().setText(produto.getDescProd());
         frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));
         if (produto.getEIndustrializado() == (byte) 1) {
@@ -281,6 +279,13 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public boolean valida() {
         boolean valida = true;
+        if (!"".equals(frm.getCampoCodigo().getText()) && frm.getCampoCodigo().getText().length() > 0) {
+            frm.getCampoCodigo().setBorder(normal);
+        } else {
+            frm.getCampoCodigo().setBorder(vermelha);
+            valida = false;
+        }
+        
         if (!"".equals(frm.getCampoNome().getText()) && frm.getCampoNome().getText().length() > 4) {
             frm.getCampoNome().setBorder(normal);
         } else {

@@ -7,128 +7,145 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * The persistent class for the produto database table.
- * 
+ *
  */
 @Entity
-@Table(name="produto")
-@NamedQuery(name="Produto.findAll", query="SELECT p FROM Produto p")
+@Table(name = "produto")
+@NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")
 public class Produto implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int idProd;
+    private static final long serialVersionUID = 1L;
 
-	@Column(length=15)
-	private String codBarras;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int idProd;
 
-	@Column(nullable=false, length=100)
-	private String descProd;
+    @Column(length = 15)
+    private String codBarras;
 
-	@Column(nullable=false)
-	private byte eIndustrializado;
+    @Column(nullable = false, length = 100)
+    private String descProd;
 
-	@Column(nullable=false)
-	private double valorProd;
+    @Column(nullable = false)
+    private byte eIndustrializado;
 
-	//bi-directional many-to-one association to Itempedido
-	@OneToMany(mappedBy="produto")
-	private List<Itempedido> itempedidos;
+    @Column(nullable = false)
+    private double valorProd;
 
-	//bi-directional many-to-many association to Ingrediente
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(
-		name="receita"
-		, joinColumns={
-			@JoinColumn(name="idProd", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idIng", nullable=false)
-			}
-		)
-	private List<Ingrediente> ingredientes = new ArrayList<>();
+    @Column(name = "numProd", unique = true)
+    private int numProd;
 
-	public Produto() {
-	}
+    //bi-directional many-to-one association to Itempedido
+    @OneToMany(mappedBy = "produto")
+    private List<Itempedido> itempedidos;
 
-	public int getIdProd() {
-		return this.idProd;
-	}
+    //bi-directional many-to-many association to Ingrediente
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "receita", joinColumns = {
+                @JoinColumn(name = "numProd", nullable = false)
+            }, inverseJoinColumns = {
+                @JoinColumn(name = "idIng", nullable = false)
+            }
+    )
+    private List<Ingrediente> ingredientes = new ArrayList<>();
 
-	public void setIdProd(int idProd) {
-		this.idProd = idProd;
-	}
+    public Produto() {
+    }
 
-	public String getCodBarras() {
-		return this.codBarras;
-	}
+    public byte geteIndustrializado() {
+        return eIndustrializado;
+    }
 
-	public void setCodBarras(String codBarras) {
-		this.codBarras = codBarras;
-	}
+    public void seteIndustrializado(byte eIndustrializado) {
+        this.eIndustrializado = eIndustrializado;
+    }
 
-	public String getDescProd() {
-		return this.descProd;
-	}
+    public int getNumProd() {
+        return numProd;
+    }
 
-	public void setDescProd(String descProd) {
-		this.descProd = descProd;
-	}
+    public void setNumProd(int numProd) {
+        this.numProd = numProd;
+    }
 
-	public byte getEIndustrializado() {
-		return this.eIndustrializado;
-	}
+    public int getIdProd() {
+        return this.idProd;
+    }
 
-	public void setEIndustrializado(byte eIndustrializado) {
-		this.eIndustrializado = eIndustrializado;
-	}
+    public void setIdProd(int idProd) {
+        this.idProd = idProd;
+    }
 
-	public double getValorProd() {
-		return this.valorProd;
-	}
+    public String getCodBarras() {
+        return this.codBarras;
+    }
 
-	public void setValorProd(double valorProd) {
-		this.valorProd = valorProd;
-	}
+    public void setCodBarras(String codBarras) {
+        this.codBarras = codBarras;
+    }
 
-	public List<Itempedido> getItempedidos() {
-		return this.itempedidos;
-	}
+    public String getDescProd() {
+        return this.descProd;
+    }
 
-	public void setItempedidos(List<Itempedido> itempedidos) {
-		this.itempedidos = itempedidos;
-	}
+    public void setDescProd(String descProd) {
+        this.descProd = descProd;
+    }
 
-	public Itempedido addItempedido(Itempedido itempedido) {
-		getItempedidos().add(itempedido);
-		itempedido.setProduto(this);
+    public byte getEIndustrializado() {
+        return this.eIndustrializado;
+    }
 
-		return itempedido;
-	}
+    public void setEIndustrializado(byte eIndustrializado) {
+        this.eIndustrializado = eIndustrializado;
+    }
 
-	public Itempedido removeItempedido(Itempedido itempedido) {
-		getItempedidos().remove(itempedido);
-		itempedido.setProduto(null);
+    public double getValorProd() {
+        return this.valorProd;
+    }
 
-		return itempedido;
-	}
+    public void setValorProd(double valorProd) {
+        this.valorProd = valorProd;
+    }
 
-	public List<Ingrediente> getIngredientes() {
-		return this.ingredientes;
-	}
+    public List<Itempedido> getItempedidos() {
+        return this.itempedidos;
+    }
 
-	public void setIngredientes(List<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
-	}
-	
-	public void adicionaIngrediente(Ingrediente ingrediente) {
-		if (!this.ingredientes.contains(ingrediente)) {
-			this.ingredientes.add(ingrediente);
-		}
-	}
+    public void setItempedidos(List<Itempedido> itempedidos) {
+        this.itempedidos = itempedidos;
+    }
+
+    public Itempedido addItempedido(Itempedido itempedido) {
+        getItempedidos().add(itempedido);
+        itempedido.setProduto(this);
+
+        return itempedido;
+    }
+
+    public Itempedido removeItempedido(Itempedido itempedido) {
+        getItempedidos().remove(itempedido);
+        itempedido.setProduto(null);
+
+        return itempedido;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return this.ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public void adicionaIngrediente(Ingrediente ingrediente) {
+        if (!this.ingredientes.contains(ingrediente)) {
+            this.ingredientes.add(ingrediente);
+        }
+    }
 
 }

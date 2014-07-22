@@ -94,8 +94,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         campoValor = new javax.swing.JTextField();
         campoNome = new javax.swing.JTextField();
         textoNome = new javax.swing.JLabel();
-        textoId = new javax.swing.JLabel();
-        campoId = new javax.swing.JTextField();
+        textoCodigo = new javax.swing.JLabel();
+        campoCodigo = new javax.swing.JTextField();
         painelProcurarProdutos = new javax.swing.JPanel();
         textoCliqueParaEditar = new javax.swing.JLabel();
         textoProcurarProduto = new javax.swing.JLabel();
@@ -182,7 +182,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBarras)
                     .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
@@ -231,7 +231,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRemoverIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -270,11 +270,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         textoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoNome.setText("Nome Produto:");
 
-        textoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoId.setText("Id Produto:");
+        textoCodigo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCodigo.setText("Código Produto:");
 
-        campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        campoId.setEnabled(false);
+        campoCodigo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout painelAdicionarModificarProdutosLayout = new javax.swing.GroupLayout(painelAdicionarModificarProdutos);
         painelAdicionarModificarProdutos.setLayout(painelAdicionarModificarProdutosLayout);
@@ -288,10 +287,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                             .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,8 +309,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
             painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoId)
-                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoCodigo)
+                    .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNome)
@@ -360,7 +359,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id", "Descrição", "Valor"
+                "Cod", "Descrição", "Valor"
             }
         ));
         painelScrollTabela.setViewportView(tabelaProdutos);
@@ -592,12 +591,12 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         this.campoBarras = campoBarras;
     }
 
-    public JTextField getCampoId() {
-        return campoId;
+    public JTextField getCampoCodigo() {
+        return campoCodigo;
     }
 
-    public void setCampoId(JTextField campoId) {
-        this.campoId = campoId;
+    public void setCampoCodigo(JTextField campoCodigo) {
+        this.campoCodigo = campoCodigo;
     }
 
     public JTextField getCampoNome() {
@@ -659,7 +658,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     }
 
     public void limpaCampos() {
-        campoId.setText("");
+        campoCodigo.setText("");
         campoBarras.setText("");
         campoNome.setText("");
         campoValor.setText("");
@@ -680,7 +679,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox caixaSelecaoIng;
     private javax.swing.JTextField campoBarras;
-    private javax.swing.JTextField campoId;
+    private javax.swing.JTextField campoCodigo;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPesquisarProduto;
     private javax.swing.JTextField campoValor;
@@ -699,9 +698,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JLabel textoAdicionarProduto;
     private javax.swing.JLabel textoBarras;
     private javax.swing.JLabel textoCliqueParaEditar;
+    private javax.swing.JLabel textoCodigo;
     private javax.swing.JLabel textoErroIngrediente;
     private javax.swing.JLabel textoIconeNovoProduto;
-    private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
     private javax.swing.JLabel textoProcurarProduto;

@@ -133,7 +133,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
+                "Cod", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(tabelaPedido);

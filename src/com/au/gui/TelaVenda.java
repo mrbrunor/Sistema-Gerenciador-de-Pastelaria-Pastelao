@@ -224,7 +224,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
+                "Cod", "Descrição", "Valor Unitario", "Quantidade", "Valor Total"
             }
         ));
         painelScrollTabelaPedido.setViewportView(tabelaPedido);
@@ -315,7 +315,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Descrição", "Valor"
+                "Cod", "Descrição", "Valor"
             }
         ));
         painelScrollTabelaBusca.setViewportView(tabelaBusca);

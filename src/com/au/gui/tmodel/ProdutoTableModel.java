@@ -40,7 +40,7 @@ public class ProdutoTableModel extends AbstractTableModel{
     
     public ProdutoTableModel(List<Produto> produtos){
         this.produtos = produtos;
-        colunas = Arrays.asList("Id", "Descrição", "Valor");
+        colunas = Arrays.asList("Cod", "Descrição", "Valor");
     }
 
     @Override
@@ -62,9 +62,9 @@ public class ProdutoTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
         switch(columnIndex){
-            case 0: return produto.getIdProd();
+            case 0: return produto.getNumProd();
             case 1: return produto.getDescProd();
-            case 2: return produto.getValorProd();
+            case 2: return String.format("%.2f", produto.getValorProd());
         }
         return null;
     }
