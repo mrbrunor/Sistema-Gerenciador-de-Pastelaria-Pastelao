@@ -84,7 +84,7 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
             valida = false;
         }
 
-        if (!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 10) {
+        if (!"".equals(frm.getCampoMotivo().getText()) && frm.getCampoMotivo().getText().length() > 3) {
             frm.getCampoMotivo().setBorder(normal);
         } else {
             frm.getCampoMotivo().setBorder(vermelha);
@@ -119,17 +119,12 @@ public class RetiradaActionListener implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            frm.getBotaoRegistrarRetirada().requestFocus();
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            contaEnter++;
-        }
-        if (contaEnter % 2 == 0) {
-            int tamanho = frm.getCampoMotivo().getText().length();
-            frm.getCampoMotivo().setText(frm.getCampoMotivo().getText().substring(0, tamanho - 1));
-            frm.getBotaoRegistrarRetirada().requestFocus();
-        }
     }
 }

@@ -40,7 +40,7 @@ public class VendaTableModel extends AbstractTableModel{
     
     public VendaTableModel(List<Itempedido> itemspedido){
         this.itemspedido = itemspedido;
-        colunas = Arrays.asList("Id", "Descrição", "Vlr Unit", "Qtd", "Vlr Total");
+        colunas = Arrays.asList("Cod", "Descrição", "Vlr Unit", "Qtd", "Vlr Total");
     }
 
     @Override
@@ -63,11 +63,11 @@ public class VendaTableModel extends AbstractTableModel{
         Itempedido itempedido = itemspedido.get(rowIndex);
      
         switch(columnIndex){
-            case 0: return itempedido.getProduto().getIdProd();
+            case 0: return itempedido.getProduto().getNumProd();
             case 1: return itempedido.getProduto().getDescProd();
-            case 2: return itempedido.getProduto().getValorProd();
+            case 2: return String.format("%.2f", itempedido.getProduto().getValorProd());
             case 3: return itempedido.getQtdProd();
-            case 4: return itempedido.getTotProd();
+            case 4: return String.format("%.2f", itempedido.getTotProd());
         }
         return null;
     }

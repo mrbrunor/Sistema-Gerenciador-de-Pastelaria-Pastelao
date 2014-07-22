@@ -82,6 +82,23 @@ public class DAO<T> {
         em.close();
         return (int) result;
     }
+    
+    public Produto buscaCodigo (int numProd){
+        EntityManager em = new FabricaConexaoJPA().getEntityManager();
+        Produto produto = new Produto();
+        
+        Query q = em.createQuery("from Produto p where p.numProd='" + numProd + "'");
+        
+        List<Produto> produtos = q.getResultList();
+        
+        if (produtos.isEmpty()) {
+            return null;
+        }
+        for (Produto produto1 : produtos) {
+            produto = produto1;
+        }
+        return produto;
+    }
 
     public Funcionario buscarLogin(String usuario, String senha) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
@@ -194,10 +211,20 @@ public class DAO<T> {
         new DAO<>(Funcionario.class).atualiza(funcionarioNovo);
     }
 
-    public boolean validaProduto(Produto produto) {
+    public boolean validaDescProduto(Produto produto) {
         EntityManager em = new FabricaConexaoJPA().getEntityManager();
 
-        Query q = em.createQuery("from Produto p where p.descProd like '" + produto.getDescProd() + "'");
+        Query q = em.createQuery("from Produto p where p.descProd like '" + produto.getDescProd() + "' or p.numProd = '" + produto.getNumProd() + "'");
+
+        List<Produto> produtos = q.getResultList();
+
+        return produtos == null || produtos.isEmpty();
+    }
+    
+    public boolean validaCodProduto(Produto produto) {
+        EntityManager em = new FabricaConexaoJPA().getEntityManager();
+
+        Query q = em.createQuery("from Produto p where p.numProd = '" + produto.getNumProd() + "'");
 
         List<Produto> produtos = q.getResultList();
 

@@ -35,22 +35,24 @@ public class Produto implements Serializable {
     @Column(nullable = false)
     private double valorProd;
 
-    @Column(name = "numProd", unique = true)
-    private int numProd;
+    @Column(unique=true)
+    private Integer numProd;
 
     //bi-directional many-to-one association to Itempedido
     @OneToMany(mappedBy = "produto")
     private List<Itempedido> itempedidos;
 
     //bi-directional many-to-many association to Ingrediente
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "receita", joinColumns = {
-                @JoinColumn(name = "numProd", nullable = false)
-            }, inverseJoinColumns = {
-                @JoinColumn(name = "idIng", nullable = false)
-            }
-    )
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="receita"
+		, joinColumns={
+			@JoinColumn(name="idProd", nullable=false)
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idIng", nullable=false)
+			}
+		)
     private List<Ingrediente> ingredientes = new ArrayList<>();
 
     public Produto() {
@@ -64,11 +66,11 @@ public class Produto implements Serializable {
         this.eIndustrializado = eIndustrializado;
     }
 
-    public int getNumProd() {
+    public Integer getNumProd() {
         return numProd;
     }
 
-    public void setNumProd(int numProd) {
+    public void setNumProd(Integer numProd) {
         this.numProd = numProd;
     }
 

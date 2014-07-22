@@ -54,8 +54,10 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     private List<Ingrediente> ingredientes = new ArrayList<>();
     private Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private Border normal;
+    private Integer id = null;
 
     public void limpaCampos() {
+        id = null;
         frm.limpaCampos();
         frm.getCaixaSelecaoIng().setBorder(normal);
         frm.getCampoBarras().setBorder(normal);
@@ -153,8 +155,11 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         
         Produto produto = formToProduto();
         
-        if(!new DAO<>(Produto.class).validaProduto(produto)){
-            JOptionPane.showMessageDialog(frm, "Produto já cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
+        if(!new DAO<>(Produto.class).validaDescProduto(produto)){
+            JOptionPane.showMessageDialog(frm, "Um produto com este nome já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if(!new DAO<>(Produto.class).validaCodProduto(produto)){
+            JOptionPane.showMessageDialog(frm, "Um produto com este código já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -216,7 +221,10 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     private Produto formToProduto() {
         Produto produto = new Produto();
-
+        
+        if(id != null){
+            produto.setIdProd(id);
+        }        
         produto.setNumProd(Integer.valueOf(frm.getCampoCodigo().getText()));
         produto.setDescProd(frm.getCampoNome().getText());
         produto.setValorProd(Double.valueOf(frm.getCampoValor().getText()));
@@ -237,6 +245,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     }
 
     private void produtoToForm(Produto produto) {
+        id = produto.getIdProd();
         frm.getCampoCodigo().setText(String.valueOf(produto.getNumProd()));
         frm.getCampoNome().setText(produto.getDescProd());
         frm.getCampoValor().setText(String.valueOf(produto.getValorProd()));

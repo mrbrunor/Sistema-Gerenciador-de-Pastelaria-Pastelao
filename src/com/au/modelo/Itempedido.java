@@ -33,7 +33,7 @@ public class Itempedido implements Serializable {
     @JoinColumn(name = "idProd", nullable = false, insertable = false, updatable = false)
     private Produto produto;
 
-    private int ordemProduto;
+    private Integer ordemProduto;
 
     public Itempedido() {
     }
@@ -78,11 +78,11 @@ public class Itempedido implements Serializable {
         this.produto = produto;
     }
 
-    public int getOrdemProduto() {
+    public Integer getOrdemProduto() {
         return ordemProduto;
     }
 
-    public void setOrdemProduto(int ordemProduto) {
+    public void setOrdemProduto(Integer ordemProduto) {
         this.ordemProduto = ordemProduto;
     }
 

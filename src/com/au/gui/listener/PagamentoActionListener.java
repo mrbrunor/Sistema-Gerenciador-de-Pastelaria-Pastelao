@@ -114,7 +114,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
             frm.getPedido().setSubTotPedido(frm.getTotal());
             frm.getPedido().setTotPedido(frm.getTotal());
-        } else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getTotal()) {
+        } else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()) {
             JOptionPane.showMessageDialog(frm, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             frm.getCampoDesconto().setText("");
             atualizaTotal();

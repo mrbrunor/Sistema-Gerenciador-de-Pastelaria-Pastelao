@@ -70,6 +70,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private Integer indexCaixa = null;
     private boolean numeroPedidoVerificado = false;
     private int numPedido = 1;
+    private int auxOrdemProduto = 1;
 
     public VendaActionListener(TelaVenda frm) {
         this.frm = frm;
@@ -146,6 +147,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuFecharCaixa().setEnabled(true);
         frm.getItemMenuRetiradaDeCaixa().setEnabled(true);
         frm.getItemMenuCancelarCupom().setEnabled(true);
+        frm.getItemMenuReimprimirCupom().setEnabled(true);
+        frm.getItemMenuVisualizarCaixas().setEnabled(true);
 
         frm.getCampoAdicionarItem().setEnabled(true);
         frm.getCampoBusca().setEnabled(true);
@@ -167,6 +170,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         frm.getItemMenuFecharCaixa().setEnabled(false);
         frm.getItemMenuRetiradaDeCaixa().setEnabled(false);
         frm.getItemMenuCancelarCupom().setEnabled(false);
+        frm.getItemMenuReimprimirCupom().setEnabled(false);
+        frm.getItemMenuVisualizarCaixas().setEnabled(false);
 
         frm.getCampoAdicionarItem().setEnabled(false);
         frm.getCampoBusca().setEnabled(false);
@@ -234,6 +239,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                         limparPedido();
                     } else {
                         pedido.getItempedidos().remove(i);
+                        auxOrdemProduto = auxOrdemProduto - 1;
                     }
                 } else {
                     pedido.getItempedidos().set(i, itempedido);
@@ -241,6 +247,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 return;
             }
         }
+        itempedido.setOrdemProduto(auxOrdemProduto);
+        auxOrdemProduto = auxOrdemProduto + 1;
         pedido.getItempedidos().add(itempedido);
     }
 
@@ -250,14 +258,14 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         ItempedidoPK itempedidoPK = new ItempedidoPK();
         String padrao = "[0-9]{1,2}";
 
-        produto.setIdProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
-        produto = new DAO<>(Produto.class).buscaPorId(produto.getIdProd());
+        produto.setNumProd(Integer.valueOf(frm.getCampoAdicionarItem().getText()));
+        produto = new DAO<>(Produto.class).buscaCodigo(produto.getNumProd());
         itempedido.setProduto(produto);
         itempedidoPK.setIdProd(produto.getIdProd());
         itempedido.setId(itempedidoPK);
         itempedido.setQtdProd(-1);
         while (itempedido.getQtdProd() == -1) {
-            String aux = JOptionPane.showInputDialog(frm ,"Digite a Quantidade", 1);
+            String aux = JOptionPane.showInputDialog(frm, "Digite a Quantidade", 1);
             if (aux == null) {
                 return;
             } else if (aux.matches(padrao)) {
@@ -278,6 +286,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         pedido.setItempedidos(new ArrayList<Itempedido>());
         atualizaTableModelVenda();
         totalPedido = 0;
+        auxOrdemProduto = 1;
         atualizaTotal();
         atualizaTableModelVenda();
     }
@@ -288,6 +297,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         } else if (frm.getTabelaPedido().getSelectedRow() != -1) {
             totalPedido = totalPedido - pedido.getItempedidos().get(frm.getTabelaPedido().getSelectedRow()).getTotProd();
             pedido.getItempedidos().remove(frm.getTabelaPedido().getSelectedRow());
+            auxOrdemProduto = auxOrdemProduto - 1;
             atualizaTotal();
             atualizaTableModelVenda();
         }
@@ -516,7 +526,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         if (frm.getTabelaPedido().getSelectedRow() != -1) {
             Itempedido itempedido = tableModelVenda.getItemspedido().get(frm.getTabelaPedido().getSelectedRow());
             vendaToForm(itempedido);
-            
+
         }
         frm.getCampoAdicionarItem().requestFocus();
     }

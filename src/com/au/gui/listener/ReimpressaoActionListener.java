@@ -79,7 +79,7 @@ public class ReimpressaoActionListener implements ActionListener {
                 }
                 try {
                     new Imprime().geraComandaVenda(caixa.getPedidos().get(i).getIdPedido());
-                    JOptionPane.showMessageDialog(frm, "Pedido cancelado com sucesso!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frm, "Pedido impresso com sucesso!", "Reimpressão de Pedido", JOptionPane.INFORMATION_MESSAGE);
                     return true;
                 } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
                     JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
@@ -88,7 +88,7 @@ public class ReimpressaoActionListener implements ActionListener {
 
             }
         }
-        JOptionPane.showMessageDialog(frm, "Pedido não foi encontrado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frm, "Pedido não foi encontrado!", "Reimpressão de Pedido", JOptionPane.INFORMATION_MESSAGE);
         return false;
     }
 
