@@ -80,7 +80,7 @@ public class Imprime {
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
                 iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
             } else if (valorUnitarioStr.length() == 2) { //Valores com 2 dígitos
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getIdProd())
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
