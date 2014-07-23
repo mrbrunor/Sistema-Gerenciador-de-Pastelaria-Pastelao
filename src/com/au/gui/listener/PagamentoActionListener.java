@@ -35,7 +35,6 @@ import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Time;
@@ -358,7 +357,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 if (valida()) {
                     criaPedido();
                     if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1) {
-                        JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(frm, "<html><font color=red><b>" + String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
                     }
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
                     try {

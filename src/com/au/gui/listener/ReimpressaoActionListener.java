@@ -26,7 +26,6 @@ package com.au.gui.listener;
 import com.au.dao.DAO;
 import com.au.gui.TelaReimpressao;
 import com.au.modelo.Caixa;
-import com.au.modelo.Pedido;
 import com.au.util.Imprime;
 import java.awt.Color;
 import java.awt.event.ActionEvent;

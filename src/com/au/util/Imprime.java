@@ -74,7 +74,7 @@ public class Imprime {
             int valorUnitarioInt = (int) pedido.getItempedidos().get(i).getProduto().getValorProd();
             String valorUnitarioStr = Integer.toString(valorUnitarioInt);
             if (valorUnitarioStr.length() == 1) { //Valores com 1 dígito
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getIdProd())
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(5)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
