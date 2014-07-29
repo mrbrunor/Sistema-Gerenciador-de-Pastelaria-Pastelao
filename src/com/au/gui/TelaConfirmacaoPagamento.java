@@ -127,6 +127,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         campoDesconto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         campoDesconto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoDesconto.setText("0");
 
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

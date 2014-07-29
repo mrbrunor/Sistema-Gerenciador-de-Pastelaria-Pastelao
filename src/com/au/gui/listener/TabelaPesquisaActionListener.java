@@ -61,8 +61,8 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
         tableModelPesquisa = new ProdutoTableModel(produtos);
         frm.getTabelaBusca().setModel(tableModelPesquisa);
         frm.getTabelaBusca().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(35);
-        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(75);
+        frm.getTabelaBusca().getColumnModel().getColumn(0).setMaxWidth(50);
+        frm.getTabelaBusca().getColumnModel().getColumn(2).setMaxWidth(65);
     }
 
     public void pesquisaProdutos() {

@@ -74,9 +74,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
-        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(35);
+        frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(55);
         frm.getTabelaPedido().getColumnModel().getColumn(2).setMaxWidth(100);
-        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(75);
+        frm.getTabelaPedido().getColumnModel().getColumn(3).setMaxWidth(55);
         frm.getTabelaPedido().getColumnModel().getColumn(4).setMaxWidth(75);
     }
 
@@ -357,7 +357,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 if (valida()) {
                     criaPedido();
                     if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1) {
-                        JOptionPane.showMessageDialog(frm, "<html><font color=red><b>" + String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\nTroco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\n<html><font color=red><b>Troco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
                     }
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
                     try {
@@ -462,6 +462,8 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         } else if (e.getKeyCode() == KeyEvent.VK_V) {
             frm.getBotaoRadioViagem().doClick();
             frm.getBotaoConfirmarPedido().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            frm.dispose();
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (frm.getBotaoCartaoDebito().isFocusOwner()) {

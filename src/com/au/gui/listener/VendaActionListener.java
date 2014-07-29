@@ -233,15 +233,16 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     private void verificaSeExiste(Itempedido itempedido) {
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
             if (pedido.getItempedidos().get(i).getProduto().getIdProd() == itempedido.getProduto().getIdProd()) {
+                int aux = pedido.getItempedidos().get(i).getOrdemProduto();
                 totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
                 if (itempedido.getQtdProd() == 0) {
                     if (pedido.getItempedidos().size() == 1) {
                         limparPedido();
                     } else {
                         pedido.getItempedidos().remove(i);
-                        auxOrdemProduto = auxOrdemProduto - 1;
                     }
                 } else {
+                    itempedido.setOrdemProduto(aux);
                     pedido.getItempedidos().set(i, itempedido);
                 }
                 return;

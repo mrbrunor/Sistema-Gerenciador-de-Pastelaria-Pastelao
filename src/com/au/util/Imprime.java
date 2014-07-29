@@ -58,6 +58,10 @@ public class Imprime {
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(pedido.getDataPedido());
+        
+        for (int i = 0; pedido.getItempedidos().size() > i; i++) {
+            System.out.println("Produto: " + pedido.getItempedidos().get(i).getProduto().getDescProd() + " Código: " + pedido.getItempedidos().get(i).getProduto().getNumProd() + " Ordem: " + pedido.getItempedidos().get(i).getOrdemProduto());
+        }
 
         BematechNFiscal cupom = BematechNFiscal.Instance;
 
