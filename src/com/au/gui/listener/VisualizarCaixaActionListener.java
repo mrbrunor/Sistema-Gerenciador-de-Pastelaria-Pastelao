@@ -20,6 +20,7 @@ import com.au.dao.DAO;
 import com.au.gui.TelaVisualizarCaixa;
 import com.au.gui.tmodel.CaixaTableModel;
 import com.au.modelo.Caixa;
+import com.au.modelo.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -44,13 +45,17 @@ public class VisualizarCaixaActionListener implements ActionListener, ListSelect
     }
 
     private void atualizaTableModel(List<Caixa> caixas) {
-        if (caixas != null && caixas.isEmpty()) {
-            Caixa caixa = new Caixa();
-            caixa.getFuncionario().setNomeFunc("Nenhum Registro Encontrado"); // dando erro, necessário consultar lead developer
-            caixas.add(caixa);
-        }
         tableModel = new CaixaTableModel(caixas);
         frm.getTabelaCaixasEncontrados().setModel(tableModel);
+        if (caixas != null && caixas.isEmpty()) {
+            Caixa caixa = new Caixa();
+            Funcionario funcionario = new Funcionario();
+            funcionario.setNomeFunc("Nenhum Registro Encontrado");
+            caixa.setFuncionario(funcionario);
+            caixa.getFuncionario().getNomeFunc();
+            caixas.add(caixa);
+            frm.getTabelaCaixasEncontrados().getColumnModel().getColumn(1).setMaxWidth(1000);
+        }
         frm.getTabelaCaixasEncontrados().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaCaixasEncontrados().getColumnModel().getColumn(0).setMaxWidth(35);
         frm.getTabelaCaixasEncontrados().getColumnModel().getColumn(1).setMaxWidth(200);

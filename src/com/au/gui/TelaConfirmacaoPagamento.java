@@ -72,6 +72,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         caixaSelecaoVR.setVisible(false);
         campoValorRecebido.setVisible(false);
         textoValorRecebido.setVisible(false);
+        campoValorRecebidoVR.setVisible(false);
+        textoValorRecebidoVR.setVisible(false);
         listener = new PagamentoActionListener(this);
     }
 
@@ -110,6 +112,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoIconeVR = new javax.swing.JLabel();
         campoValorRecebido = new javax.swing.JTextField();
         textoValorRecebido = new javax.swing.JLabel();
+        textoValorRecebidoVR = new javax.swing.JLabel();
+        campoValorRecebidoVR = new javax.swing.JTextField();
         botaoConfirmarPedido = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -182,7 +186,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addComponent(textoConfiraDadosPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textoValorTotal)
@@ -233,6 +237,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorRecebido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoValorRecebido.setText("Valor Recebido:");
 
+        textoValorRecebidoVR.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoValorRecebidoVR.setText("Valor Recebido:");
+
+        campoValorRecebidoVR.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValorRecebidoVR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoValorRecebidoVRKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelFormasDePagamentoLayout = new javax.swing.GroupLayout(painelFormasDePagamento);
         painelFormasDePagamento.setLayout(painelFormasDePagamentoLayout);
         painelFormasDePagamentoLayout.setHorizontalGroup(
@@ -272,7 +286,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                             .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                                 .addComponent(botaoRadioValeRefeicao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textoIconeVR)))))
+                                .addComponent(textoIconeVR))
+                            .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
+                                .addComponent(textoValorRecebidoVR)
+                                .addGap(13, 13, 13)
+                                .addComponent(campoValorRecebidoVR, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         painelFormasDePagamentoLayout.setVerticalGroup(
@@ -308,7 +326,13 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                                 .addGap(6, 6, 6)
                                 .addComponent(textoValorRecebido))
                             .addComponent(campoValorRecebido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(36, 36, 36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(textoValorRecebidoVR))
+                    .addComponent(campoValorRecebidoVR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         botaoConfirmarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -404,6 +428,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_campoValorRecebidoKeyReleased
+
+    private void campoValorRecebidoVRKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoValorRecebidoVRKeyReleased
 
     public double getSubTotal() {
         return subTotal;
@@ -604,6 +632,22 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public void setCampoMesa(JTextField campoMesa) {
         this.campoMesa = campoMesa;
     }
+
+    public JTextField getCampoValorRecebidoVR() {
+        return campoValorRecebidoVR;
+    }
+
+    public void setCampoValorRecebidoVR(JTextField campoValorRecebidoVR) {
+        this.campoValorRecebidoVR = campoValorRecebidoVR;
+    }
+
+    public JLabel getTextoValorRecebidoVR() {
+        return textoValorRecebidoVR;
+    }
+
+    public void setTextoValorRecebidoVR(JLabel textoValorRecebidoVR) {
+        this.textoValorRecebidoVR = textoValorRecebidoVR;
+    }
     
     public void buscaFormasPagamento() {
         listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
@@ -688,6 +732,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JTextField campoDesconto;
     private javax.swing.JTextField campoMesa;
     private javax.swing.JTextField campoValorRecebido;
+    private javax.swing.JTextField campoValorRecebidoVR;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -702,6 +747,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoIconeVR;
     private javax.swing.JLabel textoSelecioneFormaPagamento;
     private javax.swing.JLabel textoValorRecebido;
+    private javax.swing.JLabel textoValorRecebidoVR;
     private javax.swing.JLabel textoValorTotal;
     // End of variables declaration//GEN-END:variables
 }

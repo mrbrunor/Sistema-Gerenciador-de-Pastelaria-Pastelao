@@ -101,6 +101,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getBotaoRadioViagem().addActionListener(this);
         frm.getBotaoRadioViagem().addKeyListener(this);
         frm.getCampoValorRecebido().addKeyListener(this);
+        frm.getCampoValorRecebidoVR().addKeyListener(this);
         frm.getCaixaSelecaoCC().addKeyListener(this);
         frm.getCaixaSelecaoCD().addKeyListener(this);
         frm.getCaixaSelecaoVR().addKeyListener(this);
@@ -128,6 +129,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     public void preencheValorRecebido() {
         frm.getCampoValorRecebido().setText(String.valueOf(frm.getPedido().getTotPedido())); //Necessario acertar troco E Desconto
         frm.getCampoValorRecebido().selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
+    }
+    
+    public void preencheValorRecebidoVR() {
+        frm.getCampoValorRecebidoVR().setText(String.valueOf(frm.getPedido().getTotPedido())); //Preenche o campo de valor recebido do Vale
     }
 
     private void criaPedido() {
@@ -161,8 +166,10 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getPedido().setFormaConsumo("Viagem");
         }
 
-        if (frm.getBotaoRadioDinheiro().isSelected()) {
+        if (frm.getBotaoRadioDinheiro().isSelected()) { //Preenche o valor recebido no caso de dinheiro
             frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebido().getText()));
+        } else if (frm.getBotaoRadioValeRefeicao().isSelected()) { //Preenche o valor recebido no caso de vale
+            frm.getPedido().setValorRecebido(Double.valueOf(frm.getCampoValorRecebidoVR().getText()));
         } else {
             frm.getPedido().setValorRecebido(frm.getTotal());
         }
@@ -190,6 +197,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCaixaSelecaoCD().setBorder(normal);
         frm.getCaixaSelecaoVR().setBorder(normal);
         frm.getCampoValorRecebido().setBorder(normal);
+        frm.getCampoValorRecebidoVR().setBorder(normal);
     }
 
     public void limpaBordaConsumo() {
@@ -204,6 +212,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(true);
         frm.getCampoValorRecebido().setVisible(true);
+        frm.getCampoValorRecebidoVR().setText("");
+        frm.getCampoValorRecebidoVR().setVisible(false);
+        frm.getTextoValorRecebidoVR().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(false);
@@ -217,6 +228,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
+        frm.getCampoValorRecebidoVR().setText("");
+        frm.getTextoValorRecebidoVR().setVisible(false);
+        frm.getCampoValorRecebidoVR().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(true);
         frm.getCaixaSelecaoCC().requestFocus();
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
@@ -231,6 +245,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
+        frm.getCampoValorRecebidoVR().setText("");
+        frm.getTextoValorRecebidoVR().setVisible(false);
+        frm.getCampoValorRecebidoVR().setVisible(false);
         frm.getCaixaSelecaoCC().setVisible(false);
         frm.getCaixaSelecaoCC().setSelectedIndex(-1);
         frm.getCaixaSelecaoCD().setVisible(true);
@@ -242,6 +259,9 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     public void habilitaVR() {
         limpaBordaPagamento();
+        frm.getCampoValorRecebidoVR().setText("");
+        frm.getTextoValorRecebidoVR().setVisible(true);
+        frm.getCampoValorRecebidoVR().setVisible(true);
         frm.getCampoValorRecebido().setText("");
         frm.getTextoValorRecebido().setVisible(false);
         frm.getCampoValorRecebido().setVisible(false);
@@ -319,9 +339,22 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             if (frm.getCaixaSelecaoVR().getSelectedIndex() == -1) {
                 valida = false;
                 frm.getCaixaSelecaoVR().setBorder(vermelha);
+                if (frm.getCampoValorRecebidoVR().getText().equals("")) {
+                    frm.getCampoValorRecebidoVR().setBorder(vermelha);
+                }
+            } else if (frm.getCampoValorRecebidoVR().getText().equals("")) {
+                valida = false;
+                frm.getCampoValorRecebidoVR().setBorder(vermelha);
+            } else {
+                if (Double.valueOf(frm.getCampoValorRecebidoVR().getText()) < frm.getTotal()) {
+                    JOptionPane.showMessageDialog(frm, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+                    frm.getCampoValorRecebidoVR().setText("");
+                    atualizaTotal();
+                    valida = false;
+                }
+                frm.getCampoValorRecebidoVR().setBorder(normal);
+                frm.getCaixaSelecaoVR().setBorder(normal);
             }
-        } else {
-            frm.getCaixaSelecaoVR().setBorder(normal);
         }
 
         if (frm.getBotaoRadioBalcao().isSelected() || frm.getBotaoRadioMesa().isSelected() || frm.getBotaoRadioViagem().isSelected()) {
@@ -356,7 +389,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             case "Confirmar Pedido":
                 if (valida()) {
                     criaPedido();
-                    if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1) {
+                    if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1 || frm.getPedido().getFormaPagamento().getTipoFormaPgto().equals("Vale")) {
                         JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\n<html><font color=red><b>Troco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
                     }
                     //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
@@ -383,6 +416,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 break;
             case "Vale Refeição":
                 habilitaVR();
+                preencheValorRecebidoVR();
                 break;
             case "Balcão":
                 habilitaMesa(false);
@@ -435,11 +469,16 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                 frm.getBotaoConfirmarPedido().requestFocus();
             }
 
-            if (frm.getCaixaSelecaoCC().isFocusOwner() || frm.getCaixaSelecaoCD().isFocusOwner() || frm.getCaixaSelecaoVR().isFocusOwner()) {
+            if (frm.getCaixaSelecaoCC().isFocusOwner() || frm.getCaixaSelecaoCD().isFocusOwner()) {
                 frm.getBotaoRadioBalcao().requestFocus();
             }
             
-            if (frm.getCampoValorRecebido().isFocusOwner()) {
+            if (frm.getCaixaSelecaoVR().isFocusOwner()) {
+                frm.getCampoValorRecebidoVR().requestFocus();
+                frm.getCampoValorRecebidoVR().selectAll();;
+            }
+            
+            if (frm.getCampoValorRecebido().isFocusOwner() || frm.getCampoValorRecebidoVR().isFocusOwner()) {
                 frm.getBotaoRadioBalcao().requestFocus();
             }
             
