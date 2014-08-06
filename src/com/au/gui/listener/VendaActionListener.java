@@ -46,7 +46,6 @@ import com.au.dao.DAO;
 import com.au.gui.TelaCancelamento;
 import com.au.gui.TelaReimpressao;
 import com.au.gui.TelaReimprimirRelatorio;
-import com.au.gui.TelaVisualizarCaixa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -266,7 +265,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
         itempedido.setId(itempedidoPK);
         itempedido.setQtdProd(-1);
         while (itempedido.getQtdProd() == -1) {
-            String aux = JOptionPane.showInputDialog(frm, "Digite a Quantidade", 1);
+            String aux = JOptionPane.showInputDialog(frm, "<html><center>Digite a Quantidade para o produto:<br/><b>" + produto.getDescProd(), 1);
             if (aux == null) {
                 return;
             } else if (aux.matches(padrao)) {

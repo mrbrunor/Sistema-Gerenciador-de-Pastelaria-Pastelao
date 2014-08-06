@@ -388,7 +388,27 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         switch (event.getActionCommand()) {
             case "Confirmar Pedido":
                 if (valida()) {
-                    criaPedido();
+                    //Funciona, porém sem o valor preenchido, uma vez que o pedido não foi criado.... Duas soluções são possíveis: a primeira é perguntar se quer fechar para 
+                    //depois exibir o troco em outra mensagem separada. A segunda opção seria fazer verificações diferentes para exibir estes valores pré fechamento
+                    double valorRecebidoTemp = 0;
+                    if (frm.getBotaoRadioDinheiro().isSelected()) {
+                        valorRecebidoTemp = Double.valueOf(frm.getCampoValorRecebido().getText());
+                    } else if (frm.getBotaoRadioValeRefeicao().isSelected()) {
+                        valorRecebidoTemp = Double.valueOf(frm.getCampoValorRecebidoVR().getText());
+                    } else {
+                        valorRecebidoTemp = frm.getPedido().getTotPedido();
+                    }
+                    if (JOptionPane.showConfirmDialog(frm,String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - frm.getPedido().getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                        criaPedido();
+                        try {
+                        new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+                    } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                        JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                    }
+                    TelaConfirmacaoPagamento.setCadastrou(true);
+                    frm.dispose();
+                    } else return;
+                    /* criaPedido();
                     if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1 || frm.getPedido().getFormaPagamento().getTipoFormaPgto().equals("Vale")) {
                         JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\n<html><font color=red><b>Troco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -399,7 +419,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                         JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                     }
                     TelaConfirmacaoPagamento.setCadastrou(true);
-                    frm.dispose();
+                    frm.dispose(); */
                 }
                 break;
             case "Dinheiro":
