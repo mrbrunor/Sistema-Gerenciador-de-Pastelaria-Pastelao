@@ -63,7 +63,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
         adicionaListener();
         inicializaTableModel();
         frm.getCampoDesconto().requestFocus();
-        frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getSubTotal()));
+        frm.getTextoValorTotal().setText(String.format("<html>Valor Total: <b>%.2f", frm.getSubTotal()));
     }
 
     public void inicializaTableModel() {
@@ -111,7 +111,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     private void atualizaTotal() {
         if ("".equals(frm.getCampoDesconto().getText())) {
             frm.setTotal(frm.getSubTotal());
-            frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
+            frm.getTextoValorTotal().setText(String.format("<html>Valor Total: <b>%.2f", frm.getTotal()));
             frm.getPedido().setSubTotPedido(frm.getTotal());
             frm.getPedido().setTotPedido(frm.getTotal());
         } else if (Double.valueOf(frm.getCampoDesconto().getText()) > frm.getSubTotal()) {
@@ -120,7 +120,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             atualizaTotal();
         } else {
             frm.setTotal(frm.getSubTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
-            frm.getTextoValorTotal().setText(String.format("Valor Total: %.2f", frm.getTotal()));
+            frm.getTextoValorTotal().setText(String.format("<html>Valor Total: <b>%.2f", frm.getTotal()));
             frm.getPedido().setSubTotPedido(frm.getTotal());
             frm.getPedido().setTotPedido(frm.getTotal() - Double.valueOf(frm.getCampoDesconto().getText()));
         }

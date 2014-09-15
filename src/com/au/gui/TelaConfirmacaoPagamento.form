@@ -112,7 +112,7 @@
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="textoConfiraDadosPedido" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="147" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="153" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="textoValorTotal" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -207,7 +207,7 @@
         <Component class="javax.swing.JLabel" name="textoValorTotal">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="36" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="VALOR TOTAL:"/>
           </Properties>
@@ -215,9 +215,9 @@
         <Component class="javax.swing.JLabel" name="textoDesconto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="36" style="1"/>
+              <Font name="Tahoma" size="36" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DESCONTO:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;u&gt;D&lt;/u&gt;&lt;/b&gt;ESCONTO:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -342,7 +342,6 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -372,7 +371,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Dinheiro"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;D&lt;b&gt;&lt;u&gt;i&lt;/u&gt;&lt;/b&gt;nheiro"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioCartaoCredito">
@@ -383,7 +382,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cr&#xe9;dito"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Cart&#xe3;o de &lt;b&gt;&lt;u&gt;C&lt;/u&gt;&lt;/b&gt;r&#xe9;dito"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioValeRefeicao">
@@ -394,7 +393,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vale Refei&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Vale &lt;b&gt;&lt;u&gt;R&lt;/u&gt;&lt;/b&gt;efei&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoCartaoDebito">
@@ -405,7 +404,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cart&#xe3;o de D&#xe9;bito"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Cart&#xe3;o de D&lt;b&gt;&lt;u&gt;&#xe9;&lt;/u&gt;&lt;/b&gt;bito"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaSelecaoCC">
@@ -579,7 +578,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Balc&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;u&gt;B&lt;/u&gt;&lt;/b&gt;alc&#xe3;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioMesa">
@@ -590,7 +589,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Mesa"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;u&gt;M&lt;/u&gt;&lt;/b&gt;esa"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioViagem">
@@ -601,7 +600,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Viagem"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;u&gt;V&lt;/u&gt;&lt;/b&gt;iagem"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMesa">

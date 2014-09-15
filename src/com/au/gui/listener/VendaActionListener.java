@@ -247,6 +247,10 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
                 return;
             }
         }
+        
+        if(itempedido.getQtdProd() == 0)        {
+            return;
+        }
         itempedido.setOrdemProduto(auxOrdemProduto);
         auxOrdemProduto = auxOrdemProduto + 1;
         pedido.getItempedidos().add(itempedido);
