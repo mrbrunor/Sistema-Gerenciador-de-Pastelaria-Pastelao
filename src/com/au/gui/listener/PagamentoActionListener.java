@@ -511,7 +511,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getCaixaSelecaoCC().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             frm.getBotaoCartaoDebito().doClick();
-            frm.getCaixaSelecaoCD().requestFocus();
+            frm.getCampoDesconto().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
             frm.getBotaoRadioValeRefeicao().doClick();
             frm.getCaixaSelecaoVR().requestFocus();
@@ -520,6 +520,15 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getCampoMesa().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_V) {
             frm.getBotaoRadioViagem().doClick();
+            frm.getBotaoConfirmarPedido().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_I) {
+            frm.getBotaoRadioDinheiro().doClick();
+            frm.getCampoValorRecebido().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_E) {
+            frm.getBotaoCartaoDebito().doClick();
+            frm.getCaixaSelecaoCD().requestFocus();
+        } else if (e.getKeyCode() == KeyEvent.VK_B) {
+            frm.getBotaoRadioBalcao().doClick();
             frm.getBotaoConfirmarPedido().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             frm.dispose();
