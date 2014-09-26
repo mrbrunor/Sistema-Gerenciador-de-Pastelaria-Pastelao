@@ -385,6 +385,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        System.out.println(event);
         switch (event.getActionCommand()) {
             case "Confirmar Pedido":
                 if (valida()) {
@@ -422,29 +423,29 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
                     frm.dispose(); */
                 }
                 break;
-            case "Dinheiro":
+            case "<html>D<b><u>i</u></b>nheiro":
                 habilitaDinheiro();
                 frm.getCampoValorRecebido().requestFocus();
                 preencheValorRecebido();
                 //frm.getBotaoConfirmarPedido().requestFocus();
                 break;
-            case "Cartão de Crédito":
+            case "<html>Cartão de <b><u>C</u></b>rédito":
                 habilitaCC();
                 break;
-            case "Cartão de Débito":
+            case "<html>Cartão de D<b><u>é</u></b>bito":
                 habilitaCD();
                 break;
-            case "Vale Refeição":
+            case "<html>Vale <b><u>R</u></b>efeição":
                 habilitaVR();
                 preencheValorRecebidoVR();
                 break;
-            case "Balcão":
+            case "<html><b><u>B</u></b>alcão":
                 habilitaMesa(false);
                 break;
-            case "Mesa":
+            case "<html><b><u>M</u></b>esa":
                 habilitaMesa(true);
                 break;
-            case "Viagem":
+            case "<html><b><u>V</u></b>iagem":
                 habilitaMesa(false);
                 break;
             case "Cancelar Pedido":
@@ -510,7 +511,6 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoRadioCartaoCredito().doClick();
             frm.getCaixaSelecaoCC().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
-            frm.getBotaoCartaoDebito().doClick();
             frm.getCampoDesconto().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
             frm.getBotaoRadioValeRefeicao().doClick();
@@ -532,32 +532,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
             frm.getBotaoConfirmarPedido().requestFocus();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             frm.dispose();
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (frm.getBotaoCartaoDebito().isFocusOwner()) {
-                frm.getBotaoRadioCartaoCredito().requestFocus();
-            } else if (frm.getBotaoRadioViagem().isFocusOwner()) {
-                frm.getBotaoRadioMesa().requestFocus();
-            } else if (frm.getBotaoRadioValeRefeicao().isFocusOwner()) {
-                frm.getBotaoCartaoDebito().requestFocus();
-            } else if (frm.getBotaoRadioMesa().isFocusOwner()) {
-                frm.getBotaoRadioBalcao().requestFocus();
-            } else if (frm.getBotaoRadioCartaoCredito().isFocusOwner()) {
-                frm.getBotaoRadioDinheiro().requestFocus();
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (frm.getBotaoCartaoDebito().isFocusOwner()) {
-                frm.getBotaoRadioValeRefeicao().requestFocus();
-            } else if (frm.getBotaoRadioMesa().isFocusOwner()) {
-                frm.getBotaoRadioViagem().requestFocus();
-            } else if (frm.getBotaoRadioDinheiro().isFocusOwner()) {
-                frm.getBotaoRadioCartaoCredito().requestFocus();
-            } else if (frm.getBotaoRadioCartaoCredito().isFocusOwner()) {
-                frm.getBotaoCartaoDebito().requestFocus();
-            } else if (frm.getBotaoRadioBalcao().isFocusOwner()) {
-                frm.getBotaoRadioMesa().requestFocus();
-            }
-        }
+        }        
     }
 
     @Override

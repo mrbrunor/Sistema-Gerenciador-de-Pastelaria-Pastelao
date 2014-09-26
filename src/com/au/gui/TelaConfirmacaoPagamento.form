@@ -373,6 +373,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;D&lt;b&gt;&lt;u&gt;i&lt;/u&gt;&lt;/b&gt;nheiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioDinheiroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioCartaoCredito">
           <Properties>

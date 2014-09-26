@@ -206,6 +206,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buttonGroup1.add(botaoRadioDinheiro);
         botaoRadioDinheiro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioDinheiro.setText("<html>D<b><u>i</u></b>nheiro");
+        botaoRadioDinheiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioDinheiroActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(botaoRadioCartaoCredito);
         botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -431,6 +436,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private void campoValorRecebidoVRKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_campoValorRecebidoVRKeyReleased
+
+    private void botaoRadioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoRadioDinheiroActionPerformed
 
     public double getSubTotal() {
         return subTotal;
