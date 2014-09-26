@@ -23,12 +23,9 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.ReimprimirRelatorioActionListener;
-import com.au.gui.listener.VisualizarCaixaActionListener;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 
 /**
@@ -37,7 +34,6 @@ import javax.swing.JTable;
  */
 public class TelaReimprimirRelatorio extends javax.swing.JDialog {
 
-    private ReimprimirRelatorioActionListener listener;
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -46,7 +42,6 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         dateChooserDataAberturaCaixa.requestFocus();
-        listener = new ReimprimirRelatorioActionListener(this);
     }
 
     /**

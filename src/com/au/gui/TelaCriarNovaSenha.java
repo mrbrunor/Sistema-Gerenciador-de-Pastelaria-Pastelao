@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.RecuperarSenhaActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -35,7 +34,6 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaCriarNovaSenha extends javax.swing.JDialog {
-    private final RecuperarSenhaActionListener listener;
 
     /**
      * Creates new form TelaRecuperarSenha
@@ -46,7 +44,6 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         campoConfirmacaoNovaSenha.setDocument(new LimitaDigitos((64), ""));
         campoCpfFuncionario.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
         campoNovaSenha.setDocument(new LimitaDigitos((64), ""));
-        listener = new RecuperarSenhaActionListener(this);
     }
 
     /**

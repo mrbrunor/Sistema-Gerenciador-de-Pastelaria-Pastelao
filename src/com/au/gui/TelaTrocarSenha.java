@@ -24,11 +24,9 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.RecuperarSenhaActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -39,6 +37,8 @@ public class TelaTrocarSenha extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaRecuperarSenha
+     * @param parent
+     * @param modal
      */
     public TelaTrocarSenha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

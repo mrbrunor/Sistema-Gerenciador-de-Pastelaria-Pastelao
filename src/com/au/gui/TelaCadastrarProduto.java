@@ -24,7 +24,6 @@
 package com.au.gui;
 
 import com.au.util.LimitaDigitos;
-import com.au.gui.listener.ProdutoActionListener;
 import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
@@ -42,7 +41,6 @@ import javax.swing.JTextField;
  */
 public class TelaCadastrarProduto extends javax.swing.JDialog {
 
-    private ProdutoActionListener listener;
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -57,9 +55,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1000);
         tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
-
-        listener = new ProdutoActionListener(this);
-
     }
 
     /**

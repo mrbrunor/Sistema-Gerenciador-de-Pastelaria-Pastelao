@@ -24,8 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.CancelamentoActionListener;
-import com.au.modelo.Caixa;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -35,7 +33,6 @@ import javax.swing.JTextField;
  * @author BrunoRicardo
  */
 public class TelaCancelamento extends javax.swing.JDialog {
-    private final CancelamentoActionListener listener;
     private int idCaixa;
 
     /**
@@ -45,7 +42,6 @@ public class TelaCancelamento extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
-        listener = new CancelamentoActionListener(this);
         this.idCaixa = idCaixa;
     }
 

@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.VisualizarCaixaActionListener;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,7 +35,6 @@ import javax.swing.JTable;
  */
 public class TelaVisualizarCaixa extends javax.swing.JDialog {
 
-    private VisualizarCaixaActionListener listener;
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -45,7 +43,6 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         dateChooserDataAberturaCaixa.requestFocus();
-        listener = new VisualizarCaixaActionListener(this);
     }
 
     /**

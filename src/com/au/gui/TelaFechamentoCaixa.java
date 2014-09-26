@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.FechamentoActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -35,7 +34,6 @@ import javax.swing.JTextField;
  * @author Tiago
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
-    private final FechamentoActionListener listener;
     private static boolean fechou;
     private int idCaixa;
     /**
@@ -60,7 +58,6 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoMoedaVinteCincoCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
         fechou = false;
         this.idCaixa = idCaixa;
-        listener = new FechamentoActionListener(this);
     }
 
     /**

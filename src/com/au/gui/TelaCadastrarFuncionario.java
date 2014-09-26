@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.FuncionarioActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -37,7 +36,6 @@ import javax.swing.JTextField;
  */
 public class TelaCadastrarFuncionario extends javax.swing.JDialog {
 
-    private FuncionarioActionListener listener;
 
     /**
      * Creates new form TelaCadastrarFuncionario
@@ -54,7 +52,6 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoSenha2.setDocument(new LimitaDigitos((64), ""));
         campoTelefone.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));
         campoUser.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
-        listener = new FuncionarioActionListener(this);
     }
 
     /**

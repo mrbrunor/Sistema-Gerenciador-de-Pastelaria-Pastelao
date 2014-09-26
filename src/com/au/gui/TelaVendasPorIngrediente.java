@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.VendasPorIngredienteActionListener;
 import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
@@ -39,7 +38,6 @@ import javax.swing.JTextField;
  */
 public class TelaVendasPorIngrediente extends javax.swing.JDialog {
 
-    private VendasPorIngredienteActionListener listener;
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -50,7 +48,6 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
     public TelaVendasPorIngrediente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listener = new VendasPorIngredienteActionListener(this);
     }
 
     /**

@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.VendasPorFormaPgtoActionListener;
 import com.au.modelo.FormaPagamento;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
@@ -43,7 +42,6 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
     private List<FormaPagamento> listaResFormasPagamento;
 
-    private VendasPorFormaPgtoActionListener listener;
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -58,7 +56,6 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);
-        listener = new VendasPorFormaPgtoActionListener(this);
     }
 
     /**

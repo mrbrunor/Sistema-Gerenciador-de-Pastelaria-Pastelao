@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.PagamentoActionListener;
 import com.au.modelo.Caixa;
 import com.au.modelo.FormaPagamento;
 import com.au.modelo.Funcionario;
@@ -52,7 +51,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private Integer indexCaixa = null;
     private double subTotal = 0;
     private double total = 0;
-    private final PagamentoActionListener listener;
     private static boolean pagou = false;
     private List<FormaPagamento> listaResFormasPagamento;
 
@@ -74,7 +72,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorRecebido.setVisible(false);
         campoValorRecebidoVR.setVisible(false);
         textoValorRecebidoVR.setVisible(false);
-        listener = new PagamentoActionListener(this);
     }
 
     /**

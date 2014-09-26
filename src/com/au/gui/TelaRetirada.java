@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.RetiradaActionListener;
 import com.au.modelo.Caixa;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
@@ -36,7 +35,6 @@ import javax.swing.JTextField;
  * @author BrunoRicardo
  */
 public class TelaRetirada extends javax.swing.JDialog {
-    private final RetiradaActionListener listener;
     private Caixa caixa;
 
     /**
@@ -47,7 +45,6 @@ public class TelaRetirada extends javax.swing.JDialog {
         initComponents();
         campoMotivo.setDocument(new LimitaDigitos((300), ""));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
-        listener = new RetiradaActionListener(this);
         this.caixa = caixa;
     }
 

@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.IngredienteActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -33,7 +32,6 @@ import javax.swing.JTextField;
  * @author tiago_000
  */
 public class TelaCadastrarIngrediente extends javax.swing.JDialog {
-    private IngredienteActionListener listener;
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -46,7 +44,6 @@ public class TelaCadastrarIngrediente extends javax.swing.JDialog {
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         campoPesquisarIngrediente.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9çÇ]"));
         campoNome.requestFocus();
-        listener = new IngredienteActionListener(this);
     }
 
     /**

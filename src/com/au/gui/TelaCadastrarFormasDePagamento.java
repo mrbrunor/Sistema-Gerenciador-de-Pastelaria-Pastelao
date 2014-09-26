@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.FormaPagamentoActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -36,15 +35,12 @@ import javax.swing.JTextField;
  */
 public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
     
-    private final FormaPagamentoActionListener listener;
-
     /**
      * Creates new form TelaCadastrarFormasDePagamento
      */
     public TelaCadastrarFormasDePagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listener = new FormaPagamentoActionListener(this);
     }
 
     /**

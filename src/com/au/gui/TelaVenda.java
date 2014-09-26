@@ -23,8 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.TabelaPesquisaActionListener;
-import com.au.gui.listener.VendaActionListener;
 import com.au.modelo.Caixa;
 import com.au.modelo.Funcionario;
 import com.au.util.Clock;
@@ -44,8 +42,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private Caixa caixa;
     private Funcionario funcionario;
-    private final VendaActionListener listener;
-    private final TabelaPesquisaActionListener listener2;
 
     /**
      * Creates new form TelaVenda
@@ -58,8 +54,6 @@ public class TelaVenda extends javax.swing.JFrame {
         campoBusca.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
         campoAdicionarItem.setDocument(new LimitaDigitos((6), "[^0-9]"));
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
-        listener = new VendaActionListener(this);
-        listener2 = new TabelaPesquisaActionListener(this);
         this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 

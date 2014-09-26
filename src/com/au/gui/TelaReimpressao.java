@@ -24,7 +24,6 @@
 
 package com.au.gui;
 
-import com.au.gui.listener.ReimpressaoActionListener;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -34,17 +33,18 @@ import javax.swing.JTextField;
  * @author BrunoRicardo
  */
 public class TelaReimpressao extends javax.swing.JDialog {
-    private final ReimpressaoActionListener listener;
     private int idCaixa;
 
     /**
      * Creates new form TelaRetirada
+     * @param parent
+     * @param modal
+     * @param idCaixa
      */
     public TelaReimpressao(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
-        listener = new ReimpressaoActionListener(this);
         this.idCaixa = idCaixa;
     }
 

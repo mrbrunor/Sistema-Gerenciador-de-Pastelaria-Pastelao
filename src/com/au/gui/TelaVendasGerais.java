@@ -23,7 +23,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.listener.VendasGeraisActionListener;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -34,7 +33,6 @@ import javax.swing.JTextField;
  */
 public class TelaVendasGerais extends javax.swing.JDialog {
 
-    private VendasGeraisActionListener listener;
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -44,7 +42,6 @@ public class TelaVendasGerais extends javax.swing.JDialog {
     public TelaVendasGerais(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listener = new VendasGeraisActionListener(this);
     }
 
     /**
