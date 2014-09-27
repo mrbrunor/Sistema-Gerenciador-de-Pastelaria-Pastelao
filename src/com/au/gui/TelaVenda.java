@@ -24,7 +24,7 @@
 package com.au.gui;
 
 import com.au.modelo.Caixa;
-import com.au.modelo.Funcionario;
+import com.au.bean.Funcionario;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import javax.swing.JButton;

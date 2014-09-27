@@ -272,8 +272,7 @@ public class TelaLogin extends javax.swing.JFrame {
         if (funcionario == null) {
             JOptionPane.showMessageDialog(this, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
         } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc()) && funcionario.getEstaAtivo() == 1) {
-            //new com.au.gui.TelaVenda(funcionario).setVisible(true);
-            JOptionPane.showMessageDialog(this, "Aceito :D", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+            new com.au.gui.TelaVenda(funcionario).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Esta conta foi desativada pelo Administrador", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
