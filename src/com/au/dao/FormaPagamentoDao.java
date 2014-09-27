@@ -61,11 +61,10 @@ public class FormaPagamentoDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, novaFormaPagamento.getNomeFormaPgto());
             stmt.setString(2, novaFormaPagamento.getTipoFormaPgto());
-            stmt.setBoolean(2, novaFormaPagamento.getEstaAtivo());
+            stmt.setInt(2, novaFormaPagamento.getEstaAtivo());
 
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,12 +87,11 @@ public class FormaPagamentoDao {
                 formaPagamento.setIdFormaPgto(res.getInt("idFormaPgto"));
                 formaPagamento.setNomeFormaPgto(res.getString("nomeFormaPgto"));
                 formaPagamento.setTipoFormaPgto(res.getString("tipoFormaPgto"));
-                formaPagamento.setEstaAtivo(res.getBoolean("estaAtivo"));
+                formaPagamento.setEstaAtivo(res.getInt("estaAtivo"));
                 listaResFormaPagamento.add(formaPagamento);
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,11 +108,10 @@ public class FormaPagamentoDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, formaPagamento.getNomeFormaPgto());
             stmt.setString(2, formaPagamento.getTipoFormaPgto());
-            stmt.setBoolean(3, formaPagamento.getEstaAtivo());
+            stmt.setInt(3, formaPagamento.getEstaAtivo());
             stmt.setInt(4, formaPagamento.getIdFormaPgto());
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,7 +130,6 @@ public class FormaPagamentoDao {
             stmt.setInt(1, formaPagamento.getIdFormaPgto());
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);

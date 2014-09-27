@@ -27,7 +27,7 @@ public class Produto {
     private String descProd;
     private double valorProd;
     private String codBarras;
-    private boolean eIndustrializado;
+    private int eIndustrializado;
 
     public int getIdProd() {
         return idProd;
@@ -69,11 +69,11 @@ public class Produto {
         this.codBarras = codBarras;
     }
 
-    public boolean getEIndustrializado() {
+    public int getEIndustrializado() {
         return eIndustrializado;
     }
 
-    public void setEIndustrializado(boolean eIndustrializado) {
+    public void setEIndustrializado(int eIndustrializado) {
         this.eIndustrializado = eIndustrializado;
     }
 

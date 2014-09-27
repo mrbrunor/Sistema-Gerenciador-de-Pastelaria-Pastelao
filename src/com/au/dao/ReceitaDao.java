@@ -63,7 +63,6 @@ public class ReceitaDao {
 
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +88,6 @@ public class ReceitaDao {
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +107,6 @@ public class ReceitaDao {
             stmt.setInt(3, antigaReceita.getIdIng());
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,7 +126,6 @@ public class ReceitaDao {
             stmt.setInt(2, receita.getIdIng());
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);

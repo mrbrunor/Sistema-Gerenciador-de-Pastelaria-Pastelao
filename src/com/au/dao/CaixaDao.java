@@ -64,12 +64,11 @@ public class CaixaDao {
             stmt.setTime(4, novoCaixa.getAberturaCaixa());
             stmt.setTime(5, novoCaixa.getFechamentoCaixa());
             stmt.setDate(6, novoCaixa.getDataFechamentoCaixa());
-            stmt.setBoolean(7, novoCaixa.getEstaAberto());
+            stmt.setInt(7, novoCaixa.getEstaAberto());
             stmt.setDouble(8, novoCaixa.getTotalCaixa());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,13 +95,12 @@ public class CaixaDao {
                 caixa.setAberturaCaixa(res.getTime("aberturaCaixa"));
                 caixa.setFechamentoCaixa(res.getTime("fechamentoCaixa"));
                 caixa.setDataFechamentoCaixa(res.getDate("dataFechamentoCaixa"));
-                caixa.setEstaAberto(res.getBoolean("estaAberto"));
+                caixa.setEstaAberto(res.getInt("estaAberto"));
                 caixa.setTotalCaixa(res.getDouble("totalCaixa"));
                 listaResCaixa.add(caixa);
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,13 +121,12 @@ public class CaixaDao {
             stmt.setTime(4, novoCaixa.getAberturaCaixa());
             stmt.setTime(5, novoCaixa.getFechamentoCaixa());
             stmt.setDate(5, novoCaixa.getDataFechamentoCaixa());
-            stmt.setBoolean(6, novoCaixa.getEstaAberto());
+            stmt.setInt(6, novoCaixa.getEstaAberto());
             stmt.setDouble(7, novoCaixa.getTotalCaixa());
             stmt.setInt(8, novoCaixa.getIdCaixa());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
 
         } catch (SQLException ex) {
@@ -151,7 +148,6 @@ public class CaixaDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
 
         } catch (SQLException ex) {

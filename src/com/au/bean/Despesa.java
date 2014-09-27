@@ -29,7 +29,7 @@ public class Despesa {
     private String descDesp;
     private double valorDesp;
     private int idCaixa;
-    private boolean retirada;
+    private int retirada;
 
     public int getIdDesp() {
         return idDesp;
@@ -71,11 +71,11 @@ public class Despesa {
         this.idCaixa = idCaixa;
     }
 
-    public boolean getRetirada() {
+    public int getRetirada() {
         return retirada;
     }
 
-    public void setRetirada(boolean retirada) {
+    public void setRetirada(int retirada) {
         this.retirada = retirada;
     }
 

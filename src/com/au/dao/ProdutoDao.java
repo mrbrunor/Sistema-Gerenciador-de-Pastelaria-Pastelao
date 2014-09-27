@@ -62,11 +62,10 @@ public class ProdutoDao {
             stmt.setString(2, novoProd.getDescProd());
             stmt.setDouble(3, novoProd.getValorProd());
             stmt.setString(4, novoProd.getCodBarras());
-            stmt.setBoolean(5, novoProd.getEIndustrializado());
+            stmt.setInt(5, novoProd.getEIndustrializado());
 
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,12 +92,11 @@ public class ProdutoDao {
                 novoProd.setDescProd(res.getString("descProd"));
                 novoProd.setValorProd(res.getDouble("valorProd"));
                 novoProd.setCodBarras(res.getString("codBarras"));
-                novoProd.setEIndustrializado(res.getBoolean("eIndustrializado"));
+                novoProd.setEIndustrializado(res.getInt("eIndustrializado"));
                 listaResProd.add(novoProd);
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,12 +115,11 @@ public class ProdutoDao {
             stmt.setString(2, produto.getDescProd());
             stmt.setDouble(3, produto.getValorProd());
             stmt.setString(4, produto.getCodBarras());
-            stmt.setBoolean(5, produto.getEIndustrializado());
+            stmt.setInt(5, produto.getEIndustrializado());
             stmt.setInt(6, produto.getIdProd());
 
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +139,6 @@ public class ProdutoDao {
 
             resultado = stmt.execute();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }

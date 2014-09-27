@@ -25,7 +25,7 @@ public class FormaPagamento {
     private int idFormaPgto;
     private String nomeFormaPgto;
     private String tipoFormaPgto;
-    private boolean estaAtivo;
+    private int estaAtivo;
 
     public int getIdFormaPgto() {
         return idFormaPgto;
@@ -51,11 +51,11 @@ public class FormaPagamento {
         this.tipoFormaPgto = tipoFormaPgto;
     }
 
-    public boolean getEstaAtivo() {
+    public int getEstaAtivo() {
         return estaAtivo;
     }
 
-    public void setEstaAtivo(boolean estaAtivo) {
+    public void setEstaAtivo(int estaAtivo) {
         this.estaAtivo = estaAtivo;
     }
 }

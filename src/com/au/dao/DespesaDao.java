@@ -62,11 +62,10 @@ public class DespesaDao {
             stmt.setString(2, novaDesp.getDescDesp());
             stmt.setDouble(3, novaDesp.getValorDesp());
             stmt.setInt(4, novaDesp.getIdCaixa());
-            stmt.setBoolean(5, novaDesp.getRetirada());
+            stmt.setInt(5, novaDesp.getRetirada());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,11 +90,10 @@ public class DespesaDao {
                 despesa.setDescDesp(res.getString("descDesp"));
                 despesa.setValorDesp(res.getDouble("valorDesp"));
                 despesa.setIdCaixa(res.getInt("idCaixa"));
-                despesa.setRetirada(res.getBoolean("retirada"));
+                despesa.setRetirada(res.getInt("retirada"));
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,12 +112,11 @@ public class DespesaDao {
             stmt.setString(2, novaDespesa.getDescDesp());
             stmt.setDouble(3, novaDespesa.getValorDesp());
             stmt.setInt(4, novaDespesa.getIdCaixa());
-            stmt.setBoolean(5, novaDespesa.getRetirada());
+            stmt.setInt(5, novaDespesa.getRetirada());
             stmt.setInt(6, novaDespesa.getIdDesp());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
 
         } catch (SQLException ex) {
@@ -141,7 +138,6 @@ public class DespesaDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
 
         } catch (SQLException ex) {
