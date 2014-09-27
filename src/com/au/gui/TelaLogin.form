@@ -190,6 +190,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoUsuarioFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoUsuarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="campoSenha">
@@ -200,6 +201,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoSenhaFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoSenhaActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoSenha.setActionCommand(&quot;Entrar no Sistema&quot;);  "/>
@@ -217,6 +219,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Esqueci a minha senha"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoEsqueciSenhaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoEntrarNoSistema">
       <Properties>
@@ -228,6 +233,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Entrar no Sistema"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoEntrarNoSistemaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

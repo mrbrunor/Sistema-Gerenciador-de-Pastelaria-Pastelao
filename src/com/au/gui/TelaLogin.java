@@ -21,13 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Funcionario;
+import com.au.dao.FuncionarioDao;
+import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+import old.com.au.gui.listener.LoginActionListener;
 
 /**
  *
@@ -40,6 +46,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        setaFonteAvisos();
         campoSenha.setDocument(new LimitaDigitos((64), ""));
         campoUsuario.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
     }
@@ -117,11 +124,21 @@ public class TelaLogin extends javax.swing.JFrame {
                 campoUsuarioFocusGained(evt);
             }
         });
+        campoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoUsuarioActionPerformed(evt);
+            }
+        });
 
         campoSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoSenhaFocusGained(evt);
+            }
+        });
+        campoSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoSenhaActionPerformed(evt);
             }
         });
 
@@ -157,10 +174,20 @@ public class TelaLogin extends javax.swing.JFrame {
         botaoEsqueciSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoEsqueciSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/help-32.png"))); // NOI18N
         botaoEsqueciSenha.setText("Esqueci a minha senha");
+        botaoEsqueciSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEsqueciSenhaActionPerformed(evt);
+            }
+        });
 
         botaoEntrarNoSistema.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoEntrarNoSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/login-32.png"))); // NOI18N
         botaoEntrarNoSistema.setText("Entrar no Sistema");
+        botaoEntrarNoSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEntrarNoSistemaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,44 +232,93 @@ public class TelaLogin extends javax.swing.JFrame {
         campoSenha.selectAll();
     }//GEN-LAST:event_campoSenhaFocusGained
 
-    public JPasswordField getCampoSenha() {
-        return campoSenha;
-    }
+    private void botaoEntrarNoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarNoSistemaActionPerformed
+        try {
+            logar();
+        } catch (ExceptionInInitializerError ex) {
+            Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoEntrarNoSistemaActionPerformed
 
-    public void setCampoSenha(JPasswordField campoSenha) {
-        this.campoSenha = campoSenha;
-    }
+    private void botaoEsqueciSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEsqueciSenhaActionPerformed
+        trocarSenha();
+    }//GEN-LAST:event_botaoEsqueciSenhaActionPerformed
 
-    public JTextField getCampoUsuario() {
-        return campoUsuario;
-    }
+    private void campoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUsuarioActionPerformed
+        campoSenha.requestFocus();
+    }//GEN-LAST:event_campoUsuarioActionPerformed
 
-    public void setCampoUsuario(JTextField campoUsuario) {
-        this.campoUsuario = campoUsuario;
-    }
+    private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
+        botaoEntrarNoSistema.requestFocus();
+    }//GEN-LAST:event_campoSenhaActionPerformed
 
-    public JButton getBotaoEntrarNoSistema() {
-        return botaoEntrarNoSistema;
-    }
-
-    public void setBotaoEntrarNoSistema(JButton botaoEntrarNoSistema) {
-        this.botaoEntrarNoSistema = botaoEntrarNoSistema;
-    }
-
-    public JButton getBotaoEsqueciSenha() {
-        return botaoEsqueciSenha;
-    }
-
-    public void setBotaoEsqueciSenha(JButton botaoEsqueciSenha) {
-        this.botaoEsqueciSenha = botaoEsqueciSenha;
-    }
-    
-    public void limpaCampos(){
+    public void limpaCampos() {
         campoSenha.setText("");
         campoUsuario.setText("");
     }
 
+    private void logar() throws ExceptionInInitializerError {
+        Funcionario funcionario;
+        Funcionario login = new Funcionario();
+
+        login.setUserFunc(campoUsuario.getText());
+        HexSha hexSha = new HexSha(String.valueOf(campoSenha.getPassword()));
+        login.setPassFunc(hexSha.ConvertSha());
+        FuncionarioDao fDao = new FuncionarioDao();
+        fDao.abreConnection();
+        funcionario = fDao.buscarLogin(login.getUserFunc(), login.getPassFunc());
+        fDao.fechaConnection();
+        if (funcionario == null) {
+            JOptionPane.showMessageDialog(this, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+        } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc()) && funcionario.getEstaAtivo() == 1) {
+            //new com.au.gui.TelaVenda(funcionario).setVisible(true);
+            JOptionPane.showMessageDialog(this, "Aceito :D", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Esta conta foi desativada pelo Administrador", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void setaFonteAvisos() {
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("Tahoma", Font.PLAIN, 16)));
+        //UIManager.put("Button.font", /* font of your liking */);
+        //UIManager.put("ToggleButton.font", /* font of your liking */);
+        //UIManager.put("RadioButton.font", /* font of your liking */);
+        //UIManager.put("CheckBox.font", /* font of your liking */);
+        //UIManager.put("ColorChooser.font", /* font of your liking */);
+        UIManager.put("ComboBox.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        //UIManager.put("Label.font", /* font of your liking */);
+        //UIManager.put("List.font", /* font of your liking */);
+        UIManager.put("MenuBar.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 18)));
+        UIManager.put("MenuItem.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 16)));
+        //UIManager.put("RadioButtonMenuItem.font", /* font of your liking */);
+        //UIManager.put("CheckBoxMenuItem.font", /* font of your liking */);
+        //UIManager.put("Menu.font", /* font of your liking */);
+        //UIManager.put("PopupMenu.font", /* font of your liking */);
+        //UIManager.put("OptionPane.font", /* font of your liking */);
+        //UIManager.put("Panel.font", /* font of your liking */);
+        //UIManager.put("ProgressBar.font", /* font of your liking */);
+        //UIManager.put("ScrollPane.font", /* font of your liking */);
+        //UIManager.put("Viewport.font", /* font of your liking */);
+        //UIManager.put("TabbedPane.font", /* font of your liking */);
+        UIManager.put("Table.font", new FontUIResource(new Font("Tahoma", Font.PLAIN, 15)));
+        UIManager.put("TableHeader.font", new FontUIResource(new Font("Tahoma", Font.BOLD, 15)));
+        //UIManager.put("TextField.font", /* font of your liking */);
+        //UIManager.put("PasswordField.font", /* font of your liking */);
+        //UIManager.put("TextArea.font", /* font of your liking */);
+        //UIManager.put("TextPane.font", /* font of your liking */);
+        //UIManager.put("EditorPane.font", /* font of your liking */);
+        UIManager.put("TitledBorder.font", new FontUIResource(new Font("Tahoma", Font.BOLD, 15)));
+        //UIManager.put("ToolBar.font", /* font of your liking */);
+        //UIManager.put("ToolTip.font", /* font of your liking */); 
+    }
     
+    private void trocarSenha() {
+        new TelaCriarNovaSenha(this, true).setVisible(true);
+    }
+
     /**
      * @param args the command line arguments
      */

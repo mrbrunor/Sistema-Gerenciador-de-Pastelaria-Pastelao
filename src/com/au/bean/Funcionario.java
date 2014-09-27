@@ -31,7 +31,7 @@ public class Funcionario {
     private String userFunc;
     private String passFunc;
     private int nivelFunc;
-    private boolean estaAtivo;
+    private int estaAtivo;
 
     public int getIdFunc() {
         return idFunc;
@@ -105,11 +105,11 @@ public class Funcionario {
         this.nivelFunc = nivelFunc;
     }
 
-    public boolean getEstaAtivo() {
+    public int getEstaAtivo() {
         return estaAtivo;
     }
 
-    public void setEstaAtivo(boolean estaAtivo) {
+    public void setEstaAtivo(int estaAtivo) {
         this.estaAtivo = estaAtivo;
     }
 }

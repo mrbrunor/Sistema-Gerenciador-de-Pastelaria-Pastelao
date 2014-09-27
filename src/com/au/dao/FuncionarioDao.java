@@ -66,11 +66,10 @@ public class FuncionarioDao {
             stmt.setString(6, novoFunc.getUserFunc());
             stmt.setString(7, novoFunc.getPassFunc());
             stmt.setInt(8, novoFunc.getNivelFunc());
-            stmt.setBoolean(9, novoFunc.getEstaAtivo());
+            stmt.setInt(9, novoFunc.getEstaAtivo());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,16 +98,49 @@ public class FuncionarioDao {
                 novoFunc.setUserFunc(res.getString("userFunc"));
                 novoFunc.setPassFunc("");
                 novoFunc.setNivelFunc(res.getInt("nivelFunc"));
-                novoFunc.setEstaAtivo(res.getBoolean("estaAtivo"));
+                novoFunc.setEstaAtivo(res.getInt("estaAtivo"));
                 listaResFunc.add(novoFunc);
             }
             res.close();
             stmt.close();
-            conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaResFunc;
+    }
+
+    public Funcionario buscarLogin(String usuario, String senha) {
+        String sql = "SELECT * FROM Funcionario WHERE userFunc=? AND passFunc=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+            res = stmt.executeQuery();
+            if (res != null) {
+                while (res.next()) {
+                    Funcionario novoFunc = new Funcionario();
+                    novoFunc.setIdFunc(res.getInt("idFunc"));
+                    novoFunc.setNomeFunc(res.getString("nomeFunc"));
+                    novoFunc.setCpfFunc(res.getString("cpfFunc"));
+                    novoFunc.setMailFunc(res.getString("mailFunc"));
+                    novoFunc.setFoneFunc(res.getString("foneFunc"));
+                    novoFunc.setCelFunc(res.getString("celFunc"));
+                    novoFunc.setUserFunc(res.getString("userFunc"));
+                    novoFunc.setPassFunc(res.getString("passFunc"));
+                    novoFunc.setNivelFunc(res.getInt("nivelFunc"));
+                    novoFunc.setEstaAtivo(res.getInt("estaAtivo"));
+                    return novoFunc;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     //UPDATE
@@ -127,12 +159,11 @@ public class FuncionarioDao {
             stmt.setString(6, novoFunc.getUserFunc());
             stmt.setString(7, novoFunc.getPassFunc());
             stmt.setInt(8, novoFunc.getNivelFunc());
-            stmt.setBoolean(9, novoFunc.getEstaAtivo());
+            stmt.setInt(9, novoFunc.getEstaAtivo());
             stmt.setInt(10, novoFunc.getIdFunc());
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,7 +183,6 @@ public class FuncionarioDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
