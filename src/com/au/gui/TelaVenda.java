@@ -23,25 +23,41 @@
  */
 package com.au.gui;
 
-import com.au.modelo.Caixa;
+import com.au.gui.tmodel.VendaTableModel;
+import com.au.bean.Caixa;
 import com.au.bean.Funcionario;
+import com.au.bean.ItemPedido;
+import com.au.bean.Pedido;
+import com.au.bean.Produto;
+import com.au.dao.CaixaDao;
+import com.au.dao.PedidoDao;
+import com.au.dao.ProdutoDao;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author Tiago
  */
-public class TelaVenda extends javax.swing.JFrame {
+public class TelaVenda extends javax.swing.JFrame implements ListSelectionListener {
 
     private Caixa caixa;
     private Funcionario funcionario;
+    private VendaTableModel tableModelVenda;
+    private Pedido pedido = new Pedido();
+    private double totalPedido = 0;
+    private Integer idCaixa = null;
+    private boolean numeroPedidoVerificado = false;
+    private int numPedido = 1;
+    private int auxOrdemProduto = 1;
 
     /**
      * Creates new form TelaVenda
@@ -54,7 +70,18 @@ public class TelaVenda extends javax.swing.JFrame {
         campoBusca.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
         campoAdicionarItem.setDocument(new LimitaDigitos((6), "[^0-9]"));
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
-        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setExtendedState(TelaVenda.MAXIMIZED_BOTH);
+        inicializaTableModelVenda();
+        inicializaData();
+        idCaixa = verificaCaixa();
+        if (funcionario.getNivelFunc() == 0) {
+            menuCadastros.setEnabled(false);
+            MenuRelatorio.setEnabled(false);
+            abrirCaixa();
+        } else if (idCaixa == null) {
+            caixaFechado();
+        }
+        campoAdicionarItem.requestFocus();
     }
 
     /**
@@ -475,308 +502,316 @@ public class TelaVenda extends javax.swing.JFrame {
         campoAdicionarItem.selectAll();
     }//GEN-LAST:event_campoAdicionarItemFocusGained
 
-    public void setItemMenuCancelarCupom(JMenuItem itemMenuCancelarCupom) {
-        this.itemMenuCancelarCupom = itemMenuCancelarCupom;
-    }
-
-    public JMenuItem getItemMenuCancelarCupom() {
-        return itemMenuCancelarCupom;
-    }
-
-    public JMenu getMenuAjuda() {
-        return MenuAjuda;
-    }
-
-    public void setMenuAjuda(JMenu MenuAjuda) {
-        this.MenuAjuda = MenuAjuda;
-    }
-
-    public JMenu getMenuRelatorio() {
-        return MenuRelatorio;
-    }
-
-    public void setMenuRelatorio(JMenu MenuRelatorio) {
-        this.MenuRelatorio = MenuRelatorio;
-    }
-
-    public JMenu getMenuCadastros() {
-        return menuCadastros;
-    }
-
-    public void setMenuCadastros(JMenu menuCadastros) {
-        this.menuCadastros = menuCadastros;
-    }
-
-    public JMenu getMenuPrincipal() {
-        return menuPrincipal;
-    }
-
-    public void setMenuPrincipal(JMenu menuPrincipal) {
-        this.menuPrincipal = menuPrincipal;
-    }
-
-    public JMenuItem getItemMenuFormaPagamento() {
-        return itemMenuFormaPagamento;
-    }
-
-    public void setItemMenuFormaPagamento(JMenuItem itemMenuFormaPagamento) {
-        this.itemMenuFormaPagamento = itemMenuFormaPagamento;
-    }
-
-    public JLabel getTextoData() {
-        return textoData;
-    }
-
-    public void setTextoData(JLabel textoData) {
-        this.textoData = textoData;
-    }
-
-    public JMenuItem getItemMenuAbrirCaixa() {
-        return itemMenuAbrirCaixa;
-    }
-
-    public void setItemMenuAbrirCaixa(JMenuItem itemMenuAbrirCaixa) {
-        this.itemMenuAbrirCaixa = itemMenuAbrirCaixa;
-    }
-
-    public JMenuItem getItemMenuDeslogar() {
-        return itemMenuDeslogar;
-    }
-
-    public void setItemMenuDeslogar(JMenuItem itemMenuDeslogar) {
-        this.itemMenuDeslogar = itemMenuDeslogar;
-    }
-
-    public JMenuItem getItemMenuFecharCaixa() {
-        return itemMenuFecharCaixa;
-    }
-
-    public void setItemMenuFecharCaixa(JMenuItem itemMenuFecharCaixa) {
-        this.itemMenuFecharCaixa = itemMenuFecharCaixa;
-    }
-
-    public JMenuItem getItemMenuFuncionarios() {
-        return itemMenuFuncionarios;
-    }
-
-    public void setItemMenuFuncionarios(JMenuItem itemMenuFuncionarios) {
-        this.itemMenuFuncionarios = itemMenuFuncionarios;
-    }
-
-    public JMenuItem getItemMenuIngredientes() {
-        return itemMenuIngredientes;
-    }
-
-    public void setItemMenuIngredientes(JMenuItem itemMenuIngredientes) {
-        this.itemMenuIngredientes = itemMenuIngredientes;
-    }
-
-    public JMenuItem getItemMenuProdutos() {
-        return itemMenuProdutos;
-    }
-
-    public void setItemMenuProdutos(JMenuItem itemMenuProdutos) {
-        this.itemMenuProdutos = itemMenuProdutos;
-    }
-
-    public JMenuItem getItemMenuRetiradaDeCaixa() {
-        return itemMenuRetiradaDeCaixa;
-    }
-
-    public void setItemMenuRetiradaDeCaixa(JMenuItem itemMenuRetiradaDeCaixa) {
-        this.itemMenuRetiradaDeCaixa = itemMenuRetiradaDeCaixa;
-    }
-
-    public JMenuItem getItemMenuSair() {
-        return itemMenuSair;
-    }
-
-    public void setItemMenuSair(JMenuItem itemMenuSair) {
-        this.itemMenuSair = itemMenuSair;
-    }
-
-    public JMenuItem getItemMenuSobre() {
-        return itemMenuSobre;
-    }
-
-    public void setItemMenuSobre(JMenuItem itemMenuSobre) {
-        this.itemMenuSobre = itemMenuSobre;
-    }
-
-    public JMenuItem getItemMenuTrocarSenha() {
-        return itemMenuTrocarSenha;
-    }
-
-    public void setItemMenuTrocarSenha(JMenuItem itemMenuTrocarSenha) {
-        this.itemMenuTrocarSenha = itemMenuTrocarSenha;
-    }
-
-    public JLabel getTextoValorTotal() {
-        return textoValorTotal;
-    }
-
-    public void setTextoValorTotal(JLabel textoValorTotal) {
-        this.textoValorTotal = textoValorTotal;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
-    public JButton getBotaoAdicionarAoPedido() {
-        return botaoAdicionarAoPedido;
-    }
-
-    public void setBotaoAdicionarAoPedido(JButton botaoAdicionarAoPedido) {
-        this.botaoAdicionarAoPedido = botaoAdicionarAoPedido;
-    }
-
-    public JButton getBotaoAdicionarItem() {
-        return botaoAdicionarItem;
-    }
-
-    public void setBotaoAdicionarItem(JButton botaoAdicionarItem) {
-        this.botaoAdicionarItem = botaoAdicionarItem;
-    }
-
-    public JButton getBotaoAlternarUsuario() {
-        return botaoAlternarUsuario;
-    }
-
-    public void setBotaoAlternarUsuario(JButton botaoAlternarUsuario) {
-        this.botaoAlternarUsuario = botaoAlternarUsuario;
-    }
-
-    public JButton getBotaoBuscar() {
-        return botaoBuscar;
-    }
-
-    public void setBotaoBuscar(JButton botaoBuscar) {
-        this.botaoBuscar = botaoBuscar;
-    }
-
-    public JButton getBotaoCancelarPedido() {
-        return botaoCancelarPedido;
-    }
-
-    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
-        this.botaoCancelarPedido = botaoCancelarPedido;
-    }
-
-    public JButton getBotaoExcluirItem() {
-        return botaoExcluirItem;
-    }
-
-    public void setBotaoExcluirItem(JButton botaoExcluirItem) {
-        this.botaoExcluirItem = botaoExcluirItem;
-    }
-
-    public JButton getBotaoCaixa() {
-        return botaoCaixa;
-    }
-
-    public void setBotaoCaixa(JButton botaoFecharCaixa) {
-        this.botaoCaixa = botaoFecharCaixa;
-    }
-
-    public JButton getBotaoFecharPedido() {
-        return botaoFecharPedido;
-    }
-
-    public void setBotaoFecharPedido(JButton botaoFecharPedido) {
-        this.botaoFecharPedido = botaoFecharPedido;
-    }
-
-    public JTextField getCampoAdicionarItem() {
-        return campoAdicionarItem;
-    }
-
-    public void setCampoAdicionarItem(JTextField campoAdicionarItem) {
-        this.campoAdicionarItem = campoAdicionarItem;
-    }
-
-    public JTextField getCampoBusca() {
-        return campoBusca;
-    }
-
-    public void setCampoBusca(JTextField campoBusca) {
-        this.campoBusca = campoBusca;
-    }
-
-    public JTable getTabelaBusca() {
-        return tabelaBusca;
-    }
-
-    public void setTabelaBusca(JTable tabelaBusca) {
-        this.tabelaBusca = tabelaBusca;
-    }
-
-    public JTable getTabelaPedido() {
-        return tabelaPedido;
-    }
-
-    public void setTabelaPedido(JTable tabelaPedido) {
-        this.tabelaPedido = tabelaPedido;
-    }
-
-    public Caixa getCaixa() {
-        return caixa;
-    }
-
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
-    }
-
-    public JMenuItem getItemMenuVendasPorPeriodo() {
-        return itemMenuVendasGerais;
-    }
-
-    public void setItemMenuVendasPorPeriodo(JMenuItem itemMenuVendasPorPeriodo) {
-        this.itemMenuVendasGerais = itemMenuVendasPorPeriodo;
-    }
-
-    public JMenuItem getItemMenuVendasFiltradasFormaPgto() {
-        return itemMenuVendasFiltradasFormaPgto;
-    }
-
-    public void setItemMenuVendasFiltradasFormaPgto(JMenuItem itemMenuVendasFiltradasFormaPgto) {
-        this.itemMenuVendasFiltradasFormaPgto = itemMenuVendasFiltradasFormaPgto;
-    }
-
-    public JMenuItem getItemMenuVendasFiltradasIngredientes() {
-        return itemMenuVendasFiltradasIngredientes;
-    }
-
-    public void setItemMenuVendasFiltradasIngredientes(JMenuItem itemMenuVendasFiltradasIngredientes) {
-        this.itemMenuVendasFiltradasIngredientes = itemMenuVendasFiltradasIngredientes;
-    }
-
-    public JMenuItem getItemMenuVendasGerais() {
-        return itemMenuVendasGerais;
-    }
-
-    public void setItemMenuVendasGerais(JMenuItem itemMenuVendasGerais) {
-        this.itemMenuVendasGerais = itemMenuVendasGerais;
-    }
-
-    public JMenuItem getItemMenuReimprimirCupom() {
-        return itemMenuReimprimirCupom;
-    }
-
-    public void setItemMenuReimprimirCupom(JMenuItem itemMenuReimprimirCupom) {
-        this.itemMenuReimprimirCupom = itemMenuReimprimirCupom;
-    }
-
-    public JMenuItem getItemMenuVisualizarCaixas() {
-        return itemMenuVisualizarCaixas;
-    }
-
-    public void setItemMenuVisualizarCaixas(JMenuItem itemMenuVisualizarCaixas) {
-        this.itemMenuVisualizarCaixas = itemMenuVisualizarCaixas;
+    private void abrirCaixa() {
+        if (idCaixa == null) {
+            caixa = novoCaixa();
+            if (caixa != null) {
+                CaixaDao cDao = new CaixaDao();
+                cDao.abreConnection();
+                cDao.adicionaCaixa(caixa);
+                cDao.fechaConnection();
+                numeroPedidoVerificado = true;
+                caixaAberto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Abertura de Caixa Cancelada!", "Abertura de Caixa", JOptionPane.WARNING_MESSAGE);
+                caixaFechado();
+            }
+        }
+    }
+
+    private void adicionaItempedido() throws NullPointerException {
+        Produto produto = new Produto();
+        ItemPedido itempedido = new ItemPedido();
+        String padrao = "[0-9]{1,2}";
+
+        produto.setNumProd(Integer.valueOf(campoAdicionarItem.getText()));
+        ProdutoDao pDao = new ProdutoDao();
+        pDao.abreConnection();
+        produto = pDao.buscaCodigo(produto.getNumProd());
+        itempedido.setIdProd(produto.getIdProd());
+        itempedido.setQtdProd(-1);
+        while (itempedido.getQtdProd() == -1) {
+            String aux = JOptionPane.showInputDialog(this, "<html><center>Digite a Quantidade para o produto:<br/><b>" + produto.getDescProd(), 1);
+            if (aux == null) {
+                return;
+            } else if (aux.matches(padrao)) {
+                itempedido.setQtdProd(Integer.valueOf(aux));
+            }
+        }
+        verificaSeExiste(itempedido);
+        itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
+
+        totalPedido = totalPedido + itempedido.getTotProd();
+        atualizaTotal();
+        campoAdicionarItem.setText("");
+        inicializaTableModelVenda();
+    }
+
+    private void atualizaTotal() {
+        textoValorTotal.setText(String.format("Valor Total: %.2f", totalPedido));
+    }
+
+    private void caixaAberto() {
+        botaoCaixa.setText("Fechar Caixa");
+        itemMenuAbrirCaixa.setEnabled(false);
+        itemMenuFecharCaixa.setEnabled(true);
+        itemMenuRetiradaDeCaixa.setEnabled(true);
+        itemMenuCancelarCupom.setEnabled(true);
+        itemMenuReimprimirCupom.setEnabled(true);
+        itemMenuVisualizarCaixas.setEnabled(true);
+
+        campoAdicionarItem.setEnabled(true);
+        campoBusca.setEnabled(true);
+
+        botaoAdicionarAoPedido.setEnabled(true);
+        botaoAdicionarItem.setEnabled(true);
+        botaoBuscar.setEnabled(true);
+        botaoCancelarPedido.setEnabled(true);
+        botaoExcluirItem.setEnabled(true);
+        botaoFecharPedido.setEnabled(true);
+
+        tabelaBusca.setEnabled(true);
+        tabelaPedido.setEnabled(true);
+    }
+
+    private void caixaFechado() {
+        botaoCaixa.setText("Abrir Caixa");
+        itemMenuAbrirCaixa.setEnabled(true);
+        itemMenuFecharCaixa.setEnabled(false);
+        itemMenuRetiradaDeCaixa.setEnabled(false);
+        itemMenuCancelarCupom.setEnabled(false);
+        itemMenuReimprimirCupom.setEnabled(false);
+        itemMenuVisualizarCaixas.setEnabled(false);
+
+        campoAdicionarItem.setEnabled(false);
+        campoBusca.setEnabled(false);
+
+        botaoAdicionarAoPedido.setEnabled(false);
+        botaoAdicionarItem.setEnabled(false);
+        botaoBuscar.setEnabled(false);
+        botaoCancelarPedido.setEnabled(false);
+        botaoExcluirItem.setEnabled(false);
+        botaoFecharPedido.setEnabled(false);
+
+        tabelaBusca.setEnabled(false);
+        tabelaPedido.setEnabled(false);
+    }
+
+    private void deslogar() {
+        new TelaLogin().setVisible(true);
+        this.dispose();
+    }
+
+    private boolean fecharCaixa(Integer index) {
+        new TelaFechamentoCaixa(this, true, idCaixa).setVisible(true);
+        if (TelaFechamentoCaixa.isFechou()) {
+            JOptionPane.showMessageDialog(this, "Caixa Fechado com Sucesso!", "Fechamento de Caixa", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+
+    private void fecharPedido() {
+        if (numeroPedidoVerificado) {
+            pedido.setNumPedido(numPedido);
+            numPedido++;
+        } else {
+            pedido.setNumPedido(verificaNumeroPedido());
+            numPedido++;
+        }
+        new TelaConfirmacaoPagamento(this, true, funcionario, pedido, idCaixa, totalPedido).setVisible(true);
+        if (TelaConfirmacaoPagamento.isCadastrou()) {
+            TelaConfirmacaoPagamento.setCadastrou(false);
+            limparPedido();
+        } else {
+            //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido
+        }
+    }
+
+    private Pedido formToVenda() {
+        return pedido;
+    }
+
+    private String geraDataStr() {
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        return formatador.format(data);
+    }
+
+    private void inicializaTableModelVenda() {
+        // Pegar os Itens Pedido
+        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
+
+        tabelaPedido.setModel(tableModelVenda);
+        //tabelaPedido.getSelectionModel().addListSelectionListener(this);
+
+        tabelaPedido.getColumnModel().getColumn(0).setMaxWidth(55);
+        tabelaPedido.getColumnModel().getColumn(2).setMaxWidth(85);
+        tabelaPedido.getColumnModel().getColumn(2).setMinWidth(85);
+        tabelaPedido.getColumnModel().getColumn(3).setMaxWidth(55);
+        tabelaPedido.getColumnModel().getColumn(3).setMinWidth(55);
+        tabelaPedido.getColumnModel().getColumn(4).setMaxWidth(85);
+        tabelaPedido.getColumnModel().getColumn(4).setMinWidth(85);
+    }
+
+    private void inicializaData() {
+        Date date = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");
+        textoData.setText(formatador.format(date));
+    }
+
+    private void limparPedido() {
+        pedido = new Pedido();
+        pedido.setItempedidos(new ArrayList<ItemPedido>());
+        inicializaTableModelVenda();
+        totalPedido = 0;
+        auxOrdemProduto = 1;
+        atualizaTotal();
+        inicializaTableModelVenda();
+    }
+
+    private Caixa novoCaixa() {
+        Caixa caixa2 = new Caixa();
+        Date data = new Date();
+        Time time = new Time(data.getTime());
+        caixa2.setAberturaCaixa(time);
+        caixa2.setDataAberturaCaixa(data);
+        caixa2.setEstaAberto((byte) 1);
+        caixa2.setIdFunc(funcionario.getIdFunc());
+        caixa2.setFundoCaixa(0);
+        String padrao = "[0-9]{1,3}";
+        String msg = "Digite o valor do fundo de caixa";
+        while (caixa2.getFundoCaixa() == 0) {
+            String aux = JOptionPane.showInputDialog(this, msg, "Fundo de Caixa", JOptionPane.INFORMATION_MESSAGE);
+            if (aux == null) {
+                return null;
+            } else if (aux.matches(padrao)) {
+                caixa2.setFundoCaixa(Double.valueOf(aux));
+            } else {
+                msg = "Digite o valor do fundo de caixa, Ex.: 80";
+            }
+        }
+        caixa2.setTotalCaixa(0);
+        return caixa2;
+    }
+
+    private void removerItem() {
+        if (pedido.getItempedidos().size() == 1) {
+            limparPedido();
+        } else if (tabelaPedido.getSelectedRow() != -1) {
+            totalPedido = totalPedido - pedido.getItempedidos().get(tabelaPedido.getSelectedRow()).getTotProd();
+            pedido.getItempedidos().remove(tabelaPedido.getSelectedRow());
+            auxOrdemProduto = auxOrdemProduto - 1;
+            atualizaTotal();
+            inicializaTableModelVenda();
+        }
+    }
+
+    public boolean validaAddItem() {
+        boolean valida = true;
+        if ("0".equals(campoAdicionarItem.getText())) {
+            valida = false;
+            JOptionPane.showMessageDialog(this, "Insira o ID do produto para adiciona-lo ao pedido.", "Inserir ID", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if ("".equals(campoAdicionarItem.getText())) {
+            if (validaPedido()) {
+                fecharPedido();
+            }
+            valida = false;
+        }
+        return valida;
+    }
+
+    public boolean validaDelItem() {
+        boolean valida = true;
+        if (tabelaPedido.getSelectedRow() == -1) {
+            valida = false;
+            JOptionPane.showMessageDialog(this, "Selecione um item para remover!", "Selecione um item", JOptionPane.INFORMATION_MESSAGE);
+            campoAdicionarItem.requestFocus();
+        }
+        return valida;
+    }
+
+    public boolean validaPedido() {
+        boolean valida = true;
+        if (tabelaPedido.getRowCount() == 0) {
+            valida = false;
+            JOptionPane.showMessageDialog(this, "É necessário ao menos um item no pedido para concluí-lo!", "Pedido sem Itens", JOptionPane.WARNING_MESSAGE);
+            campoAdicionarItem.requestFocus();
+        }
+        return valida;
+    }
+
+    private void vendaToForm(ItemPedido itempedido) {
+        campoAdicionarItem.setText(String.valueOf(itempedido.getIdProd()));
+    }
+
+    private Integer verificaNumeroPedido() {
+        String dataStr = geraDataStr();
+        numPedido = 1;
+        PedidoDao pDao = new PedidoDao();
+        pDao.abreConnection();
+        List<Pedido> pedidos = pDao.listaPedidosPorCaixa(idCaixa);
+        
+        if (idCaixa != null && pedidos != null) {
+            for (int i = 0; pedidos.size() > i; i++) {
+                if (pedidos.get(i).getNumPedido() >= numPedido) {
+                    numPedido = pedidos.get(i).getNumPedido();
+                    numPedido++;
+                }
+            }
+            numeroPedidoVerificado = true;
+        }
+        return numPedido;
+    }
+
+    private Integer verificaCaixa() {
+        byte x = 1;
+        String dataStr = geraDataStr();
+        CaixaDao cDao = new CaixaDao();
+        cDao.abreConnection();
+        List<Caixa> caixas = cDao.listarCaixasDoFuncionario(funcionario.getIdFunc());
+        cDao.fechaConnection();
+
+        for (int i = 0; caixas.size() > i; i++) {
+            if (String.valueOf(caixas.get(i).getDataAberturaCaixa()).equals(dataStr)) {
+                caixaAberto();
+                return caixas.get(i).getIdCaixa();
+            } else {
+                JOptionPane.showMessageDialog(this, "Você possui um caixa aberto com data anterior ao dia de hoje. \nPor favor, clique em OK para fechar o caixa anterior", "Caixa anterior encontrado", JOptionPane.WARNING_MESSAGE);
+                while (!TelaFechamentoCaixa.isFechou()) {
+                    fecharCaixa(caixas.get(i).getIdCaixa());
+                }
+            }
+        }
+        return null;
+    }
+
+    private void verificaSeExiste(ItemPedido itempedido) {
+        for (int i = 0; i < pedido.getItempedidos().size(); i++) {
+            if (pedido.getItempedidos().get(i).getIdProd() == itempedido.getIdProd()) {
+                int aux = pedido.getItempedidos().get(i).getOrdemProduto();
+                totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
+                if (itempedido.getQtdProd() == 0) {
+                    if (pedido.getItempedidos().size() == 1) {
+                        limparPedido();
+                    } else {
+                        pedido.getItempedidos().remove(i);
+                    }
+                } else {
+                    itempedido.setOrdemProduto(aux);
+                    pedido.getItempedidos().set(i, itempedido);
+                }
+                return;
+            }
+        }
+
+        if (itempedido.getQtdProd() == 0) {
+            return;
+        }
+        itempedido.setOrdemProduto(auxOrdemProduto);
+        auxOrdemProduto = auxOrdemProduto + 1;
+        pedido.getItempedidos().add(itempedido);
     }
 
 //    /**
@@ -860,4 +895,14 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel textoNomeFuncionario;
     private javax.swing.JLabel textoValorTotal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent event) {
+        if (tabelaPedido.getSelectedRow() != -1) {
+            ItemPedido itempedido = tableModelVenda.getItemspedido().get(tabelaPedido.getSelectedRow());
+            vendaToForm(itempedido);
+
+        }
+        campoAdicionarItem.requestFocus();
+    }
 }

@@ -72,7 +72,6 @@ public class PedidoDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +107,40 @@ public class PedidoDao {
             }
             res.close();
             stmt.close();
-            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResPedido;
+    }
+    
+    public List<Pedido> listaPedidosPorCaixa(int idCaixa) {
+        String sql = "SELECT * FROM Pedido WHERE idCaixa=?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Pedido> listaResPedido = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idCaixa);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(res.getInt("idPedido"));
+                pedido.setNumPedido(res.getInt("numPedido"));
+                pedido.setDataPedido(res.getDate("dataPedido"));
+                pedido.setHoraPedido(res.getTime("horaPedido"));
+                pedido.setIdCaixa(res.getInt("idCaixa"));
+                pedido.setSubTotPedido(res.getDouble("subTotPedido"));
+                pedido.setDescPedido(res.getDouble("descPedido"));
+                pedido.setTotPedido(res.getDouble("totPedido"));
+                pedido.setValorRecebido(res.getDouble("valorRecebido"));
+                pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
+                pedido.setEstadoPedido(res.getString("estadoPedido"));
+                pedido.setFormaConsumo(res.getString("formaConsumo"));
+                listaResPedido.add(pedido);
+            }
+            res.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -138,7 +170,6 @@ public class PedidoDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,7 +189,6 @@ public class PedidoDao {
 
             stmt.execute();
             stmt.close();
-            conexao.close();
             resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);

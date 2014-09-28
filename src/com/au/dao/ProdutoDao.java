@@ -103,6 +103,64 @@ public class ProdutoDao {
         return listaResProd;
     }
 
+    public Produto buscaCodigo(int numProd) {
+        String sql = "SELECT * FROM Produto WHERE numProd=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, numProd);
+            res = stmt.executeQuery();
+            if (res != null) {
+                while (res.next()) {
+                    Produto novoProd = new Produto();
+                    novoProd.setIdProd(res.getInt("idProd"));
+                    novoProd.setNumProd(res.getInt("numProd"));
+                    novoProd.setDescProd(res.getString("descProd"));
+                    novoProd.setValorProd(res.getDouble("valorProd"));
+                    novoProd.setCodBarras(res.getString("codBarras"));
+                    novoProd.setEIndustrializado(res.getInt("eIndustrializado"));
+                    return novoProd;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Produto buscaId(int idProd) {
+        String sql = "SELECT * FROM Produto WHERE idProd=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idProd);
+            res = stmt.executeQuery();
+            if (res != null) {
+                while (res.next()) {
+                    Produto novoProd = new Produto();
+                    novoProd.setIdProd(res.getInt("idProd"));
+                    novoProd.setNumProd(res.getInt("numProd"));
+                    novoProd.setDescProd(res.getString("descProd"));
+                    novoProd.setValorProd(res.getDouble("valorProd"));
+                    novoProd.setCodBarras(res.getString("codBarras"));
+                    novoProd.setEIndustrializado(res.getInt("eIndustrializado"));
+                    return novoProd;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     //UPDATE
     public boolean atualizaProduto(Produto produto) {
         String sql = "UPDATE Produto SET numProd=?, descProd=?, valorProd=?, codBarras=?, eIndustrializado=?) WHERE idProd=?)";

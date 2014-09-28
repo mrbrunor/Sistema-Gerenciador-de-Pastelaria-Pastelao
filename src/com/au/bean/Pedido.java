@@ -18,6 +18,7 @@ package com.au.bean;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 /**
  *
@@ -37,6 +38,8 @@ public class Pedido {
     private int idFormaPgto;
     private String estadoPedido;
     private String formaConsumo;
+    
+    private List<ItemPedido> itempedidos;
 
     public double getValorRecebido() {
         return valorRecebido;
@@ -132,6 +135,14 @@ public class Pedido {
 
     public void setFormaConsumo(String formaConsumo) {
         this.formaConsumo = formaConsumo;
+    }
+
+    public List<ItemPedido> getItempedidos() {
+        return itempedidos;
+    }
+
+    public void setItempedidos(List<ItemPedido> itempedidos) {
+        this.itempedidos = itempedidos;
     }
 
 }

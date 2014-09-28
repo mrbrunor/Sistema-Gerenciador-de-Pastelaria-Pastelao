@@ -21,10 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui.tmodel;
 
-import com.au.modelo.Itempedido;
+import com.au.bean.ItemPedido;
+import com.au.bean.Produto;
+import com.au.dao.ProdutoDao;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -33,12 +34,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class VendaTableModel extends AbstractTableModel{
-    
-    private List<Itempedido> itemspedido;
+public class VendaTableModel extends AbstractTableModel {
+
+    private List<ItemPedido> itemspedido;
     private List<String> colunas;
-    
-    public VendaTableModel(List<Itempedido> itemspedido){
+
+    public VendaTableModel(List<ItemPedido> itemspedido) {
         this.itemspedido = itemspedido;
         colunas = Arrays.asList("Cod", "Descrição", "Vlr Unit", "Qtd", "Vlr Total");
     }
@@ -46,7 +47,7 @@ public class VendaTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
@@ -60,24 +61,39 @@ public class VendaTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Itempedido itempedido = itemspedido.get(rowIndex);
-     
-        switch(columnIndex){
-            case 0: return itempedido.getProduto().getNumProd();
-            case 1: return itempedido.getProduto().getDescProd();
-            case 2: return String.format("%.2f", itempedido.getProduto().getValorProd());
-            case 3: return itempedido.getQtdProd();
-            case 4: return String.format("%.2f", itempedido.getTotProd());
+        ItemPedido itempedido = itemspedido.get(rowIndex);
+        Produto produto;
+        ProdutoDao pDao = new ProdutoDao();
+        switch (columnIndex) {
+            case 0:
+                pDao.abreConnection();
+                produto = pDao.buscaId(itempedido.getIdProd());
+                pDao.fechaConnection();
+                return produto.getNumProd();
+            case 1:
+                pDao.abreConnection();
+                produto = pDao.buscaId(itempedido.getIdProd());
+                pDao.fechaConnection();
+                return produto.getDescProd();
+            case 2:
+                pDao.abreConnection();
+                produto = pDao.buscaId(itempedido.getIdProd());
+                pDao.fechaConnection();
+                return produto.getValorProd();
+            case 3:
+                return itempedido.getQtdProd();
+            case 4:
+                return String.format("%.2f", itempedido.getTotProd());
         }
         return null;
     }
 
-    public List<Itempedido> getItemspedido() {
+    public List<ItemPedido> getItemspedido() {
         return itemspedido;
     }
 
-    public void setProdutos(List<Itempedido> itemspedido) {
+    public void setProdutos(List<ItemPedido> itemspedido) {
         this.itemspedido = itemspedido;
-    }    
-    
+    }
+
 }

@@ -19,6 +19,7 @@ package com.au.dao;
 import com.au.conexao.FabricaConexao;
 import com.au.bean.Caixa;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,10 +61,10 @@ public class CaixaDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, novoCaixa.getIdFunc());
             stmt.setDouble(2, novoCaixa.getFundoCaixa());
-            stmt.setDate(3, novoCaixa.getDataAberturaCaixa());
+            stmt.setDate(3, (Date) novoCaixa.getDataAberturaCaixa());
             stmt.setTime(4, novoCaixa.getAberturaCaixa());
             stmt.setTime(5, novoCaixa.getFechamentoCaixa());
-            stmt.setDate(6, novoCaixa.getDataFechamentoCaixa());
+            stmt.setDate(6, (Date) novoCaixa.getDataFechamentoCaixa());
             stmt.setInt(7, novoCaixa.getEstaAberto());
             stmt.setDouble(8, novoCaixa.getTotalCaixa());
 
@@ -106,6 +107,37 @@ public class CaixaDao {
         }
         return listaResCaixa;
     }
+    
+    public List<Caixa> listarCaixasDoFuncionario(int idFunc) {
+        String sql = "SELECT * FROM Caixa where idFunc=? AND estaAberto=1";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Caixa> listaResCaixa = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idFunc);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Caixa caixa = new Caixa();
+                caixa.setIdCaixa(res.getInt("idCaixa"));
+                caixa.setIdFunc(res.getInt("idFunc"));
+                caixa.setFundoCaixa(res.getDouble("fundoCaixa"));
+                caixa.setDataAberturaCaixa(res.getDate("dataCaixa"));
+                caixa.setAberturaCaixa(res.getTime("aberturaCaixa"));
+                caixa.setFechamentoCaixa(res.getTime("fechamentoCaixa"));
+                caixa.setDataFechamentoCaixa(res.getDate("dataFechamentoCaixa"));
+                caixa.setEstaAberto(res.getInt("estaAberto"));
+                caixa.setTotalCaixa(res.getDouble("totalCaixa"));
+                listaResCaixa.add(caixa);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResCaixa;
+    }
 
 //UPDATE
     public boolean atualizaCaixa(Caixa novoCaixa) {
@@ -117,10 +149,10 @@ public class CaixaDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, novoCaixa.getIdFunc());
             stmt.setDouble(2, novoCaixa.getFundoCaixa());
-            stmt.setDate(3, novoCaixa.getDataAberturaCaixa());
+            stmt.setDate(3, (Date) novoCaixa.getDataAberturaCaixa());
             stmt.setTime(4, novoCaixa.getAberturaCaixa());
             stmt.setTime(5, novoCaixa.getFechamentoCaixa());
-            stmt.setDate(5, novoCaixa.getDataFechamentoCaixa());
+            stmt.setDate(5, (Date) novoCaixa.getDataFechamentoCaixa());
             stmt.setInt(6, novoCaixa.getEstaAberto());
             stmt.setDouble(7, novoCaixa.getTotalCaixa());
             stmt.setInt(8, novoCaixa.getIdCaixa());

@@ -23,10 +23,10 @@
  */
 package com.au.gui;
 
-import com.au.modelo.Caixa;
-import com.au.modelo.FormaPagamento;
-import com.au.modelo.Funcionario;
-import com.au.modelo.Pedido;
+import com.au.bean.Caixa;
+import com.au.bean.FormaPagamento;
+import com.au.bean.Funcionario;
+import com.au.bean.Pedido;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
 import com.au.util.LimitaDigitos;
