@@ -21,23 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Caixa;
+import com.au.bean.Despesa;
+import com.au.bean.FormaPagamento;
+import com.au.bean.Pedido;
+import com.au.dao.CaixaDao;
+import com.au.dao.DespesaDao;
+import com.au.dao.FormaPagamentoDao;
+import com.au.dao.PedidoDao;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Tiago
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
+
     private static boolean fechou;
-    private int idCaixa;
+    private final Caixa caixa;
+    private double dinheiroCaixa;
+    private double descontoTotal = 0;
+    private int qtdPedDinheiro = 0;
+    private int qtdPedCred = 0;
+    private int qtdPedDeb = 0;
+    private int qtdPedVale = 0;
+    private int qtdPedCanc = 0;
+    private int qtdPedDesc = 0;
+
     /**
      * Creates new form TelaFechamentoCaixa
+     *
      * @param parent
      * @param modal
      * @param idCaixa
@@ -57,7 +75,10 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoMoedaUmReal.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
         campoMoedaVinteCincoCentavos.setDocument(new LimitaDigitos((3), "[^0-9\\.]"));
         fechou = false;
-        this.idCaixa = idCaixa;
+        CaixaDao cDao = new CaixaDao();
+        cDao.abreConnection();
+        caixa = cDao.listaCaixaPorId(idCaixa);
+        inicializaCampos();
     }
 
     /**
@@ -162,12 +183,22 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoMoedaCincoCentavosFocusGained(evt);
             }
         });
+        campoMoedaCincoCentavos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoMoedaCincoCentavosKeyReleased(evt);
+            }
+        });
 
         campoMoedaDezCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaDezCentavos.setNextFocusableComponent(campoMoedaVinteCincoCentavos);
         campoMoedaDezCentavos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoMoedaDezCentavosFocusGained(evt);
+            }
+        });
+        campoMoedaDezCentavos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoMoedaDezCentavosKeyReleased(evt);
             }
         });
 
@@ -178,6 +209,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoMoedaVinteCincoCentavosFocusGained(evt);
             }
         });
+        campoMoedaVinteCincoCentavos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoMoedaVinteCincoCentavosKeyReleased(evt);
+            }
+        });
 
         campoMoedaCinquentaCentavos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaCinquentaCentavos.setNextFocusableComponent(campoMoedaUmReal);
@@ -186,12 +222,22 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoMoedaCinquentaCentavosFocusGained(evt);
             }
         });
+        campoMoedaCinquentaCentavos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoMoedaCinquentaCentavosKeyReleased(evt);
+            }
+        });
 
         campoMoedaUmReal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         campoMoedaUmReal.setNextFocusableComponent(campoCedulaDoisReais);
         campoMoedaUmReal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoMoedaUmRealFocusGained(evt);
+            }
+        });
+        campoMoedaUmReal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoMoedaUmRealKeyReleased(evt);
             }
         });
 
@@ -220,6 +266,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoCedulaDoisReaisFocusGained(evt);
             }
         });
+        campoCedulaDoisReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaDoisReaisKeyReleased(evt);
+            }
+        });
 
         textoCedulaCincoReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCincoReais.setText("5,00:");
@@ -229,6 +280,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoCedulaCincoReais.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCedulaCincoReaisFocusGained(evt);
+            }
+        });
+        campoCedulaCincoReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaCincoReaisKeyReleased(evt);
             }
         });
 
@@ -242,6 +298,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoCedulaDezReaisFocusGained(evt);
             }
         });
+        campoCedulaDezReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaDezReaisKeyReleased(evt);
+            }
+        });
 
         textoCedulaVinteReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaVinteReais.setText("20,00:");
@@ -251,6 +312,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoCedulaVinteReais.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCedulaVinteReaisFocusGained(evt);
+            }
+        });
+        campoCedulaVinteReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaVinteReaisKeyReleased(evt);
             }
         });
 
@@ -264,6 +330,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 campoCedulaCinquentaReaisFocusGained(evt);
             }
         });
+        campoCedulaCinquentaReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaCinquentaReaisKeyReleased(evt);
+            }
+        });
 
         textoCedulaCemReais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textoCedulaCemReais.setText("100,00:");
@@ -273,6 +344,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoCedulaCemReais.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCedulaCemReaisFocusGained(evt);
+            }
+        });
+        campoCedulaCemReais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoCedulaCemReaisKeyReleased(evt);
             }
         });
 
@@ -517,11 +593,21 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         botaoConfirmarFechamentoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoConfirmarFechamentoDeCaixa.setText("Confirmar Fechamento de Caixa");
         botaoConfirmarFechamentoDeCaixa.setNextFocusableComponent(botaoCancelarFechamentoDeCaixa);
+        botaoConfirmarFechamentoDeCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConfirmarFechamentoDeCaixaActionPerformed(evt);
+            }
+        });
 
         botaoCancelarFechamentoDeCaixa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoCancelarFechamentoDeCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarFechamentoDeCaixa.setText("Cancelar Fechamento de Caixa");
         botaoCancelarFechamentoDeCaixa.setNextFocusableComponent(campoMoedaCincoCentavos);
+        botaoCancelarFechamentoDeCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarFechamentoDeCaixaActionPerformed(evt);
+            }
+        });
 
         painelRetiradas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Retiradas"));
 
@@ -720,7 +806,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_campoMoedaUmRealFocusGained
 
     private void campoCedulaDoisReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaDoisReaisFocusGained
-       campoCedulaDoisReais.selectAll();
+        campoCedulaDoisReais.selectAll();
     }//GEN-LAST:event_campoCedulaDoisReaisFocusGained
 
     private void campoCedulaCincoReaisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCedulaCincoReaisFocusGained
@@ -743,6 +829,194 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         campoCedulaCemReais.selectAll();
     }//GEN-LAST:event_campoCedulaCemReaisFocusGained
 
+    private void botaoCancelarFechamentoDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarFechamentoDeCaixaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarFechamentoDeCaixaActionPerformed
+
+    private void botaoConfirmarFechamentoDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarFechamentoDeCaixaActionPerformed
+        fecharCaixa();
+        this.dispose();
+    }//GEN-LAST:event_botaoConfirmarFechamentoDeCaixaActionPerformed
+
+    private void campoMoedaCincoCentavosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMoedaCincoCentavosKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoMoedaCincoCentavosKeyReleased
+
+    private void campoMoedaDezCentavosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMoedaDezCentavosKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoMoedaDezCentavosKeyReleased
+
+    private void campoMoedaVinteCincoCentavosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMoedaVinteCincoCentavosKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoMoedaVinteCincoCentavosKeyReleased
+
+    private void campoMoedaCinquentaCentavosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMoedaCinquentaCentavosKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoMoedaCinquentaCentavosKeyReleased
+
+    private void campoMoedaUmRealKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMoedaUmRealKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoMoedaUmRealKeyReleased
+
+    private void campoCedulaDoisReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaDoisReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaDoisReaisKeyReleased
+
+    private void campoCedulaCincoReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaCincoReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaCincoReaisKeyReleased
+
+    private void campoCedulaDezReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaDezReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaDezReaisKeyReleased
+
+    private void campoCedulaVinteReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaVinteReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaVinteReaisKeyReleased
+
+    private void campoCedulaCinquentaReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaCinquentaReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaCinquentaReaisKeyReleased
+
+    private void campoCedulaCemReaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaCemReaisKeyReleased
+        calculaDinheiroEmCaixa();
+    }//GEN-LAST:event_campoCedulaCemReaisKeyReleased
+
+    private void calculaDinheiroEmCaixa() {
+        dinheiroCaixa = 0;
+
+        if (!"".equals(campoMoedaCincoCentavos.getText())) {
+            dinheiroCaixa += Integer.valueOf((campoMoedaCincoCentavos.getText())) * 0.05;
+        }
+        if (!"".equals(campoMoedaCinquentaCentavos.getText())) {
+            dinheiroCaixa += Double.valueOf((campoMoedaCinquentaCentavos.getText())) * 0.5;
+        }
+        if (!"".equals(campoMoedaDezCentavos.getText())) {
+            dinheiroCaixa += Double.valueOf((campoMoedaDezCentavos.getText())) * 0.1;
+        }
+        if (!"".equals(campoMoedaUmReal.getText())) {
+            dinheiroCaixa += Double.valueOf((campoMoedaUmReal.getText()));
+        }
+        if (!"".equals(campoMoedaVinteCincoCentavos.getText())) {
+            dinheiroCaixa += Double.valueOf((campoMoedaVinteCincoCentavos.getText())) * .25;
+        }
+        if (!"".equals(campoCedulaCemReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaCemReais.getText())) * 100;
+        }
+        if (!"".equals(campoCedulaCincoReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaCincoReais.getText())) * 5;
+        }
+        if (!"".equals(campoCedulaCinquentaReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaCinquentaReais.getText())) * 50;
+        }
+        if (!"".equals(campoCedulaDezReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaDezReais.getText())) * 10;
+        }
+        if (!"".equals(campoCedulaDoisReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaDoisReais.getText())) * 2;
+        }
+        if (!"".equals(campoCedulaVinteReais.getText())) {
+            dinheiroCaixa += Double.valueOf((campoCedulaVinteReais.getText())) * 20;
+        }
+
+        textoValorTotalEmCaixa.setText(String.format("R$: %.2f", dinheiroCaixa));
+    }
+
+    private void calculaReducoes() {
+        double totalDesp = 0;
+        DespesaDao despDao = new DespesaDao();
+        despDao.abreConnection();
+        List<Despesa> despesas = despDao.listaDespesasPorCaixa(caixa.getIdCaixa());
+        despDao.fechaConnection();
+        if (despesas != null && !despesas.isEmpty()) {
+            for (Despesa despesa : despesas) {
+                totalDesp = totalDesp + despesa.getValorDesp();
+            }
+            textoValorTotalRetiradas.setText(String.format("R$: %.2f", totalDesp));
+        } else {
+            textoValorTotalRetiradas.setText("R$: 0,00");
+        }
+        textoValorTotalRetiradas.setText(String.format("R$: %.2f", totalDesp));
+        textoValorRetiradas.setText(String.format("R$: %.2f", totalDesp));
+        textoValorFaturamentos.setText(String.format("R$: %.2f", caixa.getTotalCaixa()));
+        textoValorTotalCaixa.setText(String.format("R$: %.2f", caixa.getTotalCaixa() - totalDesp));
+    }
+
+    private void calculaTipoPagamento() {
+        PedidoDao pDao = new PedidoDao();
+        pDao.abreConnection();
+        List<Pedido> pedidos = pDao.listaPedidosPorCaixa(caixa.getIdCaixa());
+        pDao.fechaConnection();
+        if (pedidos != null && !pedidos.isEmpty()) {
+            double totalDinheiro = 0;
+            double totalCredito = 0;
+            double totalDebito = 0;
+            double totalVale = 0;
+            FormaPagamentoDao fpDao = new FormaPagamentoDao();
+            for (int i = 0; i < pedidos.size(); i++) {
+                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                    FormaPagamento fp;
+                    fpDao.abreConnection();
+                    fp = fpDao.listaFormaPagamentoPorId(pedidos.get(i).getIdFormaPgto());
+
+                    if ("Dinheiro".equals(fp.getTipoFormaPgto())) {
+                        totalDinheiro = totalDinheiro + pedidos.get(i).getTotPedido();
+                        qtdPedDinheiro += 1;
+                    } else if ("Credito".equals(fp.getTipoFormaPgto())) {
+                        totalCredito = totalCredito + pedidos.get(i).getTotPedido();
+                        qtdPedCred += 1;
+                    } else if ("Debito".equals(fp.getTipoFormaPgto())) {
+                        totalDebito = totalDebito + pedidos.get(i).getTotPedido();
+                        qtdPedDeb += 1;
+                    } else if ("Vale".equals(fp.getTipoFormaPgto())) {
+                        totalVale = totalVale + pedidos.get(i).getTotPedido();
+                        qtdPedVale += 1;
+                    }
+                    if (pedidos.get(i).getDescPedido() > 0) {
+                        descontoTotal += pedidos.get(i).getDescPedido();
+                        qtdPedDesc += 1;
+                    }
+                    caixa.setTotalCaixa(caixa.getTotalCaixa() + pedidos.get(i).getTotPedido());
+                } else {
+                    qtdPedCanc += 1;
+                }
+            }
+            fpDao.fechaConnection();
+            textoValorDinheiro.setText(String.format("R$: %.2f", totalDinheiro));
+            textoValorCartaoDeCredito.setText(String.format("R$: %.2f", totalCredito));
+            textoValorCartaoDeDebito.setText(String.format("R$: %.2f", totalDebito));
+            textoValorValeRefeicao.setText(String.format("R$: %.2f", totalVale));
+        } else {
+            textoValorDinheiro.setText("R$: 0,00");
+            textoValorCartaoDeCredito.setText("R$: 0,00");
+            textoValorCartaoDeDebito.setText("R$: 0,00");
+            textoValorValeRefeicao.setText("R$: 0,00");
+        }
+    }
+
+    private void fecharCaixa() {
+        //Captura a data atual do Sistema
+        Date data = new Date();
+        caixa.setDataFechamentoCaixa(new java.sql.Date(data.getTime()));
+        //captura apenas a hora da data recem capturada
+        caixa.setFechamentoCaixa(new Time(data.getTime()));
+        //Seta 0 para informar que o caixa esta fechado
+        caixa.setEstaAberto((byte) 0);
+        CaixaDao cDao = new CaixaDao();
+        cDao.abreConnection();
+        cDao.atualizaCaixa(caixa);
+        //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
+        TelaFechamentoCaixa.setFechou(true);
+        //new Imprime().geraRelatorioFechamento(caixa.getIdCaixa());        
+    }
+
+    private void inicializaCampos() {
+        textoValorFundoDeCaixa.setText(String.format("R$: %.2f", caixa.getFundoCaixa()));
+        calculaTipoPagamento();
+        calculaReducoes();
+        textoValorTotalFaturado.setText(String.format("TOTAL FATURADO: R$ %.2f", (caixa.getTotalCaixa())));
+    }
+
     public static boolean isFechou() {
         return fechou;
     }
@@ -751,232 +1025,6 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         TelaFechamentoCaixa.fechou = cadastrou;
     }
 
-    public int getIdCaixa() {
-        return idCaixa;
-    }
-
-    public void setIdCaixa(int idCaixa) {
-        this.idCaixa = idCaixa;
-    }
-
-    public JLabel getTextoValeRefeicao() {
-        return textoValeRefeicao;
-    }
-
-    public void setTextoValeRefeicao(JLabel textoValeRefeicao) {
-        this.textoValeRefeicao = textoValeRefeicao;
-    }
-
-    public JLabel getTextoValorCartaoDeCredito() {
-        return textoValorCartaoDeCredito;
-    }
-
-    public void setTextoValorCartaoDeCredito(JLabel textoValorCartaoDeCredito) {
-        this.textoValorCartaoDeCredito = textoValorCartaoDeCredito;
-    }
-
-    public JLabel getTextoValorCartaoDeDebito() {
-        return textoValorCartaoDeDebito;
-    }
-
-    public void setTextoValorCartaoDeDebito(JLabel textoValorCartaoDeDebito) {
-        this.textoValorCartaoDeDebito = textoValorCartaoDeDebito;
-    }
-
-    public JLabel getTextoValorTotalRetiradas() {
-        return textoValorTotalRetiradas;
-    }
-
-    public void setTextoValorTotalDeRetiradas(JLabel textoValorTotalRetiradas) {
-        this.textoValorTotalRetiradas = textoValorTotalRetiradas;
-    }
-
-    public JLabel getTextoValorDinheiro() {
-        return textoValorDinheiro;
-    }
-
-    public void setTextoValorDinheiro(JLabel textoValorDinheiro) {
-        this.textoValorDinheiro = textoValorDinheiro;
-    }
-
-    public JLabel getTextoValorFundoDeCaixa() {
-        return textoValorFundoDeCaixa;
-    }
-
-    public void setTextoValorFundoDeCaixa(JLabel textoValorFundoDeCaixa) {
-        this.textoValorFundoDeCaixa = textoValorFundoDeCaixa;
-    }
-
-    public JLabel getTextoValorTotalDeReducoes() {
-        return textoValorTotalRetiradas;
-    }
-
-    public void setTextoValorTotalDeReducoes(JLabel textoValorTotalDeReducoes) {
-        this.textoValorTotalRetiradas = textoValorTotalDeReducoes;
-    }
-
-    public JLabel getTextoValorTotalEmCaixa() {
-        return textoValorTotalEmCaixa;
-    }
-
-    public void setTextoValorTotalEmCaixa(JLabel textoValorTotalEmCaixa) {
-        this.textoValorTotalEmCaixa = textoValorTotalEmCaixa;
-    }
-
-    public JLabel getTextoValorTotalFaturado() {
-        return textoValorTotalFaturado;
-    }
-
-    public void setTextoValorTotalFaturado(JLabel textoValorTotalFaturado) {
-        this.textoValorTotalFaturado = textoValorTotalFaturado;
-    }
-
-    public JLabel getTextoValorValeRefeicao() {
-        return textoValorValeRefeicao;
-    }
-
-    public void setTextoValorValeRefeicao(JLabel textoValorValeRefeicao) {
-        this.textoValorValeRefeicao = textoValorValeRefeicao;
-    }
-
-    public JLabel getTextoValoresFaturados() {
-        return textoValoresFaturados;
-    }
-
-    public void setTextoValoresFaturados(JLabel textoValoresFaturados) {
-        this.textoValoresFaturados = textoValoresFaturados;
-    }
-
-    public JButton getBotaoCancelarFechamentoDeCaixa() {
-        return botaoCancelarFechamentoDeCaixa;
-    }
-
-    public void setBotaoCancelarFechamentoDeCaixa(JButton botaoCancelarFechamentoDeCaixa) {
-        this.botaoCancelarFechamentoDeCaixa = botaoCancelarFechamentoDeCaixa;
-    }
-
-    public JButton getBotaoConfirmarFechamentoDeCaixa() {
-        return botaoConfirmarFechamentoDeCaixa;
-    }
-
-    public void setBotaoConfirmarFechamentoDeCaixa(JButton botaoConfirmarFechamentoDeCaixa) {
-        this.botaoConfirmarFechamentoDeCaixa = botaoConfirmarFechamentoDeCaixa;
-    }
-
-    public JTextField getCampoCedulaCemReais() {
-        return campoCedulaCemReais;
-    }
-
-    public void setCampoCedulaCemReais(JTextField campoCedulaCemReais) {
-        this.campoCedulaCemReais = campoCedulaCemReais;
-    }
-
-    public JTextField getCampoCedulaCincoReais() {
-        return campoCedulaCincoReais;
-    }
-
-    public void setCampoCedulaCincoReais(JTextField campoCedulaCincoReais) {
-        this.campoCedulaCincoReais = campoCedulaCincoReais;
-    }
-
-    public JTextField getCampoCedulaCinquentaReais() {
-        return campoCedulaCinquentaReais;
-    }
-
-    public void setCampoCedulaCinquentaReais(JTextField campoCedulaCinquentaReais) {
-        this.campoCedulaCinquentaReais = campoCedulaCinquentaReais;
-    }
-
-    public JTextField getCampoCedulaDezReais() {
-        return campoCedulaDezReais;
-    }
-
-    public void setCampoCedulaDezReais(JTextField campoCedulaDezReais) {
-        this.campoCedulaDezReais = campoCedulaDezReais;
-    }
-
-    public JTextField getCampoCedulaDoisReais() {
-        return campoCedulaDoisReais;
-    }
-
-    public void setCampoCedulaDoisReais(JTextField campoCedulaDoisReais) {
-        this.campoCedulaDoisReais = campoCedulaDoisReais;
-    }
-
-    public JTextField getCampoCedulaVinteReais() {
-        return campoCedulaVinteReais;
-    }
-
-    public void setCampoCedulaVinteReais(JTextField campoCedulaVinteReais) {
-        this.campoCedulaVinteReais = campoCedulaVinteReais;
-    }
-
-    public JTextField getCampoMoedaCincoCentavos() {
-        return campoMoedaCincoCentavos;
-    }
-
-    public void setCampoMoedaCincoCentavos(JTextField campoMoedaCincoCentavos) {
-        this.campoMoedaCincoCentavos = campoMoedaCincoCentavos;
-    }
-
-    public JTextField getCampoMoedaCinquentaCentavos() {
-        return campoMoedaCinquentaCentavos;
-    }
-
-    public void setCampoMoedaCinquentaCentavos(JTextField campoMoedaCinquentaCentavos) {
-        this.campoMoedaCinquentaCentavos = campoMoedaCinquentaCentavos;
-    }
-
-    public JTextField getCampoMoedaDezCentavos() {
-        return campoMoedaDezCentavos;
-    }
-
-    public void setCampoMoedaDezCentavos(JTextField campoMoedaDezCentavos) {
-        this.campoMoedaDezCentavos = campoMoedaDezCentavos;
-    }
-
-    public JTextField getCampoMoedaUmReal() {
-        return campoMoedaUmReal;
-    }
-
-    public void setCampoMoedaUmReal(JTextField campoMoedaUmReal) {
-        this.campoMoedaUmReal = campoMoedaUmReal;
-    }
-
-    public JTextField getCampoMoedaVinteCincoCentavos() {
-        return campoMoedaVinteCincoCentavos;
-    }
-
-    public void setCampoMoedaVinteCincoCentavos(JTextField campoMoedaVinteCincoCentavos) {
-        this.campoMoedaVinteCincoCentavos = campoMoedaVinteCincoCentavos;
-    }
-
-    public JLabel getTextoValorFaturamentos() {
-        return textoValorFaturamentos;
-    }
-
-    public void setTextoValorFaturamentos(JLabel textoValorFaturamentos) {
-        this.textoValorFaturamentos = textoValorFaturamentos;
-    }
-
-    public JLabel getTextoValorRetiradas() {
-        return textoValorRetiradas;
-    }
-
-    public void setTextoValorRetiradas(JLabel textoValorRetiradas) {
-        this.textoValorRetiradas = textoValorRetiradas;
-    }
-
-    public JLabel getTextoValorTotalCaixa() {
-        return textoValorTotalCaixa;
-    }
-
-    public void setTextoValorTotalCaixa(JLabel textoValorTotalCaixa) {
-        this.textoValorTotalCaixa = textoValorTotalCaixa;
-    }
-
-    
-    
     /**
      * @param args the command line arguments
      */

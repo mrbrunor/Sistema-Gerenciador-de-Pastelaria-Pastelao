@@ -98,6 +98,31 @@ public class FormaPagamentoDao {
         return listaResFormaPagamento;
     }
     
+    public FormaPagamento listaFormaPagamentoPorId(int idFormaPgto) {
+        String sql = "SELECT * FROM FormaPagamento where idFormaPgto=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idFormaPgto);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                FormaPagamento formaPagamento = new FormaPagamento();
+                formaPagamento.setIdFormaPgto(res.getInt("idFormaPgto"));
+                formaPagamento.setNomeFormaPgto(res.getString("nomeFormaPgto"));
+                formaPagamento.setTipoFormaPgto(res.getString("tipoFormaPgto"));
+                formaPagamento.setEstaAtivo(res.getInt("estaAtivo"));
+                return formaPagamento;
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     //UPDATE
     public boolean atualizaFormaPagamento(FormaPagamento formaPagamento) {
         String sql = "UPDATE FormaPagamento set nomeFormaPgto=?, tipoFormaPgto=?, estaAtivo=? where idFormaPgto=?";

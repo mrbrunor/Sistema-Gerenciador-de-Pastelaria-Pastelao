@@ -233,12 +233,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_campoSenhaFocusGained
 
     private void botaoEntrarNoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarNoSistemaActionPerformed
-        try {
-            logar();
-        } catch (ExceptionInInitializerError ex) {
-            Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
-        }
+        logar();
     }//GEN-LAST:event_botaoEntrarNoSistemaActionPerformed
 
     private void botaoEsqueciSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEsqueciSenhaActionPerformed
@@ -250,7 +245,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_campoUsuarioActionPerformed
 
     private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
-        botaoEntrarNoSistema.requestFocus();
+        logar();
     }//GEN-LAST:event_campoSenhaActionPerformed
 
     public void limpaCampos() {
@@ -258,24 +253,28 @@ public class TelaLogin extends javax.swing.JFrame {
         campoUsuario.setText("");
     }
 
-    private void logar() throws ExceptionInInitializerError {
+    private void logar() {
         Funcionario funcionario;
         Funcionario login = new Funcionario();
-
-        login.setUserFunc(campoUsuario.getText());
-        HexSha hexSha = new HexSha(String.valueOf(campoSenha.getPassword()));
-        login.setPassFunc(hexSha.ConvertSha());
-        FuncionarioDao fDao = new FuncionarioDao();
-        fDao.abreConnection();
-        funcionario = fDao.buscarLogin(login.getUserFunc(), login.getPassFunc());
-        fDao.fechaConnection();
-        if (funcionario == null) {
-            JOptionPane.showMessageDialog(this, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
-        } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc()) && funcionario.getEstaAtivo() == 1) {
-            new com.au.gui.TelaVenda(funcionario).setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Esta conta foi desativada pelo Administrador", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+        try {
+            login.setUserFunc(campoUsuario.getText());
+            HexSha hexSha = new HexSha(String.valueOf(campoSenha.getPassword()));
+            login.setPassFunc(hexSha.ConvertSha());
+            FuncionarioDao fDao = new FuncionarioDao();
+            fDao.abreConnection();
+            funcionario = fDao.buscarLogin(login.getUserFunc(), login.getPassFunc());
+            fDao.fechaConnection();
+            if (funcionario == null) {
+                JOptionPane.showMessageDialog(this, "Senha ou Usuario Invalidos", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+            } else if (funcionario.getUserFunc().equals(login.getUserFunc()) && funcionario.getPassFunc().equals(login.getPassFunc()) && funcionario.getEstaAtivo() == 1) {
+                new com.au.gui.TelaVenda(funcionario).setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Esta conta foi desativada pelo Administrador", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (ExceptionInInitializerError ex) {
+            Logger.getLogger(LoginActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao tentar conectar com o banco de dados. \n Verifique se o Banco de Dados está funcionado e tente novamente.", "Efetuar Login", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -313,7 +312,7 @@ public class TelaLogin extends javax.swing.JFrame {
         //UIManager.put("ToolBar.font", /* font of your liking */);
         //UIManager.put("ToolTip.font", /* font of your liking */); 
     }
-    
+
     private void trocarSenha() {
         new TelaCriarNovaSenha(this, true).setVisible(true);
     }

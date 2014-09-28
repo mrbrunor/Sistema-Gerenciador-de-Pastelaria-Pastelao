@@ -51,7 +51,11 @@ public class VendaTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return itemspedido.size();
+        if(itemspedido != null){
+            return itemspedido.size();
+        } else {
+            return 0;
+        }        
     }
 
     @Override

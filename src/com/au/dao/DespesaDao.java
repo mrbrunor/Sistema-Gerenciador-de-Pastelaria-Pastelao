@@ -99,6 +99,33 @@ public class DespesaDao {
         }
         return listaResDesp;
     }
+    
+    public List<Despesa> listaDespesasPorCaixa(int idCaixa) {
+        String sql = "SELECT * FROM Despesa WHERE idCaixa=?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Despesa> listaResDesp = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idCaixa);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Despesa despesa = new Despesa();
+                despesa.setIdDesp(res.getInt("idCaixa"));
+                despesa.setDataDesp(res.getDate("dataDesp"));
+                despesa.setDescDesp(res.getString("descDesp"));
+                despesa.setValorDesp(res.getDouble("valorDesp"));
+                despesa.setIdCaixa(res.getInt("idCaixa"));
+                despesa.setRetirada(res.getInt("retirada"));
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResDesp;
+    }
 
 //UPDATE
     public boolean atualizaDesp(Despesa novaDespesa) {

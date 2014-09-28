@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Sistema Pastel&#xe3;o - Fechamento de Caixa"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Cursor Padr&#xe3;o"/>
+      <Color id="Cursor Default"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -296,6 +296,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaCincoCentavosFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoMoedaCincoCentavosKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaDezCentavos">
@@ -309,6 +310,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaDezCentavosFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoMoedaDezCentavosKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaVinteCincoCentavos">
@@ -322,6 +324,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaVinteCincoCentavosFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoMoedaVinteCincoCentavosKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaCinquentaCentavos">
@@ -335,6 +338,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaCinquentaCentavosFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoMoedaCinquentaCentavosKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoMoedaUmReal">
@@ -348,6 +352,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoMoedaUmRealFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoMoedaUmRealKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoMoedaCincoCentavos">
@@ -409,6 +414,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaDoisReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaDoisReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCincoReais">
@@ -430,6 +436,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCincoReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaCincoReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaDezReais">
@@ -451,6 +458,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaDezReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaDezReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaVinteReais">
@@ -472,6 +480,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaVinteReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaVinteReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCinquentaReais">
@@ -493,6 +502,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCinquentaReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaCinquentaReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCedulaCemReais">
@@ -514,6 +524,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCedulaCemReaisFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCedulaCemReaisKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoDinheiroTotalEmCaixa">
@@ -743,6 +754,9 @@
           <ComponentRef name="botaoCancelarFechamentoDeCaixa"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoConfirmarFechamentoDeCaixaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCancelarFechamentoDeCaixa">
       <Properties>
@@ -757,6 +771,9 @@
           <ComponentRef name="campoMoedaCincoCentavos"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarFechamentoDeCaixaActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="painelRetiradas">
       <Properties>

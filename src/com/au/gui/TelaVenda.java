@@ -50,7 +50,7 @@ import javax.swing.event.ListSelectionListener;
 public class TelaVenda extends javax.swing.JFrame implements ListSelectionListener {
 
     private Caixa caixa;
-    private Funcionario funcionario;
+    private final Funcionario funcionario;
     private VendaTableModel tableModelVenda;
     private Pedido pedido = new Pedido();
     private double totalPedido = 0;
@@ -508,7 +508,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             if (caixa != null) {
                 CaixaDao cDao = new CaixaDao();
                 cDao.abreConnection();
-                cDao.adicionaCaixa(caixa);
+                caixa.setIdCaixa(cDao.adicionaCaixa(caixa));
                 cDao.fechaConnection();
                 numeroPedidoVerificado = true;
                 caixaAberto();
@@ -603,7 +603,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     }
 
     private boolean fecharCaixa(Integer index) {
-        new TelaFechamentoCaixa(this, true, idCaixa).setVisible(true);
+        new TelaFechamentoCaixa(this, true, index).setVisible(true);
         if (TelaFechamentoCaixa.isFechou()) {
             JOptionPane.showMessageDialog(this, "Caixa Fechado com Sucesso!", "Fechamento de Caixa", JOptionPane.INFORMATION_MESSAGE);
             return true;
@@ -675,7 +675,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         Date data = new Date();
         Time time = new Time(data.getTime());
         caixa2.setAberturaCaixa(time);
-        caixa2.setDataAberturaCaixa(data);
+        caixa2.setDataAberturaCaixa(new java.sql.Date(data.getTime()));
         caixa2.setEstaAberto((byte) 1);
         caixa2.setIdFunc(funcionario.getIdFunc());
         caixa2.setFundoCaixa(0);
@@ -780,6 +780,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             } else {
                 JOptionPane.showMessageDialog(this, "Você possui um caixa aberto com data anterior ao dia de hoje. \nPor favor, clique em OK para fechar o caixa anterior", "Caixa anterior encontrado", JOptionPane.WARNING_MESSAGE);
                 while (!TelaFechamentoCaixa.isFechou()) {
+                    System.out.println("Id: " + caixas.get(i).getIdCaixa());
                     fecharCaixa(caixas.get(i).getIdCaixa());
                 }
             }
