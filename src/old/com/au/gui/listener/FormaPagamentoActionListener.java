@@ -70,7 +70,7 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
             formaPagamento.setNomeFormaPgto("Nenhum Registro Encontrado");
             formasPagamento.add(formaPagamento);
         }
-        tableModel = new FormaPagamentoTableModel(formasPagamento);
+        // tableModel = new FormaPagamentoTableModel(formasPagamento);
         frm.getTabelaFormasPagamento().setModel(tableModel);
         frm.getTabelaFormasPagamento().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFormasPagamento().getColumnModel().getColumn(0).setMaxWidth(35);
@@ -241,13 +241,12 @@ public class FormaPagamentoActionListener implements ActionListener, ListSelecti
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent event
-    ) {
+    public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaFormasPagamento().getSelectedRow() != -1) {
-            FormaPagamento formaPagamento = tableModel.getFormasPagamento().get(frm.getTabelaFormasPagamento().getSelectedRow());
-            if (formaPagamento.getIdFormaPgto() != 0) {
-                formaPagamentoToForm(formaPagamento);
-            }
+            //FormaPagamento formaPagamento = tableModel.getFormasPagamento().get(frm.getTabelaFormasPagamento().getSelectedRow());
+            //if (formaPagamento.getIdFormaPgto() != 0) {
+            //    formaPagamentoToForm(formaPagamento);
+            //}
         }
 
     }

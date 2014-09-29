@@ -53,7 +53,7 @@ public class FormaPagamentoDao {
     
     //CREATE
     public boolean adicionaFormaPagamento(FormaPagamento novaFormaPagamento) {
-        String sql = "INSERT INTO FormaPagamnto(nomeFormaPgto, tipoFormaPgto, estaAtivo) values(?,?,?)";
+        String sql = "INSERT INTO FormaPagamento(nomeFormaPgto, tipoFormaPgto, estaAtivo) values(?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -61,7 +61,7 @@ public class FormaPagamentoDao {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, novaFormaPagamento.getNomeFormaPgto());
             stmt.setString(2, novaFormaPagamento.getTipoFormaPgto());
-            stmt.setInt(2, novaFormaPagamento.getEstaAtivo());
+            stmt.setInt(3, novaFormaPagamento.getEstaAtivo());
 
             resultado = stmt.execute();
             stmt.close();
@@ -123,6 +123,33 @@ public class FormaPagamentoDao {
         return null;
     }
     
+    public List<FormaPagamento> pesquisarFormaPagamento(String pesquisa) {
+        String sql = "SELECT * FROM FormaPagamento where idFormaPgto like ? OR nomeFormaPgto like ?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<FormaPagamento> listaResFormaPagamento = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, pesquisa);
+            stmt.setString(2, pesquisa);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                FormaPagamento formaPagamento = new FormaPagamento();
+                formaPagamento.setIdFormaPgto(res.getInt("idFormaPgto"));
+                formaPagamento.setNomeFormaPgto(res.getString("nomeFormaPgto"));
+                formaPagamento.setTipoFormaPgto(res.getString("tipoFormaPgto"));
+                formaPagamento.setEstaAtivo(res.getInt("estaAtivo"));
+                listaResFormaPagamento.add(formaPagamento);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResFormaPagamento;
+    }
+    
     //UPDATE
     public boolean atualizaFormaPagamento(FormaPagamento formaPagamento) {
         String sql = "UPDATE FormaPagamento set nomeFormaPgto=?, tipoFormaPgto=?, estaAtivo=? where idFormaPgto=?";
@@ -145,7 +172,7 @@ public class FormaPagamentoDao {
     }
     
     //DELETE
-    public boolean deletaReceita(FormaPagamento formaPagamento){
+    public boolean deletaFormaPagamento(FormaPagamento formaPagamento){
         String sql = "DELETE FROM FormaPagamento where idFormaPgto=?";
         PreparedStatement stmt;
         boolean resultado = false;

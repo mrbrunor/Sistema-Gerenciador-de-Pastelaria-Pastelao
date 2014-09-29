@@ -428,6 +428,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuCadastros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuFormaPagamento.setText("Formas de Pagamento");
+        itemMenuFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuFormaPagamentoActionPerformed(evt);
+            }
+        });
         menuCadastros.add(itemMenuFormaPagamento);
 
         itemMenuFuncionarios.setText("Funcionários");
@@ -501,6 +506,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private void campoAdicionarItemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAdicionarItemFocusGained
         campoAdicionarItem.selectAll();
     }//GEN-LAST:event_campoAdicionarItemFocusGained
+
+    private void itemMenuFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFormaPagamentoActionPerformed
+        new TelaCadastrarFormasDePagamento(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuFormaPagamentoActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {
@@ -752,7 +762,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         PedidoDao pDao = new PedidoDao();
         pDao.abreConnection();
         List<Pedido> pedidos = pDao.listaPedidosPorCaixa(idCaixa);
-        
+
         if (idCaixa != null && pedidos != null) {
             for (int i = 0; pedidos.size() > i; i++) {
                 if (pedidos.get(i).getNumPedido() >= numPedido) {

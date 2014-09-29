@@ -71,7 +71,7 @@ public class PagamentoActionListener implements ActionListener, ListSelectionLis
     }
 
     public void atualizaTableModelVenda() {
-        tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
+       // tableModelVenda = new VendaTableModel(frm.getPedido().getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaPedido().getColumnModel().getColumn(0).setMaxWidth(55);

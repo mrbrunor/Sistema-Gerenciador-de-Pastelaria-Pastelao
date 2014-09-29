@@ -323,6 +323,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPesquisarFormapagamentoFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoPesquisarFormapagamentoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarFormaPagamento">
@@ -335,6 +336,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarFormaPagamentoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoProcurarFormaPagamento">
           <Properties>
@@ -444,6 +448,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar Cadastro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarFormaPagamentoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCadastrarFormaPagamento">
           <Properties>
@@ -455,6 +462,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Forma Pgto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarFormaPagamentoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoLimparCampos">
           <Properties>
@@ -466,6 +476,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Limpar Campos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoLimparCamposActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoAtualizarFormaPagamento">
           <Properties>
@@ -477,6 +490,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Atualizar Forma Pgto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAtualizarFormaPagamentoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoExcluirFormaPagamento">
           <Properties>
@@ -488,6 +504,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Excluir Forma Pgto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirFormaPagamentoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

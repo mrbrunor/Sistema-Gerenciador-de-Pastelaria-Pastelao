@@ -21,26 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import com.au.bean.FormaPagamento;
+import com.au.dao.FormaPagamentoDao;
+import com.au.gui.tmodel.FormaPagamentoTableModel;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
-    
+public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implements ListSelectionListener {
+
+    private FormaPagamentoTableModel tableModel;
+    FormaPagamentoDao fpDao = new FormaPagamentoDao();
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+
     /**
      * Creates new form TelaCadastrarFormasDePagamento
+     *
+     * @param parent
+     * @param modal
      */
     public TelaCadastrarFormasDePagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        normal = campoNome.getBorder();
+        inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     /**
@@ -197,10 +213,20 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
                 campoPesquisarFormapagamentoFocusGained(evt);
             }
         });
+        campoPesquisarFormapagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisarFormapagamentoActionPerformed(evt);
+            }
+        });
 
         botaoProcurarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarFormaPagamento.setText("Procurar");
+        botaoProcurarFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         textoProcurarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoProcurarFormaPagamento.setText("Procurar Forma de Pagamento:");
@@ -258,22 +284,47 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
         botaoCancelarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarFormaPagamento.setText("Cancelar Cadastro");
+        botaoCancelarFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         botaoCadastrarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFormaPagamento.setText("Cadastrar Forma Pgto");
+        botaoCadastrarFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
+        botaoLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLimparCamposActionPerformed(evt);
+            }
+        });
 
         botaoAtualizarFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarFormaPagamento.setText("Atualizar Forma Pgto");
+        botaoAtualizarFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         botaoExcluirFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirFormaPagamento.setText("Excluir Forma Pgto");
+        botaoExcluirFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -345,108 +396,183 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
         campoPesquisarFormapagamento.selectAll();
     }//GEN-LAST:event_campoPesquisarFormapagamentoFocusGained
 
-    public JButton getBotaoAtualizarFormaPagamento() {
-        return botaoAtualizarFormaPagamento;
+    private void botaoCadastrarFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFormaPagamentoActionPerformed
+        if (valida()) {
+            cadastrarFormaPagamento();
+        }
+    }//GEN-LAST:event_botaoCadastrarFormaPagamentoActionPerformed
+
+    private void botaoLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparCamposActionPerformed
+        limpaCampos();
+        habilitaBotoesParaSalvar();
+    }//GEN-LAST:event_botaoLimparCamposActionPerformed
+
+    private void botaoExcluirFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirFormaPagamentoActionPerformed
+        if (valida()) {
+            excluirFormaPagamento();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoExcluirFormaPagamentoActionPerformed
+
+    private void botaoAtualizarFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarFormaPagamentoActionPerformed
+        if (valida()) {
+            atualizarFormaPagamento();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoAtualizarFormaPagamentoActionPerformed
+
+    private void botaoCancelarFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarFormaPagamentoActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarFormaPagamentoActionPerformed
+
+    private void botaoProcurarFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarFormaPagamentoActionPerformed
+        pesquisaFormaPagamento();
+    }//GEN-LAST:event_botaoProcurarFormaPagamentoActionPerformed
+
+    private void campoPesquisarFormapagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarFormapagamentoActionPerformed
+        pesquisaFormaPagamento();
+    }//GEN-LAST:event_campoPesquisarFormapagamentoActionPerformed
+
+    private void atualizarFormaPagamento() {
+        fpDao.abreConnection();
+        fpDao.atualizaFormaPagamento(formToFormaPagamento());
+        fpDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Forma de Pagamento Atualizada Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoAtualizarFormaPagamento(JButton botaoAtualizarFormaPagamento) {
-        this.botaoAtualizarFormaPagamento = botaoAtualizarFormaPagamento;
+    private void atualizaTableModel(List<FormaPagamento> formasPagamento) {
+        if (formasPagamento != null && formasPagamento.isEmpty()) {
+            FormaPagamento formaPagamento = new FormaPagamento();
+            formaPagamento.setNomeFormaPgto("Nenhum Registro Encontrado");
+            formasPagamento.add(formaPagamento);
+        }
+        tableModel = new FormaPagamentoTableModel(formasPagamento);
+        tabelaFormasPagamento.setModel(tableModel);
+        tabelaFormasPagamento.getSelectionModel().addListSelectionListener(this);
+        tabelaFormasPagamento.getColumnModel().getColumn(0).setMaxWidth(35);
+        tabelaFormasPagamento.getColumnModel().getColumn(2).setMaxWidth(110);
+        tabelaFormasPagamento.getColumnModel().getColumn(3).setMaxWidth(110);
     }
 
-    public JButton getBotaoCadastrarFormaPagamento() {
-        return botaoCadastrarFormaPagamento;
+    private void cadastrarFormaPagamento() {
+        FormaPagamento formaPagamento = formToFormaPagamento();
+        fpDao.abreConnection();
+        fpDao.adicionaFormaPagamento(formaPagamento);
+        fpDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Forma de Pagamento Cadastrada Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoCadastrarFormaPagamento(JButton botaoCadastrarFormaPagamento) {
-        this.botaoCadastrarFormaPagamento = botaoCadastrarFormaPagamento;
+    private void desabilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(false);
     }
 
-    public JButton getBotaoCancelarFormaPagamento() {
-        return botaoCancelarFormaPagamento;
+    private void excluirFormaPagamento() {
+        fpDao.abreConnection();
+        fpDao.deletaFormaPagamento(formToFormaPagamento());
+        fpDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Forma de Pagamento Removida Com Sucesso", "Cadastro de Formas de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoCancelarFormaPagamento(JButton botaoCancelarFormaPagamento) {
-        this.botaoCancelarFormaPagamento = botaoCancelarFormaPagamento;
+    private void formaPagamentoToForm(FormaPagamento formaPagamento) {
+        campoId.setText(String.valueOf(formaPagamento.getIdFormaPgto()));
+        campoNome.setText(formaPagamento.getNomeFormaPgto());
+        if (formaPagamento.getTipoFormaPgto().equals("Dinheiro")) {
+            caixaTipo.setSelectedIndex(1);
+        } else if (formaPagamento.getTipoFormaPgto().equals("Debito")) {
+            caixaTipo.setSelectedIndex(2);
+        } else if (formaPagamento.getTipoFormaPgto().equals("Credito")) {
+            caixaTipo.setSelectedIndex(3);
+        } else {
+            caixaTipo.setSelectedIndex(4);
+        }
+        if ((byte) 0 == formaPagamento.getEstaAtivo()) {
+            caixaAtivo.setSelectedIndex(2);
+        } else {
+            caixaAtivo.setSelectedIndex(1);
+        }
+        desabilitaBotoesParaSalvar();
     }
 
-    public JButton getBotaoExcluirFormaPagamento() {
-        return botaoExcluirFormaPagamento;
+    private FormaPagamento formToFormaPagamento() {
+        FormaPagamento formaPagamento = new FormaPagamento();
+        if (!"".equals(campoId.getText())) {
+            formaPagamento.setIdFormaPgto(Integer.parseInt(campoId.getText()));
+        }
+        formaPagamento.setNomeFormaPgto(campoNome.getText());
+        formaPagamento.setTipoFormaPgto(String.valueOf(caixaTipo.getSelectedItem()));
+
+        if (caixaAtivo.getSelectedItem() == "Não") {
+            formaPagamento.setEstaAtivo((byte) 0);
+        } else {
+            formaPagamento.setEstaAtivo((byte) 1);
+        }
+        return formaPagamento;
     }
 
-    public void setBotaoExcluirFormaPagamento(JButton botaoExcluirFormaPagamento) {
-        this.botaoExcluirFormaPagamento = botaoExcluirFormaPagamento;
+    private void habilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(true);
     }
 
-    public JButton getBotaoLimparCampos() {
-        return botaoLimparCampos;
+    private void habilitaOuDesabilitaBotoesEdicao(boolean enabled) {
+        botaoAtualizarFormaPagamento.setEnabled(!enabled);
+        botaoCadastrarFormaPagamento.setEnabled(enabled);
+        botaoExcluirFormaPagamento.setEnabled(!enabled);
     }
 
-    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
-        this.botaoLimparCampos = botaoLimparCampos;
+    private void inicializaTableModel() {
+        fpDao.abreConnection();
+        atualizaTableModel(fpDao.getLista());
+        fpDao.fechaConnection();
     }
 
-    public JButton getBotaoProcurarFormaPagamento() {
-        return botaoProcurarFormaPagamento;
-    }
-
-    public void setBotaoProcurarFormaPagamento(JButton botaoProcurarFormaPagamento) {
-        this.botaoProcurarFormaPagamento = botaoProcurarFormaPagamento;
-    }
-
-    public JComboBox getCaixaAtivo() {
-        return caixaAtivo;
-    }
-
-    public void setCaixaAtivo(JComboBox caixaAtivo) {
-        this.caixaAtivo = caixaAtivo;
-    }
-
-    public JComboBox getCaixaTipo() {
-        return caixaTipo;
-    }
-
-    public void setCaixaTipo(JComboBox caixaTipo) {
-        this.caixaTipo = caixaTipo;
-    }
-
-    public JTextField getCampoId() {
-        return campoId;
-    }
-
-    public void setCampoId(JTextField campoId) {
-        this.campoId = campoId;
-    }
-
-    public JTextField getCampoNome() {
-        return campoNome;
-    }
-
-    public void setCampoNome(JTextField campoNome) {
-        this.campoNome = campoNome;
-    }
-
-    public JTextField getCampoPesquisarFormapagamento() {
-        return campoPesquisarFormapagamento;
-    }
-
-    public void setCampoPesquisarFormapagamento(JTextField campoPesquisarFormapagamento) {
-        this.campoPesquisarFormapagamento = campoPesquisarFormapagamento;
-    }
-
-    public JTable getTabelaFormasPagamento() {
-        return tabelaFormasPagamento;
-    }
-
-    public void setTabelaFormasPagamento(JTable tabelaFormasPagamento) {
-        this.tabelaFormasPagamento = tabelaFormasPagamento;
-    }
-    
-    public void limpaCampos(){
+    private void limpaCampos() {
         campoId.setText("");
         campoNome.setText("");
         caixaAtivo.setSelectedIndex(0);
         caixaTipo.setSelectedIndex(0);
+        caixaAtivo.setBorder(normal);
+        caixaTipo.setBorder(normal);
+        campoId.setBorder(normal);
+        campoNome.setBorder(normal);
     }
+
+    private void pesquisaFormaPagamento() {
+        fpDao.abreConnection();
+        String pesquisa = "%" + campoPesquisarFormapagamento.getText() + "%";
+        limpaCampos();
+        atualizaTableModel(fpDao.pesquisarFormaPagamento(pesquisa));
+        fpDao.fechaConnection();
+    }
+
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(campoNome.getText())) {
+            campoNome.setBorder(normal);
+        } else {
+            campoNome.setBorder(vermelha);
+            valida = false;
+        }
+        if (caixaTipo.getSelectedIndex() != 0) {
+            caixaTipo.setBorder(normal);
+        } else {
+            caixaTipo.setBorder(vermelha);
+            valida = false;
+        }
+        if (caixaAtivo.getSelectedIndex() != 0) {
+            caixaAtivo.setBorder(normal);
+        } else {
+            caixaAtivo.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -478,4 +604,14 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoProcurarFormaPagamento;
     private javax.swing.JLabel textoTipo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (tabelaFormasPagamento.getSelectedRow() != -1) {
+            FormaPagamento formaPagamento = tableModel.getFormasPagamento().get(tabelaFormasPagamento.getSelectedRow());
+            if (formaPagamento.getIdFormaPgto() != 0) {
+                formaPagamentoToForm(formaPagamento);
+            }
+        }
+    }
 }

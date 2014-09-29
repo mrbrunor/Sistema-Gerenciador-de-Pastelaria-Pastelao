@@ -93,7 +93,7 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     }
 
     public void atualizaTableModelVenda() {
-        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
+      //  tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         frm.getTabelaPedido().setModel(tableModelVenda);
         frm.getTabelaPedido().getSelectionModel().addListSelectionListener(this);
 
@@ -528,8 +528,8 @@ public class VendaActionListener implements ActionListener, ListSelectionListene
     @Override
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaPedido().getSelectedRow() != -1) {
-            Itempedido itempedido = tableModelVenda.getItemspedido().get(frm.getTabelaPedido().getSelectedRow());
-            vendaToForm(itempedido);
+            //Itempedido itempedido = tableModelVenda.getItemspedido().get(frm.getTabelaPedido().getSelectedRow());
+            //vendaToForm(itempedido);
 
         }
         frm.getCampoAdicionarItem().requestFocus();

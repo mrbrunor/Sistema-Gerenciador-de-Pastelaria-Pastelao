@@ -21,10 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui.tmodel;
 
-import com.au.modelo.FormaPagamento;
+import com.au.bean.FormaPagamento;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -33,12 +32,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class FormaPagamentoTableModel extends AbstractTableModel{
-    
+public class FormaPagamentoTableModel extends AbstractTableModel {
+
     private List<FormaPagamento> formaPagamentos;
-    private List<String> colunas;
-    
-    public FormaPagamentoTableModel(List<FormaPagamento> formaPagamentos){
+    private final List<String> colunas;
+
+    public FormaPagamentoTableModel(List<FormaPagamento> formaPagamentos) {
         this.formaPagamentos = formaPagamentos;
         colunas = Arrays.asList("Id", "Descrição", "Tipo", "Ativo");
     }
@@ -46,11 +45,15 @@ public class FormaPagamentoTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
-        return formaPagamentos.size();
+        if (formaPagamentos != null) {
+            return formaPagamentos.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -61,12 +64,15 @@ public class FormaPagamentoTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         FormaPagamento formaPagamento = formaPagamentos.get(rowIndex);
-        switch(columnIndex){
-            case 0: return formaPagamento.getIdFormaPgto();
-            case 1: return formaPagamento.getNomeFormaPgto();
-            case 2: return formaPagamento.getTipoFormaPgto();
-            case 3: 
-                if(formaPagamento.getEstaAtivo() == 1){
+        switch (columnIndex) {
+            case 0:
+                return formaPagamento.getIdFormaPgto();
+            case 1:
+                return formaPagamento.getNomeFormaPgto();
+            case 2:
+                return formaPagamento.getTipoFormaPgto();
+            case 3:
+                if (formaPagamento.getEstaAtivo() == 1) {
                     return "Sim";
                 } else {
                     return "Não";
@@ -81,6 +87,6 @@ public class FormaPagamentoTableModel extends AbstractTableModel{
 
     public void setFormasPagamento(List<FormaPagamento> formaPagamentos) {
         this.formaPagamentos = formaPagamentos;
-    }    
-    
+    }
+
 }
