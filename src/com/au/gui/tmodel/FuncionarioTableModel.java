@@ -21,10 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui.tmodel;
 
-import com.au.modelo.Funcionario;
+import com.au.bean.Funcionario;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -33,12 +32,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class FuncionarioTableModel extends AbstractTableModel{
-    
+public class FuncionarioTableModel extends AbstractTableModel {
+
     private List<Funcionario> funcionarios;
     private List<String> colunas;
-    
-    public FuncionarioTableModel(List<Funcionario> funcionarios){
+
+    public FuncionarioTableModel(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
         colunas = Arrays.asList("Id", "Nome", "Usuário", "Nível");
     }
@@ -46,11 +45,15 @@ public class FuncionarioTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
-        return funcionarios.size();
+        if (funcionarios != null) {
+            return funcionarios.size();
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -61,12 +64,15 @@ public class FuncionarioTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Funcionario funcionario = funcionarios.get(rowIndex);
-        switch(columnIndex){
-            case 0: return funcionario.getIdFunc();
-            case 1: return funcionario.getNomeFunc();
-            case 2: return funcionario.getUserFunc();
-            case 3: 
-                if(funcionario.getNivelFunc() == 1){
+        switch (columnIndex) {
+            case 0:
+                return funcionario.getIdFunc();
+            case 1:
+                return funcionario.getNomeFunc();
+            case 2:
+                return funcionario.getUserFunc();
+            case 3:
+                if (funcionario.getNivelFunc() == 1) {
                     return "Admin";
                 } else {
                     return "Func";
@@ -81,6 +87,6 @@ public class FuncionarioTableModel extends AbstractTableModel{
 
     public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
-    }    
-    
+    }
+
 }

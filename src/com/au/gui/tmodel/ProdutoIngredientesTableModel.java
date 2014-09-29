@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui.tmodel;
 
 import com.au.modelo.Ingrediente;
@@ -34,12 +33,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class ProdutoIngredientesTableModel extends AbstractTableModel{
-    
+public class ProdutoIngredientesTableModel extends AbstractTableModel {
+
     private List<Ingrediente> ingredientes = new ArrayList<>();
     private List<String> colunas;
-    
-    public ProdutoIngredientesTableModel(List<Ingrediente> ingredientes){
+
+    public ProdutoIngredientesTableModel(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
         colunas = Arrays.asList("Descrição");
     }
@@ -47,14 +46,18 @@ public class ProdutoIngredientesTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
-        return ingredientes.size();
+        if (ingredientes != null) {
+            return ingredientes.size();
+        } else {
+            return -1;
+        }
     }
-    
-    public void setRowCount(){
+
+    public void setRowCount() {
         ingredientes.clear();
     }
 
@@ -66,8 +69,9 @@ public class ProdutoIngredientesTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Ingrediente ingrediente = ingredientes.get(rowIndex);
-        switch(columnIndex){
-            case 0: return ingrediente.getDescIng();
+        switch (columnIndex) {
+            case 0:
+                return ingrediente.getDescIng();
         }
         return null;
     }
@@ -78,5 +82,5 @@ public class ProdutoIngredientesTableModel extends AbstractTableModel{
 
     public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
-    }    
+    }
 }

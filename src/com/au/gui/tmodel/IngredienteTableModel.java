@@ -50,7 +50,11 @@ public class IngredienteTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return ingredientes.size();
+        if( ingredientes != null){
+            return ingredientes.size();
+        } else {
+            return -1;
+        }
     }
 
     @Override

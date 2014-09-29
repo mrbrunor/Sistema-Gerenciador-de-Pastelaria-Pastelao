@@ -23,22 +23,36 @@
  */
 package com.au.gui;
 
+import com.au.bean.Funcionario;
+import com.au.dao.FuncionarioDao;
+import com.au.gui.tmodel.FuncionarioTableModel;
+import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import com.au.util.ValidaEmail;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author BrunoRicardo
  */
-public class TelaCadastrarFuncionario extends javax.swing.JDialog {
+public class TelaCadastrarFuncionario extends javax.swing.JDialog implements ListSelectionListener {
 
+    private FuncionarioTableModel tableModel;
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private final FuncionarioDao fDao = new FuncionarioDao();
 
     /**
      * Creates new form TelaCadastrarFuncionario
+     *
+     * @param parent
+     * @param modal
      */
     public TelaCadastrarFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,6 +66,10 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoSenha2.setDocument(new LimitaDigitos((64), ""));
         campoTelefone.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));
         campoUser.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
+
+        normal = campoNome.getBorder();
+        inicializaTableModel();
+        habilitaBotoesParaSalvar();
     }
 
     /**
@@ -356,10 +374,20 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
                 campoPesquisarFuncionarioFocusGained(evt);
             }
         });
+        campoPesquisarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisarFuncionarioActionPerformed(evt);
+            }
+        });
 
         botaoProcurarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarFuncionario.setText("Procurar");
+        botaoProcurarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarFuncionarioActionPerformed(evt);
+            }
+        });
 
         textoCliqueParaEditar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCliqueParaEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -416,22 +444,47 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
+        botaoLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLimparCamposActionPerformed(evt);
+            }
+        });
 
         botaoExcluirFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirFuncionario.setText("Excluir Funcionário");
+        botaoExcluirFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirFuncionarioActionPerformed(evt);
+            }
+        });
 
         botaoAtualizarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarFuncionario.setText("Atualizar Funcionário");
+        botaoAtualizarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarFuncionarioActionPerformed(evt);
+            }
+        });
 
         botaoCancelarCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarCadastro.setText("Cancelar Cadastro");
+        botaoCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarCadastroActionPerformed(evt);
+            }
+        });
 
         botaoCadastrarFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarFuncionario.setText("Cadastrar Funcionário");
+        botaoCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarFuncionarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -533,159 +586,163 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         campoPesquisarFuncionario.selectAll();
     }//GEN-LAST:event_campoPesquisarFuncionarioFocusGained
 
-    public JButton getBotaoAtualizarFuncionario() {
-        return botaoAtualizarFuncionario;
+    private void botaoCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFuncionarioActionPerformed
+        if (valida(false)) {
+            cadastrarFuncionario();
+        }
+    }//GEN-LAST:event_botaoCadastrarFuncionarioActionPerformed
+
+    private void botaoLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparCamposActionPerformed
+        limpaCampos();
+        habilitaBotoesParaSalvar();
+    }//GEN-LAST:event_botaoLimparCamposActionPerformed
+
+    private void botaoExcluirFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirFuncionarioActionPerformed
+        if (valida(true)) {
+            excluirFuncionario();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoExcluirFuncionarioActionPerformed
+
+    private void botaoAtualizarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarFuncionarioActionPerformed
+        if (valida(false)) {
+            atualizarFuncionario();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoAtualizarFuncionarioActionPerformed
+
+    private void botaoCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarCadastroActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarCadastroActionPerformed
+
+    private void botaoProcurarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarFuncionarioActionPerformed
+        pesquisaFuncionarios();
+    }//GEN-LAST:event_botaoProcurarFuncionarioActionPerformed
+
+    private void campoPesquisarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarFuncionarioActionPerformed
+        pesquisaFuncionarios();
+    }//GEN-LAST:event_campoPesquisarFuncionarioActionPerformed
+
+    private void atualizarFuncionario() {
+        fDao.abreConnection();
+        fDao.atualizaFuncionario(formToFuncionario());
+        fDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Funcionário Atualizado Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoAtualizarFuncionario(JButton botaoAtualizarFuncionario) {
-        this.botaoAtualizarFuncionario = botaoAtualizarFuncionario;
+    private void atualizaTableModel(List<Funcionario> funcionarios) {
+        if (funcionarios != null && funcionarios.isEmpty()) {
+            Funcionario funcionario = new Funcionario();
+            funcionario.setNomeFunc("Nenhum Registro Encontrado");
+            funcionarios.add(funcionario);
+        }
+        tableModel = new FuncionarioTableModel(funcionarios);
+        tabelaFuncionarios.setModel(tableModel);
+        tabelaFuncionarios.getSelectionModel().addListSelectionListener(this);
+        tabelaFuncionarios.getColumnModel().getColumn(0).setMaxWidth(35);
+        tabelaFuncionarios.getColumnModel().getColumn(2).setMaxWidth(250);
+        tabelaFuncionarios.getColumnModel().getColumn(3).setMaxWidth(65);
     }
 
-    public JButton getBotaoCadastrarFuncionario() {
-        return botaoCadastrarFuncionario;
+    private void cadastrarFuncionario() {
+        fDao.abreConnection();
+        Funcionario funcionario = formToFuncionario();
+        if (fDao.validaCPF(funcionario.getCpfFunc())) {
+            JOptionPane.showMessageDialog(this, "CPF ja cadastrado!", "Cadastro de Funcionários", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (fDao.validaUsuario(funcionario.getUserFunc())) {
+            JOptionPane.showMessageDialog(this, "Usuário já existe!", "Cadastro de Funcionários", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        fDao.adicionaFuncionario(funcionario);
+        fDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Funcionário Cadastrado Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoCadastrarFuncionario(JButton botaoCadastrarFuncionario) {
-        this.botaoCadastrarFuncionario = botaoCadastrarFuncionario;
+    private void desabilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(false);
     }
 
-    public JButton getBotaoCancelarCadastro() {
-        return botaoCancelarCadastro;
+    private void excluirFuncionario() {
+        fDao.abreConnection();
+        fDao.deletaFuncionario(formToFuncionario());
+        fDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Funcionário Removido Com Sucesso", "Cadastro de Funcionarios", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public void setBotaoCancelarCadastro(JButton botaoCancelarCadastro) {
-        this.botaoCancelarCadastro = botaoCancelarCadastro;
+    private Funcionario formToFuncionario() {
+        Funcionario func = new Funcionario();
+        if (!"".equals(campoId.getText())) {
+            func.setIdFunc(Integer.parseInt(campoId.getText()));
+        }
+        func.setNomeFunc(campoNome.getText());
+        func.setCpfFunc(campoCpf.getText());
+        func.setMailFunc(campoEmail.getText());
+        func.setFoneFunc(campoTelefone.getText());
+        func.setCelFunc(campoCelular.getText());
+        func.setUserFunc(campoUser.getText());
+
+        HexSha hexSha = new HexSha(String.valueOf(campoSenha.getPassword()));
+        func.setPassFunc(hexSha.ConvertSha());
+
+        if (caixaNivel.getSelectedItem() == "Administrador") {
+            func.setNivelFunc(1);
+        } else {
+            func.setNivelFunc(0);
+        }
+        if (caixaAtivo.getSelectedItem() == "Não") {
+            func.setEstaAtivo((byte) 0);
+        } else {
+            func.setEstaAtivo((byte) 1);
+        }
+        return func;
     }
 
-    public JButton getBotaoExcluirFuncionario() {
-        return botaoExcluirFuncionario;
+    private void funcionarioToForm(Funcionario funcionario) {
+        campoId.setText(String.valueOf(funcionario.getIdFunc()));
+        campoNome.setText(funcionario.getNomeFunc());
+        campoCpf.setText(funcionario.getCpfFunc());
+        campoEmail.setText(funcionario.getMailFunc());
+        campoTelefone.setText(funcionario.getFoneFunc());
+        campoCelular.setText(funcionario.getCelFunc());
+        campoUser.setText(funcionario.getUserFunc());
+        if (funcionario.getNivelFunc() == 1) {
+            caixaNivel.setSelectedIndex(1);
+        } else {
+            caixaNivel.setSelectedIndex(2);
+        }
+        if ((byte) 0 == funcionario.getEstaAtivo()) {
+            caixaAtivo.setSelectedIndex(1);
+        } else {
+            caixaAtivo.setSelectedIndex(2);
+        }
+        desabilitaBotoesParaSalvar();
     }
 
-    public void setBotaoExcluirFuncionario(JButton botaoExcluirFuncionario) {
-        this.botaoExcluirFuncionario = botaoExcluirFuncionario;
+    private void habilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(true);
     }
 
-    public JButton getBotaoLimparCampos() {
-        return botaoLimparCampos;
+    private void habilitaOuDesabilitaBotoesEdicao(boolean enabled) {
+        botaoAtualizarFuncionario.setEnabled(!enabled);
+        botaoCadastrarFuncionario.setEnabled(enabled);
+        botaoExcluirFuncionario.setEnabled(!enabled);
     }
 
-    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
-        this.botaoLimparCampos = botaoLimparCampos;
+    private void inicializaTableModel() {
+        fDao.abreConnection();
+        atualizaTableModel(fDao.getLista());
+        fDao.fechaConnection();
     }
 
-    public JButton getBotaoProcurarFuncionario() {
-        return botaoProcurarFuncionario;
-    }
-
-    public void setBotaoProcurarFuncionario(JButton botaoProcurarFuncionario) {
-        this.botaoProcurarFuncionario = botaoProcurarFuncionario;
-    }
-
-    public JTextField getCampoPesquisarFuncionario() {
-        return campoPesquisarFuncionario;
-    }
-
-    public void setCampoPesquisarFuncionario(JTextField campoPesquisarFuncionario) {
-        this.campoPesquisarFuncionario = campoPesquisarFuncionario;
-    }
-
-    public JTable getTabelaFuncionarios() {
-        return tabelaFuncionarios;
-    }
-
-    public void setTabelaFuncionarios(JTable tabelaFuncionarios) {
-        this.tabelaFuncionarios = tabelaFuncionarios;
-    }
-
-    public JTextField getCampoId() {
-        return campoId;
-    }
-
-    public void setCampoId(JTextField campoId) {
-        this.campoId = campoId;
-    }
-
-    public JComboBox getCaixaAtivo() {
-        return caixaAtivo;
-    }
-
-    public void setCaixaAtivo(JComboBox caixaAtivo) {
-        this.caixaAtivo = caixaAtivo;
-    }
-
-    public JComboBox getCaixaNivel() {
-        return caixaNivel;
-    }
-
-    public void setCaixaNivel(JComboBox caixaNivel) {
-        this.caixaNivel = caixaNivel;
-    }
-
-    public JTextField getCampoCelular() {
-        return campoCelular;
-    }
-
-    public void setCampoCelular(JTextField campoCelular) {
-        this.campoCelular = campoCelular;
-    }
-
-    public JTextField getCampoCpf() {
-        return campoCpf;
-    }
-
-    public void setCampoCpf(JTextField campoCpf) {
-        this.campoCpf = campoCpf;
-    }
-
-    public JTextField getCampoEmail() {
-        return campoEmail;
-    }
-
-    public void setCampoEmail(JTextField campoEmail) {
-        this.campoEmail = campoEmail;
-    }
-
-    public JTextField getCampoNome() {
-        return campoNome;
-    }
-
-    public void setCampoNome(JTextField campoNome) {
-        this.campoNome = campoNome;
-    }
-
-    public JPasswordField getCampoSenha() {
-        return campoSenha;
-    }
-
-    public void setCampoSenha(JPasswordField campoSenha) {
-        this.campoSenha = campoSenha;
-    }
-
-    public JPasswordField getCampoSenha2() {
-        return campoSenha2;
-    }
-
-    public void setCampoSenha2(JPasswordField campoSenha2) {
-        this.campoSenha2 = campoSenha2;
-    }
-
-    public JTextField getCampoTelefone() {
-        return campoTelefone;
-    }
-
-    public void setCampoTelefone(JTextField campoTelefone) {
-        this.campoTelefone = campoTelefone;
-    }
-
-    public JTextField getCampoUser() {
-        return campoUser;
-    }
-
-    public void setCampoUser(JTextField campoUser) {
-        this.campoUser = campoUser;
-    }
-
-    public void limpaCampos() {
+    private void limpaCampos() {
         campoCelular.setText("");
         campoCpf.setText("");
         campoEmail.setText("");
@@ -697,7 +754,86 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
         caixaAtivo.setSelectedIndex(0);
         caixaNivel.setSelectedIndex(0);
         campoId.setText("");
+        caixaAtivo.setBorder(normal);
+        caixaNivel.setBorder(normal);
+        campoCelular.setBorder(normal);
+        campoCpf.setBorder(normal);
+        campoEmail.setBorder(normal);
+        campoNome.setBorder(normal);
+        campoSenha.setBorder(normal);
+        campoSenha2.setBorder(normal);
+        campoUser.setBorder(normal);
     }
+
+    public void pesquisaFuncionarios() {
+        fDao.abreConnection();
+        String pesquisa = "%" + campoPesquisarFuncionario.getText() + "%";
+        limpaCampos();
+        atualizaTableModel(fDao.pesquisarFuncionario(pesquisa));
+        fDao.fechaConnection();
+    }
+
+    public boolean valida(boolean excluir) {
+        boolean valida = true;
+        if (!"".equals(campoNome.getText()) && campoNome.getText().length() > 9) {
+            campoNome.setBorder(normal);
+        } else {
+            campoNome.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoCpf.getText()) && campoCpf.getText().length() > 10) {
+            campoCpf.setBorder(normal);
+        } else {
+            campoCpf.setBorder(vermelha);
+            valida = false;
+        }
+        if (new ValidaEmail().validEmail(campoEmail.getText())) {
+            campoEmail.setBorder(normal);
+        } else {
+            campoEmail.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoCelular.getText()) && campoCelular.getText().length() > 7) {
+            campoCelular.setBorder(normal);
+        } else {
+            campoCelular.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoUser.getText()) && campoUser.getText().length() > 2) {
+            campoUser.setBorder(normal);
+        } else {
+            campoUser.setBorder(vermelha);
+            valida = false;
+        }
+        if (!excluir) {
+            if (!"".equals(campoSenha.getPassword()) && campoSenha.getPassword().length > 4) {
+                campoSenha.setBorder(normal);
+            } else {
+                campoSenha.setBorder(vermelha);
+                valida = false;
+            }
+            if (!"".equals(campoSenha2.getPassword()) && campoSenha2.getText().equals(campoSenha.getText())) {
+                campoSenha2.setBorder(normal);
+            } else {
+                campoSenha2.setBorder(vermelha);
+                valida = false;
+            }
+        }
+        if (caixaNivel.getSelectedIndex() != 0) {
+            caixaNivel.setBorder(normal);
+        } else {
+            caixaNivel.setBorder(vermelha);
+            valida = false;
+        }
+        if (caixaAtivo.getSelectedIndex() != 0) {
+            caixaAtivo.setBorder(normal);
+        } else {
+            caixaAtivo.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAtualizarFuncionario;
     private javax.swing.JButton botaoCadastrarFuncionario;
@@ -740,4 +876,14 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel textoTelefone;
     private javax.swing.JLabel textoUser;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (tabelaFuncionarios.getSelectedRow() != -1) {
+            Funcionario funcionario = tableModel.getFuncionarios().get(tabelaFuncionarios.getSelectedRow());
+            if (funcionario.getIdFunc() != 0) {
+                funcionarioToForm(funcionario);
+            }
+        }
+    }
 }

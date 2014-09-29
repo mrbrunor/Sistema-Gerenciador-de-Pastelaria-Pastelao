@@ -78,7 +78,7 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
             funcionario.setNomeFunc("Nenhum Registro Encontrado");
             funcionarios.add(funcionario);
         }
-        tableModel = new FuncionarioTableModel(funcionarios);
+        //tableModel = new FuncionarioTableModel(funcionarios);
         frm.getTabelaFuncionarios().setModel(tableModel);
         frm.getTabelaFuncionarios().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaFuncionarios().getColumnModel().getColumn(0).setMaxWidth(35);
@@ -317,12 +317,12 @@ public class FuncionarioActionListener implements ActionListener, ListSelectionL
     @Override
     public void valueChanged(ListSelectionEvent event
     ) {
-        if (frm.getTabelaFuncionarios().getSelectedRow() != -1) {
-            Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaFuncionarios().getSelectedRow());
-            if(funcionario.getIdFunc() != 0){
-                funcionarioToForm(funcionario);
-            }
-        }
+//        if (frm.getTabelaFuncionarios().getSelectedRow() != -1) {
+//            Funcionario funcionario = tableModel.getFuncionarios().get(frm.getTabelaFuncionarios().getSelectedRow());
+//            if(funcionario.getIdFunc() != 0){
+//                funcionarioToForm(funcionario);
+//            }
+//        }
 
     }
 }

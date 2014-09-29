@@ -41,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
 public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implements ListSelectionListener {
 
     private FormaPagamentoTableModel tableModel;
-    FormaPagamentoDao fpDao = new FormaPagamentoDao();
+    private final FormaPagamentoDao fpDao = new FormaPagamentoDao();
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
 

@@ -52,7 +52,7 @@ public class FormaPagamentoTableModel extends AbstractTableModel {
         if (formaPagamentos != null) {
             return formaPagamentos.size();
         } else {
-            return 0;
+            return -1;
         }
     }
 

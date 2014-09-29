@@ -542,6 +542,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoPesquisarFuncionarioFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoPesquisarFuncionarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarFuncionario">
@@ -554,6 +555,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarFuncionarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoCliqueParaEditar">
           <Properties>
@@ -661,6 +665,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Limpar Campos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoLimparCamposActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoExcluirFuncionario">
           <Properties>
@@ -672,6 +679,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Excluir Funcion&#xe1;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirFuncionarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoAtualizarFuncionario">
           <Properties>
@@ -683,6 +693,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Atualizar Funcion&#xe1;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAtualizarFuncionarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCancelarCadastro">
           <Properties>
@@ -694,6 +707,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar Cadastro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarCadastroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCadastrarFuncionario">
           <Properties>
@@ -705,6 +721,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Funcion&#xe1;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarFuncionarioActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

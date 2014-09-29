@@ -54,7 +54,7 @@ public class VendaTableModel extends AbstractTableModel {
         if(itemspedido != null){
             return itemspedido.size();
         } else {
-            return 0;
+            return -1;
         }        
     }
 

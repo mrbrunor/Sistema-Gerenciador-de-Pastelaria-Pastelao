@@ -50,7 +50,11 @@ public class VendaProdutoTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return produtos.size();
+        if(produtos != null){
+            return produtos.size();
+        } else {
+            return -1;
+        }
     }
 
     @Override

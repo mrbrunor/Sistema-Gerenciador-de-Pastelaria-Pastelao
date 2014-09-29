@@ -42,7 +42,11 @@ public class CaixaTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return caixas.size();
+        if(caixas != null){
+            return caixas.size();
+        } else {
+            return -1;
+        }
     }
 
     @Override

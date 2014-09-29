@@ -108,6 +108,38 @@ public class FuncionarioDao {
         }
         return listaResFunc;
     }
+    
+    public List<Funcionario> pesquisarFuncionario(String pesquisa) {
+        String sql = "SELECT * FROM Funcionario where nomeFunc like ?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Funcionario> listaResFunc = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, pesquisa);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Funcionario novoFunc = new Funcionario();
+                novoFunc.setIdFunc(res.getInt("idFunc"));
+                novoFunc.setNomeFunc(res.getString("nomeFunc"));
+                novoFunc.setCpfFunc(res.getString("cpfFunc"));
+                novoFunc.setMailFunc(res.getString("mailFunc"));
+                novoFunc.setFoneFunc(res.getString("foneFunc"));
+                novoFunc.setCelFunc(res.getString("celFunc"));
+                novoFunc.setUserFunc(res.getString("userFunc"));
+                novoFunc.setPassFunc("");
+                novoFunc.setNivelFunc(res.getInt("nivelFunc"));
+                novoFunc.setEstaAtivo(res.getInt("estaAtivo"));
+                listaResFunc.add(novoFunc);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResFunc;
+    }
 
     public Funcionario buscarLogin(String usuario, String senha) {
         String sql = "SELECT * FROM Funcionario WHERE userFunc=? AND passFunc=?";
@@ -141,6 +173,46 @@ public class FuncionarioDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public boolean validaCPF(String cpf) {
+        String sql = "SELECT * FROM Funcionario WHERE cpfFunc=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            res = stmt.executeQuery();
+            if (res.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    
+    public boolean validaUsuario(String usuario) {
+        String sql = "SELECT * FROM Funcionario WHERE userFunc=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, usuario);
+            res = stmt.executeQuery();
+            if (res.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     //UPDATE

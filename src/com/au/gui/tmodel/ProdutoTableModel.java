@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui.tmodel;
 
 import com.au.modelo.Produto;
@@ -33,12 +32,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class ProdutoTableModel extends AbstractTableModel{
-    
+public class ProdutoTableModel extends AbstractTableModel {
+
     private List<Produto> produtos;
     private List<String> colunas;
-    
-    public ProdutoTableModel(List<Produto> produtos){
+
+    public ProdutoTableModel(List<Produto> produtos) {
         this.produtos = produtos;
         colunas = Arrays.asList("Cod", "Descrição", "Valor");
     }
@@ -46,11 +45,15 @@ public class ProdutoTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
-        return produtos.size();
+        if (produtos != null) {
+            return produtos.size();
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -61,10 +64,13 @@ public class ProdutoTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
-        switch(columnIndex){
-            case 0: return produto.getNumProd();
-            case 1: return produto.getDescProd();
-            case 2: return String.format("%.2f", produto.getValorProd());
+        switch (columnIndex) {
+            case 0:
+                return produto.getNumProd();
+            case 1:
+                return produto.getDescProd();
+            case 2:
+                return String.format("%.2f", produto.getValorProd());
         }
         return null;
     }
@@ -75,6 +81,6 @@ public class ProdutoTableModel extends AbstractTableModel{
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
-    }    
-    
+    }
+
 }
