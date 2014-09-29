@@ -108,7 +108,7 @@ public class FuncionarioDao {
         }
         return listaResFunc;
     }
-    
+
     public List<Funcionario> pesquisarFuncionario(String pesquisa) {
         String sql = "SELECT * FROM Funcionario where nomeFunc like ?";
         PreparedStatement stmt;
@@ -185,8 +185,12 @@ public class FuncionarioDao {
             stmt.setString(1, cpf);
             res = stmt.executeQuery();
             if (res.next()) {
+                res.close();
+                stmt.close();
                 return true;
             } else {
+                res.close();
+                stmt.close();
                 return false;
             }
         } catch (SQLException ex) {
@@ -194,7 +198,7 @@ public class FuncionarioDao {
         }
         return true;
     }
-    
+
     public boolean validaUsuario(String usuario) {
         String sql = "SELECT * FROM Funcionario WHERE userFunc=?";
         PreparedStatement stmt;
@@ -205,8 +209,12 @@ public class FuncionarioDao {
             stmt.setString(1, usuario);
             res = stmt.executeQuery();
             if (res.next()) {
+                res.close();
+                stmt.close();
                 return true;
             } else {
+                res.close();
+                stmt.close();
                 return false;
             }
         } catch (SQLException ex) {

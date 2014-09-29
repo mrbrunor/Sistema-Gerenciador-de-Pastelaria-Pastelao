@@ -41,7 +41,6 @@ public class IngredienteDao {
     }
 
     //Finaliza Conexão
-
     public void fechaConnection() {
         try {
             conexao.close();
@@ -82,10 +81,10 @@ public class IngredienteDao {
             res = stmt.executeQuery();
 
             while (res.next()) {
-                System.out.println("Entrou While res.next() Ingrediente");
                 Ingrediente novoIng = new Ingrediente();
                 novoIng.setDescIng(res.getString("descIng"));
                 novoIng.setIdIng(res.getInt("idIng"));
+                novoIng.setValorIng(res.getDouble("valorIng"));
                 listaResIng.add(novoIng);
             }
             res.close();
@@ -93,9 +92,58 @@ public class IngredienteDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Lista Vazia " + listaResIng.isEmpty());
-        System.out.println("Qtd Lista " + listaResIng.size());
         return listaResIng;
+    }
+    
+    public List<Ingrediente> pesquisarIngrediente(String pesquisa) {
+        String sql = "SELECT * FROM Ingrediente WHERE descIng like ?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Ingrediente> listaResIng = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, pesquisa);
+            res = stmt.executeQuery();
+
+            while (res.next()) {
+                Ingrediente novoIng = new Ingrediente();
+                novoIng.setDescIng(res.getString("descIng"));
+                novoIng.setIdIng(res.getInt("idIng"));
+                novoIng.setValorIng(res.getDouble("valorIng"));
+                listaResIng.add(novoIng);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResIng;
+    }
+
+    public boolean validaIngrediente(String descIng) {
+        String sql = "SELECT * FROM Ingrediente where descIng = ?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, descIng);
+            res = stmt.executeQuery();
+
+            if (res.next()) {
+                res.close();
+                stmt.close();
+                return true;
+            } else {
+                res.close();
+                stmt.close();
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     //UPDATE

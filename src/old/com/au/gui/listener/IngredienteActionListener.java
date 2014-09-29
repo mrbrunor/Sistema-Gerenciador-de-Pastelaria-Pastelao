@@ -68,7 +68,7 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
             ingrediente.setDescIng("Nenhum Registro Encontrado");
             ingredientes.add(ingrediente);
         }
-        tableModel = new IngredienteTableModel(ingredientes);
+        //tableModel = new IngredienteTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModel);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaIngredientes().getColumnModel().getColumn(0).setMaxWidth(35);
@@ -219,11 +219,11 @@ public class IngredienteActionListener implements ActionListener, ListSelectionL
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-        if (frm.getTabelaIngredientes().getSelectedRow() != -1) {
-            Ingrediente ingrediente = tableModel.getIngredientes().get(frm.getTabelaIngredientes().getSelectedRow());
-            if (ingrediente.getIdIng() != 0) {
-                ingredienteToForm(ingrediente);
-            }
-        }
+//        if (frm.getTabelaIngredientes().getSelectedRow() != -1) {
+//            Ingrediente ingrediente = tableModel.getIngredientes().get(frm.getTabelaIngredientes().getSelectedRow());
+//            if (ingrediente.getIdIng() != 0) {
+//                ingredienteToForm(ingrediente);
+//            }
+//        }
     }
 }

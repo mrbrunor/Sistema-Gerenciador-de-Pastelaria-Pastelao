@@ -444,6 +444,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuCadastros.add(itemMenuFuncionarios);
 
         itemMenuIngredientes.setText("Ingredientes");
+        itemMenuIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuIngredientesActionPerformed(evt);
+            }
+        });
         menuCadastros.add(itemMenuIngredientes);
 
         itemMenuProdutos.setText("Produtos");
@@ -521,6 +526,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         new TelaCadastrarFuncionario(this, true).setVisible(true);
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuFuncionariosActionPerformed
+
+    private void itemMenuIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuIngredientesActionPerformed
+        new TelaCadastrarIngrediente(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuIngredientesActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {
