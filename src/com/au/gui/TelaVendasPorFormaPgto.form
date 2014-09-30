@@ -318,6 +318,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarLocalActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoIconeVR">
           <Properties>
@@ -336,6 +339,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Dinheiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioDinheiroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="botaoRadioCartaoDebito">
           <Properties>
@@ -347,6 +353,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cart&#xe3;o de D&#xe9;bito"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioCartaoDebitoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoIconeCD">
           <Properties>
@@ -372,6 +381,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cr&#xe9;dito"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioCartaoCreditoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoIconeDinheiro">
           <Properties>
@@ -420,6 +432,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Vale Refei&#xe7;&#xe3;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRadioValeRefeicaoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoSelecioneFormaPgto">
           <Properties>
@@ -441,6 +456,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarRelatorioActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCancelarGeracaoDeRelatorio">
       <Properties>
@@ -452,6 +470,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar Gera&#xe7;&#xe3;o de Relat&#xf3;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarGeracaoDeRelatorioActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
