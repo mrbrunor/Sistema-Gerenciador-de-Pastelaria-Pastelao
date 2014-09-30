@@ -140,6 +140,37 @@ public class FuncionarioDao {
         }
         return listaResFunc;
     }
+    
+    public Funcionario pesquisarFuncionarioPorCpf(String cpf) {
+        String sql = "SELECT * FROM Funcionario where cpfFunc=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Funcionario novoFunc = new Funcionario();
+                novoFunc.setIdFunc(res.getInt("idFunc"));
+                novoFunc.setNomeFunc(res.getString("nomeFunc"));
+                novoFunc.setCpfFunc(res.getString("cpfFunc"));
+                novoFunc.setMailFunc(res.getString("mailFunc"));
+                novoFunc.setFoneFunc(res.getString("foneFunc"));
+                novoFunc.setCelFunc(res.getString("celFunc"));
+                novoFunc.setUserFunc(res.getString("userFunc"));
+                novoFunc.setPassFunc("");
+                novoFunc.setNivelFunc(res.getInt("nivelFunc"));
+                novoFunc.setEstaAtivo(res.getInt("estaAtivo"));
+                return novoFunc;
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public Funcionario buscarLogin(String usuario, String senha) {
         String sql = "SELECT * FROM Funcionario WHERE userFunc=? AND passFunc=?";

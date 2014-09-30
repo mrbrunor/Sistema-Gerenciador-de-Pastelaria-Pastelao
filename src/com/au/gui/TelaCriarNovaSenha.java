@@ -21,13 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Funcionario;
+import com.au.dao.FuncionarioDao;
+import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 /**
  *
@@ -35,12 +38,20 @@ import javax.swing.JTextField;
  */
 public class TelaCriarNovaSenha extends javax.swing.JDialog {
 
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private final FuncionarioDao fDao = new FuncionarioDao();
+
     /**
      * Creates new form TelaRecuperarSenha
+     *
+     * @param parent
+     * @param modal
      */
     public TelaCriarNovaSenha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        normal = campoCpfFuncionario.getBorder();
         campoConfirmacaoNovaSenha.setDocument(new LimitaDigitos((64), ""));
         campoCpfFuncionario.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
         campoNovaSenha.setDocument(new LimitaDigitos((64), ""));
@@ -130,6 +141,11 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 campoCpfFuncionarioFocusGained(evt);
             }
         });
+        campoCpfFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCpfFuncionarioActionPerformed(evt);
+            }
+        });
 
         textoDigiteNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDigiteNovaSenha.setText("Digite a Nova Senha:");
@@ -143,11 +159,21 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 campoNovaSenhaFocusGained(evt);
             }
         });
+        campoNovaSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNovaSenhaActionPerformed(evt);
+            }
+        });
 
         campoConfirmacaoNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoConfirmacaoNovaSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoConfirmacaoNovaSenhaFocusGained(evt);
+            }
+        });
+        campoConfirmacaoNovaSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoConfirmacaoNovaSenhaActionPerformed(evt);
             }
         });
 
@@ -157,20 +183,21 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
                         .addComponent(textoCpfFuncionario)
                         .addGap(18, 18, 18)
-                        .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
-                        .addComponent(textoDigiteNovaSenha)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                    .addGroup(painelDadosFuncionarioLayout.createSequentialGroup()
-                        .addComponent(textoConfirmeNovaSenha)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoConfirmacaoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosFuncionarioLayout.createSequentialGroup()
+                            .addComponent(textoConfirmeNovaSenha)
+                            .addGap(18, 18, 18)
+                            .addComponent(campoConfirmacaoNovaSenha))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosFuncionarioLayout.createSequentialGroup()
+                            .addComponent(textoDigiteNovaSenha)
+                            .addGap(18, 18, 18)
+                            .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelDadosFuncionarioLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoConfirmeNovaSenha, textoCpfFuncionario, textoDigiteNovaSenha});
@@ -197,11 +224,21 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         botaoCriarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCriarNovaSenha.setText("Criar Nova Senha");
         botaoCriarNovaSenha.setNextFocusableComponent(botaoCancelarNovaSenha);
+        botaoCriarNovaSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarNovaSenhaActionPerformed(evt);
+            }
+        });
 
         botaoCancelarNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarNovaSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarNovaSenha.setText("Cancelar Criação de Nova Senha");
         botaoCancelarNovaSenha.setNextFocusableComponent(campoCpfFuncionario);
+        botaoCancelarNovaSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarNovaSenhaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,46 +285,72 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         campoConfirmacaoNovaSenha.selectAll();
     }//GEN-LAST:event_campoConfirmacaoNovaSenhaFocusGained
 
-    public JButton getBotaoCancelarNovaSenha() {
-        return botaoCancelarNovaSenha;
+    private void botaoCancelarNovaSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarNovaSenhaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarNovaSenhaActionPerformed
+
+    private void botaoCriarNovaSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarNovaSenhaActionPerformed
+        if (valida()) {
+            alterarSenha();
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoCriarNovaSenhaActionPerformed
+
+    private void campoCpfFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCpfFuncionarioActionPerformed
+        campoNovaSenha.requestFocus();
+    }//GEN-LAST:event_campoCpfFuncionarioActionPerformed
+
+    private void campoNovaSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNovaSenhaActionPerformed
+        campoConfirmacaoNovaSenha.requestFocus();
+    }//GEN-LAST:event_campoNovaSenhaActionPerformed
+
+    private void campoConfirmacaoNovaSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoConfirmacaoNovaSenhaActionPerformed
+        if (valida()) {
+            alterarSenha();
+            this.dispose();
+        }
+    }//GEN-LAST:event_campoConfirmacaoNovaSenhaActionPerformed
+
+    public void alterarSenha() {
+        fDao.abreConnection();
+        if (fDao.validaCPF(campoCpfFuncionario.getText())) {
+            fDao.atualizaFuncionario(formToFuncionario());
+            JOptionPane.showMessageDialog(this, "Senha Alterada com Sucesso!", "Recuperação de Senha", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "CPF não encontrado!", "Recuperação de Senha", JOptionPane.WARNING_MESSAGE);
+        }
+        fDao.fechaConnection();
     }
 
-    public void setBotaoCancelarNovaSenha(JButton botaoCancelarNovaSenha) {
-        this.botaoCancelarNovaSenha = botaoCancelarNovaSenha;
+    public Funcionario formToFuncionario() {
+        Funcionario funcionario = fDao.pesquisarFuncionarioPorCpf(campoCpfFuncionario.getText());
+        HexSha hexSha = new HexSha(String.valueOf(campoNovaSenha.getPassword()));
+        funcionario.setPassFunc(hexSha.ConvertSha());
+        return funcionario;
     }
 
-    public JButton getBotaoCriarNovaSenha() {
-        return botaoCriarNovaSenha;
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(campoCpfFuncionario.getText())) {
+            campoCpfFuncionario.setBorder(normal);
+        } else {
+            campoCpfFuncionario.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoNovaSenha.getPassword()) && campoNovaSenha.getPassword().length > 4) {
+            campoNovaSenha.setBorder(normal);
+        } else {
+            campoNovaSenha.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoConfirmacaoNovaSenha.getPassword()) && campoConfirmacaoNovaSenha.getText().equals(campoNovaSenha.getText())) {
+            campoConfirmacaoNovaSenha.setBorder(normal);
+        } else {
+            campoConfirmacaoNovaSenha.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
     }
-
-    public void setBotaoCriarNovaSenha(JButton botaoCriarNovaSenha) {
-        this.botaoCriarNovaSenha = botaoCriarNovaSenha;
-    }
-
-    public JPasswordField getCampoConfirmacaoNovaSenha() {
-        return campoConfirmacaoNovaSenha;
-    }
-
-    public void setCampoConfirmacaoNovaSenha(JPasswordField campoConfirmacaoNovaSenha) {
-        this.campoConfirmacaoNovaSenha = campoConfirmacaoNovaSenha;
-    }
-
-    public JTextField getCampoCpfFuncionario() {
-        return campoCpfFuncionario;
-    }
-
-    public void setCampoCpfFuncionario(JTextField campoCpfFuncionario) {
-        this.campoCpfFuncionario = campoCpfFuncionario;
-    }
-
-    public JPasswordField getCampoNovaSenha() {
-        return campoNovaSenha;
-    }
-
-    public void setCampoNovaSenha(JPasswordField campoNovaSenha) {
-        this.campoNovaSenha = campoNovaSenha;
-    }
-
     /**
      * @param args the command line arguments
      */
