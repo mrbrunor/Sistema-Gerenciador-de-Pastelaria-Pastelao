@@ -21,22 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Pedido;
+import com.au.dao.PedidoDao;
+import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
+import java.awt.Color;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaReimpressao extends javax.swing.JDialog {
-    private int idCaixa;
+
+    private final int idCaixa;
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private final PedidoDao pDao = new PedidoDao();
 
     /**
      * Creates new form TelaRetirada
+     *
      * @param parent
      * @param modal
      * @param idCaixa
@@ -44,6 +56,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
     public TelaReimpressao(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        normal = campoNumeroPedido.getBorder();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         this.idCaixa = idCaixa;
     }
@@ -107,6 +120,11 @@ public class TelaReimpressao extends javax.swing.JDialog {
 
         campoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoNumeroPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNumeroPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -132,10 +150,20 @@ public class TelaReimpressao extends javax.swing.JDialog {
         botaoCancelarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoCancelarReimpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarReimpressao.setText("Cancelar Reimpressão");
+        botaoCancelarReimpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarReimpressaoActionPerformed(evt);
+            }
+        });
 
         botaoConfirmarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoConfirmarReimpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoConfirmarReimpressao.setText("Confirmar Reimpressão de Cupom");
+        botaoConfirmarReimpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConfirmarReimpressaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,55 +197,59 @@ public class TelaReimpressao extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JButton getBotaoSair() {
-        return botaoCancelarReimpressao;
+    private void botaoConfirmarReimpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarReimpressaoActionPerformed
+        if (valida()) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoConfirmarReimpressaoActionPerformed
+
+    private void botaoCancelarReimpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarReimpressaoActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarReimpressaoActionPerformed
+
+    private void campoNumeroPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNumeroPedidoActionPerformed
+        if (valida()) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_campoNumeroPedidoActionPerformed
+
+    public boolean valida() {
+        boolean valida;
+
+        if (!"".equals(campoNumeroPedido.getText())) {
+            campoNumeroPedido.setBorder(normal);
+            valida = validaPedido();
+        } else {
+            campoNumeroPedido.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
     }
 
-    public void setBotaoSair(JButton botaoSair) {
-        this.botaoCancelarReimpressao = botaoSair;
+    public boolean validaPedido() {
+        List<Pedido> pedidos = pDao.listaPedidosPorCaixa(idCaixa);
+        if (pedidos != null) {
+            for (int i = 0; i < pedidos.size(); i++) {
+                if (pedidos.get(i).getNumPedido() == Integer.valueOf(campoNumeroPedido.getText())) {
+                    if (pedidos.get(i).getEstadoPedido().equals("Cancelado") && JOptionPane.showConfirmDialog(this, "Este pedido foi cancelado. Deseja Reimprimir mesmo assim?", "Pedido Cancelado", JOptionPane.YES_NO_OPTION) == 1) {
+                        return false;
+                    }
+                    try {
+                        new Imprime().geraComandaVenda(pedidos.get(i).getIdPedido());
+                        JOptionPane.showMessageDialog(this, "Pedido impresso com sucesso!", "Reimpressão de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                        return true;
+                    } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                        JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Pedido não foi encontrado!", "Reimpressão de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        return false;
     }
 
-    public JButton getBotaoCancelarPedido() {
-        return botaoConfirmarReimpressao;
-    }
-
-    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
-        this.botaoConfirmarReimpressao = botaoCancelarPedido;
-    }
-
-    public JTextField getCampoNumeroPedido() {
-        return campoNumeroPedido;
-    }
-
-    public void setCampoNumeroPedido(JTextField campoNumeroPedido) {
-        this.campoNumeroPedido = campoNumeroPedido;
-    }
-
-    public int getIdCaixa() {
-        return idCaixa;
-    }
-
-    public void setIdCaixa(int idCaixa) {
-        this.idCaixa = idCaixa;
-    }
-
-    public JButton getBotaoCancelarReimpressao() {
-        return botaoCancelarReimpressao;
-    }
-
-    public void setBotaoCancelarReimpressao(JButton botaoCancelarReimpressao) {
-        this.botaoCancelarReimpressao = botaoCancelarReimpressao;
-    }
-
-    public JButton getBotaoConfirmarReimpressao() {
-        return botaoConfirmarReimpressao;
-    }
-
-    public void setBotaoConfirmarReimpressao(JButton botaoConfirmarReimpressao) {
-        this.botaoConfirmarReimpressao = botaoConfirmarReimpressao;
-    }
-    
-    
     /**
      * @param args the command line arguments
      */
