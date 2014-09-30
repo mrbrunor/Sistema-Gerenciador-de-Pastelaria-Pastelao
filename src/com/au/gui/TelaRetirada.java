@@ -21,30 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Despesa;
+import com.au.dao.DespesaDao;
 import com.au.modelo.Caixa;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaRetirada extends javax.swing.JDialog {
-    private Caixa caixa;
+
+    private final Caixa caixa;
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private final DespesaDao dDao = new DespesaDao();
 
     /**
      * Creates new form TelaRetirada
+     * @param parent
+     * @param modal
+     * @param caixa
      */
     public TelaRetirada(java.awt.Frame parent, boolean modal, Caixa caixa) {
         super(parent, modal);
         initComponents();
         campoMotivo.setDocument(new LimitaDigitos((300), ""));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
+        normal = campoValor.getBorder();
         this.caixa = caixa;
     }
 
@@ -119,12 +131,22 @@ public class TelaRetirada extends javax.swing.JDialog {
                 campoValorFocusGained(evt);
             }
         });
+        campoValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoValorActionPerformed(evt);
+            }
+        });
 
         campoMotivo.setColumns(20);
         campoMotivo.setRows(5);
         campoMotivo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoMotivoFocusGained(evt);
+            }
+        });
+        campoMotivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoMotivoKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(campoMotivo);
@@ -167,10 +189,20 @@ public class TelaRetirada extends javax.swing.JDialog {
         botaoCancelarRetirada.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoCancelarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarRetirada.setText("Cancelar Retirada");
+        botaoCancelarRetirada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarRetiradaActionPerformed(evt);
+            }
+        });
 
         botaoRegistrarRetirada.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoRegistrarRetirada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoRegistrarRetirada.setText("Registrar Retirada");
+        botaoRegistrarRetirada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRegistrarRetiradaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,44 +244,60 @@ public class TelaRetirada extends javax.swing.JDialog {
         campoMotivo.selectAll();
     }//GEN-LAST:event_campoMotivoFocusGained
 
-    public JButton getBotaoCancelarRetirada() {
-        return botaoCancelarRetirada;
+    private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
+        campoMotivo.requestFocus();
+    }//GEN-LAST:event_campoValorActionPerformed
+
+    private void campoMotivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMotivoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (valida()) {
+                registrarRetirada();
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_campoMotivoKeyPressed
+
+    private void botaoCancelarRetiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarRetiradaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarRetiradaActionPerformed
+
+    private void botaoRegistrarRetiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRegistrarRetiradaActionPerformed
+        if (valida()) {
+            registrarRetirada();
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoRegistrarRetiradaActionPerformed
+
+    public void registrarRetirada() {
+        dDao.abreConnection();
+        Despesa despesa = new Despesa();
+        Date data = new Date();
+        despesa.setDataDesp(new java.sql.Date(data.getTime()));
+        despesa.setDescDesp(campoMotivo.getText());
+        despesa.setValorDesp(Double.valueOf(campoValor.getText()));
+        despesa.setRetirada((byte) 1);
+        despesa.setIdCaixa(caixa.getIdCaixa());
+        dDao.adicionaDespesa(despesa);
+        JOptionPane.showMessageDialog(this, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void setBotaoCancelarRetirada(JButton botaoCancelarRetirada) {
-        this.botaoCancelarRetirada = botaoCancelarRetirada;
-    }
+    public boolean valida() {
+        boolean valida = true;
 
-    public JButton getBotaoRegistrarRetirada() {
-        return botaoRegistrarRetirada;
-    }
+        if (!"".equals(campoValor.getText())) {
+            campoValor.setBorder(normal);
+        } else {
+            campoValor.setBorder(vermelha);
+            valida = false;
+        }
 
-    public void setBotaoRegistrarRetirada(JButton botaoRegistrarRetirada) {
-        this.botaoRegistrarRetirada = botaoRegistrarRetirada;
-    }
-
-    public JTextArea getCampoMotivo() {
-        return campoMotivo;
-    }
-
-    public void setCampoMotivo(JTextArea campoMotivo) {
-        this.campoMotivo = campoMotivo;
-    }
-
-    public JTextField getCampoValor() {
-        return campoValor;
-    }
-
-    public void setCampoValor(JTextField campoValor) {
-        this.campoValor = campoValor;
-    }
-
-    public Caixa getCaixa() {
-        return caixa;
-    }
-
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
+        if (!"".equals(campoMotivo.getText()) && campoMotivo.getText().length() > 3) {
+            campoMotivo.setBorder(normal);
+        } else {
+            campoMotivo.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
     }
 
     /**
