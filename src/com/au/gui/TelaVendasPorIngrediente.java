@@ -23,14 +23,33 @@
  */
 package com.au.gui;
 
+import com.au.conexao.FabricaConexao;
 import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
 import com.au.dao.DAO;
-import com.toedter.calendar.JDateChooser;
+import com.au.util.GeradorRelatorio;
+import com.au.util.JFileChooserCustomizado;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -38,6 +57,8 @@ import javax.swing.JTextField;
  */
 public class TelaVendasPorIngrediente extends javax.swing.JDialog {
 
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -48,6 +69,9 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
     public TelaVendasPorIngrediente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        normal = campoLocalParaSalvar.getBorder();
+        campoDataInicio.setBorder(normal);
+        campoDataTermino.setBorder(normal);
     }
 
     /**
@@ -137,6 +161,11 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
         botaoProcurarLocal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/folder-26.png"))); // NOI18N
         botaoProcurarLocal.setText("Procurar");
+        botaoProcurarLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarLocalActionPerformed(evt);
+            }
+        });
 
         textoingrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoingrediente.setText("Ingrediente:");
@@ -153,21 +182,19 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
                         .addComponent(campoLocalParaSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarLocal))
-                    .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataTermino)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoingrediente)
-                                .addGap(18, 18, 18)
-                                .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                .addComponent(textoDataInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, 0)))
+                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelInferiorLayout.createSequentialGroup()
+                            .addComponent(textoDataTermino)
+                            .addGap(18, 18, 18)
+                            .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(painelInferiorLayout.createSequentialGroup()
+                            .addComponent(textoingrediente)
+                            .addGap(18, 18, 18)
+                            .addComponent(ComboBoxIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelInferiorLayout.createSequentialGroup()
+                            .addComponent(textoDataInicio)
+                            .addGap(18, 18, 18)
+                            .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -200,10 +227,20 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
         botaoGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoGerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoGerarRelatorio.setText("Gerar Relatório");
+        botaoGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGerarRelatorioActionPerformed(evt);
+            }
+        });
 
         botaoCancelarGeracaoDeRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarGeracaoDeRelatorio.setText("Cancelar Geração de Relatório");
+        botaoCancelarGeracaoDeRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarGeracaoDeRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,60 +275,65 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JComboBox getComboBoxIngredientes() {
-        return ComboBoxIngredientes;
-    }
+    private void botaoProcurarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarLocalActionPerformed
+        procuraLocal();
+    }//GEN-LAST:event_botaoProcurarLocalActionPerformed
 
-    public void setComboBoxIngredientes(JComboBox ComboBoxIngredientes) {
-        this.ComboBoxIngredientes = ComboBoxIngredientes;
-    }
+    private void botaoGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarRelatorioActionPerformed
+        if (valida()) {
+            JOptionPane.showMessageDialog(this, "A geração de Relatórios pode demorar alguns minutos. \n Aguarde a mensagem de confirmação.");
+            try {
+                geraRelatorio();
+            } catch (ParseException ex) {
+                Logger.getLogger(TelaVendasPorIngrediente.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoGerarRelatorioActionPerformed
 
-    public JButton getBotaoCancelarGeracaoDeRelatorio() {
-        return botaoCancelarGeracaoDeRelatorio;
-    }
+    private void botaoCancelarGeracaoDeRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarGeracaoDeRelatorioActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarGeracaoDeRelatorioActionPerformed
 
-    public void setBotaoCancelarGeracaoDeRelatorio(JButton botaoCancelarGeracaoDeRelatorio) {
-        this.botaoCancelarGeracaoDeRelatorio = botaoCancelarGeracaoDeRelatorio;
-    }
+    private void geraRelatorio() throws ParseException {
+        String nome = "reports\\vendas_por_ingrediente.jasper";
+        Map<String, Object> parametros = new HashMap<>();
+        Connection conexao = new FabricaConexao().getConexao();
+        OutputStream saida = null;
+        try {
+            saida = new FileOutputStream(campoLocalParaSalvar.getText());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TelaVendasPorIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Houve um erro ao salvar o arquivo:\n" + ex);
+            return;
+        }
+        File arquivo = new File(campoLocalParaSalvar.getText());
 
-    public JButton getBotaoGerarRelatorio() {
-        return botaoGerarRelatorio;
-    }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dataIni = sdf.format(campoDataInicio.getDate());
+        String dataFim = sdf.format(campoDataTermino.getDate());
 
-    public void setBotaoGerarRelatorio(JButton botaoGerarRelatorio) {
-        this.botaoGerarRelatorio = botaoGerarRelatorio;
-    }
+        Date dataInicial = sdf.parse(dataIni);
+        Date dataFinal = sdf.parse(dataFim);
+        String ingrediente = ComboBoxIngredientes.getSelectedItem().toString();
 
-    public JButton getBotaoProcurarLocal() {
-        return botaoProcurarLocal;
-    }
+        parametros.put("DATA_INI", dataInicial);
+        parametros.put("DATA_FIM", dataFinal);
+        parametros.put("INGREDIENTE", ingrediente);
 
-    public void setBotaoProcurarLocal(JButton botaoProcurarLocal) {
-        this.botaoProcurarLocal = botaoProcurarLocal;
-    }
+        GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
+        gerador.geraPdfParaOutputStream(saida);
 
-    public JDateChooser getCampoDataInicio() {
-        return campoDataInicio;
-    }
+        if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {
+            try {
+                Desktop.getDesktop().open(arquivo);
 
-    public void setCampoDataInicio(JDateChooser campoDataInicio) {
-        this.campoDataInicio = campoDataInicio;
-    }
-
-    public JDateChooser getCampoDataTermino() {
-        return campoDataTermino;
-    }
-
-    public void setCampoDataTermino(JDateChooser campoDataTermino) {
-        this.campoDataTermino = campoDataTermino;
-    }
-
-    public JTextField getCampoLocalParaSalvar() {
-        return campoLocalParaSalvar;
-    }
-
-    public void setCampoLocalParaSalvar(JTextField campoLocalParaSalvar) {
-        this.campoLocalParaSalvar = campoLocalParaSalvar;
+            } catch (IOException ex) {
+                Logger.getLogger(TelaVendasPorIngrediente.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private CustomComboBoxInt[] getIngs() {
@@ -302,6 +344,55 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
             oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
         }
         return oItems;
+    }
+
+    private void procuraLocal() {
+        JFileChooserCustomizado file = new JFileChooserCustomizado(".", "pdf");
+        file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        file.setFileFilter(new FileNameExtensionFilter("Documentos em PDF", "pdf"));
+        int selecao = file.showSaveDialog(this);
+        if (selecao != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        File arquivo = file.getSelectedFile();
+        if (arquivo.exists() && JOptionPane.showConfirmDialog(this, "O Arquivo já existe. Deseja mesmo substituí-lo?", "Substituir Arquivo Existente", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
+            return;
+        }
+        String localArquivo = arquivo.getAbsolutePath();
+        campoLocalParaSalvar.setText(localArquivo);
+    }
+
+    public boolean valida() {
+        boolean valida = true;
+
+        if (campoDataInicio.getDate() != null) {
+            campoDataInicio.setBorder(normal);
+        } else {
+            campoDataInicio.setBorder(vermelha);
+            valida = false;
+        }
+
+        if (campoDataTermino.getDate() != null) {
+            campoDataTermino.setBorder(normal);
+        } else {
+            campoDataTermino.setBorder(vermelha);
+            valida = false;
+        }
+
+        if (ComboBoxIngredientes.getSelectedIndex() == -1) {
+            valida = false;
+            ComboBoxIngredientes.setBorder(vermelha);
+        } else {
+            ComboBoxIngredientes.setBorder(normal);
+        }
+
+        if (!"".equals(campoLocalParaSalvar.getText())) {
+            campoLocalParaSalvar.setBorder(normal);
+        } else {
+            valida = false;
+            campoLocalParaSalvar.setBorder(vermelha);
+        }
+        return valida;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

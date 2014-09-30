@@ -256,6 +256,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarLocalActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoingrediente">
           <Properties>
@@ -287,6 +290,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarRelatorioActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCancelarGeracaoDeRelatorio">
       <Properties>
@@ -298,6 +304,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar Gera&#xe7;&#xe3;o de Relat&#xf3;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarGeracaoDeRelatorioActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
