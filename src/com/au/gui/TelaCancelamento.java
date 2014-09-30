@@ -21,26 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.au.gui;
 
+import com.au.bean.Pedido;
+import com.au.dao.PedidoDao;
 import com.au.util.LimitaDigitos;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaCancelamento extends javax.swing.JDialog {
-    private int idCaixa;
+
+    private final int idCaixa;
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private final PedidoDao pDao = new PedidoDao();
 
     /**
      * Creates new form TelaRetirada
+     * @param parent
+     * @param modal
+     * @param idCaixa
      */
     public TelaCancelamento(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        normal = campoNumeroPedido.getBorder();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         this.idCaixa = idCaixa;
     }
@@ -104,6 +116,16 @@ public class TelaCancelamento extends javax.swing.JDialog {
 
         campoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoNumeroPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoNumeroPedidoFocusGained(evt);
+            }
+        });
+        campoNumeroPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNumeroPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -129,10 +151,20 @@ public class TelaCancelamento extends javax.swing.JDialog {
         botaoSair.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoSair.setText("Sair");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSairActionPerformed(evt);
+            }
+        });
 
         botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCancelarPedido.setText("Cancelar Pedido");
+        botaoCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,37 +198,62 @@ public class TelaCancelamento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JButton getBotaoSair() {
-        return botaoSair;
+    private void botaoCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoActionPerformed
+        if (valida()) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoCancelarPedidoActionPerformed
+
+    private void campoNumeroPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNumeroPedidoActionPerformed
+        if (valida()) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_campoNumeroPedidoActionPerformed
+
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void campoNumeroPedidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroPedidoFocusGained
+        campoNumeroPedido.selectAll();
+    }//GEN-LAST:event_campoNumeroPedidoFocusGained
+
+    public boolean valida() {
+        boolean valida;
+        if (!"".equals(campoNumeroPedido.getText())) {
+            campoNumeroPedido.setBorder(normal);
+            valida = validaPedido();
+        } else {
+            campoNumeroPedido.setBorder(vermelha);
+            valida = false;
+        }
+        return valida;
     }
 
-    public void setBotaoSair(JButton botaoSair) {
-        this.botaoSair = botaoSair;
+    public boolean validaPedido() {
+        pDao.abreConnection();
+        List<Pedido> pedidos = pDao.listaPedidosPorCaixa(idCaixa);
+        if (pedidos != null) {
+            for (int i = 0; i < pedidos.size(); i++) {
+                if (pedidos.get(i).getNumPedido() == Integer.valueOf(campoNumeroPedido.getText())) {
+                    if (pedidos.get(i).getEstadoPedido().equals("Cancelado")) {
+                        JOptionPane.showMessageDialog(this, "Pedido informado já esta Cancelado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                        pDao.fechaConnection();
+                        return false;
+                    }
+                    pedidos.get(i).setEstadoPedido("Cancelado");
+                    pDao.atualizaPedido(pedidos.get(i));
+                    JOptionPane.showMessageDialog(this, "Pedido cancelado com sucesso!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    pDao.fechaConnection();
+                    return true;
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Pedido não foi encontrado!", "Cancelamento de Pedido", JOptionPane.INFORMATION_MESSAGE);
+        pDao.fechaConnection();
+        return false;
     }
 
-    public JButton getBotaoCancelarPedido() {
-        return botaoCancelarPedido;
-    }
-
-    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
-        this.botaoCancelarPedido = botaoCancelarPedido;
-    }
-
-    public JTextField getCampoNumeroPedido() {
-        return campoNumeroPedido;
-    }
-
-    public void setCampoNumeroPedido(JTextField campoNumeroPedido) {
-        this.campoNumeroPedido = campoNumeroPedido;
-    }
-
-    public int getIdCaixa() {
-        return idCaixa;
-    }
-
-    public void setIdCaixa(int idCaixa) {
-        this.idCaixa = idCaixa;
-    }
     /**
      * @param args the command line arguments
      */

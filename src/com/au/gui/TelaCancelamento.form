@@ -164,6 +164,10 @@
               <Color id="Cursor de Texto"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNumeroPedidoFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNumeroPedidoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -177,6 +181,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCancelarPedido">
       <Properties>
@@ -188,6 +195,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar Pedido"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarPedidoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
