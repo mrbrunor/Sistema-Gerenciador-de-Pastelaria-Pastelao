@@ -23,31 +23,54 @@
  */
 package com.au.gui;
 
+import com.au.bean.Ingrediente;
+import com.au.bean.Produto;
+import com.au.bean.Receita;
+import com.au.dao.IngredienteDao;
+import com.au.dao.ProdutoDao;
+import com.au.dao.ReceitaDao;
 import com.au.util.LimitaDigitos;
-import com.au.modelo.Ingrediente;
 import com.au.util.CustomComboBoxInt;
-import com.au.dao.DAO;
+import com.au.gui.tmodel.ProdutoIngredientesTableModel;
+import com.au.gui.tmodel.ProdutoTableModel;
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author tiago_000
  */
-public class TelaCadastrarProduto extends javax.swing.JDialog {
+public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSelectionListener {
 
+    private ProdutoTableModel tableModelProdutos;
+    private ProdutoIngredientesTableModel tableModelIngredientes;
+    private List<Ingrediente> ingredientes = new ArrayList<>();
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private Integer id = null;
+    private final ProdutoDao pDao = new ProdutoDao();
+    private final ReceitaDao rDao = new ReceitaDao();
+    private final IngredienteDao iDao = new IngredienteDao();
 
     /**
      * Creates new form TelaCadastrarUsuario
+     *
+     * @param parent
+     * @param modal
      */
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroIngrediente.setVisible(false);
+        normal = campoNome.getBorder();
+        inicializaTableModel();
+        habilitaBotoesParaSalvar();
         campoNome.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9\\-çÇ/_]"));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         campoBarras.setDocument(new LimitaDigitos((150), "[^0-9]"));
@@ -177,7 +200,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBarras)
                     .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
@@ -199,10 +222,20 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
         botaoAdicionarIngrediente.setActionCommand("Adicionar Ingrediente");
         botaoAdicionarIngrediente.setEnabled(false);
+        botaoAdicionarIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarIngredienteActionPerformed(evt);
+            }
+        });
 
         botaoRemoverIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
         botaoRemoverIngrediente.setActionCommand("Remover Ingrediente");
         botaoRemoverIngrediente.setEnabled(false);
+        botaoRemoverIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRemoverIngredienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
         painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);
@@ -237,10 +270,20 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         buttonGroup1.add(radioPrep);
         radioPrep.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         radioPrep.setText("Preparado");
+        radioPrep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioPrepActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(radioInd);
         radioInd.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         radioInd.setText("Industrializado");
+        radioInd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioIndActionPerformed(evt);
+            }
+        });
 
         textoTipo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoTipo.setText("Tipo Produto:");
@@ -344,10 +387,20 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
                 campoPesquisarProdutoFocusGained(evt);
             }
         });
+        campoPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisarProdutoActionPerformed(evt);
+            }
+        });
 
         botaoProcurarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarProduto.setText("Procurar");
+        botaoProcurarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarProdutoActionPerformed(evt);
+            }
+        });
 
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -400,22 +453,47 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         botaoCancelarCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarCadastro.setText("Cancelar Cadastro");
+        botaoCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarCadastroActionPerformed(evt);
+            }
+        });
 
         botaoCadastrarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoCadastrarProduto.setText("Cadastrar Produto");
+        botaoCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarProdutoActionPerformed(evt);
+            }
+        });
 
         botaoLimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/erase-32.png"))); // NOI18N
         botaoLimparCampos.setText("Limpar Campos");
+        botaoLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLimparCamposActionPerformed(evt);
+            }
+        });
 
         botaoAtualizarProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoAtualizarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/refresh-32.png"))); // NOI18N
         botaoAtualizarProduto.setText("Atualizar Produto");
+        botaoAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarProdutoActionPerformed(evt);
+            }
+        });
 
         botaoExcluirProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoExcluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/delete-32.png"))); // NOI18N
         botaoExcluirProduto.setText("Excluir Produto");
+        botaoExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -498,153 +576,157 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         campoPesquisarProduto.selectAll();
     }//GEN-LAST:event_campoPesquisarProdutoFocusGained
 
-    public JLabel getTextoErroIngrediente() {
-        return textoErroIngrediente;
+    private void botaoAdicionarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarIngredienteActionPerformed
+        adicionaIngrediente();
+    }//GEN-LAST:event_botaoAdicionarIngredienteActionPerformed
+
+    private void botaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarProdutoActionPerformed
+        if (valida()) {
+            cadastrarProduto();
+        }
+    }//GEN-LAST:event_botaoCadastrarProdutoActionPerformed
+
+    private void botaoLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparCamposActionPerformed
+        limpaCampos();
+        habilitaBotoesParaSalvar();
+    }//GEN-LAST:event_botaoLimparCamposActionPerformed
+
+    private void botaoExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirProdutoActionPerformed
+        if (valida()) {
+            excluirProduto();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoExcluirProdutoActionPerformed
+
+    private void botaoAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarProdutoActionPerformed
+        if (valida()) {
+            atualizarProduto();
+            habilitaBotoesParaSalvar();
+        }
+    }//GEN-LAST:event_botaoAtualizarProdutoActionPerformed
+
+    private void botaoCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarCadastroActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarCadastroActionPerformed
+
+    private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
+        habilitaInd(true);
+        habilitaPrep(false);
+        limpaPrep();
+    }//GEN-LAST:event_radioIndActionPerformed
+
+    private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
+        habilitaPrep(true);
+        habilitaInd(false);
+        limpaInd();
+    }//GEN-LAST:event_radioPrepActionPerformed
+
+    private void botaoProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarProdutoActionPerformed
+        pesquisaProdutos();
+    }//GEN-LAST:event_botaoProcurarProdutoActionPerformed
+
+    private void campoPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarProdutoActionPerformed
+        pesquisaProdutos();
+    }//GEN-LAST:event_campoPesquisarProdutoActionPerformed
+
+    private void botaoRemoverIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverIngredienteActionPerformed
+        excluirIngrediente();
+    }//GEN-LAST:event_botaoRemoverIngredienteActionPerformed
+
+    private void adicionaIngrediente() {
+        CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoIng.getSelectedItem();
+
+        for (int i = 0; i < tabelaIngredientes.getRowCount(); i++) {
+            if (ob.getNome().equals(tabelaIngredientes.getValueAt(i, 0))) {
+                return;
+            }
+        }
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setDescIng(ob.getNome());
+        ingrediente.setIdIng(ob.getId());
+        ingredientes.add(ingrediente);
+        atualizaTableModelIngredientes();
     }
 
-    public void setTextoErroIngrediente(JLabel textoErroIngrediente) {
-        this.textoErroIngrediente = textoErroIngrediente;
+    public void atualizaTableModelIngredientes() {
+        if (!ingredientes.isEmpty()) {
+            tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+            tabelaIngredientes.setModel(tableModelIngredientes);
+        }
     }
 
-    public JButton getBotaoAdicionarIngrediente() {
-        return botaoAdicionarIngrediente;
+    public void atualizaTableModelProdutos(List<Produto> produtos) {
+        if (produtos != null && produtos.isEmpty()) {
+            Produto produto = new Produto();
+            produto.setDescProd("Nenhum Registro Encontrado");
+            produtos.add(produto);
+        }
+        tableModelProdutos = new ProdutoTableModel(produtos);
+        tabelaProdutos.setModel(tableModelProdutos);
+        tabelaProdutos.getSelectionModel().addListSelectionListener(this);
+        tabelaProdutos.getColumnModel().getColumn(0).setMaxWidth(35);
+        tabelaProdutos.getColumnModel().getColumn(2).setMaxWidth(75);
     }
 
-    public void setBotaoAdicionarIngrediente(JButton botaoAdicionarIngrediente) {
-        this.botaoAdicionarIngrediente = botaoAdicionarIngrediente;
+    public void atualizarProduto() {
+        pDao.abreConnection();
+        Produto produto = formToProduto();
+        deletarReceitas(produto.getIdProd());
+        cadastrarReceitas(produto.getIdProd());
+        pDao.atualizaProduto(produto);
+        pDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Produto Atualizado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
     }
 
-    public JButton getBotaoAtualizarProduto() {
-        return botaoAtualizarProduto;
+    private void cadastrarProduto() {
+        pDao.abreConnection();
+        Produto produto = formToProduto();
+        if (pDao.validaNome(produto.getDescProd())) {
+            JOptionPane.showMessageDialog(this, "Um produto com este nome já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (pDao.validaCodigo(produto.getNumProd())) {
+            JOptionPane.showMessageDialog(this, "Um produto com este código já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        cadastrarReceitas(pDao.adicionaProduto(produto));
+        pDao.fechaConnection();
+        JOptionPane.showMessageDialog(this, "Produto Cadastrado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        ingredientes = new ArrayList<>();
+        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+        tabelaIngredientes.setModel(tableModelIngredientes);
+        inicializaTableModel();
     }
 
-    public void setBotaoAtualizarProduto(JButton botaoAtualizarProduto) {
-        this.botaoAtualizarProduto = botaoAtualizarProduto;
+    private void cadastrarReceitas(int idProd) {
+        rDao.abreConnection();
+        Receita receita = new Receita();
+        receita.setIdProd(idProd);
+        if (ingredientes != null && !ingredientes.isEmpty()) {
+            for (int i = 0; i < ingredientes.size(); i++) {
+                receita.setIdIng(ingredientes.get(i).getIdIng());
+                rDao.adicionaReceita(receita);
+            }
+        }
+        rDao.fechaConnection();
     }
 
-    public JButton getBotaoCadastrarProduto() {
-        return botaoCadastrarProduto;
+    private void deletarReceitas(int idProd) {
+        rDao.abreConnection();
+        rDao.deletaIngredientesDoProduto(idProd);
+        rDao.fechaConnection();
     }
 
-    public void setBotaoCadastrarProduto(JButton botaoCadastrarProduto) {
-        this.botaoCadastrarProduto = botaoCadastrarProduto;
-    }
-
-    public JButton getBotaoCancelarCadastro() {
-        return botaoCancelarCadastro;
-    }
-
-    public void setBotaoCancelarCadastro(JButton botaoCancelarCadastro) {
-        this.botaoCancelarCadastro = botaoCancelarCadastro;
-    }
-
-    public JButton getBotaoExcluirProduto() {
-        return botaoExcluirProduto;
-    }
-
-    public void setBotaoExcluirProduto(JButton botaoExcluirProduto) {
-        this.botaoExcluirProduto = botaoExcluirProduto;
-    }
-
-    public JButton getBotaoLimparCampos() {
-        return botaoLimparCampos;
-    }
-
-    public void setBotaoLimparCampos(JButton botaoLimparCampos) {
-        this.botaoLimparCampos = botaoLimparCampos;
-    }
-
-    public JTextField getCampoPesquisarProduto() {
-        return campoPesquisarProduto;
-    }
-
-    public void setCampoPesquisarProduto(JTextField campoPesquisarProduto) {
-        this.campoPesquisarProduto = campoPesquisarProduto;
-    }
-
-    public JButton getBotaoProcurarProduto() {
-        return botaoProcurarProduto;
-    }
-
-    public void setBotaoProcurarProduto(JButton botaoProcurarProduto) {
-        this.botaoProcurarProduto = botaoProcurarProduto;
-    }
-
-    public JComboBox getCaixaSelecaoIng() {
-        return caixaSelecaoIng;
-    }
-
-    public void setCaixaSelecaoIng(JComboBox caixaSelecaoIng) {
-        this.caixaSelecaoIng = caixaSelecaoIng;
-    }
-
-    public JTextField getCampoBarras() {
-        return campoBarras;
-    }
-
-    public void setCampoBarras(JTextField campoBarras) {
-        this.campoBarras = campoBarras;
-    }
-
-    public JTextField getCampoCodigo() {
-        return campoCodigo;
-    }
-
-    public void setCampoCodigo(JTextField campoCodigo) {
-        this.campoCodigo = campoCodigo;
-    }
-
-    public JTextField getCampoNome() {
-        return campoNome;
-    }
-
-    public void setCampoNome(JTextField campoNome) {
-        this.campoNome = campoNome;
-    }
-
-    public JTextField getCampoValor() {
-        return campoValor;
-    }
-
-    public void setCampoValor(JTextField campoValor) {
-        this.campoValor = campoValor;
-    }
-
-    public JRadioButton getRadioInd() {
-        return radioInd;
-    }
-
-    public void setRadioInd(JRadioButton radioInd) {
-        this.radioInd = radioInd;
-    }
-
-    public JRadioButton getRadioPrep() {
-        return radioPrep;
-    }
-
-    public void setRadioPrep(JRadioButton radioPrep) {
-        this.radioPrep = radioPrep;
-    }
-
-    public JTable getTabelaIngredientes() {
-        return tabelaIngredientes;
-    }
-
-    public void setTabelaIngredientes(JTable tabelaIngredientes) {
-        this.tabelaIngredientes = tabelaIngredientes;
-    }
-
-    public JTable getTabelaProdutos() {
-        return tabelaProdutos;
-    }
-
-    public void setTabelaProdutos(JTable tabelaProdutos) {
-        this.tabelaProdutos = tabelaProdutos;
+    private void desabilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(false);
     }
 
     private CustomComboBoxInt[] getIngs() {
-        List<Ingrediente> listaResIng = new DAO<>(Ingrediente.class).listaTodos();
-
+        iDao.abreConnection();
+        List<Ingrediente> listaResIng = iDao.getLista();
+        iDao.fechaConnection();
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
         for (int i = 0; i < listaResIng.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
@@ -652,15 +734,194 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
         return oItems;
     }
 
+    private void excluirIngrediente() {
+        if(tabelaIngredientes.getRowCount() != -1){
+            ingredientes.remove(tabelaIngredientes.getSelectedRow());
+            atualizaTableModelIngredientes();
+        }
+    }
+
+    public void excluirProduto() {
+        pDao.abreConnection();
+        Produto produto = formToProduto();
+        deletarReceitas(produto.getIdProd());
+        pDao.deletaProduto(produto);
+        JOptionPane.showMessageDialog(this, "Produto Removido Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
+        limpaCampos();
+        inicializaTableModel();
+    }
+
+    private Produto formToProduto() {
+        Produto produto = new Produto();
+        if (id != null) {
+            produto.setIdProd(id);
+        }
+        produto.setNumProd(Integer.valueOf(campoCodigo.getText()));
+        produto.setDescProd(campoNome.getText());
+        produto.setValorProd(Double.valueOf(campoValor.getText()));
+        if (radioInd.isSelected()) {
+            produto.setEIndustrializado((byte) 1);
+            if ("".equals(campoBarras.getText())) {
+                produto.setCodBarras(null);
+            } else {
+                produto.setCodBarras(campoBarras.getText());
+            }
+        } else {
+            produto.setCodBarras(null);
+            produto.setEIndustrializado((byte) 0);
+            produto.setIngredientes(ingredientes);
+        }
+        return produto;
+    }
+
+    private void habilitaBotoesParaSalvar() {
+        habilitaOuDesabilitaBotoesEdicao(true);
+    }
+
+    public void habilitaInd(boolean valida) {
+        campoBarras.setText("");
+        campoBarras.setEnabled(valida);
+    }
+
+    private void habilitaOuDesabilitaBotoesEdicao(boolean enabled) {
+        botaoCadastrarProduto.setEnabled(enabled);
+        botaoAtualizarProduto.setEnabled(!enabled);
+        botaoExcluirProduto.setEnabled(!enabled);
+    }
+
+    public void habilitaPrep(boolean valida) {
+        if (caixaSelecaoIng.getItemCount() > 0) {
+            caixaSelecaoIng.setSelectedIndex(0);
+            caixaSelecaoIng.setEnabled(valida);
+            botaoAdicionarIngrediente.setEnabled(valida);
+            limpaIngredientes();
+            tabelaIngredientes.setEnabled(valida);
+        } else if (valida) {
+            Integer resposta;
+            resposta = JOptionPane.showConfirmDialog(this, "Antes de cadastrar um produto preparado, é necessário ter ao menos um ingrediente cadastrado. \nDeseja cadastrar um novo ingrediente agora?", "Cadastro de Produtos", JOptionPane.YES_NO_OPTION);
+            if (resposta == 0) {
+                this.dispose();
+                new TelaCadastrarIngrediente(null, true).setVisible(true);
+                new TelaCadastrarProduto(null, true).setVisible(true);
+            }
+        }
+    }
+
+    private void inicializaTableModel() {
+        pDao.abreConnection();
+        atualizaTableModelProdutos(pDao.getLista());
+        pDao.fechaConnection();
+        atualizaTableModelIngredientes();
+    }
+
     public void limpaCampos() {
+        id = null;
         campoCodigo.setText("");
         campoBarras.setText("");
         campoNome.setText("");
         campoValor.setText("");
         buttonGroup1.clearSelection();
         caixaSelecaoIng.setSelectedIndex(-1);
+        caixaSelecaoIng.setBorder(normal);
+        campoBarras.setBorder(normal);
+        campoNome.setBorder(normal);
+        campoValor.setBorder(normal);
+        textoErroIngrediente.setVisible(false);
+        limpaInd();
+        limpaPrep();
+        limpaIngredientes();
+        habilitaInd(false);
+        habilitaPrep(false);
     }
 
+    public void limpaInd() {
+        radioInd.setBorderPainted(false);
+        campoBarras.setBorder(normal);
+    }
+
+    public void limpaIngredientes() {
+
+        ingredientes = new ArrayList<>();
+        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+        tabelaIngredientes.setModel(tableModelIngredientes);
+    }
+
+    public void limpaPrep() {
+        radioPrep.setBorderPainted(false);
+
+    }
+
+    public void pesquisaProdutos() {
+        pDao.abreConnection();
+        String pesquisa = campoPesquisarProduto.getText();
+        atualizaTableModelProdutos(pDao.pesquisarProduto("%" + pesquisa + "%"));
+        pDao.fechaConnection();
+    }
+
+    private void produtoToForm(Produto produto) {
+        iDao.abreConnection();
+        id = produto.getIdProd();
+        campoCodigo.setText(String.valueOf(produto.getNumProd()));
+        campoNome.setText(produto.getDescProd());
+        campoValor.setText(String.valueOf(produto.getValorProd()));
+        if (produto.getEIndustrializado() == (byte) 1) {
+            radioInd.doClick();
+            radioPrep.setSelected(false);
+            campoBarras.setText(produto.getCodBarras());
+        } else {
+            radioPrep.doClick();
+            radioInd.setSelected(false);
+            ingredientes = iDao.pesquisarIngredientePorProduto(produto.getIdProd());
+            if(ingredientes == null){
+                ingredientes = new ArrayList<>();
+            }
+            tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+            iDao.fechaConnection();
+            tabelaIngredientes.setModel(tableModelIngredientes);
+        }
+        desabilitaBotoesParaSalvar();
+    }
+
+    public boolean valida() {
+        boolean valida = true;
+        if (!"".equals(campoCodigo.getText()) && campoCodigo.getText().length() > 0) {
+            campoCodigo.setBorder(normal);
+        } else {
+            campoCodigo.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoNome.getText()) && campoNome.getText().length() > 2) {
+            campoNome.setBorder(normal);
+        } else {
+            campoNome.setBorder(vermelha);
+            valida = false;
+        }
+        if (!"".equals(campoValor.getText()) && campoValor.getText().length() > 0) {
+            campoValor.setBorder(normal);
+        } else {
+            campoValor.setBorder(vermelha);
+            valida = false;
+        }
+        if (radioInd.isSelected() || radioPrep.isSelected()) {
+            radioInd.setBorderPainted(false);
+            radioPrep.setBorderPainted(false);
+        } else {
+            radioInd.setBorderPainted(true);
+            radioPrep.setBorderPainted(true);
+            radioPrep.setBorder(vermelha);
+            radioInd.setBorder(vermelha);
+            valida = false;
+        }
+        if (radioPrep.isSelected()) {
+            if (tabelaIngredientes.getRowCount() > 0) {
+                textoErroIngrediente.setVisible(false);
+            } else {
+                textoErroIngrediente.setVisible(true);
+                valida = false;
+            }
+        }
+        return valida;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAdicionarIngrediente;
@@ -702,4 +963,17 @@ public class TelaCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JLabel textoTipo;
     private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (tabelaProdutos.getSelectedRow() != -1) {
+            Produto produto = tableModelProdutos.getProdutos().get(tabelaProdutos.getSelectedRow());
+            if (produto.getIdProd() != 0) {
+                produtoToForm(produto);
+            }
+        }
+        if (tabelaIngredientes.getRowCount() != -1) {
+            botaoRemoverIngrediente.setEnabled(true);
+        }
+    }
 }

@@ -84,7 +84,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     public void limpaIngredientes() {
 
         ingredientes = new ArrayList<>();
-        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+       // tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModelIngredientes);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
     }
@@ -109,7 +109,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
             produto.setDescProd("Nenhum Registro Encontrado");
             produtos.add(produto);
         }
-        tableModelProdutos = new ProdutoTableModel(produtos);
+      //  tableModelProdutos = new ProdutoTableModel(produtos);
         frm.getTabelaProdutos().setModel(tableModelProdutos);
         frm.getTabelaProdutos().getSelectionModel().addListSelectionListener(this);
         frm.getTabelaProdutos().getColumnModel().getColumn(0).setMaxWidth(35);
@@ -118,7 +118,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
 
     public void atualizaTableModelIngredientes() {
         if (!ingredientes.isEmpty()) {
-            tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+    //        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
             frm.getTabelaIngredientes().setModel(tableModelIngredientes);
             frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         }
@@ -170,7 +170,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         limpaCampos();
 
         ingredientes = new ArrayList<>();
-        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
+    //    tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
         frm.getTabelaIngredientes().setModel(tableModelIngredientes);
         frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
 
@@ -256,7 +256,7 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
         } else {
             frm.getRadioPrep().doClick();
             frm.getRadioInd().setSelected(false);
-            tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
+        //    tableModelIngredientes = new ProdutoIngredientesTableModel(produto.getIngredientes());
             frm.getTabelaIngredientes().setModel(tableModelIngredientes);
             frm.getTabelaIngredientes().getSelectionModel().addListSelectionListener(this);
         }
@@ -380,10 +380,10 @@ public class ProdutoActionListener implements ActionListener, ListSelectionListe
     @Override
     public void valueChanged(ListSelectionEvent event) {
         if (frm.getTabelaProdutos().getSelectedRow() != -1) {
-            Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
-            if(produto.getIdProd() != 0){
-                produtoToForm(produto);
-            }
+            //Produto produto = tableModelProdutos.getProdutos().get(frm.getTabelaProdutos().getSelectedRow());
+            //if(produto.getIdProd() != 0){
+            //    produtoToForm(produto);
+            //}
         }
     }
 }

@@ -25,7 +25,7 @@ package old.com.au.gui.listener;
 
 import old.com.au.gui.TelaVenda;
 import com.au.gui.tmodel.ProdutoTableModel;
-import com.au.modelo.Produto;
+import com.au.bean.Produto;
 import com.au.dao.DAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,9 +51,9 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     public void inicializaTableModel() {
         atualizaTableModelPesquisa(new DAO<>(Produto.class).listaTodos());
     }
-    
+
     public void atualizaTableModelPesquisa(List<Produto> produtos) {
-        if(produtos != null && produtos.isEmpty()){
+        if (produtos != null && produtos.isEmpty()) {
             Produto produto = new Produto();
             produto.setDescProd("Nenhum Registro Encontrado");
             produtos.add(produto);
@@ -68,7 +68,7 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     public void pesquisaProdutos() {
         String pesquisa = frm.getCampoBusca().getText();
         frm.getCampoBusca().setText("");
-        atualizaTableModelPesquisa(new DAO<>(Produto.class).buscaProdutos(pesquisa));
+    //    atualizaTableModelPesquisa(new DAO<>(Produto.class).buscaProdutos(pesquisa));
     }
 
     public void vendaToForm(Produto produto) {

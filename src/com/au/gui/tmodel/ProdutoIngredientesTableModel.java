@@ -23,7 +23,7 @@
  */
 package com.au.gui.tmodel;
 
-import com.au.modelo.Ingrediente;
+import com.au.bean.Ingrediente;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +36,7 @@ import javax.swing.table.AbstractTableModel;
 public class ProdutoIngredientesTableModel extends AbstractTableModel {
 
     private List<Ingrediente> ingredientes = new ArrayList<>();
-    private List<String> colunas;
+    private final List<String> colunas;
 
     public ProdutoIngredientesTableModel(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;

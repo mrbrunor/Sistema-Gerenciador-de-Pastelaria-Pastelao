@@ -120,6 +120,32 @@ public class IngredienteDao {
         }
         return listaResIng;
     }
+    
+    public List<Ingrediente> pesquisarIngredientePorProduto(int idProd) {
+        String sql = "SELECT i.idIng, i.descIng, i.valorIng FROM ingrediente as i JOIN receita as r on i.idIng = r.idIng JOIN produto as p on r.idProd = p.idProd WHERE p.idProd=?";
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Ingrediente> listaResIng = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idProd);
+            res = stmt.executeQuery();
+
+            while (res.next()) {
+                Ingrediente novoIng = new Ingrediente();
+                novoIng.setDescIng(res.getString("descIng"));
+                novoIng.setIdIng(res.getInt("idIng"));
+                novoIng.setValorIng(res.getDouble("valorIng"));
+                listaResIng.add(novoIng);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResIng;
+    }
 
     public boolean validaIngrediente(String descIng) {
         String sql = "SELECT * FROM Ingrediente where descIng = ?";

@@ -132,4 +132,21 @@ public class ReceitaDao {
         }
         return resultado;
     }
+    
+    public boolean deletaIngredientesDoProduto(int idProd) {
+        String sql = "DELETE FROM Receita where idProd=?";
+        PreparedStatement stmt;
+        boolean resultado = false;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idProd);
+            resultado = stmt.execute();
+            stmt.close();
+            resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
 }
