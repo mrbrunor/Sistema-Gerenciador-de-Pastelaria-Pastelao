@@ -164,11 +164,21 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         botaoAlternarUsuario.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         botaoAlternarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/logout-32.png"))); // NOI18N
         botaoAlternarUsuario.setText("Deslogar");
+        botaoAlternarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlternarUsuarioActionPerformed(evt);
+            }
+        });
 
         botaoCaixa.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         botaoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/moneybox-32.png"))); // NOI18N
         botaoCaixa.setText("Abrir Caixa");
         botaoCaixa.setToolTipText("Clique aqui para fechar o caixa");
+        botaoCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCaixaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
@@ -221,6 +231,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         botaoAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/add_list-26.png"))); // NOI18N
         botaoAdicionarItem.setText("Adicionar Item");
         botaoAdicionarItem.setToolTipText("Clique aqui para adicionar o produto ao pedido");
+        botaoAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarItemActionPerformed(evt);
+            }
+        });
 
         campoAdicionarItem.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoAdicionarItem.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -228,16 +243,31 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 campoAdicionarItemFocusGained(evt);
             }
         });
+        campoAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoAdicionarItemActionPerformed(evt);
+            }
+        });
 
         botaoFecharPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoFecharPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoFecharPedido.setText("Fechar Pedido");
         botaoFecharPedido.setToolTipText("Clique aqui para finalizar o pedido e selecionar a forma de pagamento");
+        botaoFecharPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoFecharPedidoActionPerformed(evt);
+            }
+        });
 
         botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarPedido.setText("Cancelar Pedido");
         botaoCancelarPedido.setToolTipText("Clique aqui para cancelar o pedido atual");
+        botaoCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         tabelaPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
@@ -259,6 +289,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         botaoExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
         botaoExcluirItem.setToolTipText("Clique aqui para excluir este item do pedido");
         botaoExcluirItem.setActionCommand("Remover Item");
+        botaoExcluirItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirItemActionPerformed(evt);
+            }
+        });
 
         textoValorTotal.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         textoValorTotal.setText("Valor Total: 0,00");
@@ -395,21 +430,51 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuPrincipal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuAbrirCaixa.setText("Abrir Caixa");
+        itemMenuAbrirCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuAbrirCaixaActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuAbrirCaixa);
 
         itemMenuFecharCaixa.setText("Fechar Caixa");
+        itemMenuFecharCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuFecharCaixaActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuFecharCaixa);
 
         itemMenuCancelarCupom.setText("Cancelar Cupom");
+        itemMenuCancelarCupom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuCancelarCupomActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuCancelarCupom);
 
         itemMenuReimprimirCupom.setText("Reimprimir Cupom");
+        itemMenuReimprimirCupom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuReimprimirCupomActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuReimprimirCupom);
 
         itemMenuRetiradaDeCaixa.setText("Retirada de Caixa");
+        itemMenuRetiradaDeCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuRetiradaDeCaixaActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuRetiradaDeCaixa);
 
         itemMenuVisualizarCaixas.setText("Reimprimir Relatório de Caixa");
+        itemMenuVisualizarCaixas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuVisualizarCaixasActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuVisualizarCaixas);
         menuPrincipal.add(jSeparator1);
 
@@ -417,9 +482,19 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuPrincipal.add(itemMenuTrocarSenha);
 
         itemMenuDeslogar.setText("Deslogar");
+        itemMenuDeslogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuDeslogarActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuDeslogar);
 
         itemMenuSair.setText("Sair");
+        itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuSairActionPerformed(evt);
+            }
+        });
         menuPrincipal.add(itemMenuSair);
 
         barraMenu.add(menuPrincipal);
@@ -465,12 +540,27 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         MenuRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuVendasGerais.setText("Vendas Gerais");
+        itemMenuVendasGerais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuVendasGeraisActionPerformed(evt);
+            }
+        });
         MenuRelatorio.add(itemMenuVendasGerais);
 
         itemMenuVendasFiltradasFormaPgto.setText("Vendas por  Forma de Pagamento");
+        itemMenuVendasFiltradasFormaPgto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuVendasFiltradasFormaPgtoActionPerformed(evt);
+            }
+        });
         MenuRelatorio.add(itemMenuVendasFiltradasFormaPgto);
 
         itemMenuVendasFiltradasIngredientes.setText("Vendas por Ingredientes");
+        itemMenuVendasFiltradasIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuVendasFiltradasIngredientesActionPerformed(evt);
+            }
+        });
         MenuRelatorio.add(itemMenuVendasFiltradasIngredientes);
 
         barraMenu.add(MenuRelatorio);
@@ -479,6 +569,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         MenuAjuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         itemMenuSobre.setText("Sobre");
+        itemMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuSobreActionPerformed(evt);
+            }
+        });
         MenuAjuda.add(itemMenuSobre);
 
         barraMenu.add(MenuAjuda);
@@ -542,6 +637,127 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         botaoBuscar.doClick();
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuProdutosActionPerformed
+
+    private void botaoAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarItemActionPerformed
+        if (validaAddItem()) {
+            try {
+                inicializaTableModelVenda();
+                adicionaItempedido();
+                campoAdicionarItem.requestFocus();
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(this, "Este código é inválido. Por favor, insira um código válido.", "Código Inválido", JOptionPane.WARNING_MESSAGE);
+                campoAdicionarItem.setText("");
+                campoAdicionarItem.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_botaoAdicionarItemActionPerformed
+
+    private void campoAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAdicionarItemActionPerformed
+        if (validaAddItem()) {
+            try {
+                inicializaTableModelVenda();
+                adicionaItempedido();
+                campoAdicionarItem.requestFocus();
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(this, "Este código é inválido. Por favor, insira um código válido.", "Código Inválido", JOptionPane.WARNING_MESSAGE);
+                campoAdicionarItem.setText("");
+                campoAdicionarItem.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_campoAdicionarItemActionPerformed
+
+    private void botaoExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirItemActionPerformed
+        if (validaDelItem()) {
+            removerItem();
+            campoAdicionarItem.requestFocus();
+        }
+    }//GEN-LAST:event_botaoExcluirItemActionPerformed
+
+    private void botaoCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCaixaActionPerformed
+        if ("Abrir Caixa".equals(botaoCaixa.getText())) {
+            abrirCaixa();
+            campoAdicionarItem.requestFocus();
+        } else {
+            if (fecharCaixa(idCaixa)) {
+                deslogar();
+            }
+        }
+    }//GEN-LAST:event_botaoCaixaActionPerformed
+
+    private void botaoFecharPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharPedidoActionPerformed
+        if (validaPedido()) {
+            fecharPedido();
+            campoAdicionarItem.requestFocus();
+        }
+    }//GEN-LAST:event_botaoFecharPedidoActionPerformed
+
+    private void botaoCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoActionPerformed
+        limparPedido();
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_botaoCancelarPedidoActionPerformed
+
+    private void itemMenuCancelarCupomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuCancelarCupomActionPerformed
+        new TelaCancelamento(this, true, idCaixa).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuCancelarCupomActionPerformed
+
+    private void itemMenuReimprimirCupomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuReimprimirCupomActionPerformed
+        new TelaReimpressao(this, true, idCaixa).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuReimprimirCupomActionPerformed
+
+    private void itemMenuVisualizarCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVisualizarCaixasActionPerformed
+        new TelaReimprimirRelatorio(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuVisualizarCaixasActionPerformed
+
+    private void botaoAlternarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlternarUsuarioActionPerformed
+        deslogar();
+    }//GEN-LAST:event_botaoAlternarUsuarioActionPerformed
+
+    private void itemMenuDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuDeslogarActionPerformed
+        deslogar();
+    }//GEN-LAST:event_itemMenuDeslogarActionPerformed
+
+    private void itemMenuAbrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAbrirCaixaActionPerformed
+        abrirCaixa();
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuAbrirCaixaActionPerformed
+
+    private void itemMenuFecharCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFecharCaixaActionPerformed
+        if (fecharCaixa(idCaixa)) {
+            deslogar();
+        }
+    }//GEN-LAST:event_itemMenuFecharCaixaActionPerformed
+
+    private void itemMenuVendasGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasGeraisActionPerformed
+        new TelaVendasGerais(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuVendasGeraisActionPerformed
+
+    private void itemMenuRetiradaDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRetiradaDeCaixaActionPerformed
+        new TelaRetirada(this, true, caixa).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuRetiradaDeCaixaActionPerformed
+
+    private void itemMenuVendasFiltradasFormaPgtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasFiltradasFormaPgtoActionPerformed
+        new TelaVendasPorFormaPgto(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuVendasFiltradasFormaPgtoActionPerformed
+
+    private void itemMenuVendasFiltradasIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasFiltradasIngredientesActionPerformed
+        new TelaVendasPorIngrediente(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuVendasFiltradasIngredientesActionPerformed
+
+    private void itemMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSobreActionPerformed
+        new TelaSobre(this, true).setVisible(true);
+        campoAdicionarItem.requestFocus();
+    }//GEN-LAST:event_itemMenuSobreActionPerformed
+
+    private void itemMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSairActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_itemMenuSairActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {

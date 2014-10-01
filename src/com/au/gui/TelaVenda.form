@@ -21,31 +21,49 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Abrir Caixa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuAbrirCaixaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuFecharCaixa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fechar Caixa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuFecharCaixaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuCancelarCupom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar Cupom"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuCancelarCupomActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuReimprimirCupom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reimprimir Cupom"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuReimprimirCupomActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuRetiradaDeCaixa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Retirada de Caixa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuRetiradaDeCaixaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVisualizarCaixas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reimprimir Relat&#xf3;rio de Caixa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuVisualizarCaixasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
@@ -58,11 +76,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deslogar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuDeslogarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuSair">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuSairActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -120,16 +144,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vendas Gerais"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuVendasGeraisActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasFiltradasFormaPgto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vendas por  Forma de Pagamento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuVendasFiltradasFormaPgtoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuVendasFiltradasIngredientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vendas por Ingredientes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuVendasFiltradasIngredientesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -145,6 +178,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sobre"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuSobreActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -314,6 +350,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Deslogar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlternarUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCaixa">
           <Properties>
@@ -326,6 +365,9 @@
             <Property name="text" type="java.lang.String" value="Abrir Caixa"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para fechar o caixa"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCaixaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -421,6 +463,9 @@
             <Property name="text" type="java.lang.String" value="Adicionar Item"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para adicionar o produto ao pedido"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAdicionarItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoAdicionarItem">
           <Properties>
@@ -430,6 +475,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoAdicionarItemFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoAdicionarItemActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="campoAdicionarItem.setActionCommand(&quot;Adicionar Item&quot;);  "/>
@@ -446,6 +492,9 @@
             <Property name="text" type="java.lang.String" value="Fechar Pedido"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para finalizar o pedido e selecionar a forma de pagamento"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoFecharPedidoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoCancelarPedido">
           <Properties>
@@ -458,6 +507,9 @@
             <Property name="text" type="java.lang.String" value="Cancelar Pedido"/>
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para cancelar o pedido atual"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarPedidoActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="painelScrollTabelaPedido">
           <AuxValues>
@@ -524,6 +576,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Clique aqui para excluir este item do pedido"/>
             <Property name="actionCommand" type="java.lang.String" value="Remover Item"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoValorTotal">
           <Properties>
