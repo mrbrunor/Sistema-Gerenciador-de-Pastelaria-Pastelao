@@ -768,6 +768,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 caixa.setIdCaixa(cDao.adicionaCaixa(caixa));
                 cDao.fechaConnection();
                 numeroPedidoVerificado = true;
+                idCaixa = caixa.getIdCaixa();
                 caixaAberto();
             } else {
                 JOptionPane.showMessageDialog(this, "Abertura de Caixa Cancelada!", "Abertura de Caixa", JOptionPane.WARNING_MESSAGE);
@@ -877,8 +878,8 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             numPedido++;
         }
         new TelaConfirmacaoPagamento(this, true, funcionario, pedido, idCaixa, totalPedido).setVisible(true);
-        if (TelaConfirmacaoPagamento.isCadastrou()) {
-            TelaConfirmacaoPagamento.setCadastrou(false);
+        if (TelaConfirmacaoPagamento.isPagou()) {
+            TelaConfirmacaoPagamento.setPagou(false);
             limparPedido();
         } else {
             //JOptionPane.show(frm, ""); Mensagem perguntando se deseja limpar o pedido

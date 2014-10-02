@@ -51,13 +51,13 @@ public class PedidoDao {
 
     //CRUD
     //CREATE    
-    public boolean adicionaPedido(Pedido novoPedido) {
-        String sql = "INSERT INTO Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPagto, estadoPedido, formaConsumo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    public int adicionaPedido(Pedido novoPedido) {
+        String sql = "INSERT INTO Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPgto, estadoPedido, formaConsumo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
-        boolean resultado = false;
+        int resultado = 0;
 
         try {
-            stmt = conexao.prepareStatement(sql);
+            stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, novoPedido.getNumPedido());
             stmt.setDate(2, novoPedido.getDataPedido());
             stmt.setTime(3, novoPedido.getHoraPedido());
@@ -71,8 +71,14 @@ public class PedidoDao {
             stmt.setString(11, novoPedido.getFormaConsumo());
 
             stmt.execute();
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    resultado = (int) generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
             stmt.close();
-            resultado = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -113,6 +119,39 @@ public class PedidoDao {
         return listaResPedido;
     }
     
+    public Pedido buscaPedidoPorId(int idPedido) {
+        String sql = "SELECT * FROM Pedido WHERE idPedido=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idPedido);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(res.getInt("idPedido"));
+                pedido.setNumPedido(res.getInt("numPedido"));
+                pedido.setDataPedido(res.getDate("dataPedido"));
+                pedido.setHoraPedido(res.getTime("horaPedido"));
+                pedido.setIdCaixa(res.getInt("idCaixa"));
+                pedido.setSubTotPedido(res.getDouble("subTotPedido"));
+                pedido.setDescPedido(res.getDouble("descPedido"));
+                pedido.setTotPedido(res.getDouble("totPedido"));
+                pedido.setValorRecebido(res.getDouble("valorRecebido"));
+                pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
+                pedido.setEstadoPedido(res.getString("estadoPedido"));
+                pedido.setFormaConsumo(res.getString("formaConsumo"));
+                return pedido;
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public List<Pedido> listaPedidosPorCaixa(int idCaixa) {
         String sql = "SELECT * FROM Pedido WHERE idCaixa=?";
         PreparedStatement stmt;
@@ -146,7 +185,7 @@ public class PedidoDao {
         }
         return listaResPedido;
     }
-
+    
     //UPDATE
     public boolean atualizaPedido(Pedido novoPedido) {
         String sql = "UPDATE Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPagto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";

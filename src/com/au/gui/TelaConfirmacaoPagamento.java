@@ -27,17 +27,22 @@ import com.au.bean.Caixa;
 import com.au.bean.FormaPagamento;
 import com.au.bean.Funcionario;
 import com.au.bean.Pedido;
+import com.au.dao.CaixaDao;
+import com.au.dao.FormaPagamentoDao;
 import com.au.util.CustomComboBoxInt;
-import com.au.dao.DAO;
+import com.au.dao.ItemPedidoDao;
+import com.au.dao.PedidoDao;
+import com.au.gui.tmodel.VendaTableModel;
+import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
+import java.awt.Color;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 /**
  *
@@ -47,21 +52,33 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private Funcionario funcionario = new Funcionario();
     private Pedido pedido = new Pedido();
+    private final CaixaDao cDao = new CaixaDao();
+    private final PedidoDao pDao = new PedidoDao();
+    private final ItemPedidoDao ipDao = new ItemPedidoDao();
+    private final FormaPagamentoDao fpDao = new FormaPagamentoDao();
     private static Caixa caixa = null;
-    private Integer indexCaixa = null;
+    private Integer idCaixa = null;
     private double subTotal = 0;
     private double total = 0;
     private static boolean pagou = false;
     private List<FormaPagamento> listaResFormasPagamento;
+    private VendaTableModel tableModelVenda;
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
+    private double valorTotal = 0;
 
-    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer indexCaixa, Double subTotal) {
+    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer idCaixa, Double subTotal) {
         super(parent, modal);
         this.pedido = pedido;
         this.funcionario = funcionario;
-        this.indexCaixa = indexCaixa;
+        this.idCaixa = idCaixa;
         this.subTotal = subTotal;
         buscaFormasPagamento();
         initComponents();
+        normal = campoDesconto.getBorder();
+        atualizaTableModelVenda();
+        campoDesconto.requestFocus();
+        textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", subTotal));
         campoDesconto.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
         campoMesa.setDocument(new LimitaDigitos((2), "[^0-9]"));
         campoValorRecebido.setDocument(new LimitaDigitos((6), "[^0-9\\.]"));
@@ -129,6 +146,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         campoDesconto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         campoDesconto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campoDesconto.setText("0");
+        campoDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoDescontoActionPerformed(evt);
+            }
+        });
+        campoDesconto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoDescontoKeyReleased(evt);
+            }
+        });
 
         tabelaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,14 +239,29 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buttonGroup1.add(botaoRadioCartaoCredito);
         botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioCartaoCredito.setText("<html>Cartão de <b><u>C</u></b>rédito");
+        botaoRadioCartaoCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioCartaoCreditoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(botaoRadioValeRefeicao);
         botaoRadioValeRefeicao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioValeRefeicao.setText("<html>Vale <b><u>R</u></b>efeição");
+        botaoRadioValeRefeicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioValeRefeicaoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(botaoCartaoDebito);
         botaoCartaoDebito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoCartaoDebito.setText("<html>Cartão de D<b><u>é</u></b>bito");
+        botaoCartaoDebito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCartaoDebitoActionPerformed(evt);
+            }
+        });
 
         textoIconeDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/banknotes-26.png"))); // NOI18N
 
@@ -339,24 +381,49 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoConfirmarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoConfirmarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
         botaoConfirmarPedido.setText("Confirmar Pedido");
+        botaoConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConfirmarPedidoActionPerformed(evt);
+            }
+        });
 
         botaoCancelarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/cancel-32.png"))); // NOI18N
         botaoCancelarPedido.setText("Cancelar Pedido");
+        botaoCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Consumo"));
 
         buttonGroup2.add(botaoRadioBalcao);
         botaoRadioBalcao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioBalcao.setText("<html><b><u>B</u></b>alcão");
+        botaoRadioBalcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioBalcaoActionPerformed(evt);
+            }
+        });
 
         buttonGroup2.add(botaoRadioMesa);
         botaoRadioMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioMesa.setText("<html><b><u>M</u></b>esa");
+        botaoRadioMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioMesaActionPerformed(evt);
+            }
+        });
 
         buttonGroup2.add(botaoRadioViagem);
         botaoRadioViagem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioViagem.setText("<html><b><u>V</u></b>iagem");
+        botaoRadioViagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRadioViagemActionPerformed(evt);
+            }
+        });
 
         campoMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         campoMesa.setEnabled(false);
@@ -426,8 +493,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoValorRecebidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoKeyReleased
-        
-        
+
+
     }//GEN-LAST:event_campoValorRecebidoKeyReleased
 
     private void campoValorRecebidoVRKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRKeyReleased
@@ -435,290 +502,431 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_campoValorRecebidoVRKeyReleased
 
     private void botaoRadioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroActionPerformed
-        // TODO add your handling code here:
+        habilitaDinheiro();
+        campoValorRecebido.requestFocus();
+        preencheValorRecebido();
     }//GEN-LAST:event_botaoRadioDinheiroActionPerformed
 
-    public double getSubTotal() {
-        return subTotal;
+    private void campoDescontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescontoKeyReleased
+        atualizaTotal();
+    }//GEN-LAST:event_campoDescontoKeyReleased
+
+    private void botaoConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarPedidoActionPerformed
+        if (valida()) {
+            //Funciona, porém sem o valor preenchido, uma vez que o pedido não foi criado.... Duas soluções são possíveis: a primeira é perguntar se quer fechar para 
+            //depois exibir o troco em outra mensagem separada. A segunda opção seria fazer verificações diferentes para exibir estes valores pré fechamento
+            double valorRecebidoTemp = 0;
+            if (botaoRadioDinheiro.isSelected()) {
+                valorRecebidoTemp = Double.valueOf(campoValorRecebido.getText());
+            } else if (botaoRadioValeRefeicao.isSelected()) {
+                valorRecebidoTemp = Double.valueOf(campoValorRecebidoVR.getText());
+            } else {
+                valorRecebidoTemp = pedido.getTotPedido();
+            }
+            if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                criaPedido();
+                try {
+                    new Imprime().geraComandaVenda(pedido.getIdPedido());
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                }
+                pagou = true;
+                this.dispose();
+            } else {
+                return;
+            }
+            /* criaPedido();
+             if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1 || frm.getPedido().getFormaPagamento().getTipoFormaPgto().equals("Vale")) {
+             JOptionPane.showMessageDialog(frm, String.format("Valor Recebido: R$ %.2f", frm.getPedido().getValorRecebido()) + String.format("\n<html><font color=red><b>Troco: R$ %.2f", frm.getPedido().getValorRecebido() - frm.getPedido().getTotPedido()), "Troco", JOptionPane.INFORMATION_MESSAGE);
+             }
+             //new Imprime().geraComandaCozinha(frm.getPedido().getIdPedido());
+             try {
+             new Imprime().geraComandaVenda(frm.getPedido().getIdPedido());
+             } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+             JOptionPane.showMessageDialog(frm, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+             }
+             TelaConfirmacaoPagamento.setCadastrou(true);
+             frm.dispose(); */
+        }
+    }//GEN-LAST:event_botaoConfirmarPedidoActionPerformed
+
+    private void botaoRadioCartaoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioCartaoCreditoActionPerformed
+        habilitaCC();
+    }//GEN-LAST:event_botaoRadioCartaoCreditoActionPerformed
+
+    private void botaoCartaoDebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCartaoDebitoActionPerformed
+        habilitaCD();
+    }//GEN-LAST:event_botaoCartaoDebitoActionPerformed
+
+    private void botaoRadioValeRefeicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioValeRefeicaoActionPerformed
+        habilitaVR();
+        preencheValorRecebidoVR();
+    }//GEN-LAST:event_botaoRadioValeRefeicaoActionPerformed
+
+    private void botaoRadioBalcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioBalcaoActionPerformed
+        habilitaMesa(false);
+    }//GEN-LAST:event_botaoRadioBalcaoActionPerformed
+
+    private void botaoRadioMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioMesaActionPerformed
+        habilitaMesa(true);
+    }//GEN-LAST:event_botaoRadioMesaActionPerformed
+
+    private void botaoRadioViagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioViagemActionPerformed
+        habilitaMesa(false);
+    }//GEN-LAST:event_botaoRadioViagemActionPerformed
+
+    private void botaoCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoActionPerformed
+        pagou = false;
+    }//GEN-LAST:event_botaoCancelarPedidoActionPerformed
+
+    private void campoDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDescontoActionPerformed
+        botaoRadioDinheiro.requestFocus();
+        preencheValorRecebido();
+    }//GEN-LAST:event_campoDescontoActionPerformed
+
+    public void atualizaTableModelVenda() {
+        tableModelVenda = new VendaTableModel(pedido.getItempedidos());
+        tabelaPedido.setModel(tableModelVenda);
+        tabelaPedido.getColumnModel().getColumn(0).setMaxWidth(55);
+        tabelaPedido.getColumnModel().getColumn(2).setMaxWidth(100);
+        tabelaPedido.getColumnModel().getColumn(3).setMaxWidth(55);
+        tabelaPedido.getColumnModel().getColumn(4).setMaxWidth(75);
     }
 
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
+    private void atualizaTotal() {
+        if ("".equals(campoDesconto.getText())) {
+            total = subTotal;
+            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", total));
+            pedido.setSubTotPedido(total);
+            pedido.setTotPedido(total);
+        } else if (Double.valueOf(campoDesconto.getText()) > total) {
+            JOptionPane.showMessageDialog(this, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
+            campoDesconto.setText("");
+            atualizaTotal();
+        } else {
+            total = subTotal - Double.valueOf(campoDesconto.getText());
+            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", total));
+            pedido.setSubTotPedido(total);
+            pedido.setTotPedido(total - Double.valueOf(campoDesconto.getText()));
+        }
     }
 
-    public double getTotal() {
-        return total;
+    private void buscaFormasPagamento() {
+        fpDao.abreConnection();
+        listaResFormasPagamento = fpDao.getLista();
+        fpDao.fechaConnection();
+
     }
 
-    public void setTotal(double total) {
-        this.total = total;
-    }
+    private void criaPedido() {
+        Date data = new Date();
+        pedido.setIdCaixa(idCaixa);
+        pedido.setDataPedido(new java.sql.Date(data.getTime()));
+        pedido.setDescPedido(Double.valueOf(campoDesconto.getText()));
+        pedido.setEstadoPedido("Finalizado");
+        if (botaoRadioDinheiro.isSelected()) {
+            pedido.setIdFormaPgto(1);
+        } else if (botaoRadioCartaoCredito.isSelected()) {
+            CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoCC.getSelectedItem();
+            pedido.setIdFormaPgto(ob.getId());
+        } else if (botaoCartaoDebito.isSelected()) {
+            CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoCD.getSelectedItem();
+            pedido.setIdFormaPgto(ob.getId());
+        } else if (botaoRadioValeRefeicao.isSelected()) {
+            CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoVR.getSelectedItem();
+            pedido.setIdFormaPgto(ob.getId());
+        }
 
-    public JLabel getTextoValorTotal() {
-        return textoValorTotal;
-    }
+        pedido.setHoraPedido(new Time(data.getTime()));
+        pedido.setSubTotPedido(subTotal);
+        pedido.setTotPedido(total);
 
-    public JLabel getTextoValorRecebido() {
-        return textoValorRecebido;
-    }
+        if (botaoRadioBalcao.isSelected()) {
+            pedido.setFormaConsumo("Balcao");
+        } else if (botaoRadioMesa.isSelected()) {
+            pedido.setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(campoMesa.getText())));
+        } else if (botaoRadioViagem.isSelected()) {
+            pedido.setFormaConsumo("Viagem");
+        }
 
-    public void setTextoValorRecebido(JLabel textoValorRecebido) {
-        this.textoValorRecebido = textoValorRecebido;
-    }
-
-    public void setTextoValorTotal(JLabel textoValorTotal) {
-        this.textoValorTotal = textoValorTotal;
-    }
-
-    public JTextField getCampoValorRecebido() {
-        return campoValorRecebido;
-    }
-
-    public void setCampoValorRecebido(JTextField campoValorRecebido) {
-        this.campoValorRecebido = campoValorRecebido;
-    }
-
-    public Integer getIndexCaixa() {
-        return indexCaixa;
-    }
-
-    public void setIndexCaixa(Integer indexCaixa) {
-        this.indexCaixa = indexCaixa;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public JButton getBotaoCancelarPedido() {
-        return botaoCancelarPedido;
-    }
-
-    public void setBotaoCancelarPedido(JButton botaoCancelarPedido) {
-        this.botaoCancelarPedido = botaoCancelarPedido;
-    }
-
-    public JRadioButton getBotaoCartaoDebito() {
-        return botaoCartaoDebito;
-    }
-
-    public void setBotaoCartaoDebito(JRadioButton botaoCartaoDebito) {
-        this.botaoCartaoDebito = botaoCartaoDebito;
-    }
-
-    public JButton getBotaoConfirmarPedido() {
-        return botaoConfirmarPedido;
-    }
-
-    public void setBotaoConfirmarPedido(JButton botaoConfirmarPedido) {
-        this.botaoConfirmarPedido = botaoConfirmarPedido;
-    }
-
-    public JRadioButton getBotaoRadioCartaoCredito() {
-        return botaoRadioCartaoCredito;
-    }
-
-    public void setBotaoRadioCartaoCredito(JRadioButton botaoRadioCartaoCredito) {
-        this.botaoRadioCartaoCredito = botaoRadioCartaoCredito;
-    }
-
-    public JRadioButton getBotaoRadioDinheiro() {
-        return botaoRadioDinheiro;
-    }
-
-    public void setBotaoRadioDinheiro(JRadioButton botaoRadioDinheiro) {
-        this.botaoRadioDinheiro = botaoRadioDinheiro;
-    }
-
-    public JRadioButton getBotaoRadioValeRefeicao() {
-        return botaoRadioValeRefeicao;
-    }
-
-    public void setBotaoRadioValeRefeicao(JRadioButton botaoRadioValeRefeicao) {
-        this.botaoRadioValeRefeicao = botaoRadioValeRefeicao;
-    }
-
-    public JComboBox getCaixaSelecaoCC() {
-        return caixaSelecaoCC;
-    }
-
-    public void setCaixaSelecaoCC(JComboBox caixaSelecaoCC) {
-        this.caixaSelecaoCC = caixaSelecaoCC;
-    }
-
-    public JComboBox getCaixaSelecaoCD() {
-        return caixaSelecaoCD;
-    }
-
-    public void setCaixaSelecaoCD(JComboBox caixaSelecaoCD) {
-        this.caixaSelecaoCD = caixaSelecaoCD;
-    }
-
-    public JComboBox getCaixaSelecaoVR() {
-        return caixaSelecaoVR;
-    }
-
-    public void setCaixaSelecaoVR(JComboBox caixaSelecaoVR) {
-        this.caixaSelecaoVR = caixaSelecaoVR;
-    }
-
-    public JTextField getCampoDesconto() {
-        return campoDesconto;
-    }
-
-    public void setCampoDesconto(JTextField campoDesconto) {
-        this.campoDesconto = campoDesconto;
-    }
-
-    public JTable getTabelaPedido() {
-        return tabelaPedido;
-    }
-
-    public void setTabelaPedido(JTable tabelaPedido) {
-        this.tabelaPedido = tabelaPedido;
-    }
-
-    public static boolean isCadastrou() {
-        return pagou;
-    }
-
-    public static void setCadastrou(boolean cadastrou) {
-        TelaConfirmacaoPagamento.pagou = cadastrou;
-    }
-
-    public static Caixa getCaixa() {
-        return caixa;
-    }
-
-    public static void setCaixa(Caixa caixa) {
-        TelaConfirmacaoPagamento.caixa = caixa;
-    }
-
-    public JRadioButton getBotaoRadioBalcao() {
-        return botaoRadioBalcao;
-    }
-
-    public void setBotaoRadioBalcao(JRadioButton botaoRadioBalcao) {
-        this.botaoRadioBalcao = botaoRadioBalcao;
-    }
-
-    public JRadioButton getBotaoRadioMesa() {
-        return botaoRadioMesa;
-    }
-
-    public void setBotaoRadioMesa(JRadioButton botaoRadioMesa) {
-        this.botaoRadioMesa = botaoRadioMesa;
-    }
-
-    public JRadioButton getBotaoRadioViagem() {
-        return botaoRadioViagem;
-    }
-
-    public void setBotaoRadioViagem(JRadioButton botaoRadioViagem) {
-        this.botaoRadioViagem = botaoRadioViagem;
-    }
-
-    public JTextField getCampoMesa() {
-        return campoMesa;
-    }
-
-    public void setCampoMesa(JTextField campoMesa) {
-        this.campoMesa = campoMesa;
-    }
-
-    public JTextField getCampoValorRecebidoVR() {
-        return campoValorRecebidoVR;
-    }
-
-    public void setCampoValorRecebidoVR(JTextField campoValorRecebidoVR) {
-        this.campoValorRecebidoVR = campoValorRecebidoVR;
-    }
-
-    public JLabel getTextoValorRecebidoVR() {
-        return textoValorRecebidoVR;
-    }
-
-    public void setTextoValorRecebidoVR(JLabel textoValorRecebidoVR) {
-        this.textoValorRecebidoVR = textoValorRecebidoVR;
-    }
-    
-    public void buscaFormasPagamento() {
-        listaResFormasPagamento = new DAO<>(FormaPagamento.class).listaTodos();
-
+        if (botaoRadioDinheiro.isSelected()) { //Preenche o valor recebido no caso de dinheiro
+            pedido.setValorRecebido(Double.valueOf(campoValorRecebido.getText()));
+        } else if (botaoRadioValeRefeicao.isSelected()) { //Preenche o valor recebido no caso de vale
+            pedido.setValorRecebido(Double.valueOf(campoValorRecebidoVR.getText()));
+        } else {
+            pedido.setValorRecebido(total);
+        }
+        pDao.abreConnection();
+        pedido.setIdPedido(pDao.adicionaPedido(pedido));
+        pDao.fechaConnection();
+        cDao.abreConnection();
+        caixa = (cDao.listaCaixaPorId(idCaixa));
+        caixa.setTotalCaixa(caixa.getTotalCaixa() + pedido.getTotPedido());
+        cDao.atualizaCaixa(caixa);
+        cDao.fechaConnection();
+        if (pedido.getItempedidos() != null) {
+            ipDao.abreConnection();
+            for (int i = 0; pedido.getItempedidos().size() > i; i++) {
+                pedido.getItempedidos().get(i).setIdPedido(pedido.getIdPedido());
+                ipDao.adicionaItemPedido(pedido.getItempedidos().get(i));
+            }
+            ipDao.fechaConnection();
+        }
     }
 
     private CustomComboBoxInt[] getFormasDebito() {
-
         List<FormaPagamento> listaResFormasDebito = new ArrayList<>();
-
         if (listaResFormasPagamento != null) {
-
             for (int i = 0; listaResFormasPagamento.size() > i; i++) {
-                if ("Debito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)) {
+                if ("Debito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte) 1)) {
                     listaResFormasDebito.add(listaResFormasPagamento.get(i));
                 }
             }
         }
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasDebito.size()];
-
         for (int i = 0; i < listaResFormasDebito.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResFormasDebito.get(i).getNomeFormaPgto(), listaResFormasDebito.get(i).getIdFormaPgto());
         }
         return oItems;
     }
-    
+
     private CustomComboBoxInt[] getFormasCredito() {
-
         List<FormaPagamento> listaResFormasCredito = new ArrayList<>();
-
         if (listaResFormasPagamento != null) {
-
             for (int i = 0; listaResFormasPagamento.size() > i; i++) {
-                if ("Credito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)){
+                if ("Credito".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte) 1)) {
                     listaResFormasCredito.add(listaResFormasPagamento.get(i));
                 }
             }
         }
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasCredito.size()];
-
         for (int i = 0; i < listaResFormasCredito.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResFormasCredito.get(i).getNomeFormaPgto(), listaResFormasCredito.get(i).getIdFormaPgto());
         }
         return oItems;
     }
-    
+
     private CustomComboBoxInt[] getFormasVale() {
-
         List<FormaPagamento> listaResFormasVale = new ArrayList<>();
-
         if (listaResFormasPagamento != null) {
-
             for (int i = 0; listaResFormasPagamento.size() > i; i++) {
-                if ("Vale".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte)1)) {
+                if ("Vale".equals(listaResFormasPagamento.get(i).getTipoFormaPgto()) && listaResFormasPagamento.get(i).getEstaAtivo() == ((byte) 1)) {
                     listaResFormasVale.add(listaResFormasPagamento.get(i));
                 }
             }
         }
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFormasVale.size()];
-
         for (int i = 0; i < listaResFormasVale.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResFormasVale.get(i).getNomeFormaPgto(), listaResFormasVale.get(i).getIdFormaPgto());
         }
         return oItems;
     }
 
+    public void habilitaDinheiro() {
+        limpaBordaPagamento();
+        campoValorRecebido.setText("");
+        textoValorRecebido.setVisible(true);
+        campoValorRecebido.setVisible(true);
+        campoValorRecebidoVR.setText("");
+        campoValorRecebidoVR.setVisible(false);
+        textoValorRecebidoVR.setVisible(false);
+        caixaSelecaoCC.setVisible(false);
+        caixaSelecaoCC.setSelectedIndex(-1);
+        caixaSelecaoCD.setVisible(false);
+        caixaSelecaoCD.setSelectedIndex(-1);
+        caixaSelecaoVR.setVisible(false);
+        caixaSelecaoVR.setSelectedIndex(-1);
+    }
+
+    public void habilitaCC() {
+        limpaBordaPagamento();
+        campoValorRecebido.setText("");
+        textoValorRecebido.setVisible(false);
+        campoValorRecebido.setVisible(false);
+        campoValorRecebidoVR.setText("");
+        textoValorRecebidoVR.setVisible(false);
+        campoValorRecebidoVR.setVisible(false);
+        caixaSelecaoCC.setVisible(true);
+        caixaSelecaoCC.requestFocus();
+        caixaSelecaoCC.setSelectedIndex(-1);
+        caixaSelecaoCD.setVisible(false);
+        caixaSelecaoCD.setSelectedIndex(-1);
+        caixaSelecaoVR.setVisible(false);
+        caixaSelecaoVR.setSelectedIndex(-1);
+    }
+
+    public void habilitaCD() {
+        limpaBordaPagamento();
+        campoValorRecebido.setText("");
+        textoValorRecebido.setVisible(false);
+        campoValorRecebido.setVisible(false);
+        campoValorRecebidoVR.setText("");
+        textoValorRecebidoVR.setVisible(false);
+        campoValorRecebidoVR.setVisible(false);
+        caixaSelecaoCC.setVisible(false);
+        caixaSelecaoCC.setSelectedIndex(-1);
+        caixaSelecaoCD.setVisible(true);
+        caixaSelecaoCD.requestFocus();
+        caixaSelecaoCD.setSelectedIndex(-1);
+        caixaSelecaoVR.setVisible(false);
+        caixaSelecaoVR.setSelectedIndex(-1);
+    }
+
+    public void habilitaVR() {
+        limpaBordaPagamento();
+        campoValorRecebidoVR.setText("");
+        textoValorRecebidoVR.setVisible(true);
+        campoValorRecebidoVR.setVisible(true);
+        campoValorRecebido.setText("");
+        textoValorRecebido.setVisible(false);
+        campoValorRecebido.setVisible(false);
+        caixaSelecaoCC.setVisible(false);
+        caixaSelecaoCC.setSelectedIndex(-1);
+        caixaSelecaoCD.setVisible(false);
+        caixaSelecaoCD.setSelectedIndex(-1);
+        caixaSelecaoVR.setVisible(true);
+        caixaSelecaoVR.requestFocus();
+        caixaSelecaoVR.setSelectedIndex(-1);
+    }
+
+    public void habilitaMesa(boolean valida) {
+        limpaBordaConsumo();
+        campoMesa.setEnabled(valida);
+        campoMesa.setText("");
+    }
+
+    public void limpaBordaConsumo() {
+        botaoRadioBalcao.setBorderPainted(false);
+        botaoRadioMesa.setBorderPainted(false);
+        botaoRadioViagem.setBorderPainted(false);
+        campoMesa.setBorder(normal);
+    }
+
+    public void limpaBordaPagamento() {
+        botaoCartaoDebito.setBorderPainted(false);
+        botaoRadioCartaoCredito.setBorderPainted(false);
+        botaoRadioDinheiro.setBorderPainted(false);
+        botaoRadioValeRefeicao.setBorderPainted(false);
+        caixaSelecaoCC.setBorder(normal);
+        caixaSelecaoCD.setBorder(normal);
+        caixaSelecaoVR.setBorder(normal);
+        campoValorRecebido.setBorder(normal);
+        campoValorRecebidoVR.setBorder(normal);
+    }
+
+    public void preencheValorRecebido() {
+        campoValorRecebido.setText(String.valueOf(pedido.getTotPedido())); //Necessario acertar troco E Desconto
+        campoValorRecebido.selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
+    }
+
+    public void preencheValorRecebidoVR() {
+        campoValorRecebidoVR.setText(String.valueOf(pedido.getTotPedido())); //Preenche o campo de valor recebido do Vale
+    }
+
+    public boolean valida() {
+        boolean valida = true;
+        if ("".equals(campoDesconto.getText())) {
+            campoDesconto.setText("0");
+            atualizaTotal();
+        } else if (Double.valueOf(campoDesconto.getText()) > subTotal) {
+            JOptionPane.showMessageDialog(this, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
+            campoDesconto.setText("");
+            atualizaTotal();
+            valida = false;
+        }
+
+        if (botaoRadioDinheiro.isSelected() || botaoRadioCartaoCredito.isSelected() || botaoCartaoDebito.isSelected() || botaoRadioValeRefeicao.isSelected()) {
+            limpaBordaPagamento();
+        } else {
+            valida = false;
+            botaoCartaoDebito.setBorder(vermelha);
+            botaoCartaoDebito.setBorderPainted(true);
+            botaoRadioCartaoCredito.setBorder(vermelha);
+            botaoRadioCartaoCredito.setBorderPainted(true);
+            botaoRadioDinheiro.setBorder(vermelha);
+            botaoRadioDinheiro.setBorderPainted(true);
+            botaoRadioValeRefeicao.setBorder(vermelha);
+            botaoRadioValeRefeicao.setBorderPainted(true);
+        }
+        if (botaoRadioDinheiro.isSelected()) {
+            if (campoValorRecebido.getText().equals("")) {
+                valida = false;
+                campoValorRecebido.setBorder(vermelha);
+            } else {
+                if (Double.valueOf(campoValorRecebido.getText()) < total) {
+                    JOptionPane.showMessageDialog(this, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+                    campoValorRecebido.setText("");
+                    atualizaTotal();
+                    valida = false;
+                }
+                campoValorRecebido.setBorder(normal);
+            }
+        }
+        if (botaoRadioCartaoCredito.isSelected()) {
+            if (caixaSelecaoCC.getSelectedIndex() == -1) {
+                valida = false;
+                caixaSelecaoCC.setBorder(vermelha);
+            }
+        } else {
+            caixaSelecaoCC.setBorder(normal);
+        }
+        if (botaoCartaoDebito.isSelected()) {
+            if (caixaSelecaoCD.getSelectedIndex() == -1) {
+                valida = false;
+                caixaSelecaoCD.setBorder(vermelha);
+            }
+        } else {
+            caixaSelecaoCD.setBorder(normal);
+        }
+        if (botaoRadioValeRefeicao.isSelected()) {
+            if (caixaSelecaoVR.getSelectedIndex() == -1) {
+                valida = false;
+                caixaSelecaoVR.setBorder(vermelha);
+                if (campoValorRecebidoVR.getText().equals("")) {
+                    campoValorRecebidoVR.setBorder(vermelha);
+                }
+            } else if (campoValorRecebidoVR.getText().equals("")) {
+                valida = false;
+                campoValorRecebidoVR.setBorder(vermelha);
+            } else {
+                if (Double.valueOf(campoValorRecebidoVR.getText()) < total) {
+                    JOptionPane.showMessageDialog(this, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
+                    campoValorRecebidoVR.setText("");
+                    atualizaTotal();
+                    valida = false;
+                }
+                campoValorRecebidoVR.setBorder(normal);
+                caixaSelecaoVR.setBorder(normal);
+            }
+        }
+        if (botaoRadioBalcao.isSelected() || botaoRadioMesa.isSelected() || botaoRadioViagem.isSelected()) {
+            limpaBordaConsumo();
+        } else {
+            valida = false;
+            botaoRadioBalcao.setBorder(vermelha);
+            botaoRadioBalcao.setBorderPainted(true);
+            botaoRadioMesa.setBorder(vermelha);
+            botaoRadioMesa.setBorderPainted(true);
+            botaoRadioViagem.setBorder(vermelha);
+            botaoRadioViagem.setBorderPainted(true);
+        }
+
+        if (botaoRadioMesa.isSelected()) {
+            if (campoMesa.getText().equals("")) {
+                valida = false;
+                campoMesa.setBorder(vermelha);
+            }
+        }
+        return valida;
+    }
+    
+    public static boolean isPagou() {
+        return pagou;
+    }
+
+    public static void setPagou(boolean aPagou) {
+        pagou = aPagou;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;

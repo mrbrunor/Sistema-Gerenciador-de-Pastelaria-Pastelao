@@ -23,9 +23,9 @@
  */
 package com.au.gui;
 
+import com.au.bean.Caixa;
 import com.au.bean.Despesa;
 import com.au.dao.DespesaDao;
-import com.au.modelo.Caixa;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
 import java.awt.event.KeyEvent;

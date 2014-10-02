@@ -18,6 +18,7 @@ package com.au.bean;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class Pedido {
     private String estadoPedido;
     private String formaConsumo;
     
-    private List<ItemPedido> itempedidos;
+    private List<ItemPedido> itempedidos = new ArrayList<>();
 
     public double getValorRecebido() {
         return valorRecebido;
