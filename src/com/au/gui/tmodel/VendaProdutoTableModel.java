@@ -1,30 +1,22 @@
 /*
- * The MIT License
+ * Copyright (C) 2014 BrunoRicardo
  *
- * Copyright 2014 BrunoRicardo.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.au.gui.tmodel;
 
-import com.au.modelo.Produto;
+import com.au.bean.Produto;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -33,12 +25,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author BrunoRicardo
  */
-public class VendaProdutoTableModel extends AbstractTableModel{
-    
+public class VendaProdutoTableModel extends AbstractTableModel {
+
     private List<Produto> produtos;
-    private List<String> colunas;
-    
-    public VendaProdutoTableModel(List<Produto> produtos){
+    private final List<String> colunas;
+
+    public VendaProdutoTableModel(List<Produto> produtos) {
         this.produtos = produtos;
         colunas = Arrays.asList("Id", "Descrição", "Valor");
     }
@@ -46,11 +38,11 @@ public class VendaProdutoTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas.get(column);
-    }       
+    }
 
     @Override
     public int getRowCount() {
-        if(produtos != null){
+        if (produtos != null) {
             return produtos.size();
         } else {
             return -1;
@@ -65,10 +57,13 @@ public class VendaProdutoTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
-        switch(columnIndex){
-            case 0: return produto.getIdProd();
-            case 1: return produto.getDescProd();
-            case 2: return produto.getValorProd();
+        switch (columnIndex) {
+            case 0:
+                return produto.getIdProd();
+            case 1:
+                return produto.getDescProd();
+            case 2:
+                return produto.getValorProd();
         }
         return null;
     }
@@ -79,6 +74,6 @@ public class VendaProdutoTableModel extends AbstractTableModel{
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
-    }    
-    
+    }
+
 }

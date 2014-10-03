@@ -1,31 +1,23 @@
 /*
- * The MIT License
+ * Copyright (C) 2014 BrunoRicardo
  *
- * Copyright 2014 BrunoRicardo.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.au.gui;
 
 import com.au.bean.Caixa;
 import com.au.bean.FormaPagamento;
-import com.au.bean.Funcionario;
 import com.au.bean.Pedido;
 import com.au.dao.CaixaDao;
 import com.au.dao.FormaPagamentoDao;
@@ -50,7 +42,6 @@ import javax.swing.border.MatteBorder;
  */
 public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
-    private Funcionario funcionario = new Funcionario();
     private Pedido pedido = new Pedido();
     private final CaixaDao cDao = new CaixaDao();
     private final PedidoDao pDao = new PedidoDao();
@@ -58,21 +49,18 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private final FormaPagamentoDao fpDao = new FormaPagamentoDao();
     private static Caixa caixa = null;
     private Integer idCaixa = null;
-    private double subTotal = 0;
-    private double total = 0;
     private static boolean pagou = false;
     private List<FormaPagamento> listaResFormasPagamento;
     private VendaTableModel tableModelVenda;
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
-    private double valorTotal = 0;
 
-    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Funcionario funcionario, Pedido pedido, Integer idCaixa, Double subTotal) {
+    public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Pedido pedido, Integer idCaixa, Double subTotal) {
         super(parent, modal);
         this.pedido = pedido;
-        this.funcionario = funcionario;
         this.idCaixa = idCaixa;
-        this.subTotal = subTotal;
+        this.pedido.setSubTotPedido(subTotal);
+        this.pedido.setTotPedido(subTotal);
         buscaFormasPagamento();
         initComponents();
         normal = campoDesconto.getBorder();
@@ -515,7 +503,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         if (valida()) {
             //Funciona, porém sem o valor preenchido, uma vez que o pedido não foi criado.... Duas soluções são possíveis: a primeira é perguntar se quer fechar para 
             //depois exibir o troco em outra mensagem separada. A segunda opção seria fazer verificações diferentes para exibir estes valores pré fechamento
-            double valorRecebidoTemp = 0;
+            double valorRecebidoTemp;
             if (botaoRadioDinheiro.isSelected()) {
                 valorRecebidoTemp = Double.valueOf(campoValorRecebido.getText());
             } else if (botaoRadioValeRefeicao.isSelected()) {
@@ -532,8 +520,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 }
                 pagou = true;
                 this.dispose();
-            } else {
-                return;
             }
             /* criaPedido();
              if (frm.getPedido().getFormaPagamento().getIdFormaPgto() == 1 || frm.getPedido().getFormaPagamento().getTipoFormaPgto().equals("Vale")) {
@@ -584,7 +570,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         preencheValorRecebido();
     }//GEN-LAST:event_campoDescontoActionPerformed
 
-    public void atualizaTableModelVenda() {
+    private void atualizaTableModelVenda() {
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
         tabelaPedido.setModel(tableModelVenda);
         tabelaPedido.getColumnModel().getColumn(0).setMaxWidth(55);
@@ -595,19 +581,15 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private void atualizaTotal() {
         if ("".equals(campoDesconto.getText())) {
-            total = subTotal;
-            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", total));
-            pedido.setSubTotPedido(total);
-            pedido.setTotPedido(total);
-        } else if (Double.valueOf(campoDesconto.getText()) > total) {
+            pedido.setTotPedido(pedido.getSubTotPedido());
+            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", pedido.getTotPedido()));
+        } else if (Double.valueOf(campoDesconto.getText()) > pedido.getSubTotPedido()) {
             JOptionPane.showMessageDialog(this, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             campoDesconto.setText("");
             atualizaTotal();
         } else {
-            total = subTotal - Double.valueOf(campoDesconto.getText());
-            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", total));
-            pedido.setSubTotPedido(total);
-            pedido.setTotPedido(total - Double.valueOf(campoDesconto.getText()));
+            pedido.setTotPedido(pedido.getSubTotPedido() - Double.valueOf(campoDesconto.getText()));
+            textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", pedido.getTotPedido()));
         }
     }
 
@@ -638,8 +620,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         }
 
         pedido.setHoraPedido(new Time(data.getTime()));
-        pedido.setSubTotPedido(subTotal);
-        pedido.setTotPedido(total);
 
         if (botaoRadioBalcao.isSelected()) {
             pedido.setFormaConsumo("Balcao");
@@ -654,14 +634,17 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         } else if (botaoRadioValeRefeicao.isSelected()) { //Preenche o valor recebido no caso de vale
             pedido.setValorRecebido(Double.valueOf(campoValorRecebidoVR.getText()));
         } else {
-            pedido.setValorRecebido(total);
+            pedido.setValorRecebido(pedido.getTotPedido());
         }
         pDao.abreConnection();
         pedido.setIdPedido(pDao.adicionaPedido(pedido));
         pDao.fechaConnection();
         cDao.abreConnection();
         caixa = (cDao.listaCaixaPorId(idCaixa));
+        System.out.println("Tot antes: " + caixa.getTotalCaixa());
+        System.out.println("pedido total" + pedido.getTotPedido());
         caixa.setTotalCaixa(caixa.getTotalCaixa() + pedido.getTotPedido());
+        System.out.println("Tot depois: " + caixa.getTotalCaixa());
         cDao.atualizaCaixa(caixa);
         cDao.fechaConnection();
         if (pedido.getItempedidos() != null) {
@@ -815,12 +798,12 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     }
 
     public void preencheValorRecebido() {
-        campoValorRecebido.setText(String.valueOf(pedido.getTotPedido())); //Necessario acertar troco E Desconto
-        campoValorRecebido.selectAll(); // Seleciona o texto, para caso seja necessário inserir um novo valor não seja necessário ficar dando backspace
+        campoValorRecebido.setText(String.valueOf(pedido.getTotPedido()));
+        campoValorRecebido.selectAll();
     }
 
     public void preencheValorRecebidoVR() {
-        campoValorRecebidoVR.setText(String.valueOf(pedido.getTotPedido())); //Preenche o campo de valor recebido do Vale
+        campoValorRecebidoVR.setText(String.valueOf(pedido.getTotPedido()));
     }
 
     public boolean valida() {
@@ -828,7 +811,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         if ("".equals(campoDesconto.getText())) {
             campoDesconto.setText("0");
             atualizaTotal();
-        } else if (Double.valueOf(campoDesconto.getText()) > subTotal) {
+        } else if (Double.valueOf(campoDesconto.getText()) > pedido.getSubTotPedido()) {
             JOptionPane.showMessageDialog(this, "O valor do desconto não deve ultrapassar o valor do pedido.", "Desconto de Pedido", JOptionPane.WARNING_MESSAGE);
             campoDesconto.setText("");
             atualizaTotal();
@@ -853,7 +836,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 valida = false;
                 campoValorRecebido.setBorder(vermelha);
             } else {
-                if (Double.valueOf(campoValorRecebido.getText()) < total) {
+                if (Double.valueOf(campoValorRecebido.getText()) < pedido.getTotPedido()) {
                     JOptionPane.showMessageDialog(this, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
                     campoValorRecebido.setText("");
                     atualizaTotal();
@@ -889,7 +872,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 valida = false;
                 campoValorRecebidoVR.setBorder(vermelha);
             } else {
-                if (Double.valueOf(campoValorRecebidoVR.getText()) < total) {
+                if (Double.valueOf(campoValorRecebidoVR.getText()) < pedido.getTotPedido()) {
                     JOptionPane.showMessageDialog(this, "O valor recebido não pode ser inferior ao total do pedido.", "Valor Recebido", JOptionPane.WARNING_MESSAGE);
                     campoValorRecebidoVR.setText("");
                     atualizaTotal();
@@ -919,7 +902,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         }
         return valida;
     }
-    
+
     public static boolean isPagou() {
         return pagou;
     }

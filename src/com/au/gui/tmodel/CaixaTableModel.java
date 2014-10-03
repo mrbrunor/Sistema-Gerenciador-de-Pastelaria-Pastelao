@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Tiago
+ * Copyright (C) 2014 BrunoRicardo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  */
 package com.au.gui.tmodel;
 
-import com.au.modelo.Caixa;
+import com.au.bean.Caixa;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -28,7 +28,7 @@ import javax.swing.table.AbstractTableModel;
 public class CaixaTableModel extends AbstractTableModel {
 
     private List<Caixa> caixas;
-    private List<String> colunas;
+    private final List<String> colunas;
 
     public CaixaTableModel(List<Caixa> caixas) {
         this.caixas = caixas;

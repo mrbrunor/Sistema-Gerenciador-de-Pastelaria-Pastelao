@@ -1,32 +1,25 @@
 /*
- * The MIT License
+ * Copyright (C) 2014 BrunoRicardo
  *
- * Copyright 2014 tiago_000.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.au.gui;
 
 import com.au.conexao.FabricaConexao;
-import com.au.modelo.Ingrediente;
+import com.au.bean.Ingrediente;
+import com.au.dao.IngredienteDao;
 import com.au.util.CustomComboBoxInt;
-import com.au.dao.DAO;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
 import java.awt.Color;
@@ -59,6 +52,7 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
 
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
+    private final IngredienteDao iDao = new IngredienteDao();
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -337,8 +331,9 @@ public class TelaVendasPorIngrediente extends javax.swing.JDialog {
     }
 
     private CustomComboBoxInt[] getIngs() {
-        List<Ingrediente> listaResIng = new DAO<>(Ingrediente.class).listaTodos();
-
+        iDao.abreConnection();
+        List<Ingrediente> listaResIng = iDao.getLista();
+        iDao.fechaConnection();
         CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
         for (int i = 0; i < listaResIng.size(); i++) {
             oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());

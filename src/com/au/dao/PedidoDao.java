@@ -199,7 +199,7 @@ public class PedidoDao {
     }
     
     public Pedido listaItemPedido(Pedido pedido) {
-        String sql = "SELECT * FROM itempedido as ip JOIN produto as prod on ip.idProd = prod.idProd WHERE ip.idPedido=?";
+        String sql = "SELECT * FROM itempedido as ip JOIN produto as prod on ip.idProd = prod.idProd WHERE ip.idPedido=? ORDER BY ip.ordemProduto";
         PreparedStatement stmt;
         ResultSet res;
 

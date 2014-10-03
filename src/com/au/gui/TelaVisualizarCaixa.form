@@ -431,39 +431,36 @@
                   <Component id="separador1" min="-2" pref="2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="textoSemCancelamentos" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="textoQuantidadeCancelamentos" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textoValorQuantidadeCancelamentos" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="textoTotalCancelamentos" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textoValorTotalCancelamentos" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="textoQuantidadeRetiradas" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textoValorQuantidadeRetiradas" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="textoTotalRetiradasRetiradas" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textoValorTotalRetiradasRetiradas" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="separador5" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="separador4" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textoRetiradas" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textoCancelamentos" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textoSemRetiradas" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="textoSemCancelamentos" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textoQuantidadeCancelamentos" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textoValorQuantidadeCancelamentos" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="textoFaturamento" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textoTotalCancelamentos" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textoValorTotalCancelamentos" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textoQuantidadeRetiradas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textoValorQuantidadeRetiradas" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textoTotalRetiradasRetiradas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textoValorTotalRetiradasRetiradas" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="separador5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="separador4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="textoRetiradas" alignment="0" max="32767" attributes="0"/>
+                              <Component id="textoCancelamentos" alignment="0" max="32767" attributes="0"/>
+                              <Component id="textoSemRetiradas" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <Component id="textoFaturamento" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -483,6 +480,7 @@
                           </Group>
                       </Group>
                   </Group>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
