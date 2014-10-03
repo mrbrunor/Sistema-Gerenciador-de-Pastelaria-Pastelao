@@ -16,13 +16,17 @@
  */
 package com.au.util;
 
-import com.au.dao.DAO;
-import com.au.modelo.Caixa;
-import com.au.modelo.Despesa;
-import com.au.modelo.Pedido;
+import com.au.bean.Caixa;
+import com.au.bean.Despesa;
+import com.au.bean.Pedido;
+import com.au.dao.CaixaDao;
+import com.au.dao.FuncionarioDao;
+import com.au.dao.PedidoDao;
+import com.au.dao.DespesaDao;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -31,6 +35,10 @@ import java.util.Calendar;
 public class Imprime {
 
     //private final TelaFechamentoCaixa frm;
+    private final CaixaDao cDao = new CaixaDao();
+    private final PedidoDao pDao = new PedidoDao();
+    private final FuncionarioDao fDao = new FuncionarioDao();
+    private final DespesaDao dDao = new DespesaDao();
     private double descontoTotal = 0;
     private int qtdPedDinheiro = 0;
     private int qtdPedCred = 0;
@@ -54,11 +62,14 @@ public class Imprime {
         int iRetorno;
         String iComando;
 
-        Pedido pedido = new DAO<>(Pedido.class).buscaPorId(idPedido);
+        pDao.abreConnection();
+        Pedido pedido = pDao.buscaPedidoPorId(idPedido);
+        pedido = pDao.listaItemPedido(pedido);
+        pDao.fechaConnection();
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(pedido.getDataPedido());
-        
+
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
             System.out.println("Produto: " + pedido.getItempedidos().get(i).getProduto().getDescProd() + " Código: " + pedido.getItempedidos().get(i).getProduto().getNumProd() + " Ordem: " + pedido.getItempedidos().get(i).getOrdemProduto());
         }
@@ -119,8 +130,10 @@ public class Imprime {
     public void geraComandaCozinha(int idPedido) throws UnsatisfiedLinkError {
         int iRetorno;
         String iComando;
-
-        Pedido pedido = new DAO<>(Pedido.class).buscaPorId(idPedido);
+        pDao.abreConnection();
+        Pedido pedido = pDao.buscaPedidoPorId(idPedido);
+        pedido = pDao.listaItemPedido(pedido);
+        pDao.fechaConnection();
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(pedido.getDataPedido());
@@ -152,29 +165,29 @@ public class Imprime {
         iRetorno = cupom.FechaPorta();
     }
 
-    private void calculaTipoPagamento(Caixa caixa) {
-        if (caixa.getPedidos() != null && !caixa.getPedidos().isEmpty()) {
+    private void calculaTipoPagamento(List<Pedido> pedidos) {
+        if (pedidos != null && !pedidos.isEmpty()) {
             totalDinheiro = 0;
             totalCredito = 0;
             totalDebito = 0;
             totalVale = 0;
-            for (int i = 0; i < caixa.getPedidos().size(); i++) {
-                if ("Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
-                    if ("Dinheiro".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                        totalDinheiro = totalDinheiro + caixa.getPedidos().get(i).getTotPedido();
+            for (int i = 0; i < pedidos.size(); i++) {
+                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                    if ("Dinheiro".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalDinheiro = totalDinheiro + pedidos.get(i).getTotPedido();
                         qtdPedDinheiro += 1;
-                    } else if ("Credito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                        totalCredito = totalCredito + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Credito".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalCredito = totalCredito + pedidos.get(i).getTotPedido();
                         qtdPedCred += 1;
-                    } else if ("Debito".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                        totalDebito = totalDebito + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Debito".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalDebito = totalDebito + pedidos.get(i).getTotPedido();
                         qtdPedDeb += 1;
-                    } else if ("Vale".equals(caixa.getPedidos().get(i).getFormaPagamento().getTipoFormaPgto())) {
-                        totalVale = totalVale + caixa.getPedidos().get(i).getTotPedido();
+                    } else if ("Vale".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                        totalVale = totalVale + pedidos.get(i).getTotPedido();
                         qtdPedVale += 1;
                     }
-                    if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
-                        descontoTotal += caixa.getPedidos().get(i).getDescPedido();
+                    if (pedidos.get(i).getDescPedido() > 0 && "Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                        descontoTotal += pedidos.get(i).getDescPedido();
                         qtdPedDesc += 1;
                     }
                 } else {
@@ -193,8 +206,19 @@ public class Imprime {
     }
 
     public void geraRelatorioFechamento(int idCaixa) throws UnsatisfiedLinkError {
-        Caixa caixa = new DAO<>(Caixa.class).buscaPorId(idCaixa);
-        calculaTipoPagamento(caixa);
+        cDao.abreConnection();
+        Caixa caixa = cDao.listaCaixaPorId(idCaixa);
+        cDao.fechaConnection();
+        dDao.abreConnection();
+        caixa.setDespesas(dDao.listaDespesasPorCaixa(caixa.getIdCaixa()));
+        dDao.fechaConnection();
+        pDao.abreConnection();
+        caixa.setPedidos(pDao.listaPedidosPorCaixa(caixa.getIdCaixa()));
+        pDao.fechaConnection();
+        fDao.abreConnection();
+        caixa.setFuncionario(fDao.buscaPrId(caixa.getIdFunc()));
+        fDao.fechaConnection();
+        calculaTipoPagamento(caixa.getPedidos());
         calculaReducoes(caixa);
         int iRetorno;
         String iComando;

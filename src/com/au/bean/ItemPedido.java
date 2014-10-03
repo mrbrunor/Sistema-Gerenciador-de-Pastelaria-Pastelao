@@ -27,6 +27,8 @@ public class ItemPedido {
     private int qtdProd;
     private double totProd;
     private int ordemProduto;
+    
+    private Produto produto = new Produto();
 
     public int getIdPedido() {
         return idPedido;
@@ -66,5 +68,13 @@ public class ItemPedido {
 
     public void setOrdemProduto(int ordemProduto) {
         this.ordemProduto = ordemProduto;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 }

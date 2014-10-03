@@ -17,7 +17,10 @@
 package com.au.dao;
 
 import com.au.conexao.FabricaConexao;
+import com.au.bean.ItemPedido;
 import com.au.bean.Pedido;
+import com.au.bean.Produto;
+import com.au.bean.FormaPagamento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -120,7 +123,7 @@ public class PedidoDao {
     }
     
     public Pedido buscaPedidoPorId(int idPedido) {
-        String sql = "SELECT * FROM Pedido WHERE idPedido=?";
+        String sql = "SELECT * FROM pedido as p JOIN formapagamento as fp on p.idFormaPgto = fp.idFormaPgto WHERE p.idPedido=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -142,6 +145,15 @@ public class PedidoDao {
                 pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
                 pedido.setEstadoPedido(res.getString("estadoPedido"));
                 pedido.setFormaConsumo(res.getString("formaConsumo"));
+                
+                FormaPagamento fp = new FormaPagamento();
+                fp.setIdFormaPgto(res.getInt("idFormaPgto"));
+                fp.setNomeFormaPgto(res.getString("nomeFormaPgto"));
+                fp.setTipoFormaPgto(res.getString("tipoFormaPgto"));
+                fp.setEstaAtivo(res.getByte("estaAtivo"));
+                
+                pedido.setFormaPagamento(fp);
+                
                 return pedido;
             }
             res.close();
@@ -184,6 +196,43 @@ public class PedidoDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaResPedido;
+    }
+    
+    public Pedido listaItemPedido(Pedido pedido) {
+        String sql = "SELECT * FROM itempedido as ip JOIN produto as prod on ip.idProd = prod.idProd WHERE ip.idPedido=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, pedido.getIdPedido());
+            res = stmt.executeQuery();
+            while (res.next()) {
+                ItemPedido ip = new ItemPedido();
+                ip.setIdPedido(res.getInt("idPedido"));
+                ip.setIdProd(res.getInt("idProd"));
+                ip.setQtdProd(res.getInt("qtdProd"));
+                ip.setTotProd(res.getDouble("totProd"));
+                ip.setOrdemProduto(res.getInt("ordemProduto"));
+                
+                Produto prod = new Produto();
+                prod.setIdProd(res.getInt("idProd"));
+                prod.setNumProd(res.getInt("numProd"));
+                prod.setDescProd(res.getString("descProd"));
+                prod.setValorProd(res.getDouble("valorProd"));
+                prod.setCodBarras(res.getString("codBarras"));
+                prod.setEIndustrializado(res.getByte("eIndustrializado"));
+                
+                ip.setProduto(prod);
+                pedido.getItempedidos().add(ip);
+                
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedido;
     }
     
     //UPDATE

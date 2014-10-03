@@ -41,6 +41,7 @@ public class Pedido {
     private String formaConsumo;
     
     private List<ItemPedido> itempedidos = new ArrayList<>();
+    private FormaPagamento formaPagamento = new FormaPagamento();
 
     public double getValorRecebido() {
         return valorRecebido;
@@ -144,6 +145,14 @@ public class Pedido {
 
     public void setItempedidos(List<ItemPedido> itempedidos) {
         this.itempedidos = itempedidos;
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
 }

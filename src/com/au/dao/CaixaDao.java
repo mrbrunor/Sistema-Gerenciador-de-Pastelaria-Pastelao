@@ -172,6 +172,36 @@ public class CaixaDao {
         }
         return null;
     }
+    
+    public Caixa listaDespesas(int idCaixa) {
+        String sql = "SELECT * FROM Caixa where idCaixa=?";
+        PreparedStatement stmt;
+        ResultSet res;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idCaixa);
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Caixa caixa = new Caixa();
+                caixa.setIdCaixa(res.getInt("idCaixa"));
+                caixa.setIdFunc(res.getInt("idFunc"));
+                caixa.setFundoCaixa(res.getDouble("fundoCaixa"));
+                caixa.setDataAberturaCaixa(res.getDate("dataAberturaCaixa"));
+                caixa.setAberturaCaixa(res.getTime("aberturaCaixa"));
+                caixa.setFechamentoCaixa(res.getTime("fechamentoCaixa"));
+                caixa.setDataFechamentoCaixa(res.getDate("dataFechamentoCaixa"));
+                caixa.setEstaAberto(res.getInt("estaAberto"));
+                caixa.setTotalCaixa(res.getDouble("totalCaixa"));
+                return caixa;
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 //UPDATE
     public boolean atualizaCaixa(Caixa novoCaixa) {

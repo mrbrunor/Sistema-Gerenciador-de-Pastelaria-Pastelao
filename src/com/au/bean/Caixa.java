@@ -18,6 +18,8 @@ package com.au.bean;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,6 +36,10 @@ public class Caixa {
     private Date dataFechamentoCaixa;
     private int estaAberto;
     private double totalCaixa;
+    
+    private Funcionario funcionario = new Funcionario();
+    private List<Despesa> despesas = new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public int getIdCaixa() {
         return idCaixa;
@@ -106,4 +112,29 @@ public class Caixa {
     public void setTotalCaixa(double totalCaixa) {
         this.totalCaixa = totalCaixa;
     }
+
+    public List<Despesa> getDespesas() {
+        return despesas;
+    }
+
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
 }
