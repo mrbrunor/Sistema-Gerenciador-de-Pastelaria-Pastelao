@@ -1031,11 +1031,14 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             } else {
                 JOptionPane.showMessageDialog(this, "Você possui um caixa aberto com data anterior ao dia de hoje. \nPor favor, clique em OK para fechar o caixa anterior", "Caixa anterior encontrado", JOptionPane.WARNING_MESSAGE);
                 while (!TelaFechamentoCaixa.isFechou()) {
-                    System.out.println("Id: " + caixas.get(i).getIdCaixa());
                     fecharCaixa(caixas.get(i).getIdCaixa());
+                    
                 }
+                TelaFechamentoCaixa.setFechou(false);
+                System.out.println("i= " + i);
             }
         }
+        System.err.println("Saiu FOR");
         return null;
     }
 

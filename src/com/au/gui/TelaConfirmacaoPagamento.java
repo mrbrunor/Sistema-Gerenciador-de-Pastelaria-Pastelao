@@ -563,6 +563,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private void botaoCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoActionPerformed
         pagou = false;
+        this.dispose();
     }//GEN-LAST:event_botaoCancelarPedidoActionPerformed
 
     private void campoDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDescontoActionPerformed

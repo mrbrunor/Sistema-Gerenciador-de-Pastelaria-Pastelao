@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
-    private static boolean fechou;
+    private static boolean fechou = false;
     private final Caixa caixa;
     private double dinheiroCaixa;
     private double descontoTotal = 0;
