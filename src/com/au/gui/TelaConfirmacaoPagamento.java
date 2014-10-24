@@ -515,8 +515,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 criaPedido();
                 try {
                     new Imprime().geraComandaVenda(pedido.getIdPedido());
-                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
-                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                } 
+                catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                try {
+                    new Imprime().geraComandaCozinha(pedido.getIdPedido());
+                } 
+                catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                 }
                 pagou = true;
                 this.dispose();

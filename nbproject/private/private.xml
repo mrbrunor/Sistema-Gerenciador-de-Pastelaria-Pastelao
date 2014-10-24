@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Pastelao/Documents/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaConfirmacaoPagamento.java</file>
-            <file>file:/C:/Users/Pastelao/Documents/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaVenda.java</file>
-            <file>file:/C:/Users/Pastelao/Documents/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaFechamentoCaixa.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaConfirmacaoPagamento.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/Bematech.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/BematechNFiscal.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/Imprime.java</file>
         </group>
     </open-files>
 </project-private>

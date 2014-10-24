@@ -141,7 +141,7 @@ public class Imprime {
         BematechNFiscal cupom = BematechNFiscal.Instance;
 
         iRetorno = cupom.ConfiguraModeloImpressora(7);
-        iRetorno = cupom.IniciaPorta("192.168.1.120");
+        iRetorno = cupom.IniciaPorta("192.168.0.183");
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
