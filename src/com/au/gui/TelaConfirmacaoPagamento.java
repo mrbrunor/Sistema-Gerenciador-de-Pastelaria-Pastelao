@@ -28,6 +28,7 @@ import com.au.gui.tmodel.VendaTableModel;
 import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
@@ -140,6 +141,9 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
         });
         campoDesconto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoDescontoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 campoDescontoKeyReleased(evt);
             }
@@ -223,6 +227,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 botaoRadioDinheiroActionPerformed(evt);
             }
         });
+        botaoRadioDinheiro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioDinheiroKeyPressed(evt);
+            }
+        });
 
         buttonGroup1.add(botaoRadioCartaoCredito);
         botaoRadioCartaoCredito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -230,6 +239,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioCartaoCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoRadioCartaoCreditoActionPerformed(evt);
+            }
+        });
+        botaoRadioCartaoCredito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioCartaoCreditoKeyPressed(evt);
             }
         });
 
@@ -241,6 +255,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 botaoRadioValeRefeicaoActionPerformed(evt);
             }
         });
+        botaoRadioValeRefeicao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioValeRefeicaoKeyPressed(evt);
+            }
+        });
 
         buttonGroup1.add(botaoCartaoDebito);
         botaoCartaoDebito.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -248,6 +267,44 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoCartaoDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCartaoDebitoActionPerformed(evt);
+            }
+        });
+        botaoCartaoDebito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoCartaoDebitoKeyPressed(evt);
+            }
+        });
+
+        caixaSelecaoCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoCCActionPerformed(evt);
+            }
+        });
+        caixaSelecaoCC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                caixaSelecaoCCKeyPressed(evt);
+            }
+        });
+
+        caixaSelecaoCD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoCDActionPerformed(evt);
+            }
+        });
+        caixaSelecaoCD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                caixaSelecaoCDKeyPressed(evt);
+            }
+        });
+
+        caixaSelecaoVR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoVRActionPerformed(evt);
+            }
+        });
+        caixaSelecaoVR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                caixaSelecaoVRKeyPressed(evt);
             }
         });
 
@@ -260,9 +317,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoIconeVR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/barcode-26.png"))); // NOI18N
 
         campoValorRecebido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValorRecebido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoValorRecebidoActionPerformed(evt);
+            }
+        });
         campoValorRecebido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoValorRecebidoKeyReleased(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoValorRecebidoKeyPressed(evt);
             }
         });
 
@@ -273,9 +335,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorRecebidoVR.setText("Valor Recebido:");
 
         campoValorRecebidoVR.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoValorRecebidoVR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoValorRecebidoVRActionPerformed(evt);
+            }
+        });
         campoValorRecebidoVR.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoValorRecebidoVRKeyReleased(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoValorRecebidoVRKeyPressed(evt);
             }
         });
 
@@ -368,10 +435,15 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         botaoConfirmarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoConfirmarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
-        botaoConfirmarPedido.setText("Confirmar Pedido");
+        botaoConfirmarPedido.setText("<html>Confirmar <b><u>P</u></b>edido");
         botaoConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoConfirmarPedidoActionPerformed(evt);
+            }
+        });
+        botaoConfirmarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoConfirmarPedidoKeyPressed(evt);
             }
         });
 
@@ -381,6 +453,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCancelarPedidoActionPerformed(evt);
+            }
+        });
+        botaoCancelarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoCancelarPedidoKeyPressed(evt);
             }
         });
 
@@ -394,6 +471,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 botaoRadioBalcaoActionPerformed(evt);
             }
         });
+        botaoRadioBalcao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioBalcaoKeyPressed(evt);
+            }
+        });
 
         buttonGroup2.add(botaoRadioMesa);
         botaoRadioMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -401,6 +483,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoRadioMesaActionPerformed(evt);
+            }
+        });
+        botaoRadioMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioMesaKeyPressed(evt);
             }
         });
 
@@ -412,9 +499,24 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 botaoRadioViagemActionPerformed(evt);
             }
         });
+        botaoRadioViagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoRadioViagemKeyPressed(evt);
+            }
+        });
 
         campoMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         campoMesa.setEnabled(false);
+        campoMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoMesaActionPerformed(evt);
+            }
+        });
+        campoMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoMesaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -457,7 +559,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoConfirmarPedido)
+                        .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );
@@ -479,15 +581,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void campoValorRecebidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoKeyReleased
-
-
-    }//GEN-LAST:event_campoValorRecebidoKeyReleased
-
-    private void campoValorRecebidoVRKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoValorRecebidoVRKeyReleased
 
     private void botaoRadioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroActionPerformed
         habilitaDinheiro();
@@ -515,17 +608,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 criaPedido();
                 try {
                     new Imprime().geraComandaVenda(pedido.getIdPedido());
-                } 
-                catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
                     JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                 }
-                
-                try {
-                    new Imprime().geraComandaCozinha(pedido.getIdPedido());
-                } 
-                catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
-                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                }
+//                try {
+//                    new Imprime().geraComandaCozinha(pedido.getIdPedido());
+//                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+//                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+//                }
                 pagou = true;
                 this.dispose();
             }
@@ -554,19 +644,22 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private void botaoRadioValeRefeicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioValeRefeicaoActionPerformed
         habilitaVR();
-        preencheValorRecebidoVR();
     }//GEN-LAST:event_botaoRadioValeRefeicaoActionPerformed
 
     private void botaoRadioBalcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioBalcaoActionPerformed
         habilitaMesa(false);
+        botaoConfirmarPedido.requestFocus();
     }//GEN-LAST:event_botaoRadioBalcaoActionPerformed
 
     private void botaoRadioMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioMesaActionPerformed
         habilitaMesa(true);
+        campoMesa.requestFocus();
+        campoMesa.selectAll();
     }//GEN-LAST:event_botaoRadioMesaActionPerformed
 
     private void botaoRadioViagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioViagemActionPerformed
         habilitaMesa(false);
+        botaoConfirmarPedido.requestFocus();
     }//GEN-LAST:event_botaoRadioViagemActionPerformed
 
     private void botaoCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoActionPerformed
@@ -578,6 +671,147 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioDinheiro.requestFocus();
         preencheValorRecebido();
     }//GEN-LAST:event_campoDescontoActionPerformed
+
+    private void campoValorRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorRecebidoActionPerformed
+        botaoRadioBalcao.requestFocus();
+    }//GEN-LAST:event_campoValorRecebidoActionPerformed
+
+    private void campoValorRecebidoVRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRActionPerformed
+        botaoRadioBalcao.requestFocus();
+    }//GEN-LAST:event_campoValorRecebidoVRActionPerformed
+
+    private void botaoRadioDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioDinheiro.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioDinheiroKeyPressed
+
+    private void botaoRadioCartaoCreditoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioCartaoCreditoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioCartaoCredito.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioCartaoCreditoKeyPressed
+
+    private void botaoCartaoDebitoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoCartaoDebitoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoCartaoDebito.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoCartaoDebitoKeyPressed
+
+    private void botaoRadioValeRefeicaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioValeRefeicaoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioValeRefeicao.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioValeRefeicaoKeyPressed
+
+    private void campoDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescontoKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_campoDescontoKeyPressed
+
+    private void botaoRadioBalcaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioBalcaoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioBalcao.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioBalcaoKeyPressed
+
+    private void botaoRadioMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioMesaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioMesa.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioMesaKeyPressed
+
+    private void botaoRadioViagemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioViagemKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioViagem.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioViagemKeyPressed
+
+    private void caixaSelecaoCCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaSelecaoCCKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_caixaSelecaoCCKeyPressed
+
+    private void caixaSelecaoCDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaSelecaoCDKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_caixaSelecaoCDKeyPressed
+
+    private void caixaSelecaoVRKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaSelecaoVRKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_caixaSelecaoVRKeyPressed
+
+    private void campoValorRecebidoVRKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoVRKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_campoValorRecebidoVRKeyPressed
+
+    private void campoValorRecebidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorRecebidoKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_campoValorRecebidoKeyPressed
+
+    private void caixaSelecaoCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoCCActionPerformed
+        botaoRadioBalcao.requestFocus();
+    }//GEN-LAST:event_caixaSelecaoCCActionPerformed
+
+    private void caixaSelecaoCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoCDActionPerformed
+        botaoRadioBalcao.requestFocus();
+    }//GEN-LAST:event_caixaSelecaoCDActionPerformed
+
+    private void caixaSelecaoVRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoVRActionPerformed
+        if (caixaSelecaoVR.getSelectedIndex() != -1) {
+            campoValorRecebidoVR.setText("");
+            textoValorRecebidoVR.setVisible(true);
+            campoValorRecebidoVR.setVisible(true);
+            preencheValorRecebidoVR();
+            campoValorRecebidoVR.requestFocus();
+            campoValorRecebidoVR.selectAll();
+        }
+    }//GEN-LAST:event_caixaSelecaoVRActionPerformed
+
+    private void botaoCancelarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoCancelarPedidoKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoCancelarPedidoKeyPressed
+
+    private void botaoConfirmarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoConfirmarPedidoKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoConfirmarPedidoKeyPressed
+
+    private void campoMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoMesaActionPerformed
+        botaoConfirmarPedido.requestFocus();
+    }//GEN-LAST:event_campoMesaActionPerformed
+
+    private void campoMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMesaKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_campoMesaKeyPressed
 
     private void atualizaTableModelVenda() {
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
@@ -766,9 +1000,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     public void habilitaVR() {
         limpaBordaPagamento();
-        campoValorRecebidoVR.setText("");
-        textoValorRecebidoVR.setVisible(true);
-        campoValorRecebidoVR.setVisible(true);
         campoValorRecebido.setText("");
         textoValorRecebido.setVisible(false);
         campoValorRecebido.setVisible(false);
@@ -910,6 +1141,31 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
         }
         return valida;
+    }
+
+    private void validaHotKey(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_D) {
+            campoDesconto.requestFocus();
+            campoDesconto.selectAll();
+        } else if (evt.getKeyCode() == KeyEvent.VK_I) {
+            botaoRadioDinheiro.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_C) {
+            botaoRadioCartaoCredito.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_E) {
+            botaoCartaoDebito.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_R) {
+            botaoRadioValeRefeicao.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_M) {
+            botaoRadioMesa.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_B) {
+            botaoRadioBalcao.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_V) {
+            botaoRadioViagem.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_P) {
+            botaoConfirmarPedido.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        }
     }
 
     public static boolean isPagou() {

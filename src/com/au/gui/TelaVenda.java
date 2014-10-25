@@ -45,6 +45,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private Caixa caixa;
     private final Funcionario funcionario;
     private VendaTableModel tableModelVenda;
+    private final TabelaPesquisaActionListener listener2;
     private Pedido pedido = new Pedido();
     private double totalPedido = 0;
     private Integer idCaixa = null;
@@ -60,6 +61,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     public TelaVenda(Funcionario funcionario) {
         this.funcionario = funcionario;
         initComponents();
+        listener2 = new TabelaPesquisaActionListener(this);
         campoBusca.setDocument(new LimitaDigitos((250), "[^a-zA-Z À-ÄÈ-ËÌ-ÏÒ-ÖÙ-Üà-äè-ëì-ïò-öù-ü0-9]"));
         campoAdicionarItem.setDocument(new LimitaDigitos((6), "[^0-9]"));
         textoNomeFuncionario.setText(funcionario.getNomeFunc());
@@ -109,6 +111,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         painelBusca = new javax.swing.JPanel();
         textoDigiteParaBuscar = new javax.swing.JLabel();
         campoBusca = new javax.swing.JTextField();
+        campoBusca.setActionCommand("Buscar");
         botaoBuscar = new javax.swing.JButton();
         painelScrollTabelaBusca = new javax.swing.JScrollPane();
         tabelaBusca = new javax.swing.JTable();
@@ -1159,5 +1162,37 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
 
         }
         campoAdicionarItem.requestFocus();
+    }
+
+    public javax.swing.JButton getBotaoBuscar() {
+        return botaoBuscar;
+    }
+
+    public void setBotaoBuscar(javax.swing.JButton botaoBuscar) {
+        this.botaoBuscar = botaoBuscar;
+    }
+
+    public javax.swing.JTable getTabelaBusca() {
+        return tabelaBusca;
+    }
+
+    public void setTabelaBusca(javax.swing.JTable tabelaBusca) {
+        this.tabelaBusca = tabelaBusca;
+    }
+
+    public javax.swing.JTextField getCampoBusca() {
+        return campoBusca;
+    }
+
+    public void setCampoBusca(javax.swing.JTextField campoBusca) {
+        this.campoBusca = campoBusca;
+    }
+
+    public javax.swing.JTextField getCampoAdicionarItem() {
+        return campoAdicionarItem;
+    }
+
+    public void setCampoAdicionarItem(javax.swing.JTextField campoAdicionarItem) {
+        this.campoAdicionarItem = campoAdicionarItem;
     }
 }
