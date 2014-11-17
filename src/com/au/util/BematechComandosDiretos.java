@@ -64,6 +64,47 @@ public class BematechComandosDiretos {
     public static final String ITALICO_OFF = "" + ESC + ITALIC_OFF;
     public static final String INICIALIZA = "" + ESC + AT; //Reinicia todas as configurações da impressora
 
+    public static int inicializaImpressora (BematechNFiscal cupom) {
+        return cupom.ComandoTX(INICIALIZA, INICIALIZA.length());
+    }
+    
+    public static int alinhaTexto (BematechNFiscal cupom, int posicao) {
+        String iComando = "" + ESC + a + (char) posicao;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    public static int ativaExpandidoHorizontal (BematechNFiscal cupom) {
+        String iComando = "" + ESC + SO;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    public static int desativaExpandidoHorizontal (BematechNFiscal cupom) {
+        String iComando = "" + DC4;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    public static int ativaNegrito (BematechNFiscal cupom) {
+        return cupom.ComandoTX(NEGRITO_ON, NEGRITO_ON.length());
+    }
+    
+    public static int desativaNegrito (BematechNFiscal cupom) {
+        return cupom.ComandoTX(NEGRITO_OFF, NEGRITO_OFF.length());
+    }
+    
+    public static int pulaLinha (BematechNFiscal cupom) {
+        String iComando = "" + LF;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    public static int avancoCaracteres (BematechNFiscal cupom, int caracteres) {
+        String iComando = "" + ESC + f + AVANC + (char) caracteres;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    
+    
+    
+    
     public static String alinhamento(int posicao) {
         return "" + ESC + a + (char) posicao;
     }

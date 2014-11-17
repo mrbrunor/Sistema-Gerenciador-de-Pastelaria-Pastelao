@@ -606,11 +606,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
             if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 criaPedido();
-//                try {
-//                    new Imprime().geraComandaVenda(pedido.getIdPedido());
-//                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
-//                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-//                }
+                try {
+                    new Imprime().geraComandaVenda(pedido.getIdPedido());
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                }
                 try {
                     new Imprime().geraComandaCozinha(pedido.getIdPedido());
                 } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
