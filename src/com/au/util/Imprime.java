@@ -143,7 +143,7 @@ public class Imprime {
         iRetorno = cupom.ConfiguraModeloImpressora(7);
         iRetorno = cupom.IniciaPorta("192.168.0.183");
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
-        iRetorno = cupom.PrintNVBitmap(1, 0);
+        //iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
         iRetorno = cupom.FormataTX("VIA DA COZINHA\r\n", 3, 1, 0, 0, 1);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
@@ -158,10 +158,11 @@ public class Imprime {
                     + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + "\r\n");
             iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
         }
-        iComando = "" + (char) 10;
+        /* iComando = "" + (char) 10;
         for (int i = 0; i < 9; i++) {
             iRetorno = cupom.ComandoTX(iComando, iComando.length());
-        }
+        } */
+        iRetorno = cupom.AcionaGuilhotina(0);
         iRetorno = cupom.FechaPorta();
     }
 
