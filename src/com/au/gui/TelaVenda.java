@@ -141,7 +141,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema Pastelão - Vendas");
+        setTitle("Vendas - Sistema Pastelão");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

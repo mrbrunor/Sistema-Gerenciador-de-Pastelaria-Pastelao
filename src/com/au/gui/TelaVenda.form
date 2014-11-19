@@ -189,7 +189,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Sistema Pastel&#xe3;o - Vendas"/>
+    <Property name="title" type="java.lang.String" value="Vendas - Sistema Pastel&#xe3;o"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>

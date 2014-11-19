@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/TiagoH/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/BematechNFiscal.java</file>
-            <file>file:/C:/Users/TiagoH/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/Imprime.java</file>
-            <file>file:/C:/Users/TiagoH/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaConfirmacaoPagamento.java</file>
-            <file>file:/C:/Users/TiagoH/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/BematechComandosDiretos.java</file>
+            <file>file:/C:/Users/tiago_000/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/configuracoes/Impressoras.java</file>
+            <file>file:/C:/Users/tiago_000/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaConfiguracoes.java</file>
+            <file>file:/C:/Users/tiago_000/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/Imprime.java</file>
+            <file>file:/C:/Users/tiago_000/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaCadastrarFormasDePagamento.java</file>
         </group>
     </open-files>
 </project-private>
