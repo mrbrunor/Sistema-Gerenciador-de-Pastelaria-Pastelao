@@ -69,7 +69,7 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     }
 
     public void pesquisaProdutos() {
-        String pesquisa = frm.getCampoBusca().getText();
+        String pesquisa = "%" + frm.getCampoBusca().getText() + "%";
         frm.getCampoBusca().setText("");
         pDao.abreConnection();
         atualizaTableModelPesquisa(pDao.pesquisarProduto(pesquisa));
