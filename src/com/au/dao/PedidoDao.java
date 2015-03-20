@@ -55,7 +55,7 @@ public class PedidoDao {
     //CRUD
     //CREATE    
     public int adicionaPedido(Pedido novoPedido) {
-        String sql = "INSERT INTO Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPgto, estadoPedido, formaConsumo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPgto, estadoPedido, formaConsumo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         int resultado = 0;
 
@@ -90,7 +90,7 @@ public class PedidoDao {
 
     //READ
     public List<Pedido> getLista() {
-        String sql = "SELECT * FROM Pedido";
+        String sql = "SELECT * FROM sistemapastelao.Pedido";
         PreparedStatement stmt;
         ResultSet res;
         List<Pedido> listaResPedido = new ArrayList<>();
@@ -123,7 +123,7 @@ public class PedidoDao {
     }
     
     public Pedido buscaPedidoPorId(int idPedido) {
-        String sql = "SELECT * FROM pedido as p JOIN formapagamento as fp on p.idFormaPgto = fp.idFormaPgto WHERE p.idPedido=?";
+        String sql = "SELECT * FROM sistemapastelao.pedido as p JOIN sistemapastelao.formapagamento as fp on p.idFormaPgto = fp.idFormaPgto WHERE p.idPedido=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -165,7 +165,7 @@ public class PedidoDao {
     }
 
     public List<Pedido> listaPedidosPorCaixa(int idCaixa) {
-        String sql = "SELECT * FROM Pedido WHERE idCaixa=?";
+        String sql = "SELECT * FROM sistemapastelao.Pedido WHERE idCaixa=?";
         PreparedStatement stmt;
         ResultSet res;
         List<Pedido> listaResPedido = new ArrayList<>();
@@ -199,7 +199,7 @@ public class PedidoDao {
     }
     
     public Pedido listaItemPedido(Pedido pedido) {
-        String sql = "SELECT * FROM itempedido as ip JOIN produto as prod on ip.idProd = prod.idProd WHERE ip.idPedido=? ORDER BY ip.ordemProduto";
+        String sql = "SELECT * FROM sistemapastelao.itempedido as ip JOIN sistemapastelao.produto as prod on ip.idProd = prod.idProd WHERE ip.idPedido=? ORDER BY ip.ordemProduto";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -237,7 +237,7 @@ public class PedidoDao {
     
     //UPDATE
     public boolean atualizaPedido(Pedido novoPedido) {
-        String sql = "UPDATE Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPagto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";
+        String sql = "UPDATE sistemapastelao.Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPagto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -267,7 +267,7 @@ public class PedidoDao {
 
     //DELETE
     public boolean deletaPedido(Pedido novoPedido) {
-        String sql = "DELETE FROM Pedido WHERE idPedido=?";
+        String sql = "DELETE FROM sistemapastelao.Pedido WHERE idPedido=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

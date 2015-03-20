@@ -52,7 +52,7 @@ public class CaixaDao {
     //CRUD
     //CREATE    
     public int adicionaCaixa(Caixa novoCaixa) {
-        String sql = "INSERT INTO Caixa(idFunc,fundoCaixa,dataAberturaCaixa,aberturaCaixa,fechamentoCaixa,datafechamentoCaixa,estaAberto,totalCaixa) values(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Caixa(idFunc,fundoCaixa,dataAberturaCaixa,aberturaCaixa,fechamentoCaixa,datafechamentoCaixa,estaAberto,totalCaixa) values(?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         int resultado = 0;
 
@@ -83,7 +83,7 @@ public class CaixaDao {
 
     //READ
     public List<Caixa> getLista() {
-        String sql = "SELECT * FROM Caixa";
+        String sql = "SELECT * FROM sistemapastelao.Caixa";
         PreparedStatement stmt;
         ResultSet res;
         List<Caixa> listaResCaixa = new ArrayList<>();
@@ -113,7 +113,7 @@ public class CaixaDao {
     }
 
     public List<Caixa> listarCaixasDoFuncionario(int idFunc) {
-        String sql = "SELECT * FROM Caixa where idFunc=? AND estaAberto=1";
+        String sql = "SELECT * FROM sistemapastelao.Caixa where idFunc=? AND estaAberto=1";
         PreparedStatement stmt;
         ResultSet res;
         List<Caixa> listaResCaixa = new ArrayList<>();
@@ -144,7 +144,7 @@ public class CaixaDao {
     }
     
     public Caixa listaCaixaPorId(int idCaixa) {
-        String sql = "SELECT * FROM Caixa where idCaixa=?";
+        String sql = "SELECT * FROM sistemapastelao.Caixa where idCaixa=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -174,7 +174,7 @@ public class CaixaDao {
     }
     
     public Caixa listaDespesas(int idCaixa) {
-        String sql = "SELECT * FROM Caixa where idCaixa=?";
+        String sql = "SELECT * FROM sistemapastelao.Caixa where idCaixa=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -205,7 +205,7 @@ public class CaixaDao {
 
 //UPDATE
     public boolean atualizaCaixa(Caixa novoCaixa) {
-        String sql = "UPDATE Caixa SET idFunc=?, fundoCaixa=?, dataAberturaCaixa=?, aberturaCaixa=?, fechamentoCaixa=?, dataFechamentoCaixa=?, estaAberto=?, totalCaixa=? WHERE idCaixa=?";
+        String sql = "UPDATE sistemapastelao.Caixa SET idFunc=?, fundoCaixa=?, dataAberturaCaixa=?, aberturaCaixa=?, fechamentoCaixa=?, dataFechamentoCaixa=?, estaAberto=?, totalCaixa=? WHERE idCaixa=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -234,7 +234,7 @@ public class CaixaDao {
 
     //DELETE
     public boolean deletaCaixa(Caixa novoCaixa) {
-        String sql = "DELETE FROM Caixa WHERE idCaixa=?";
+        String sql = "DELETE FROM sistemapastelao.Caixa WHERE idCaixa=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

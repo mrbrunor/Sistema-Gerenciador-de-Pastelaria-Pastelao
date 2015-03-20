@@ -25,10 +25,15 @@ import java.sql.SQLException;
  * @author BrunoRicardo
  */
 public class FabricaConexao {
-
-    String usuario = "java";
-    String senha = "123456";
-    String url = "jdbc:mysql://localhost:3306/sistemapastelao";
+    //MySQL
+    //String usuario = "java";
+    //String senha = "123456";
+    //String url = "jdbc:mysql://localhost:3306/sistemapastelao";
+    
+    //H2
+    String usuario = "sa";
+    String senha = "";
+    String url = "jdbc:h2:libs\\banco;AUTO_SERVER=TRUE";
     Connection ready = null;
 
     /**

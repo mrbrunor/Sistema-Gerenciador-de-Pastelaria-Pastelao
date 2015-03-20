@@ -52,7 +52,7 @@ public class IngredienteDao {
     //CRUD
     //CREATE
     public boolean adicionaIngrediente(Ingrediente novoIng) {
-        String sql = "INSERT INTO Ingrediente(descIng,valorIng) values(?,?)";
+        String sql = "INSERT INTO sistemapastelao.Ingrediente(descIng,valorIng) values(?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -71,7 +71,7 @@ public class IngredienteDao {
 
     //READ
     public List<Ingrediente> getLista() {
-        String sql = "SELECT * FROM Ingrediente";
+        String sql = "SELECT * FROM sistemapastelao.Ingrediente";
         PreparedStatement stmt;
         ResultSet res;
         List<Ingrediente> listaResIng = new ArrayList<>();
@@ -96,7 +96,7 @@ public class IngredienteDao {
     }
     
     public List<Ingrediente> pesquisarIngrediente(String pesquisa) {
-        String sql = "SELECT * FROM Ingrediente WHERE descIng like ?";
+        String sql = "SELECT * FROM sistemapastelao.Ingrediente WHERE descIng like ?";
         PreparedStatement stmt;
         ResultSet res;
         List<Ingrediente> listaResIng = new ArrayList<>();
@@ -122,7 +122,7 @@ public class IngredienteDao {
     }
     
     public List<Ingrediente> pesquisarIngredientePorProduto(int idProd) {
-        String sql = "SELECT i.idIng, i.descIng, i.valorIng FROM ingrediente as i JOIN receita as r on i.idIng = r.idIng JOIN produto as p on r.idProd = p.idProd WHERE p.idProd=?";
+        String sql = "SELECT i.idIng, i.descIng, i.valorIng FROM sistemapastelao.ingrediente as i JOIN sistemapastelao.receita as r on i.idIng = r.idIng JOIN produto as p on r.idProd = p.idProd WHERE p.idProd=?";
         PreparedStatement stmt;
         ResultSet res;
         List<Ingrediente> listaResIng = new ArrayList<>();
@@ -148,7 +148,7 @@ public class IngredienteDao {
     }
 
     public boolean validaIngrediente(String descIng) {
-        String sql = "SELECT * FROM Ingrediente where descIng = ?";
+        String sql = "SELECT * FROM sistemapastelao.Ingrediente where descIng = ?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -174,7 +174,7 @@ public class IngredienteDao {
 
     //UPDATE
     public boolean atualizaIngrediente(Ingrediente novoIng) {
-        String sql = "UPDATE Ingrediente SET descIng=?, valorIng=? WHERE idIng=?";
+        String sql = "UPDATE sistemapastelao.Ingrediente SET descIng=?, valorIng=? WHERE idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -194,7 +194,7 @@ public class IngredienteDao {
     }//DELETE
 
     public boolean deletaIngrediente(Ingrediente novoIng) {
-        String sql = "DELETE FROM Ingrediente WHERE idIng=?";
+        String sql = "DELETE FROM sistemapastelao.Ingrediente WHERE idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

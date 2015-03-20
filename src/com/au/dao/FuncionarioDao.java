@@ -52,7 +52,7 @@ public class FuncionarioDao {
     //CRUD
     //CREATE
     public boolean adicionaFuncionario(Funcionario novoFunc) {
-        String sql = "INSERT INTO Funcionario(nomeFunc,cpfFunc,mailFunc,foneFunc,celFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Funcionario(nomeFunc,cpfFunc,mailFunc,foneFunc,celFunc,userFunc,passFunc,nivelFunc,estaAtivo) values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -79,7 +79,7 @@ public class FuncionarioDao {
 
     //READ
     public List<Funcionario> getLista() {
-        String sql = "SELECT * FROM Funcionario";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario";
         PreparedStatement stmt;
         ResultSet res;
         List<Funcionario> listaResFunc = new ArrayList<>();
@@ -110,7 +110,7 @@ public class FuncionarioDao {
     }
 
     public List<Funcionario> pesquisarFuncionario(String pesquisa) {
-        String sql = "SELECT * FROM Funcionario where nomeFunc like ?";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario where nomeFunc like ?";
         PreparedStatement stmt;
         ResultSet res;
         List<Funcionario> listaResFunc = new ArrayList<>();
@@ -142,7 +142,7 @@ public class FuncionarioDao {
     }
     
     public Funcionario pesquisarFuncionarioPorCpf(String cpf) {
-        String sql = "SELECT * FROM Funcionario where cpfFunc=?";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario where cpfFunc=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -173,7 +173,7 @@ public class FuncionarioDao {
     }
 
     public Funcionario buscarLogin(String usuario, String senha) {
-        String sql = "SELECT * FROM Funcionario WHERE userFunc=? AND passFunc=?";
+        String sql = "SELECT * FROM SISTEMAPASTELAO.FUNCIONARIO WHERE userFunc=? AND passFunc=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -207,7 +207,7 @@ public class FuncionarioDao {
     }
     
     public Funcionario buscaPrId(int idFunc) {
-        String sql = "SELECT * FROM Funcionario WHERE idFunc=?";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario WHERE idFunc=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -240,7 +240,7 @@ public class FuncionarioDao {
     }
 
     public boolean validaCPF(String cpf) {
-        String sql = "SELECT * FROM Funcionario WHERE cpfFunc=?";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario WHERE cpfFunc=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -264,7 +264,7 @@ public class FuncionarioDao {
     }
 
     public boolean validaUsuario(String usuario) {
-        String sql = "SELECT * FROM Funcionario WHERE userFunc=?";
+        String sql = "SELECT * FROM sistemapastelao.Funcionario WHERE userFunc=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -289,7 +289,7 @@ public class FuncionarioDao {
 
     //UPDATE
     public boolean atualizaFuncionario(Funcionario novoFunc) {
-        String sql = "UPDATE Funcionario SET nomeFunc=?, cpfFunc=?, mailFunc=?, foneFunc=?, celFunc=?, userFunc=?, passFunc=?, nivelFunc=?, estaAtivo=? WHERE idFunc=?";
+        String sql = "UPDATE sistemapastelao.Funcionario SET nomeFunc=?, cpfFunc=?, mailFunc=?, foneFunc=?, celFunc=?, userFunc=?, passFunc=?, nivelFunc=?, estaAtivo=? WHERE idFunc=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -317,7 +317,7 @@ public class FuncionarioDao {
 
     //DELETE
     public boolean deletaFuncionario(Funcionario novoFunc) {
-        String sql = "DELETE FROM Funcionario WHERE idFunc=?";
+        String sql = "DELETE FROM sistemapastelao.Funcionario WHERE idFunc=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

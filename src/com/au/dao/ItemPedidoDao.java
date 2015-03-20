@@ -52,7 +52,7 @@ public class ItemPedidoDao {
     //CRUD
     //CREATE    
     public boolean adicionaItemPedido(ItemPedido novoItemPedido) {
-        String sql = "INSERT INTO itemPedido(idPedido, idProd, qtdProd, totProd, ordemProduto) values(?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.itemPedido(idPedido, idProd, qtdProd, totProd, ordemProduto) values(?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -75,7 +75,7 @@ public class ItemPedidoDao {
 
     //READ
     public List<ItemPedido> getLista() {
-        String sql = "SELECT * FROM ItemPedido";
+        String sql = "SELECT * FROM sistemapastelao.ItemPedido";
         PreparedStatement stmt;
         ResultSet res;
         List<ItemPedido> listaResItemPedido = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ItemPedidoDao {
 
     //UPDATE    
     public boolean atualizaItemPedido(ItemPedido novoItemPedido) {
-        String sql = "UPDATE ItemPedido SET qtdProd=?, totProd=?, ordemProduto=? WHERE idPedido=? AND idProd=? ";
+        String sql = "UPDATE sistemapastelao.ItemPedido SET qtdProd=?, totProd=?, ordemProduto=? WHERE idPedido=? AND idProd=? ";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -124,7 +124,7 @@ public class ItemPedidoDao {
 
     //DELETE
     public boolean deletaItemPedido(ItemPedido novoItemPedido) {
-        String sql = "DELETE FROM ItemPedido WHERE idPedido=? AND idProd=? ";
+        String sql = "DELETE FROM sistemapastelao.ItemPedido WHERE idPedido=? AND idProd=? ";
         PreparedStatement stmt;
         boolean resultado = false;
 

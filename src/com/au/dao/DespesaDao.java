@@ -52,7 +52,7 @@ public class DespesaDao {
     //CRUD
     //CREATE    
     public boolean adicionaDespesa(Despesa novaDesp) {
-        String sql = "INSERT INTO Despesa(dataDesp,descDesp,valorDesp,idCaixa,retirada) values(?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Despesa(dataDesp,descDesp,valorDesp,idCaixa,retirada) values(?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -75,7 +75,7 @@ public class DespesaDao {
 
     //READ
     public List<Despesa> getLista() {
-        String sql = "SELECT * FROM Despesa";
+        String sql = "SELECT * FROM sistemapastelao.Despesa";
         PreparedStatement stmt;
         ResultSet res;
         List<Despesa> listaResDesp = new ArrayList<>();
@@ -101,7 +101,7 @@ public class DespesaDao {
     }
     
     public List<Despesa> listaDespesasPorCaixa(int idCaixa) {
-        String sql = "SELECT * FROM Despesa WHERE idCaixa=?";
+        String sql = "SELECT * FROM sistemapastelao.Despesa WHERE idCaixa=?";
         PreparedStatement stmt;
         ResultSet res;
         List<Despesa> listaResDesp = new ArrayList<>();
@@ -129,7 +129,7 @@ public class DespesaDao {
 
 //UPDATE
     public boolean atualizaDesp(Despesa novaDespesa) {
-        String sql = "UPDATE Despesa SET dataDesp=?, descDesp=?, valorDesp=?, idCaixa=?, retirada=? WHERE idDesp=?";
+        String sql = "UPDATE sistemapastelao.Despesa SET dataDesp=?, descDesp=?, valorDesp=?, idCaixa=?, retirada=? WHERE idDesp=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -155,7 +155,7 @@ public class DespesaDao {
 
     //DELETE
     public boolean removeDespesa(Despesa novaDespesa) {
-        String sql = "DELETE FROM Despesa WHERE idDesp=?";
+        String sql = "DELETE FROM sistemapastelao.Despesa WHERE idDesp=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

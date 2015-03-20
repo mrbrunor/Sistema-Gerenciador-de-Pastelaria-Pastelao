@@ -1,0 +1,1295 @@
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE SCHEMA IF NOT EXISTS ""SISTEMAPASTELAO"" DEFAULT[*] CHARACTER SET UTF8 "; SQL statement:
+CREATE SCHEMA IF NOT EXISTS `sistemapastelao` DEFAULT CHARACTER SET utf8 [42000-176]
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "USE[*] ""SISTEMAPASTELAO"" "; expected "UPDATE, {"; SQL statement:
+USE `sistemapastelao` [42001-176]
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`funcionario` (
+  `idFunc` INT(11) NOT NULL AUTO_INCREMENT,
+  `nomeFunc` VARCHAR(250) NOT NULL,
+  `cpfFunc` VARCHAR(15) NOT NULL,
+  `mailFunc` VARCHAR(150) NOT NULL,
+  `foneFunc` VARCHAR(15) NULL DEFAULT NULL,
+  `celFunc` VARCHAR(15) NOT NULL,
+  `userFunc` VARCHAR(50) NOT NULL,
+  `passFunc` VARCHAR(64) NOT NULL,
+  `nivelFunc` INT(11) NOT NULL,
+  `estaAtivo` TINYINT(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idFunc`),
+  UNIQUE INDEX `userFunc_UNIQUE` (`userFunc` ASC),
+  UNIQUE INDEX `cpfFunc_UNIQUE` (`cpfFunc` ASC)) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`caixa` (
+  `idCaixa` INT(11) NOT NULL AUTO_INCREMENT,
+  `idFunc` INT(11) NOT NULL,
+  `fundoCaixa` DOUBLE NOT NULL,
+  `dataAberturaCaixa` DATE NOT NULL,
+  `aberturaCaixa` TIME NOT NULL,
+  `fechamentoCaixa` TIME NULL DEFAULT NULL,
+  `dataFechamentoCaixa` DATE NULL DEFAULT NULL,
+  `estaAberto` TINYINT(1) NOT NULL DEFAULT '1',
+  `totalCaixa` DOUBLE NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idCaixa`),
+  INDEX `fkCFIdFunc_idx` (`idFunc` ASC),
+  CONSTRAINT `fkCFIdFunc`
+    FOREIGN KEY (`idFunc`)
+    REFERENCES `sistemapastelao`.`funcionario` (`idFunc`)
+    ON UPDATE CASCADE) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`despesa` (
+  `idDesp` INT(11) NOT NULL AUTO_INCREMENT,
+  `dataDesp` DATE NOT NULL,
+  `descDesp` VARCHAR(100) NOT NULL,
+  `valorDesp` DOUBLE NOT NULL,
+  `idCaixa` INT(11) NOT NULL,
+  `retirada` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`idDesp`),
+  INDEX `fkDCIdCaixa_idx` (`idCaixa` ASC),
+  CONSTRAINT `fkDCIdCaixa`
+    FOREIGN KEY (`idCaixa`)
+    REFERENCES `sistemapastelao`.`caixa` (`idCaixa`)
+    ON UPDATE CASCADE) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`formapagamento` (
+  `idFormaPgto` INT(11) NOT NULL AUTO_INCREMENT,
+  `nomeFormaPgto` VARCHAR(50) NOT NULL,
+  `tipoFormaPgto` VARCHAR(50) NOT NULL,
+  `estaAtivo` TINYINT(4) NOT NULL,
+  PRIMARY KEY (`idFormaPgto`)) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`ingrediente` (
+  `idIng` INT(11) NOT NULL AUTO_INCREMENT,
+  `descIng` VARCHAR(100) NOT NULL,
+  `valorIng` DOUBLE NOT NULL,
+  PRIMARY KEY (`idIng`),
+  UNIQUE INDEX `descIng_UNIQUE` (`descIng` ASC)) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`pedido` (
+  `idPedido` INT(11) NOT NULL AUTO_INCREMENT,
+  `numPedido` INT(11) NOT NULL,
+  `dataPedido` DATE NOT NULL,
+  `horaPedido` TIME NOT NULL,
+  `idCaixa` INT(11) NOT NULL,
+  `subTotPedido` DOUBLE NOT NULL,
+  `descPedido` DOUBLE NOT NULL DEFAULT '0',
+  `totPedido` DOUBLE NOT NULL,
+  `valorRecebido` DOUBLE NOT NULL,
+  `idFormaPgto` INT(11) NOT NULL,
+  `estadoPedido` VARCHAR(20) NOT NULL,
+  `formaConsumo` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`idPedido`),
+  INDEX `fkPCidCaixa_idx` (`idCaixa` ASC),
+  INDEX `fkPFPidFormaPagamento_idx` (`idFormaPgto` ASC),
+  CONSTRAINT `fkPCidCaixa`
+    FOREIGN KEY (`idCaixa`)
+    REFERENCES `sistemapastelao`.`caixa` (`idCaixa`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkPFPidFormaPagamento`
+    FOREIGN KEY (`idFormaPgto`)
+    REFERENCES `sistemapastelao`.`formapagamento` (`idFormaPgto`)
+    ON UPDATE CASCADE) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`produto` (
+  `idProd` INT(11) NOT NULL AUTO_INCREMENT,
+  `numProd` INT(11) NULL DEFAULT NULL,
+  `descProd` VARCHAR(100) NOT NULL,
+  `valorProd` DOUBLE NOT NULL,
+  `codBarras` VARCHAR(15) NULL DEFAULT NULL,
+  `eIndustrializado` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`idProd`),
+  UNIQUE INDEX `descProd_UNIQUE` (`descProd` ASC),
+  UNIQUE INDEX `numProd_UNIQUE` (`numProd` ASC)) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`itempedido` (
+  `idPedido` INT(11) NOT NULL,
+  `idProd` INT(11) NOT NULL,
+  `qtdProd` INT(11) NOT NULL,
+  `totProd` DOUBLE NOT NULL,
+  `ordemProduto` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`idPedido`, `idProd`),
+  INDEX `fkIpPIdProd_idx` (`idProd` ASC),
+  CONSTRAINT `fkIpPIdPedido`
+    FOREIGN KEY (`idPedido`)
+    REFERENCES `sistemapastelao`.`pedido` (`idPedido`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkIpPIdProd`
+    FOREIGN KEY (`idProd`)
+    REFERENCES `sistemapastelao`.`produto` (`idProd`)
+    ON UPDATE CASCADE) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:19:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SISTEMAPASTELAO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`receita` (
+  `idProd` INT(11) NOT NULL,
+  `idIng` INT(11) NOT NULL,
+  PRIMARY KEY (`idProd`, `idIng`),
+  INDEX `fkRIIdIng_idx` (`idIng` ASC),
+  CONSTRAINT `fkRIIdIng`
+    FOREIGN KEY (`idIng`)
+    REFERENCES `sistemapastelao`.`ingrediente` (`idIng`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkRPIdProd`
+    FOREIGN KEY (`idProd`)
+    REFERENCES `sistemapastelao`.`produto` (`idProd`)
+    ON UPDATE CASCADE) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5706)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:20:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "FKCFIDFUNC_IDX"; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`caixa` (
+  `idCaixa` INT(11) NOT NULL AUTO_INCREMENT,
+  `idFunc` INT(11) NOT NULL,
+  `fundoCaixa` DOUBLE NOT NULL,
+  `dataAberturaCaixa` DATE NOT NULL,
+  `aberturaCaixa` TIME NOT NULL,
+  `fechamentoCaixa` TIME NULL DEFAULT NULL,
+  `dataFechamentoCaixa` DATE NULL DEFAULT NULL,
+  `estaAberto` TINYINT(1) NOT NULL DEFAULT '1',
+  `totalCaixa` DOUBLE NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idCaixa`),
+  INDEX `fkCFIdFunc_idx` (`idFunc` ASC),
+  CONSTRAINT `fkCFIdFunc`
+    FOREIGN KEY (`idFunc`)
+    REFERENCES `sistemapastelao`.`funcionario` (`idFunc`)
+    ON UPDATE CASCADE) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:20:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "FKDCIDCAIXA_IDX"; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`despesa` (
+  `idDesp` INT(11) NOT NULL AUTO_INCREMENT,
+  `dataDesp` DATE NOT NULL,
+  `descDesp` VARCHAR(100) NOT NULL,
+  `valorDesp` DOUBLE NOT NULL,
+  `idCaixa` INT(11) NOT NULL,
+  `retirada` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`idDesp`),
+  INDEX `fkDCIdCaixa_idx` (`idCaixa` ASC),
+  CONSTRAINT `fkDCIdCaixa`
+    FOREIGN KEY (`idCaixa`)
+    REFERENCES `sistemapastelao`.`caixa` (`idCaixa`)
+    ON UPDATE CASCADE) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:20:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "FKPCIDCAIXA_IDX"; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`pedido` (
+  `idPedido` INT(11) NOT NULL AUTO_INCREMENT,
+  `numPedido` INT(11) NOT NULL,
+  `dataPedido` DATE NOT NULL,
+  `horaPedido` TIME NOT NULL,
+  `idCaixa` INT(11) NOT NULL,
+  `subTotPedido` DOUBLE NOT NULL,
+  `descPedido` DOUBLE NOT NULL DEFAULT '0',
+  `totPedido` DOUBLE NOT NULL,
+  `valorRecebido` DOUBLE NOT NULL,
+  `idFormaPgto` INT(11) NOT NULL,
+  `estadoPedido` VARCHAR(20) NOT NULL,
+  `formaConsumo` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`idPedido`),
+  INDEX `fkPCidCaixa_idx` (`idCaixa` ASC),
+  INDEX `fkPFPidFormaPagamento_idx` (`idFormaPgto` ASC),
+  CONSTRAINT `fkPCidCaixa`
+    FOREIGN KEY (`idCaixa`)
+    REFERENCES `sistemapastelao`.`caixa` (`idCaixa`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkPFPidFormaPagamento`
+    FOREIGN KEY (`idFormaPgto`)
+    REFERENCES `sistemapastelao`.`formapagamento` (`idFormaPgto`)
+    ON UPDATE CASCADE) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:20:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "FKIPPIDPROD_IDX"; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`itempedido` (
+  `idPedido` INT(11) NOT NULL,
+  `idProd` INT(11) NOT NULL,
+  `qtdProd` INT(11) NOT NULL,
+  `totProd` DOUBLE NOT NULL,
+  `ordemProduto` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`idPedido`, `idProd`),
+  INDEX `fkIpPIdProd_idx` (`idProd` ASC),
+  CONSTRAINT `fkIpPIdPedido`
+    FOREIGN KEY (`idPedido`)
+    REFERENCES `sistemapastelao`.`pedido` (`idPedido`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkIpPIdProd`
+    FOREIGN KEY (`idProd`)
+    REFERENCES `sistemapastelao`.`produto` (`idProd`)
+    ON UPDATE CASCADE) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:20:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "FKRIIDING_IDX"; SQL statement:
+CREATE TABLE IF NOT EXISTS `sistemapastelao`.`receita` (
+  `idProd` INT(11) NOT NULL,
+  `idIng` INT(11) NOT NULL,
+  PRIMARY KEY (`idProd`, `idIng`),
+  INDEX `fkRIIdIng_idx` (`idIng` ASC),
+  CONSTRAINT `fkRIIdIng`
+    FOREIGN KEY (`idIng`)
+    REFERENCES `sistemapastelao`.`ingrediente` (`idIng`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fkRPIdProd`
+    FOREIGN KEY (`idProd`)
+    REFERENCES `sistemapastelao`.`produto` (`idProd`)
+    ON UPDATE CASCADE) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:23:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:53 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:53 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:53 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:23:57 jdbc[5]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:101)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:119)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 13 more
+03-20 16:23:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (1,'Dinheiro','Dinheiro',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (2,'Maestro','Debito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (3,'Visa Electron','Debito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (4,'Elo','Debito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (5,'MasterCard','Credito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (6,'Visa','Credito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (7,'Elo','Credito',1) [42102-176]
+03-20 16:24:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "SISTEMAPASTELAO.FORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO `sistemapastelao.formapagamento` (`idFormaPgto`,`nomeFormaPgto`,`tipoFormaPgto`,`estaAtivo`) VALUES (8,'Ticket Refeição','Vale',1) [42102-176]
+03-20 16:42:30 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Column "IDFORMAPAGAMENTO" not found; SQL statement:
+INSERT INTO BANCO.SISTEMAPASTELAO.FORMAPAGAMENTO (IDFORMAPAGAMENTO, NOMEFORMAPGTO, TIPOFORMAPGTO, ESTAATIVO) 
+	VALUES (1, 'Dinheiro', 'Dinheiro', 1) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 16:45:42 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "FORMAPGTO" not found; SQL statement:
+INSERT INTO BANCO.SISTEMAPASTELAO.FORMAPGTO (IDFORMAPAGAMENTO, NOMEFORMAPGTO, TIPOFORMAPGTO, ESTAATIVO) 
+	VALUES (1, 'Dinheiro', 'Dinheiro', 1) [42102-176]
+03-20 16:46:02 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "FORMAPGAMENTO" not found; SQL statement:
+INSERT INTO BANCO.SISTEMAPASTELAO.FORMAPGAMENTO (IDFORMAPGTO, NOMEFORMAPGTO, TIPOFORMAPGTO, ESTAATIVO) 
+	VALUES (1, 'Dinheiro', 'Dinheiro', 1) [42102-176]
+03-20 16:47:22 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:47:22 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 16:47:22 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 17:03:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "PASTELAO" not found; SQL statement:
+INSERT INTO `pastelao`.`funcionario` (`idFunc`,`nomeFunc`,`cpfFunc`,`mailFunc`,`foneFunc`,`celFunc`,`userFunc`,`passFunc`,`nivelFunc`,`estaAtivo`) VALUES (1,'Administrador','00000000000','admin@admin.com','123456789','123456789','admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',1,1) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5196)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5190)
+	at org.h2.command.Parser.parseInsert(Parser.java:1024)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 17:03:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "PASTELAO" not found; SQL statement:
+INSERT INTO `pastelao`.`funcionario` (`idFunc`,`nomeFunc`,`cpfFunc`,`mailFunc`,`foneFunc`,`celFunc`,`userFunc`,`passFunc`,`nivelFunc`,`estaAtivo`) VALUES (5,'Bruno Ricardo de Meira Ferreira','06453327988','a@a.com','123456','1234567890','mrbrunor','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,1) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5196)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5190)
+	at org.h2.command.Parser.parseInsert(Parser.java:1024)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 17:03:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "PASTELAO" not found; SQL statement:
+INSERT INTO `pastelao`.`funcionario` (`idFunc`,`nomeFunc`,`cpfFunc`,`mailFunc`,`foneFunc`,`celFunc`,`userFunc`,`passFunc`,`nivelFunc`,`estaAtivo`) VALUES (7,'Funcionario Teste','06453327989','a@b.com','12345678','12345678','tester','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',0,1) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5196)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5190)
+	at org.h2.command.Parser.parseInsert(Parser.java:1024)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 17:03:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "PASTELAO" not found; SQL statement:
+INSERT INTO `pastelao`.`funcionario` (`idFunc`,`nomeFunc`,`cpfFunc`,`mailFunc`,`foneFunc`,`celFunc`,`userFunc`,`passFunc`,`nivelFunc`,`estaAtivo`) VALUES (8,'Tiago Hoinack de Carvalho','098765432100','tiagohoinack@hotmail.com','4130897971','4199453096','tiagoh','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,1) [90079-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.getSchema(Parser.java:655)
+	at org.h2.command.Parser.getSchema(Parser.java:662)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5196)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5190)
+	at org.h2.command.Parser.parseInsert(Parser.java:1024)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.executeSQLStatement(SQLExecutionHelper.java:869)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper.access$500(SQLExecutionHelper.java:84)
+	at org.netbeans.modules.db.dataview.output.SQLExecutionHelper$1Loader.run(SQLExecutionHelper.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+03-20 17:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 17:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 17:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+03-20 20:19:32 jdbc[14]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.PedidoDao.abreConnection(PedidoDao.java:43)
+	at com.au.gui.TelaConfirmacaoPagamento.criaPedido(TelaConfirmacaoPagamento.java:882)
+	at com.au.gui.TelaConfirmacaoPagamento.botaoConfirmarPedidoActionPerformed(TelaConfirmacaoPagamento.java:608)
+	at com.au.gui.TelaConfirmacaoPagamento.access$2100(TelaConfirmacaoPagamento.java:44)
+	at com.au.gui.TelaConfirmacaoPagamento$21.actionPerformed(TelaConfirmacaoPagamento.java:441)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicRootPaneUI$Actions.actionPerformed(BasicRootPaneUI.java:208)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.KeyboardManager.fireBinding(KeyboardManager.java:307)
+	at javax.swing.KeyboardManager.fireKeyboardAction(KeyboardManager.java:250)
+	at javax.swing.JComponent.processKeyBindingsForAllComponents(JComponent.java:2974)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2966)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	at java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:184)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:229)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:227)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:227)
+	at java.awt.Dialog.show(Dialog.java:1084)
+	at java.awt.Component.show(Component.java:1654)
+	at java.awt.Component.setVisible(Component.java:1606)
+	at java.awt.Window.setVisible(Window.java:1014)
+	at java.awt.Dialog.setVisible(Dialog.java:1005)
+	at com.au.gui.TelaVenda.fecharPedido(TelaVenda.java:876)
+	at com.au.gui.TelaVenda.validaAddItem(TelaVenda.java:972)
+	at com.au.gui.TelaVenda.campoAdicionarItemActionPerformed(TelaVenda.java:652)
+	at com.au.gui.TelaVenda.access$400(TelaVenda.java:43)
+	at com.au.gui.TelaVenda$5.actionPerformed(TelaVenda.java:244)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 111 more
+03-20 20:19:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * SISTEMAPASTELAO[*].FROM PEDIDO AS P JOIN FORMAPAGAMENTO AS FP ON P.IDFORMAPGTO = FP.IDFORMAPGTO WHERE P.IDPEDIDO=? "; SQL statement:
+SELECT * sistemapastelao.FROM pedido as p JOIN formapagamento as fp on p.idFormaPgto = fp.idFormaPgto WHERE p.idPedido=? [42000-176]
+03-20 20:21:49 jdbc[19]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.PedidoDao.abreConnection(PedidoDao.java:43)
+	at com.au.util.Imprime.geraComandaCozinha(Imprime.java:172)
+	at com.au.gui.TelaConfirmacaoPagamento.botaoConfirmarPedidoActionPerformed(TelaConfirmacaoPagamento.java:615)
+	at com.au.gui.TelaConfirmacaoPagamento.access$2100(TelaConfirmacaoPagamento.java:44)
+	at com.au.gui.TelaConfirmacaoPagamento$21.actionPerformed(TelaConfirmacaoPagamento.java:441)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicRootPaneUI$Actions.actionPerformed(BasicRootPaneUI.java:208)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.KeyboardManager.fireBinding(KeyboardManager.java:307)
+	at javax.swing.KeyboardManager.fireKeyboardAction(KeyboardManager.java:250)
+	at javax.swing.JComponent.processKeyBindingsForAllComponents(JComponent.java:2974)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2966)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	at java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:184)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:229)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:227)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:227)
+	at java.awt.Dialog.show(Dialog.java:1084)
+	at java.awt.Component.show(Component.java:1654)
+	at java.awt.Component.setVisible(Component.java:1606)
+	at java.awt.Window.setVisible(Window.java:1014)
+	at java.awt.Dialog.setVisible(Dialog.java:1005)
+	at com.au.gui.TelaVenda.fecharPedido(TelaVenda.java:876)
+	at com.au.gui.TelaVenda.validaAddItem(TelaVenda.java:972)
+	at com.au.gui.TelaVenda.campoAdicionarItemActionPerformed(TelaVenda.java:652)
+	at com.au.gui.TelaVenda.access$400(TelaVenda.java:43)
+	at com.au.gui.TelaVenda$5.actionPerformed(TelaVenda.java:244)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 111 more
+03-20 20:21:49 jdbc[19]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.PedidoDao.abreConnection(PedidoDao.java:43)
+	at com.au.util.Imprime.geraComandaCozinha(Imprime.java:172)
+	at com.au.gui.TelaConfirmacaoPagamento.botaoConfirmarPedidoActionPerformed(TelaConfirmacaoPagamento.java:615)
+	at com.au.gui.TelaConfirmacaoPagamento.access$2100(TelaConfirmacaoPagamento.java:44)
+	at com.au.gui.TelaConfirmacaoPagamento$21.actionPerformed(TelaConfirmacaoPagamento.java:441)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicRootPaneUI$Actions.actionPerformed(BasicRootPaneUI.java:208)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.KeyboardManager.fireBinding(KeyboardManager.java:307)
+	at javax.swing.KeyboardManager.fireKeyboardAction(KeyboardManager.java:250)
+	at javax.swing.JComponent.processKeyBindingsForAllComponents(JComponent.java:2974)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2966)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	at java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:184)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:229)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:227)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:227)
+	at java.awt.Dialog.show(Dialog.java:1084)
+	at java.awt.Component.show(Component.java:1654)
+	at java.awt.Component.setVisible(Component.java:1606)
+	at java.awt.Window.setVisible(Window.java:1014)
+	at java.awt.Dialog.setVisible(Dialog.java:1005)
+	at com.au.gui.TelaVenda.fecharPedido(TelaVenda.java:876)
+	at com.au.gui.TelaVenda.validaAddItem(TelaVenda.java:972)
+	at com.au.gui.TelaVenda.campoAdicionarItemActionPerformed(TelaVenda.java:652)
+	at com.au.gui.TelaVenda.access$400(TelaVenda.java:43)
+	at com.au.gui.TelaVenda$5.actionPerformed(TelaVenda.java:244)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 111 more
+03-20 20:24:19 jdbc[25]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:101)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:119)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.ProdutoDao.abreConnection(ProdutoDao.java:40)
+	at com.au.gui.TelaVenda.adicionaItempedido(TelaVenda.java:783)
+	at com.au.gui.TelaVenda.campoAdicionarItemActionPerformed(TelaVenda.java:655)
+	at com.au.gui.TelaVenda.access$400(TelaVenda.java:43)
+	at com.au.gui.TelaVenda$5.actionPerformed(TelaVenda.java:244)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6302)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4752)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.gui.TelaVendasGerais.geraRelatorio(TelaVendasGerais.java:279)
+	at com.au.gui.TelaVendasGerais.botaoGerarRelatorioActionPerformed(TelaVendasGerais.java:262)
+	at com.au.gui.TelaVendasGerais.access$100(TelaVendasGerais.java:47)
+	at com.au.gui.TelaVendasGerais$2.actionPerformed(TelaVendasGerais.java:208)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6525)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6290)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4898)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4533)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4462)
+	at java.awt.Container.dispatchEventImpl(Container.java:2278)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	at java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:184)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:229)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:227)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:227)
+	at java.awt.Dialog.show(Dialog.java:1084)
+	at java.awt.Component.show(Component.java:1654)
+	at java.awt.Component.setVisible(Component.java:1606)
+	at java.awt.Window.setVisible(Window.java:1014)
+	at java.awt.Dialog.setVisible(Dialog.java:1005)
+	at com.au.gui.TelaVenda.itemMenuVendasGeraisActionPerformed(TelaVenda.java:730)
+	at com.au.gui.TelaVenda.access$2100(TelaVenda.java:43)
+	at com.au.gui.TelaVenda$22.actionPerformed(TelaVenda.java:541)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:833)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:877)
+	at java.awt.Component.processMouseEvent(Component.java:6525)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6290)
+	at java.awt.Container.processEvent(Container.java:2234)
+	at java.awt.Component.dispatchEventImpl(Component.java:4881)
+	at java.awt.Container.dispatchEventImpl(Container.java:2292)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4898)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4533)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4462)
+	at java.awt.Container.dispatchEventImpl(Container.java:2278)
+	at java.awt.Window.dispatchEventImpl(Window.java:2750)
+	at java.awt.Component.dispatchEvent(Component.java:4703)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:751)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:702)
+	at java.awt.EventQueue$3.run(EventQueue.java:696)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:724)
+	at java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 98 more
+03-20 20:24:21 jdbc[25]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT PRODUTO.IDPROD AS 'ID do Produto'[*], PRODUTO.DESCPROD AS 'Nome do Produto', PRODUTO.VALORPROD AS 'Valor Unitario', SUM(ITEMPEDIDO.QTDPROD) AS 'Quantidade', SUM(ITEMPEDIDO.TOTPROD) AS 'Valor Total', PEDIDO.DATAPEDIDO AS 'Data' FROM PRODUTO INNER JOIN ITEMPEDIDO ON PRODUTO.IDPROD = ITEMPEDIDO.IDPROD INNER JOIN PEDIDO ON ITEMPEDIDO.IDPEDIDO = PEDIDO.IDPEDIDO WHERE PEDIDO.DATAPEDIDO BETWEEN ? AND ? AND PEDIDO.ESTADOPEDIDO = 'FINALIZADO' GROUP BY PEDIDO.DATAPEDIDO, ITEMPEDIDO.IDPROD; "; expected "identifier"; SQL statement:
+SELECT produto.idProd AS 'ID do Produto', produto.descProd AS 'Nome do Produto', produto.valorProd AS 'Valor Unitario', SUM(itemPedido.qtdProd) AS 'Quantidade', SUM(itemPedido.totProd) AS 'Valor Total', pedido.dataPedido AS 'Data' FROM produto INNER JOIN itemPedido ON produto.idProd = itemPedido.idProd INNER JOIN pedido ON itempedido.idPedido = pedido.idPedido WHERE pedido.dataPedido BETWEEN ? AND ? AND pedido.estadoPedido = 'FINALIZADO' GROUP BY pedido.dataPedido, itemPedido.idProd; [42001-176]

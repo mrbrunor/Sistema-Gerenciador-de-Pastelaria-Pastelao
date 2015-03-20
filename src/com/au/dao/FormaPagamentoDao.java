@@ -53,7 +53,7 @@ public class FormaPagamentoDao {
     
     //CREATE
     public boolean adicionaFormaPagamento(FormaPagamento novaFormaPagamento) {
-        String sql = "INSERT INTO FormaPagamento(nomeFormaPgto, tipoFormaPgto, estaAtivo) values(?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.FormaPagamento(nomeFormaPgto, tipoFormaPgto, estaAtivo) values(?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -74,7 +74,7 @@ public class FormaPagamentoDao {
     
     //READ
     public List<FormaPagamento> getLista() {
-        String sql = "SELECT * FROM FormaPagamento";
+        String sql = "SELECT * FROM sistemapastelao.FormaPagamento";
         PreparedStatement stmt;
         ResultSet res;
         List<FormaPagamento> listaResFormaPagamento = new ArrayList<>();
@@ -99,7 +99,7 @@ public class FormaPagamentoDao {
     }
     
     public FormaPagamento listaFormaPagamentoPorId(int idFormaPgto) {
-        String sql = "SELECT * FROM FormaPagamento where idFormaPgto=?";
+        String sql = "SELECT * FROM sistemapastelao.FormaPagamento where idFormaPgto=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -124,7 +124,7 @@ public class FormaPagamentoDao {
     }
     
     public List<FormaPagamento> pesquisarFormaPagamento(String pesquisa) {
-        String sql = "SELECT * FROM FormaPagamento where idFormaPgto like ? OR nomeFormaPgto like ?";
+        String sql = "SELECT * FROM sistemapastelao.FormaPagamento where idFormaPgto like ? OR nomeFormaPgto like ?";
         PreparedStatement stmt;
         ResultSet res;
         List<FormaPagamento> listaResFormaPagamento = new ArrayList<>();
@@ -152,7 +152,7 @@ public class FormaPagamentoDao {
     
     //UPDATE
     public boolean atualizaFormaPagamento(FormaPagamento formaPagamento) {
-        String sql = "UPDATE FormaPagamento set nomeFormaPgto=?, tipoFormaPgto=?, estaAtivo=? where idFormaPgto=?";
+        String sql = "UPDATE sistemapastelao.FormaPagamento set nomeFormaPgto=?, tipoFormaPgto=?, estaAtivo=? where idFormaPgto=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -173,7 +173,7 @@ public class FormaPagamentoDao {
     
     //DELETE
     public boolean deletaFormaPagamento(FormaPagamento formaPagamento){
-        String sql = "DELETE FROM FormaPagamento where idFormaPgto=?";
+        String sql = "DELETE FROM sistemapastelao.FormaPagamento where idFormaPgto=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

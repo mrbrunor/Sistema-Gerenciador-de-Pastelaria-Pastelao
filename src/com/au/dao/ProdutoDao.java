@@ -52,7 +52,7 @@ public class ProdutoDao {
     //CRUD
     //CREATE
     public int adicionaProduto(Produto novoProd) {
-        String sql = "INSERT INTO Produto(numProd,descProd,valorProd,codBarras,eIndustrializado) values(?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Produto(numProd,descProd,valorProd,codBarras,eIndustrializado) values(?,?,?,?,?)";
         PreparedStatement stmt;
         int resultado = 0;
 
@@ -81,7 +81,7 @@ public class ProdutoDao {
 
     //READ
     public List<Produto> getLista() {
-        String sql = "SELECT * FROM Produto";
+        String sql = "SELECT * FROM sistemapastelao.Produto";
         PreparedStatement stmt;
         ResultSet res;
         List<Produto> listaResProd = new ArrayList<>();
@@ -108,7 +108,7 @@ public class ProdutoDao {
     }
     
     public List<Produto> pesquisarProduto(String pesquisa) {
-        String sql = "SELECT * FROM Produto WHERE descProd LIKE ? OR numProd LIKE ?";
+        String sql = "SELECT * FROM sistemapastelao.Produto WHERE descProd LIKE ? OR numProd LIKE ?";
         PreparedStatement stmt;
         ResultSet res;
         List<Produto> listaResProd = new ArrayList<>();
@@ -137,7 +137,7 @@ public class ProdutoDao {
     }
 
     public Produto buscaCodigo(int numProd) {
-        String sql = "SELECT * FROM Produto WHERE numProd=?";
+        String sql = "SELECT * FROM sistemapastelao.Produto WHERE numProd=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -166,7 +166,7 @@ public class ProdutoDao {
     }
 
     public Produto buscaId(int idProd) {
-        String sql = "SELECT * FROM Produto WHERE idProd=?";
+        String sql = "SELECT * FROM sistemapastelao.Produto WHERE idProd=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -195,7 +195,7 @@ public class ProdutoDao {
     }
 
     public boolean validaNome(String descProd) {
-        String sql = "SELECT * FROM Produto WHERE descProd=?";
+        String sql = "SELECT * FROM sistemapastelao.Produto WHERE descProd=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -217,7 +217,7 @@ public class ProdutoDao {
     }
 
     public boolean validaCodigo(int numProd) {
-        String sql = "SELECT * FROM Produto WHERE numProd=?";
+        String sql = "SELECT * FROM sistemapastelao.Produto WHERE numProd=?";
         PreparedStatement stmt;
         ResultSet res;
 
@@ -240,7 +240,7 @@ public class ProdutoDao {
 
     //UPDATE
     public boolean atualizaProduto(Produto produto) {
-        String sql = "UPDATE Produto SET numProd=?, descProd=?, valorProd=?, codBarras=?, eIndustrializado=? WHERE idProd=?";
+        String sql = "UPDATE sistemapastelao.Produto SET numProd=?, descProd=?, valorProd=?, codBarras=?, eIndustrializado=? WHERE idProd=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -264,7 +264,7 @@ public class ProdutoDao {
 
     //DELETE
     public boolean deletaProduto(Produto produto) {
-        String sql = "DELETE FROM Produto WHERE idProd=?";
+        String sql = "DELETE FROM sistemapastelao.Produto WHERE idProd=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

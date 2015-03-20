@@ -52,7 +52,7 @@ public class ReceitaDao {
     //CRUD
     //CREATE
     public boolean adicionaReceita(Receita novaReceita) {
-        String sql = "INSERT INTO Receita(idProd, idIng) values(?,?)";
+        String sql = "INSERT INTO sistemapastelao.Receita(idProd, idIng) values(?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -72,7 +72,7 @@ public class ReceitaDao {
 
     //READ
     public List<Receita> getLista() {
-        String sql = "SELECT * FROM Receita";
+        String sql = "SELECT * FROM sistemapastelao.Receita";
         PreparedStatement stmt;
         ResultSet res;
         List<Receita> listaResReceita = new ArrayList<>();
@@ -96,7 +96,7 @@ public class ReceitaDao {
 
     //UPDATE
     public boolean atualizaReceita(Receita antigaReceita, Receita novaReceita) {
-        String sql = "UPDATE Receita set idIng=? where idProd=? and idIng=?";
+        String sql = "UPDATE sistemapastelao.Receita set idIng=? where idProd=? and idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -116,7 +116,7 @@ public class ReceitaDao {
 
     //DELETE
     public boolean deletaReceita(Receita receita) {
-        String sql = "DELETE FROM Receita where idProd=? and idIng=?";
+        String sql = "DELETE FROM sistemapastelao.Receita where idProd=? and idIng=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -134,7 +134,7 @@ public class ReceitaDao {
     }
     
     public boolean deletaIngredientesDoProduto(int idProd) {
-        String sql = "DELETE FROM Receita where idProd=?";
+        String sql = "DELETE FROM sistemapastelao.Receita where idProd=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
