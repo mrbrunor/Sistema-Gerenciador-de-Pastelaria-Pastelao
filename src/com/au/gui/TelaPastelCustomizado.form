@@ -145,22 +145,22 @@
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Carne"/>
+            <Property name="text" type="java.lang.String" value="Queijo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Carne"/>
+            <Property name="text" type="java.lang.String" value="Presunto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton18">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Carne"/>
+            <Property name="text" type="java.lang.String" value="Catupiry"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton19">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Carne"/>
+            <Property name="text" type="java.lang.String" value="Test"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton20">
@@ -227,6 +227,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
