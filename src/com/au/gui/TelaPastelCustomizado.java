@@ -16,22 +16,18 @@
  */
 package com.au.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaPastelCustomizado extends javax.swing.JDialog {
 
-    List<String> sabores;
-    
-
+    /**
+     * Creates new form TelaPastelCustomizado
+     */
     public TelaPastelCustomizado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
     }
 
     /**
@@ -68,13 +64,13 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
 
         jToggleButton6.setText("Carne");
 
-        jToggleButton8.setText("Queijo");
+        jToggleButton8.setText("Carne");
 
-        jToggleButton11.setText("Presunto");
+        jToggleButton11.setText("Carne");
 
-        jToggleButton18.setText("Catupiry");
+        jToggleButton18.setText("Carne");
 
-        jToggleButton19.setText("Test");
+        jToggleButton19.setText("Carne");
 
         jToggleButton20.setText("Carne");
 
@@ -160,11 +156,6 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         jLabel1.setText("Descrição do Pastel");
 
         jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,72 +188,6 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        sabores = new ArrayList<>();
-        String nomeDoPastel = null;
-        if (jToggleButton6.isSelected()) {
-            sabores.add(jToggleButton6.getText());
-        }
-        if (jToggleButton8.isSelected()) {
-            sabores.add(jToggleButton8.getText());
-        }
-        if (jToggleButton11.isSelected()) {
-            sabores.add(jToggleButton11.getText());
-        }
-        if (jToggleButton18.isSelected()) {
-            sabores.add(jToggleButton18.getText());
-        }
-        if (jToggleButton19.isSelected()) {
-            sabores.add(jToggleButton19.getText());
-        }
-        if (jToggleButton20.isSelected()) {
-            sabores.add(jToggleButton20.getText());
-        }
-        if (jToggleButton21.isSelected()) {
-            sabores.add(jToggleButton21.getText());
-        }
-        if (jToggleButton22.isSelected()) {
-            sabores.add(jToggleButton22.getText());
-        }
-        if (jToggleButton23.isSelected()) {
-            sabores.add(jToggleButton23.getText());
-        }
-        if (jToggleButton24.isSelected()) {
-            sabores.add(jToggleButton24.getText());
-        }
-        if (jToggleButton25.isSelected()) {
-            sabores.add(jToggleButton25.getText());
-        }
-        if (jToggleButton26.isSelected()) {
-            sabores.add(jToggleButton26.getText());
-        }
-        if (jToggleButton27.isSelected()) {
-            sabores.add(jToggleButton27.getText());
-        }
-        if (jToggleButton28.isSelected()) {
-            sabores.add(jToggleButton28.getText());
-        }
-        if (jToggleButton29.isSelected()) {
-            sabores.add(jToggleButton29.getText());
-        }
-
-        for (int i = 0; i < sabores.size(); i++) {
-            if (nomeDoPastel != null) {
-                nomeDoPastel = nomeDoPastel + (sabores.get(i));
-            } else {
-                nomeDoPastel = sabores.get(i);
-            }
-            if (i < (sabores.size() - 2)) {
-                nomeDoPastel = nomeDoPastel + ", ";
-            } else if (i == (sabores.size() - 2)) {
-                nomeDoPastel = nomeDoPastel + " e ";
-            }
-        }
-
-        System.out.println(nomeDoPastel);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
