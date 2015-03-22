@@ -16,18 +16,11 @@
  */
 package com.au.gui;
 
-import com.au.bean.Ingrediente;
 import com.au.bean.Produto;
-import com.au.bean.Receita;
-import com.au.dao.IngredienteDao;
 import com.au.dao.ProdutoDao;
-import com.au.dao.ReceitaDao;
 import com.au.util.LimitaDigitos;
-import com.au.util.CustomComboBoxInt;
-import com.au.gui.tmodel.ProdutoIngredientesTableModel;
 import com.au.gui.tmodel.ProdutoTableModel;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -42,14 +35,10 @@ import javax.swing.event.ListSelectionListener;
 public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSelectionListener {
 
     private ProdutoTableModel tableModelProdutos;
-    private ProdutoIngredientesTableModel tableModelIngredientes;
-    private List<Ingrediente> ingredientes = new ArrayList<>();
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
     private Integer id = null;
     private final ProdutoDao pDao = new ProdutoDao();
-    private final ReceitaDao rDao = new ReceitaDao();
-    private final IngredienteDao iDao = new IngredienteDao();
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -60,7 +49,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        textoErroIngrediente.setVisible(false);
         normal = campoNome.getBorder();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -91,13 +79,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         painelProdutoIndustrializado = new javax.swing.JPanel();
         textoBarras = new javax.swing.JLabel();
         campoBarras = new javax.swing.JTextField();
-        painelProdutoPreparado = new javax.swing.JPanel();
-        caixaSelecaoIng = new javax.swing.JComboBox(getIngs());
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaIngredientes = new javax.swing.JTable();
-        botaoAdicionarIngrediente = new javax.swing.JButton();
-        botaoRemoverIngrediente = new javax.swing.JButton();
-        textoErroIngrediente = new javax.swing.JLabel();
         radioPrep = new javax.swing.JRadioButton();
         radioInd = new javax.swing.JRadioButton();
         textoTipo = new javax.swing.JLabel();
@@ -183,8 +164,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                 .addGap(3, 3, 3)
                 .addComponent(textoBarras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelProdutoIndustrializadoLayout.setVerticalGroup(
             painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,72 +174,8 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                 .addGroup(painelProdutoIndustrializadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBarras)
                     .addComponent(campoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
-
-        painelProdutoPreparado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Preparado"));
-
-        caixaSelecaoIng.setEnabled(false);
-
-        tabelaIngredientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabelaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Descrição"
-            }
-        ));
-        tabelaIngredientes.setEnabled(false);
-        jScrollPane2.setViewportView(tabelaIngredientes);
-
-        botaoAdicionarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/plus-26.png"))); // NOI18N
-        botaoAdicionarIngrediente.setActionCommand("Adicionar Ingrediente");
-        botaoAdicionarIngrediente.setEnabled(false);
-        botaoAdicionarIngrediente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAdicionarIngredienteActionPerformed(evt);
-            }
-        });
-
-        botaoRemoverIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/minus-26.png"))); // NOI18N
-        botaoRemoverIngrediente.setActionCommand("Remover Ingrediente");
-        botaoRemoverIngrediente.setEnabled(false);
-        botaoRemoverIngrediente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoRemoverIngredienteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelProdutoPreparadoLayout = new javax.swing.GroupLayout(painelProdutoPreparado);
-        painelProdutoPreparado.setLayout(painelProdutoPreparadoLayout);
-        painelProdutoPreparadoLayout.setHorizontalGroup(
-            painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botaoAdicionarIngrediente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoRemoverIngrediente)
-                .addContainerGap())
-        );
-        painelProdutoPreparadoLayout.setVerticalGroup(
-            painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelProdutoPreparadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelProdutoPreparadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoAdicionarIngrediente)
-                    .addComponent(caixaSelecaoIng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRemoverIngrediente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        textoErroIngrediente.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoErroIngrediente.setForeground(new java.awt.Color(255, 0, 0));
-        textoErroIngrediente.setText("Pelo menos 1 Ingrediente deve ser adicionado ao produto!");
 
         buttonGroup1.add(radioPrep);
         radioPrep.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -313,6 +230,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
                         .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -328,13 +246,9 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                                     .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)
                                 .addComponent(radioPrep))
-                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(textoErroIngrediente)
-                    .addGroup(painelAdicionarModificarProdutosLayout.createSequentialGroup()
-                        .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 52, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painelAdicionarModificarProdutosLayout.setVerticalGroup(
             painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,16 +269,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                     .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(radioInd)
                     .addComponent(radioPrep))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoErroIngrediente)
-                .addGap(16, 16, 16)
-                .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelProdutoPreparado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        painelAdicionarModificarProdutosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {painelProdutoIndustrializado, painelProdutoPreparado});
 
         painelProcurarProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Produto Existente"));
 
@@ -569,10 +477,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         campoPesquisarProduto.selectAll();
     }//GEN-LAST:event_campoPesquisarProdutoFocusGained
 
-    private void botaoAdicionarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarIngredienteActionPerformed
-        adicionaIngrediente();
-    }//GEN-LAST:event_botaoAdicionarIngredienteActionPerformed
-
     private void botaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarProdutoActionPerformed
         if (valida()) {
             cadastrarProduto();
@@ -604,12 +508,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
 
     private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
         habilitaInd(true);
-        habilitaPrep(false);
         limpaPrep();
     }//GEN-LAST:event_radioIndActionPerformed
 
     private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
-        habilitaPrep(true);
         habilitaInd(false);
         limpaInd();
     }//GEN-LAST:event_radioPrepActionPerformed
@@ -621,32 +523,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     private void campoPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarProdutoActionPerformed
         pesquisaProdutos();
     }//GEN-LAST:event_campoPesquisarProdutoActionPerformed
-
-    private void botaoRemoverIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverIngredienteActionPerformed
-        excluirIngrediente();
-    }//GEN-LAST:event_botaoRemoverIngredienteActionPerformed
-
-    private void adicionaIngrediente() {
-        CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoIng.getSelectedItem();
-
-        for (int i = 0; i < tabelaIngredientes.getRowCount(); i++) {
-            if (ob.getNome().equals(tabelaIngredientes.getValueAt(i, 0))) {
-                return;
-            }
-        }
-        Ingrediente ingrediente = new Ingrediente();
-        ingrediente.setDescIng(ob.getNome());
-        ingrediente.setIdIng(ob.getId());
-        ingredientes.add(ingrediente);
-        atualizaTableModelIngredientes();
-    }
-
-    public void atualizaTableModelIngredientes() {
-        if (!ingredientes.isEmpty()) {
-            tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
-            tabelaIngredientes.setModel(tableModelIngredientes);
-        }
-    }
 
     public void atualizaTableModelProdutos(List<Produto> produtos) {
         if (produtos != null && produtos.isEmpty()) {
@@ -664,8 +540,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     public void atualizarProduto() {
         pDao.abreConnection();
         Produto produto = formToProduto();
-        deletarReceitas(produto.getIdProd());
-        cadastrarReceitas(produto.getIdProd());
         pDao.atualizaProduto(produto);
         pDao.fechaConnection();
         JOptionPane.showMessageDialog(this, "Produto Atualizado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
@@ -683,61 +557,19 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             JOptionPane.showMessageDialog(this, "Um produto com este código já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        cadastrarReceitas(pDao.adicionaProduto(produto));
         pDao.fechaConnection();
         JOptionPane.showMessageDialog(this, "Produto Cadastrado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
         limpaCampos();
-        ingredientes = new ArrayList<>();
-        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
-        tabelaIngredientes.setModel(tableModelIngredientes);
         inicializaTableModel();
-    }
-
-    private void cadastrarReceitas(int idProd) {
-        rDao.abreConnection();
-        Receita receita = new Receita();
-        receita.setIdProd(idProd);
-        if (ingredientes != null && !ingredientes.isEmpty()) {
-            for (int i = 0; i < ingredientes.size(); i++) {
-                receita.setIdIng(ingredientes.get(i).getIdIng());
-                rDao.adicionaReceita(receita);
-            }
-        }
-        rDao.fechaConnection();
-    }
-
-    private void deletarReceitas(int idProd) {
-        rDao.abreConnection();
-        rDao.deletaIngredientesDoProduto(idProd);
-        rDao.fechaConnection();
     }
 
     private void desabilitaBotoesParaSalvar() {
         habilitaOuDesabilitaBotoesEdicao(false);
     }
 
-    private CustomComboBoxInt[] getIngs() {
-        iDao.abreConnection();
-        List<Ingrediente> listaResIng = iDao.getLista();
-        iDao.fechaConnection();
-        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResIng.size()];
-        for (int i = 0; i < listaResIng.size(); i++) {
-            oItems[i] = new CustomComboBoxInt(listaResIng.get(i).getDescIng(), listaResIng.get(i).getIdIng());
-        }
-        return oItems;
-    }
-
-    private void excluirIngrediente() {
-        if(tabelaIngredientes.getRowCount() != -1){
-            ingredientes.remove(tabelaIngredientes.getSelectedRow());
-            atualizaTableModelIngredientes();
-        }
-    }
-
     public void excluirProduto() {
         pDao.abreConnection();
         Produto produto = formToProduto();
-        deletarReceitas(produto.getIdProd());
         pDao.deletaProduto(produto);
         JOptionPane.showMessageDialog(this, "Produto Removido Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
         limpaCampos();
@@ -762,7 +594,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         } else {
             produto.setCodBarras(null);
             produto.setEIndustrializado((byte) 0);
-            produto.setIngredientes(ingredientes);
         }
         return produto;
     }
@@ -782,29 +613,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         botaoExcluirProduto.setEnabled(!enabled);
     }
 
-    public void habilitaPrep(boolean valida) {
-        if (caixaSelecaoIng.getItemCount() > 0) {
-            caixaSelecaoIng.setSelectedIndex(0);
-            caixaSelecaoIng.setEnabled(valida);
-            botaoAdicionarIngrediente.setEnabled(valida);
-            limpaIngredientes();
-            tabelaIngredientes.setEnabled(valida);
-        } else if (valida) {
-            Integer resposta;
-            resposta = JOptionPane.showConfirmDialog(this, "Antes de cadastrar um produto preparado, é necessário ter ao menos um ingrediente cadastrado. \nDeseja cadastrar um novo ingrediente agora?", "Cadastro de Produtos", JOptionPane.YES_NO_OPTION);
-            if (resposta == 0) {
-                this.dispose();
-                new TelaCadastrarIngrediente(null, true).setVisible(true);
-                new TelaCadastrarProduto(null, true).setVisible(true);
-            }
-        }
-    }
-
     private void inicializaTableModel() {
         pDao.abreConnection();
         atualizaTableModelProdutos(pDao.getLista());
         pDao.fechaConnection();
-        atualizaTableModelIngredientes();
     }
 
     public void limpaCampos() {
@@ -814,29 +626,17 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         campoNome.setText("");
         campoValor.setText("");
         buttonGroup1.clearSelection();
-        caixaSelecaoIng.setSelectedIndex(-1);
-        caixaSelecaoIng.setBorder(normal);
         campoBarras.setBorder(normal);
         campoNome.setBorder(normal);
         campoValor.setBorder(normal);
-        textoErroIngrediente.setVisible(false);
         limpaInd();
         limpaPrep();
-        limpaIngredientes();
         habilitaInd(false);
-        habilitaPrep(false);
     }
 
     public void limpaInd() {
         radioInd.setBorderPainted(false);
         campoBarras.setBorder(normal);
-    }
-
-    public void limpaIngredientes() {
-
-        ingredientes = new ArrayList<>();
-        tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
-        tabelaIngredientes.setModel(tableModelIngredientes);
     }
 
     public void limpaPrep() {
@@ -852,7 +652,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     }
 
     private void produtoToForm(Produto produto) {
-        iDao.abreConnection();
         id = produto.getIdProd();
         campoCodigo.setText(String.valueOf(produto.getNumProd()));
         campoNome.setText(produto.getDescProd());
@@ -864,13 +663,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         } else {
             radioPrep.doClick();
             radioInd.setSelected(false);
-            ingredientes = iDao.pesquisarIngredientePorProduto(produto.getIdProd());
-            if(ingredientes == null){
-                ingredientes = new ArrayList<>();
-            }
-            tableModelIngredientes = new ProdutoIngredientesTableModel(ingredientes);
-            iDao.fechaConnection();
-            tabelaIngredientes.setModel(tableModelIngredientes);
         }
         desabilitaBotoesParaSalvar();
     }
@@ -905,50 +697,35 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             radioInd.setBorder(vermelha);
             valida = false;
         }
-        if (radioPrep.isSelected()) {
-            if (tabelaIngredientes.getRowCount() > 0) {
-                textoErroIngrediente.setVisible(false);
-            } else {
-                textoErroIngrediente.setVisible(true);
-                valida = false;
-            }
-        }
         return valida;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAdicionarIngrediente;
     private javax.swing.JButton botaoAtualizarProduto;
     private javax.swing.JButton botaoCadastrarProduto;
     private javax.swing.JButton botaoCancelarCadastro;
     private javax.swing.JButton botaoExcluirProduto;
     private javax.swing.JButton botaoLimparCampos;
     private javax.swing.JButton botaoProcurarProduto;
-    private javax.swing.JButton botaoRemoverIngrediente;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox caixaSelecaoIng;
     private javax.swing.JTextField campoBarras;
     private javax.swing.JTextField campoCodigo;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPesquisarProduto;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel painelAdicionarModificarProdutos;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelProcurarProdutos;
     private javax.swing.JPanel painelProdutoIndustrializado;
-    private javax.swing.JPanel painelProdutoPreparado;
     private javax.swing.JScrollPane painelScrollTabela;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JRadioButton radioInd;
     private javax.swing.JRadioButton radioPrep;
-    private javax.swing.JTable tabelaIngredientes;
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JLabel textoAdicionarProduto;
     private javax.swing.JLabel textoBarras;
     private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoCodigo;
-    private javax.swing.JLabel textoErroIngrediente;
     private javax.swing.JLabel textoIconeNovoProduto;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;
@@ -964,9 +741,6 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             if (produto.getIdProd() != 0) {
                 produtoToForm(produto);
             }
-        }
-        if (tabelaIngredientes.getRowCount() != -1) {
-            botaoRemoverIngrediente.setEnabled(true);
         }
     }
 }

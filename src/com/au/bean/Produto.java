@@ -31,7 +31,6 @@ public class Produto {
     private double valorProd;
     private String codBarras;
     private int eIndustrializado;
-    private List<Ingrediente> ingredientes = new ArrayList<>();
 
     public int getIdProd() {
         return idProd;
@@ -80,13 +79,4 @@ public class Produto {
     public void setEIndustrializado(int eIndustrializado) {
         this.eIndustrializado = eIndustrializado;
     }
-
-    public List<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(List<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
 }

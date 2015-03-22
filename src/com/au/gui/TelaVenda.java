@@ -71,7 +71,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         idCaixa = verificaCaixa();
         if (funcionario.getNivelFunc() == 0) {
             menuCadastros.setEnabled(false);
-            MenuRelatorio.setEnabled(false);
             abrirCaixa();
         } else if (idCaixa == null) {
             caixaFechado();
@@ -131,12 +130,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuCadastros = new javax.swing.JMenu();
         itemMenuFormaPagamento = new javax.swing.JMenuItem();
         itemMenuFuncionarios = new javax.swing.JMenuItem();
-        itemMenuIngredientes = new javax.swing.JMenuItem();
         itemMenuProdutos = new javax.swing.JMenuItem();
-        MenuRelatorio = new javax.swing.JMenu();
-        itemMenuVendasGerais = new javax.swing.JMenuItem();
-        itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
-        itemMenuVendasFiltradasIngredientes = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuSobre = new javax.swing.JMenuItem();
 
@@ -514,14 +508,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         });
         menuCadastros.add(itemMenuFuncionarios);
 
-        itemMenuIngredientes.setText("Ingredientes");
-        itemMenuIngredientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuIngredientesActionPerformed(evt);
-            }
-        });
-        menuCadastros.add(itemMenuIngredientes);
-
         itemMenuProdutos.setText("Produtos");
         itemMenuProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,35 +517,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuCadastros.add(itemMenuProdutos);
 
         barraMenu.add(menuCadastros);
-
-        MenuRelatorio.setText("Relatórios");
-        MenuRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        itemMenuVendasGerais.setText("Vendas Gerais");
-        itemMenuVendasGerais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuVendasGeraisActionPerformed(evt);
-            }
-        });
-        MenuRelatorio.add(itemMenuVendasGerais);
-
-        itemMenuVendasFiltradasFormaPgto.setText("Vendas por  Forma de Pagamento");
-        itemMenuVendasFiltradasFormaPgto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuVendasFiltradasFormaPgtoActionPerformed(evt);
-            }
-        });
-        MenuRelatorio.add(itemMenuVendasFiltradasFormaPgto);
-
-        itemMenuVendasFiltradasIngredientes.setText("Vendas por Ingredientes");
-        itemMenuVendasFiltradasIngredientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuVendasFiltradasIngredientesActionPerformed(evt);
-            }
-        });
-        MenuRelatorio.add(itemMenuVendasFiltradasIngredientes);
-
-        barraMenu.add(MenuRelatorio);
 
         MenuAjuda.setText("Ajuda");
         MenuAjuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -622,11 +579,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         new TelaCadastrarFuncionario(this, true).setVisible(true);
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuFuncionariosActionPerformed
-
-    private void itemMenuIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuIngredientesActionPerformed
-        new TelaCadastrarIngrediente(this, true).setVisible(true);
-        campoAdicionarItem.requestFocus();
-    }//GEN-LAST:event_itemMenuIngredientesActionPerformed
 
     private void itemMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosActionPerformed
         new TelaCadastrarProduto(this, true).setVisible(true);
@@ -726,25 +678,10 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         }
     }//GEN-LAST:event_itemMenuFecharCaixaActionPerformed
 
-    private void itemMenuVendasGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasGeraisActionPerformed
-        new TelaVendasGerais(this, true).setVisible(true);
-        campoAdicionarItem.requestFocus();
-    }//GEN-LAST:event_itemMenuVendasGeraisActionPerformed
-
     private void itemMenuRetiradaDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRetiradaDeCaixaActionPerformed
         new TelaRetirada(this, true, caixa).setVisible(true);
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuRetiradaDeCaixaActionPerformed
-
-    private void itemMenuVendasFiltradasFormaPgtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasFiltradasFormaPgtoActionPerformed
-        new TelaVendasPorFormaPgto(this, true).setVisible(true);
-        campoAdicionarItem.requestFocus();
-    }//GEN-LAST:event_itemMenuVendasFiltradasFormaPgtoActionPerformed
-
-    private void itemMenuVendasFiltradasIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendasFiltradasIngredientesActionPerformed
-        new TelaVendasPorIngrediente(this, true).setVisible(true);
-        campoAdicionarItem.requestFocus();
-    }//GEN-LAST:event_itemMenuVendasFiltradasIngredientesActionPerformed
 
     private void itemMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSobreActionPerformed
         new TelaSobre(this, true).setVisible(true);
@@ -1106,7 +1043,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuAjuda;
-    private javax.swing.JMenu MenuRelatorio;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botaoAdicionarAoPedido;
     private javax.swing.JButton botaoAdicionarItem;
@@ -1124,16 +1060,12 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuFecharCaixa;
     private javax.swing.JMenuItem itemMenuFormaPagamento;
     private javax.swing.JMenuItem itemMenuFuncionarios;
-    private javax.swing.JMenuItem itemMenuIngredientes;
     private javax.swing.JMenuItem itemMenuProdutos;
     private javax.swing.JMenuItem itemMenuReimprimirCupom;
     private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JMenuItem itemMenuSobre;
     private javax.swing.JMenuItem itemMenuTrocarSenha;
-    private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
-    private javax.swing.JMenuItem itemMenuVendasFiltradasIngredientes;
-    private javax.swing.JMenuItem itemMenuVendasGerais;
     private javax.swing.JMenuItem itemMenuVisualizarCaixas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;

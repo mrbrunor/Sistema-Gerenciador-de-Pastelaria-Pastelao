@@ -48,7 +48,7 @@ public class PedidoDao {
         try {
             conexao.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ReceitaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CaixaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
