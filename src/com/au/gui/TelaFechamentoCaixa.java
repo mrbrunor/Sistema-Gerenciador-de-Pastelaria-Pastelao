@@ -35,6 +35,7 @@ import com.au.util.LimitaDigitos;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JTextField;
 
 /**
  *
@@ -884,42 +885,26 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
     private void calculaDinheiroEmCaixa() {
         dinheiroCaixa = 0;
-
-        if (!"".equals(campoMoedaCincoCentavos.getText())) {
-            dinheiroCaixa += Integer.valueOf((campoMoedaCincoCentavos.getText())) * 0.05;
-        }
-        if (!"".equals(campoMoedaCinquentaCentavos.getText())) {
-            dinheiroCaixa += Double.valueOf((campoMoedaCinquentaCentavos.getText())) * 0.5;
-        }
-        if (!"".equals(campoMoedaDezCentavos.getText())) {
-            dinheiroCaixa += Double.valueOf((campoMoedaDezCentavos.getText())) * 0.1;
-        }
-        if (!"".equals(campoMoedaUmReal.getText())) {
-            dinheiroCaixa += Double.valueOf((campoMoedaUmReal.getText()));
-        }
-        if (!"".equals(campoMoedaVinteCincoCentavos.getText())) {
-            dinheiroCaixa += Double.valueOf((campoMoedaVinteCincoCentavos.getText())) * .25;
-        }
-        if (!"".equals(campoCedulaCemReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaCemReais.getText())) * 100;
-        }
-        if (!"".equals(campoCedulaCincoReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaCincoReais.getText())) * 5;
-        }
-        if (!"".equals(campoCedulaCinquentaReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaCinquentaReais.getText())) * 50;
-        }
-        if (!"".equals(campoCedulaDezReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaDezReais.getText())) * 10;
-        }
-        if (!"".equals(campoCedulaDoisReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaDoisReais.getText())) * 2;
-        }
-        if (!"".equals(campoCedulaVinteReais.getText())) {
-            dinheiroCaixa += Double.valueOf((campoCedulaVinteReais.getText())) * 20;
-        }
+        
+        calculaValores(campoMoedaCincoCentavos, 0.05);
+        calculaValores(campoMoedaDezCentavos, 0.1);
+        calculaValores(campoMoedaVinteCincoCentavos, 0.25);
+        calculaValores(campoMoedaCinquentaCentavos, 0.5);        
+        calculaValores(campoMoedaUmReal, 1.00);
+        calculaValores(campoCedulaDoisReais, 2.00);
+        calculaValores(campoCedulaCincoReais, 5.00);
+        calculaValores(campoCedulaDezReais, 10.00);
+        calculaValores(campoCedulaVinteReais, 20.00);
+        calculaValores(campoCedulaCinquentaReais, 50.00);
+        calculaValores(campoCedulaCemReais, 100.00);    
 
         textoValorTotalEmCaixa.setText(String.format("R$: %.2f", dinheiroCaixa));
+    }
+    
+    private void calculaValores(JTextField moeda, Double valor){
+        if (!"".equals(moeda.getText())) {
+            dinheiroCaixa += Double.valueOf((moeda.getText())) * 10;
+        }
     }
 
     private void calculaReducoes() {
@@ -933,11 +918,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 totalDesp = totalDesp + despesa.getValorDesp();
             }
             textoValorTotalRetiradas.setText(String.format("R$: %.2f", totalDesp));
+            textoValorRetiradas.setText(String.format("R$: %.2f", totalDesp));
         } else {
             textoValorTotalRetiradas.setText("R$: 0,00");
+            textoValorRetiradas.setText(String.format("R$: %.2f", totalDesp));
         }
-        textoValorTotalRetiradas.setText(String.format("R$: %.2f", totalDesp));
-        textoValorRetiradas.setText(String.format("R$: %.2f", totalDesp));
         textoValorFaturamentos.setText(String.format("R$: %.2f", caixa.getTotalCaixa()));
         textoValorTotalCaixa.setText(String.format("R$: %.2f", caixa.getTotalCaixa() - totalDesp));
     }

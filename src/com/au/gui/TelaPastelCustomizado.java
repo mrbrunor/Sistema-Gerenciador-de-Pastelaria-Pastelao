@@ -30,6 +30,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     int controle = 0;
     List<String> sabores = new ArrayList<>();
     String erroQtdMaxima = "Só é permitido 5 Sabores por Pastel! Favor remover um sabor antes de tentar adicionar outro.";
+    private static String nomeDoPastel;
 
     /**
      * Creates new form TelaPastelCustomizado
@@ -40,6 +41,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     public TelaPastelCustomizado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        nomeDoPastel = null;
     }
 
     /**
@@ -530,7 +532,6 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nomeDoPastel = null;
 
         for (int i = 0; i < sabores.size(); i++) {
             if (nomeDoPastel != null) {
@@ -544,8 +545,6 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                 nomeDoPastel = nomeDoPastel + " e ";
             }
         }
-
-        System.out.println(nomeDoPastel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
@@ -731,6 +730,14 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             sabores.remove(botao.getText());
             jLabel1.setText(sabores.toString());
         }
+    }
+    
+     public static String getNomeDoPastel() {
+        return nomeDoPastel;
+    }
+
+    public static void setNomeDoPastel(String aNomeDoPastel) {
+        nomeDoPastel = aNomeDoPastel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
