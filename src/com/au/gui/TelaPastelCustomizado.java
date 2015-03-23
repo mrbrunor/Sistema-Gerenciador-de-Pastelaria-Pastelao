@@ -16,14 +16,26 @@
  */
 package com.au.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
+
 /**
  *
  * @author BrunoRicardo
  */
 public class TelaPastelCustomizado extends javax.swing.JDialog {
 
+    int controle = 0;
+    List<String> sabores = new ArrayList<>();
+    String erroQtdMaxima = "Só é permitido 5 Sabores por Pastel! Favor remover um sabor antes de tentar adicionar outro.";
+
     /**
      * Creates new form TelaPastelCustomizado
+     *
+     * @param parent
+     * @param modal
      */
     public TelaPastelCustomizado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -68,13 +80,14 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         jToggleButton40 = new javax.swing.JToggleButton();
         jToggleButton41 = new javax.swing.JToggleButton();
         jToggleButton42 = new javax.swing.JToggleButton();
+        jToggleButton43 = new javax.swing.JToggleButton();
         jToggleButton44 = new javax.swing.JToggleButton();
         jToggleButton45 = new javax.swing.JToggleButton();
-        jToggleButton46 = new javax.swing.JToggleButton();
         textoPastelCustomizado = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         textoSelecioneOsIngredientes = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pastel Customizado - Sistema Pastelão");
@@ -83,97 +96,251 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
 
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton6.setText("Carne");
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
 
         jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton8.setText("Frango");
+        jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton8ActionPerformed(evt);
+            }
+        });
 
         jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton11.setText("Queijo");
+        jToggleButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton11ActionPerformed(evt);
+            }
+        });
 
         jToggleButton18.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton18.setText("Palmito");
+        jToggleButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton18ActionPerformed(evt);
+            }
+        });
 
         jToggleButton19.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton19.setText("Catupiry");
+        jToggleButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton19ActionPerformed(evt);
+            }
+        });
 
         jToggleButton20.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton20.setText("Cheddar");
+        jToggleButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton20ActionPerformed(evt);
+            }
+        });
 
         jToggleButton21.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton21.setText("<html>Carne<br/> Seca");
+        jToggleButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton21ActionPerformed(evt);
+            }
+        });
 
         jToggleButton22.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton22.setText("Atum");
+        jToggleButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton22ActionPerformed(evt);
+            }
+        });
 
         jToggleButton23.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton23.setText("Calabresa");
+        jToggleButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton23ActionPerformed(evt);
+            }
+        });
 
         jToggleButton24.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton24.setText("Presunto");
+        jToggleButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton24ActionPerformed(evt);
+            }
+        });
 
-        jToggleButton25.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton25.setText("Champignon");
+        jToggleButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton25ActionPerformed(evt);
+            }
+        });
 
         jToggleButton26.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton26.setText("Ovo");
+        jToggleButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton26ActionPerformed(evt);
+            }
+        });
 
         jToggleButton27.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton27.setText("Escarola");
+        jToggleButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton27ActionPerformed(evt);
+            }
+        });
 
         jToggleButton28.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton28.setText("Azeitona");
+        jToggleButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton28ActionPerformed(evt);
+            }
+        });
 
         jToggleButton29.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton29.setText("Cebola");
+        jToggleButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton29ActionPerformed(evt);
+            }
+        });
 
         jToggleButton30.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton30.setText("Pizza");
+        jToggleButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton30ActionPerformed(evt);
+            }
+        });
 
         jToggleButton31.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton31.setText("<html>Dois<br/> Queijos");
         jToggleButton31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton31ActionPerformed(evt);
+            }
+        });
 
         jToggleButton32.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton32.setText("Milho");
+        jToggleButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton32ActionPerformed(evt);
+            }
+        });
 
         jToggleButton33.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton33.setText("Bacalhau");
+        jToggleButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton33ActionPerformed(evt);
+            }
+        });
 
         jToggleButton34.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton34.setText("Camarão");
+        jToggleButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton34ActionPerformed(evt);
+            }
+        });
 
         jToggleButton35.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton35.setText("Tomate");
+        jToggleButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton35ActionPerformed(evt);
+            }
+        });
 
         jToggleButton36.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton36.setText("Maçã");
+        jToggleButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton36ActionPerformed(evt);
+            }
+        });
 
         jToggleButton37.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton37.setText("Goiabada");
+        jToggleButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton37ActionPerformed(evt);
+            }
+        });
 
         jToggleButton38.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton38.setText("Brigadeiro");
+        jToggleButton38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton38ActionPerformed(evt);
+            }
+        });
 
         jToggleButton39.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton39.setText("<html>Doce de<br/> Leite");
+        jToggleButton39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton39ActionPerformed(evt);
+            }
+        });
 
         jToggleButton40.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton40.setText("Canela");
+        jToggleButton40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton40ActionPerformed(evt);
+            }
+        });
 
         jToggleButton41.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton41.setText("Banana");
+        jToggleButton41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton41ActionPerformed(evt);
+            }
+        });
 
         jToggleButton42.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton42.setText("Orégano");
+        jToggleButton42.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton42ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton43.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jToggleButton43.setText("Aipim");
+        jToggleButton43.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton43ActionPerformed(evt);
+            }
+        });
 
         jToggleButton44.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton44.setText("<html>Sonho de<br/> Valsa");
+        jToggleButton44.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton44ActionPerformed(evt);
+            }
+        });
 
         jToggleButton45.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton45.setText("Batata");
-
-        jToggleButton46.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jToggleButton46.setText("Aipim");
+        jToggleButton45.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton45ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelIngredientesLayout = new javax.swing.GroupLayout(painelIngredientes);
         painelIngredientes.setLayout(painelIngredientesLayout);
@@ -243,7 +410,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButton45, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton46, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jToggleButton43, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         painelIngredientesLayout.setVerticalGroup(
@@ -296,9 +463,9 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                 .addGroup(painelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jToggleButton45, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jToggleButton46, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jToggleButton43, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jToggleButton44, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         textoPastelCustomizado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -306,11 +473,16 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         textoPastelCustomizado.setText("Pastel Customizado");
 
         jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         textoSelecioneOsIngredientes.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
         textoSelecioneOsIngredientes.setText("Selecione os Ingredientes abaixo para customizar o pastel");
 
-        jLabel1.setText("Pastel de INGREDIENTE1, INGREDIENTE 2, ...");
+        jLabel2.setText("Pastel de:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,23 +491,24 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoPastelCustomizado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(painelIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(painelIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoPastelCustomizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,15 +519,158 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                 .addComponent(textoSelecioneOsIngredientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(10, 10, 10))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nomeDoPastel = null;
+
+        for (int i = 0; i < sabores.size(); i++) {
+            if (nomeDoPastel != null) {
+                nomeDoPastel = nomeDoPastel + (sabores.get(i));
+            } else {
+                nomeDoPastel = sabores.get(i);
+            }
+            if (i < (sabores.size() - 2)) {
+                nomeDoPastel = nomeDoPastel + ", ";
+            } else if (i == (sabores.size() - 2)) {
+                nomeDoPastel = nomeDoPastel + " e ";
+            }
+        }
+
+        System.out.println(nomeDoPastel);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        validaSabor(jToggleButton6);
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
+        validaSabor(jToggleButton8);
+    }//GEN-LAST:event_jToggleButton8ActionPerformed
+
+    private void jToggleButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton11ActionPerformed
+        validaSabor(jToggleButton11);
+    }//GEN-LAST:event_jToggleButton11ActionPerformed
+
+    private void jToggleButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton18ActionPerformed
+        validaSabor(jToggleButton18);
+    }//GEN-LAST:event_jToggleButton18ActionPerformed
+
+    private void jToggleButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton19ActionPerformed
+        validaSabor(jToggleButton19);
+    }//GEN-LAST:event_jToggleButton19ActionPerformed
+
+    private void jToggleButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton32ActionPerformed
+        validaSabor(jToggleButton32);
+    }//GEN-LAST:event_jToggleButton32ActionPerformed
+
+    private void jToggleButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton33ActionPerformed
+        validaSabor(jToggleButton33);
+    }//GEN-LAST:event_jToggleButton33ActionPerformed
+
+    private void jToggleButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton23ActionPerformed
+        validaSabor(jToggleButton23);
+    }//GEN-LAST:event_jToggleButton23ActionPerformed
+
+    private void jToggleButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton24ActionPerformed
+        validaSabor(jToggleButton24);
+    }//GEN-LAST:event_jToggleButton24ActionPerformed
+
+    private void jToggleButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton20ActionPerformed
+        validaSabor(jToggleButton20);
+    }//GEN-LAST:event_jToggleButton20ActionPerformed
+
+    private void jToggleButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton21ActionPerformed
+        validaSabor(jToggleButton21);
+    }//GEN-LAST:event_jToggleButton21ActionPerformed
+
+    private void jToggleButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton22ActionPerformed
+        validaSabor(jToggleButton22);
+    }//GEN-LAST:event_jToggleButton22ActionPerformed
+
+    private void jToggleButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton31ActionPerformed
+        validaSabor(jToggleButton31);
+    }//GEN-LAST:event_jToggleButton31ActionPerformed
+
+    private void jToggleButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton34ActionPerformed
+        validaSabor(jToggleButton32);
+    }//GEN-LAST:event_jToggleButton34ActionPerformed
+
+    private void jToggleButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton28ActionPerformed
+        validaSabor(jToggleButton28);
+    }//GEN-LAST:event_jToggleButton28ActionPerformed
+
+    private void jToggleButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton29ActionPerformed
+        validaSabor(jToggleButton29);
+    }//GEN-LAST:event_jToggleButton29ActionPerformed
+
+    private void jToggleButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton25ActionPerformed
+        validaSabor(jToggleButton25);
+    }//GEN-LAST:event_jToggleButton25ActionPerformed
+
+    private void jToggleButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton26ActionPerformed
+        validaSabor(jToggleButton26);
+    }//GEN-LAST:event_jToggleButton26ActionPerformed
+
+    private void jToggleButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton27ActionPerformed
+        validaSabor(jToggleButton27);
+    }//GEN-LAST:event_jToggleButton27ActionPerformed
+
+    private void jToggleButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton30ActionPerformed
+        validaSabor(jToggleButton30);
+    }//GEN-LAST:event_jToggleButton30ActionPerformed
+
+    private void jToggleButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton35ActionPerformed
+        validaSabor(jToggleButton35);
+    }//GEN-LAST:event_jToggleButton35ActionPerformed
+
+    private void jToggleButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton42ActionPerformed
+        validaSabor(jToggleButton42);
+    }//GEN-LAST:event_jToggleButton42ActionPerformed
+
+    private void jToggleButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton41ActionPerformed
+        validaSabor(jToggleButton41);
+    }//GEN-LAST:event_jToggleButton41ActionPerformed
+
+    private void jToggleButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton40ActionPerformed
+        validaSabor(jToggleButton40);
+    }//GEN-LAST:event_jToggleButton40ActionPerformed
+
+    private void jToggleButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton39ActionPerformed
+        validaSabor(jToggleButton39);
+    }//GEN-LAST:event_jToggleButton39ActionPerformed
+
+    private void jToggleButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton38ActionPerformed
+        validaSabor(jToggleButton38);
+    }//GEN-LAST:event_jToggleButton38ActionPerformed
+
+    private void jToggleButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton37ActionPerformed
+        validaSabor(jToggleButton37);
+    }//GEN-LAST:event_jToggleButton37ActionPerformed
+
+    private void jToggleButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton36ActionPerformed
+        validaSabor(jToggleButton36);
+    }//GEN-LAST:event_jToggleButton36ActionPerformed
+
+    private void jToggleButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton44ActionPerformed
+        validaSabor(jToggleButton44);
+    }//GEN-LAST:event_jToggleButton44ActionPerformed
+
+    private void jToggleButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton45ActionPerformed
+        validaSabor(jToggleButton45);
+    }//GEN-LAST:event_jToggleButton45ActionPerformed
+
+    private void jToggleButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton43ActionPerformed
+        validaSabor(jToggleButton43);
+    }//GEN-LAST:event_jToggleButton43ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,10 +713,30 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             }
         });
     }
+    
+    public void validaSabor(JToggleButton botao){
+        if (botao.isSelected()) {
+            if (controle >= 5) {
+                JOptionPane.showMessageDialog(this, erroQtdMaxima);
+                botao.setSelected(false);
+                textoPastelCustomizado.requestFocus();
+            } else {
+                controle += 1;
+                sabores.add(botao.getText());
+                jLabel1.setText(sabores.toString());
+
+            }
+        } else {
+            controle -= 1;
+            sabores.remove(botao.getText());
+            jLabel1.setText(sabores.toString());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton jToggleButton11;
     private javax.swing.JToggleButton jToggleButton18;
     private javax.swing.JToggleButton jToggleButton19;
@@ -427,9 +763,9 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     private javax.swing.JToggleButton jToggleButton40;
     private javax.swing.JToggleButton jToggleButton41;
     private javax.swing.JToggleButton jToggleButton42;
+    private javax.swing.JToggleButton jToggleButton43;
     private javax.swing.JToggleButton jToggleButton44;
     private javax.swing.JToggleButton jToggleButton45;
-    private javax.swing.JToggleButton jToggleButton46;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JPanel painelIngredientes;
