@@ -21,7 +21,10 @@ import com.au.dao.FormaPagamentoDao;
 import com.au.gui.tmodel.FormaPagamentoTableModel;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -37,6 +40,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
     private final FormaPagamentoDao fpDao = new FormaPagamentoDao();
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
+    private boolean[] valida = {false, false, false};
 
     /**
      * Creates new form TelaCadastrarFormasDePagamento
@@ -47,6 +51,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
     public TelaCadastrarFormasDePagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroAtivo.setVisible(false);
+        textoErroNome.setVisible(false);
+        textoErroTipo.setVisible(false);
         normal = campoNome.getBorder();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -74,6 +81,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         caixaTipo = new javax.swing.JComboBox();
         caixaAtivo = new javax.swing.JComboBox();
         textoAtiva = new javax.swing.JLabel();
+        textoErroNome = new javax.swing.JLabel();
+        textoErroTipo = new javax.swing.JLabel();
+        textoErroAtivo = new javax.swing.JLabel();
         painelProcurarFormaPagamento = new javax.swing.JPanel();
         campoPesquisarFormapagamento = new javax.swing.JTextField();
         botaoProcurarFormaPagamento = new javax.swing.JButton();
@@ -139,6 +149,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNomeFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFocusLost(evt);
+            }
         });
 
         campoId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -148,11 +161,30 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         textoId.setText("ID Forma de Pagamento:");
 
         caixaTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Dinheiro", "Debito", "Credito", "Vale" }));
+        caixaTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaTipoActionPerformed(evt);
+            }
+        });
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sim", "Não" }));
+        caixaAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaAtivoActionPerformed(evt);
+            }
+        });
 
         textoAtiva.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoAtiva.setText("Ativa:");
+
+        textoErroNome.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNome.setText("Preencha o campo nome.");
+
+        textoErroTipo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroTipo.setText("Selecione o tipo da forma de pagamento.");
+
+        textoErroAtivo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroAtivo.setText("Selecione se esta ativa ou não.");
 
         javax.swing.GroupLayout painelAdicionarModificarFormasPagamentoLayout = new javax.swing.GroupLayout(painelAdicionarModificarFormasPagamento);
         painelAdicionarModificarFormasPagamento.setLayout(painelAdicionarModificarFormasPagamentoLayout);
@@ -167,6 +199,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
                     .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoErroAtivo)
+                    .addComponent(textoErroTipo)
+                    .addComponent(textoErroNome)
                     .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,13 +223,19 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoTipo)
                     .addComponent(caixaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroTipo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFormasPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoAtiva)
                     .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroAtivo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -426,6 +467,18 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         pesquisaFormaPagamento();
     }//GEN-LAST:event_campoPesquisarFormapagamentoActionPerformed
 
+    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
+        valida(campoNome, null, 0, textoErroNome);
+    }//GEN-LAST:event_campoNomeFocusLost
+
+    private void caixaTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaTipoActionPerformed
+        valida(null, caixaTipo, 1, textoErroTipo);
+    }//GEN-LAST:event_caixaTipoActionPerformed
+
+    private void caixaAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaAtivoActionPerformed
+        valida(null, caixaAtivo, 2, textoErroAtivo);
+    }//GEN-LAST:event_caixaAtivoActionPerformed
+
     private void atualizarFormaPagamento() {
         fpDao.abreConnection();
         fpDao.atualizaFormaPagamento(formToFormaPagamento());
@@ -548,27 +601,47 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         fpDao.fechaConnection();
     }
 
+    public void valida(JTextField campo, JComboBox combo, int indexVetor, JLabel texto) {
+
+        if (campo != null) {
+            if (!"".equals(campo.getText())) {
+                campo.setBorder(normal);
+                valida[indexVetor] = true;
+                texto.setVisible(false);
+            } else {
+                campo.setBorder(vermelha);
+                valida[indexVetor] = false;
+                texto.setVisible(true);
+            }
+        }
+        if (combo != null) {
+            if (combo.getSelectedIndex() != 0) {
+                combo.setBorder(normal);
+                valida[indexVetor] = true;
+                texto.setVisible(false);
+            } else {
+                combo.setBorder(vermelha);
+                valida[indexVetor] = false;
+                texto.setVisible(true);
+            }
+        }
+    }
+
     public boolean valida() {
-        boolean valida = true;
-        if (!"".equals(campoNome.getText())) {
-            campoNome.setBorder(normal);
-        } else {
-            campoNome.setBorder(vermelha);
-            valida = false;
+        boolean validar = true;
+        if (valida[0] == false) {
+            valida(campoNome, null, 0, textoErroNome);
+            validar = false;
         }
-        if (caixaTipo.getSelectedIndex() != 0) {
-            caixaTipo.setBorder(normal);
-        } else {
-            caixaTipo.setBorder(vermelha);
-            valida = false;
+        if (valida[1] == false) {
+            valida(null, caixaTipo, 1, textoErroTipo);
+            validar = false;
         }
-        if (caixaAtivo.getSelectedIndex() != 0) {
-            caixaAtivo.setBorder(normal);
-        } else {
-            caixaAtivo.setBorder(vermelha);
-            valida = false;
+        if (valida[2] == false) {
+            valida(null, caixaAtivo, 2, textoErroAtivo);
+            validar = false;
         }
-        return valida;
+        return validar;
     }
 
     /**
@@ -595,6 +668,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
     private javax.swing.JLabel textoAdicionarFormaPagamento;
     private javax.swing.JLabel textoAtiva;
     private javax.swing.JLabel textoCliqueParaEditar;
+    private javax.swing.JLabel textoErroAtivo;
+    private javax.swing.JLabel textoErroNome;
+    private javax.swing.JLabel textoErroTipo;
     private javax.swing.JLabel textoIconeNovFormaPagamento;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNome;

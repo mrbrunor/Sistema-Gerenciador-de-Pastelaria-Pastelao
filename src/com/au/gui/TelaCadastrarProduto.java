@@ -22,7 +22,10 @@ import com.au.util.LimitaDigitos;
 import com.au.gui.tmodel.ProdutoTableModel;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -39,6 +42,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     private final Border normal;
     private Integer id = null;
     private final ProdutoDao pDao = new ProdutoDao();
+    private boolean[] valida = {false, false, false, false};
 
     /**
      * Creates new form TelaCadastrarUsuario
@@ -49,6 +53,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     public TelaCadastrarProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroNome.setVisible(false);
+        textoErroTipo.setVisible(false);
+        textoErroValor.setVisible(false);
+        textoErroCodigo.setVisible(false);
         normal = campoNome.getBorder();
         inicializaTableModel();
         habilitaBotoesParaSalvar();
@@ -88,6 +96,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         textoNome = new javax.swing.JLabel();
         textoCodigo = new javax.swing.JLabel();
         campoCodigo = new javax.swing.JTextField();
+        textoErroCodigo = new javax.swing.JLabel();
+        textoErroNome = new javax.swing.JLabel();
+        textoErroValor = new javax.swing.JLabel();
+        textoErroTipo = new javax.swing.JLabel();
         painelProcurarProdutos = new javax.swing.JPanel();
         textoCliqueParaEditar = new javax.swing.JLabel();
         textoProcurarProduto = new javax.swing.JLabel();
@@ -206,12 +218,18 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoValorFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoValorFocusLost(evt);
+            }
         });
 
         campoNome.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFocusLost(evt);
             }
         });
 
@@ -222,6 +240,23 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         textoCodigo.setText("Código Produto:");
 
         campoCodigo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCodigoFocusLost(evt);
+            }
+        });
+
+        textoErroCodigo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroCodigo.setText("Informe o código");
+
+        textoErroNome.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNome.setText("Minímo três caracteres");
+
+        textoErroValor.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroValor.setText("Informe o Valor");
+
+        textoErroTipo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroTipo.setText("Selecione uma das opções");
 
         javax.swing.GroupLayout painelAdicionarModificarProdutosLayout = new javax.swing.GroupLayout(painelAdicionarModificarProdutos);
         painelAdicionarModificarProdutos.setLayout(painelAdicionarModificarProdutosLayout);
@@ -246,7 +281,11 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                                     .addComponent(radioInd, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)
                                 .addComponent(radioPrep))
-                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoErroCodigo)
+                            .addComponent(textoErroNome)
+                            .addComponent(textoErroValor)
+                            .addComponent(textoErroTipo))
                         .addGap(0, 52, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -256,20 +295,28 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCodigo)
                     .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroCodigo)
+                .addGap(4, 4, 4)
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNome)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroNome)
+                .addGap(4, 4, 4)
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoValor)
                     .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroValor)
+                .addGap(4, 4, 4)
                 .addGroup(painelAdicionarModificarProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(radioInd)
                     .addComponent(radioPrep))
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
+                .addComponent(textoErroTipo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelProdutoIndustrializado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -509,11 +556,13 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     private void radioIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIndActionPerformed
         habilitaInd(true);
         limpaPrep();
+        validaRadio();
     }//GEN-LAST:event_radioIndActionPerformed
 
     private void radioPrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrepActionPerformed
         habilitaInd(false);
         limpaInd();
+        validaRadio();
     }//GEN-LAST:event_radioPrepActionPerformed
 
     private void botaoProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarProdutoActionPerformed
@@ -523,6 +572,18 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     private void campoPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarProdutoActionPerformed
         pesquisaProdutos();
     }//GEN-LAST:event_campoPesquisarProdutoActionPerformed
+
+    private void campoCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCodigoFocusLost
+        valida(campoCodigo, 0, 0, textoErroCodigo);
+    }//GEN-LAST:event_campoCodigoFocusLost
+
+    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
+        valida(campoNome, 2, 1, textoErroNome);
+    }//GEN-LAST:event_campoNomeFocusLost
+
+    private void campoValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusLost
+        valida(campoValor, 0, 2, textoErroValor);
+    }//GEN-LAST:event_campoValorFocusLost
 
     public void atualizaTableModelProdutos(List<Produto> produtos) {
         if (produtos != null && produtos.isEmpty()) {
@@ -667,37 +728,55 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         desabilitaBotoesParaSalvar();
     }
 
-    public boolean valida() {
-        boolean valida = true;
-        if (!"".equals(campoCodigo.getText()) && campoCodigo.getText().length() > 0) {
-            campoCodigo.setBorder(normal);
+    public void valida(JTextField campo, int tamanho, int indexVetor, JLabel texto) {
+
+        if (campo != null && !"".equals(campo.getText()) && campo.getText().length() > tamanho) {
+            campo.setBorder(normal);
+            valida[indexVetor] = true;
+            texto.setVisible(false);
         } else {
-            campoCodigo.setBorder(vermelha);
-            valida = false;
+            campo.setBorder(vermelha);
+            valida[indexVetor] = false;
+            texto.setVisible(true);
         }
-        if (!"".equals(campoNome.getText()) && campoNome.getText().length() > 2) {
-            campoNome.setBorder(normal);
-        } else {
-            campoNome.setBorder(vermelha);
-            valida = false;
-        }
-        if (!"".equals(campoValor.getText()) && campoValor.getText().length() > 0) {
-            campoValor.setBorder(normal);
-        } else {
-            campoValor.setBorder(vermelha);
-            valida = false;
-        }
+    }
+
+    public void validaRadio() {
         if (radioInd.isSelected() || radioPrep.isSelected()) {
             radioInd.setBorderPainted(false);
             radioPrep.setBorderPainted(false);
+            textoErroTipo.setVisible(false);
+            valida[3] = true;
         } else {
             radioInd.setBorderPainted(true);
             radioPrep.setBorderPainted(true);
             radioPrep.setBorder(vermelha);
             radioInd.setBorder(vermelha);
-            valida = false;
+            textoErroTipo.setVisible(true);
+            valida[3] = false;
         }
-        return valida;
+    }
+
+    public boolean valida() {
+        boolean validar = true;
+        if (valida[0] == false) {
+            valida(campoCodigo, 0, 0, textoErroCodigo);
+            validar = false;
+        }
+        if (valida[1] == false) {
+            valida(campoNome, 2, 1, textoErroNome);
+            validar = false;
+        }
+        if (valida[2] == false) {
+            valida(campoValor, 0, 2, textoErroValor);
+            validar = false;
+        }
+        if (valida[3] == false) {
+            validaRadio();
+            validar = false;
+        }
+
+        return validar;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -726,6 +805,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     private javax.swing.JLabel textoBarras;
     private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoCodigo;
+    private javax.swing.JLabel textoErroCodigo;
+    private javax.swing.JLabel textoErroNome;
+    private javax.swing.JLabel textoErroTipo;
+    private javax.swing.JLabel textoErroValor;
     private javax.swing.JLabel textoIconeNovoProduto;
     private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPreencherDados;

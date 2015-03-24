@@ -40,7 +40,7 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
 
     private final TelaVenda frm;
     private ProdutoTableModel tableModelPesquisa;
-    private ProdutoDao pDao = new ProdutoDao();
+    private final ProdutoDao pDao = new ProdutoDao();
 
     public TabelaPesquisaActionListener(TelaVenda frm) {
         this.frm = frm;

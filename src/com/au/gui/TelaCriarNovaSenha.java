@@ -21,7 +21,9 @@ import com.au.dao.FuncionarioDao;
 import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -34,6 +36,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
     private final FuncionarioDao fDao = new FuncionarioDao();
+    private boolean[] valida = {false, false, false};
 
     /**
      * Creates new form TelaRecuperarSenha
@@ -44,6 +47,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     public TelaCriarNovaSenha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroCpf.setVisible(false);
+        textoErroPass1.setVisible(false);
+        textoErroPass2.setVisible(false);
         normal = campoCpfFuncionario.getBorder();
         campoConfirmacaoNovaSenha.setDocument(new LimitaDigitos((64), ""));
         campoCpfFuncionario.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
@@ -72,6 +78,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         textoConfirmeNovaSenha = new javax.swing.JLabel();
         campoNovaSenha = new javax.swing.JPasswordField();
         campoConfirmacaoNovaSenha = new javax.swing.JPasswordField();
+        textoErroCpf = new javax.swing.JLabel();
+        textoErroPass1 = new javax.swing.JLabel();
+        textoErroPass2 = new javax.swing.JLabel();
         botaoCriarNovaSenha = new javax.swing.JButton();
         botaoCancelarNovaSenha = new javax.swing.JButton();
 
@@ -133,6 +142,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCpfFuncionarioFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCpfFuncionarioFocusLost(evt);
+            }
         });
         campoCpfFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +163,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNovaSenhaFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNovaSenhaFocusLost(evt);
+            }
         });
         campoNovaSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,12 +178,24 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoConfirmacaoNovaSenhaFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoConfirmacaoNovaSenhaFocusLost(evt);
+            }
         });
         campoConfirmacaoNovaSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoConfirmacaoNovaSenhaActionPerformed(evt);
             }
         });
+
+        textoErroCpf.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroCpf.setText("CPF Inválido");
+
+        textoErroPass1.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroPass1.setText("Minímo cinco caracteres");
+
+        textoErroPass2.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroPass2.setText("Senhas não conferem");
 
         javax.swing.GroupLayout painelDadosFuncionarioLayout = new javax.swing.GroupLayout(painelDadosFuncionario);
         painelDadosFuncionario.setLayout(painelDadosFuncionarioLayout);
@@ -183,13 +210,18 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                         .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosFuncionarioLayout.createSequentialGroup()
-                            .addComponent(textoConfirmeNovaSenha)
-                            .addGap(18, 18, 18)
-                            .addComponent(campoConfirmacaoNovaSenha))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosFuncionarioLayout.createSequentialGroup()
                             .addComponent(textoDigiteNovaSenha)
                             .addGap(18, 18, 18)
-                            .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoErroCpf)
+                                .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textoErroPass1)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosFuncionarioLayout.createSequentialGroup()
+                            .addComponent(textoConfirmeNovaSenha)
+                            .addGap(18, 18, 18)
+                            .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoErroPass2)
+                                .addComponent(campoConfirmacaoNovaSenha)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -202,15 +234,20 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
                 .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCpfFuncionario)
                     .addComponent(campoCpfFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroCpf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoDigiteNovaSenha)
                     .addComponent(campoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroPass1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoConfirmeNovaSenha)
                     .addComponent(campoConfirmacaoNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textoErroPass2))
         );
 
         botaoCriarNovaSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -304,6 +341,18 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_campoConfirmacaoNovaSenhaActionPerformed
 
+    private void campoCpfFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFuncionarioFocusLost
+        valida(campoCpfFuncionario, 10, 0, textoErroCpf);
+    }//GEN-LAST:event_campoCpfFuncionarioFocusLost
+
+    private void campoNovaSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNovaSenhaFocusLost
+        valida(campoNovaSenha, 4, 1, textoErroPass1);
+    }//GEN-LAST:event_campoNovaSenhaFocusLost
+
+    private void campoConfirmacaoNovaSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConfirmacaoNovaSenhaFocusLost
+        validaSenha2();
+    }//GEN-LAST:event_campoConfirmacaoNovaSenhaFocusLost
+
     public void alterarSenha() {
         fDao.abreConnection();
         if (fDao.validaCPF(campoCpfFuncionario.getText())) {
@@ -322,28 +371,49 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         return funcionario;
     }
 
-    public boolean valida() {
-        boolean valida = true;
-        if (!"".equals(campoCpfFuncionario.getText())) {
-            campoCpfFuncionario.setBorder(normal);
+    public void valida(JTextField campo, Integer tamanho, int indexVetor, JLabel texto) {
+
+        if (campo != null && !"".equals(campo.getText()) && campo.getText().length() > tamanho) {
+            campo.setBorder(normal);
+            valida[indexVetor] = true;
+            texto.setVisible(false);
         } else {
-            campoCpfFuncionario.setBorder(vermelha);
-            valida = false;
+            campo.setBorder(vermelha);
+            valida[indexVetor] = false;
+            texto.setVisible(true);
         }
-        if (!"".equals(campoNovaSenha.getPassword()) && campoNovaSenha.getPassword().length > 4) {
-            campoNovaSenha.setBorder(normal);
-        } else {
-            campoNovaSenha.setBorder(vermelha);
-            valida = false;
-        }
-        if (!"".equals(campoConfirmacaoNovaSenha.getPassword()) && campoConfirmacaoNovaSenha.getText().equals(campoNovaSenha.getText())) {
+    }
+
+    public void validaSenha2() {
+        if (campoConfirmacaoNovaSenha != null && campoConfirmacaoNovaSenha.getText().equals(campoNovaSenha.getText()) && campoConfirmacaoNovaSenha.getText().length() > 4) {
             campoConfirmacaoNovaSenha.setBorder(normal);
+            valida[2] = true;
+            textoErroPass2.setVisible(false);
         } else {
             campoConfirmacaoNovaSenha.setBorder(vermelha);
-            valida = false;
+            valida[2] = false;
+            textoErroPass2.setVisible(true);
         }
-        return valida;
     }
+
+    public boolean valida() {
+        boolean validar = true;
+
+        if (valida[0] == false) {
+            valida(campoCpfFuncionario, 10, 0, textoErroCpf);
+            validar = false;
+        }
+        if (valida[1] == false) {
+            valida(campoNovaSenha, 4, 1, textoErroPass1);
+            validar = false;
+        }
+        if (valida[2] == false) {
+            validaSenha2();
+            validar = false;
+        }
+        return validar;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -360,6 +430,9 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
     private javax.swing.JLabel textoCriarNovaSenha;
     private javax.swing.JLabel textoDevidoAManeiraComoSenhaEArmazenada;
     private javax.swing.JLabel textoDigiteNovaSenha;
+    private javax.swing.JLabel textoErroCpf;
+    private javax.swing.JLabel textoErroPass1;
+    private javax.swing.JLabel textoErroPass2;
     private javax.swing.JLabel textoNaoEPossivelRecuperarSenhaAntiga;
     private javax.swing.JLabel textoPreenchaInformacoesParaCriarNovaSenha;
     // End of variables declaration//GEN-END:variables

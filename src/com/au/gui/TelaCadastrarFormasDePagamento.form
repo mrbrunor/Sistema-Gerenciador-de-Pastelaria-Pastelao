@@ -149,6 +149,9 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="textoErroAtivo" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoErroTipo" min="-2" max="-2" attributes="0"/>
+                      <Component id="textoErroNome" min="-2" max="-2" attributes="0"/>
                       <Component id="caixaAtivo" min="-2" max="-2" attributes="0"/>
                       <Component id="campoId" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                       <Component id="caixaTipo" min="-2" max="-2" attributes="0"/>
@@ -172,15 +175,21 @@
                       <Component id="textoNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoErroNome" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="textoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="caixaTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoErroTipo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="textoAtiva" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="caixaAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textoErroAtivo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -211,6 +220,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoId">
@@ -241,6 +251,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caixaTipoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="caixaAtivo">
           <Properties>
@@ -252,6 +265,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caixaAtivoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textoAtiva">
           <Properties>
@@ -259,6 +275,30 @@
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ativa:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoErroNome">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Preencha o campo nome."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoErroTipo">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Selecione o tipo da forma de pagamento."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoErroAtivo">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Selecione se esta ativa ou n&#xe3;o."/>
           </Properties>
         </Component>
       </SubComponents>

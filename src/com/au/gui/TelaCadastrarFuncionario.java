@@ -24,7 +24,10 @@ import com.au.util.LimitaDigitos;
 import com.au.util.ValidaEmail;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -40,6 +43,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
     private final FuncionarioDao fDao = new FuncionarioDao();
+    private boolean[] valida = {false, false, false, false, false, false, false, false, false};
 
     /**
      * Creates new form TelaCadastrarFuncionario
@@ -50,6 +54,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
     public TelaCadastrarFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroAtivo.setVisible(false);
+        textoErroCel.setVisible(false);
+        textoErroCpf.setVisible(false);
+        textoErroEmail.setVisible(false);
+        textoErroNivel.setVisible(false);
+        textoErroNome.setVisible(false);
+        textoErroPass1.setVisible(false);
+        textoErroPass2.setVisible(false);
+        textoErroUser.setVisible(false);
         campoCelular.setDocument(new LimitaDigitos((15), "[^0-9()\\-]"));
         campoCpf.setDocument(new LimitaDigitos((15), "[^0-9\\.-]"));
         campoEmail.setDocument(new LimitaDigitos((150), "[^0-9._@a-zA-Z\\-]"));
@@ -101,6 +114,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         campoSenha = new javax.swing.JPasswordField();
         campoUser = new javax.swing.JTextField();
         textoUser = new javax.swing.JLabel();
+        textoErroNome = new javax.swing.JLabel();
+        textoErroCpf = new javax.swing.JLabel();
+        textoErroEmail = new javax.swing.JLabel();
+        textoErroCel = new javax.swing.JLabel();
+        textoErroUser = new javax.swing.JLabel();
+        textoErroPass1 = new javax.swing.JLabel();
+        textoErroPass2 = new javax.swing.JLabel();
+        textoErroNivel = new javax.swing.JLabel();
+        textoErroAtivo = new javax.swing.JLabel();
         painelProcurarFuncionarios = new javax.swing.JPanel();
         textoProcurarFuncionario = new javax.swing.JLabel();
         campoPesquisarFuncionario = new javax.swing.JTextField();
@@ -169,6 +191,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNomeFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFocusLost(evt);
+            }
         });
 
         textoCpf.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -179,6 +204,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCpfFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCpfFocusLost(evt);
+            }
         });
 
         textoEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -188,6 +216,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         campoEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEmailFocusLost(evt);
             }
         });
 
@@ -209,9 +240,17 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCelularFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCelularFocusLost(evt);
+            }
         });
 
         caixaAtivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
+        caixaAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaAtivoActionPerformed(evt);
+            }
+        });
 
         textoAtivo.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoAtivo.setText("Ativo");
@@ -220,11 +259,19 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         textoNivel.setText("Nivel:");
 
         caixaNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Administrador", "Funcionário" }));
+        caixaNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaNivelActionPerformed(evt);
+            }
+        });
 
         campoSenha2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoSenha2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoSenha2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoSenha2FocusLost(evt);
             }
         });
 
@@ -239,6 +286,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoSenhaFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoSenhaFocusLost(evt);
+            }
         });
 
         campoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -246,61 +296,116 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoUserFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoUserFocusLost(evt);
+            }
         });
 
         textoUser.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoUser.setText("Nome de Usuário:");
+
+        textoErroNome.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNome.setText("Minímo dez caracteres");
+
+        textoErroCpf.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroCpf.setText("CPF Inválido");
+
+        textoErroEmail.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroEmail.setText("E-mail Inválido");
+
+        textoErroCel.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroCel.setText("Minímo oito caracteres");
+
+        textoErroUser.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroUser.setText("Minímo três caracteres");
+
+        textoErroPass1.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroPass1.setText("Minímo cinco caracteres");
+
+        textoErroPass2.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroPass2.setText("Senhas não conferem");
+
+        textoErroNivel.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNivel.setText("Selecione o nivel");
+
+        textoErroAtivo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroAtivo.setText("Selecione se esta ativo ou não");
 
         javax.swing.GroupLayout painelAdicionarModificarFuncionariosLayout = new javax.swing.GroupLayout(painelAdicionarModificarFuncionarios);
         painelAdicionarModificarFuncionarios.setLayout(painelAdicionarModificarFuncionariosLayout);
         painelAdicionarModificarFuncionariosLayout.setHorizontalGroup(
             painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoNome)
-                            .addComponent(textoId))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoNome)))
-                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoCpf)
-                            .addComponent(textoEmail)
-                            .addComponent(textoTelefone)
-                            .addComponent(textoCelular))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoEmail)
                             .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
                                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(campoTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(campoCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 68, Short.MAX_VALUE))))
+                                    .addComponent(textoNome)
+                                    .addComponent(textoId))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoNome)))
+                            .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoCpf)
+                                    .addComponent(textoEmail)
+                                    .addComponent(textoTelefone))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoEmail)
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(campoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textoErroCpf)
+                                            .addComponent(textoErroEmail))
+                                        .addGap(0, 68, Short.MAX_VALUE))))))
                     .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
                         .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoSenha2)
-                            .addComponent(textoNivel)
-                            .addComponent(textoAtivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(caixaAtivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaNivel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(campoSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
-                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textoUser)
-                                .addComponent(textoSenha))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoUser, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                .addComponent(campoSenha)))))
+                            .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addComponent(textoErroNome))
+                            .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                        .addComponent(textoCelular)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(campoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(textoSenha2)
+                                            .addComponent(textoNivel)
+                                            .addComponent(textoAtivo))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(caixaAtivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(caixaNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textoErroNivel)
+                                            .addComponent(textoErroAtivo)))
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(campoSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(textoUser)
+                                                .addComponent(textoSenha))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(textoErroCel)
+                                                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(campoUser)
+                                                    .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(textoErroUser))))
+                                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                                        .addGap(128, 128, 128)
+                                        .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(textoErroPass1)
+                                            .addComponent(textoErroPass2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -318,13 +423,19 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
                     .addComponent(textoNome)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCpf)
                     .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroCpf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoEmail)
                     .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoTelefone)
@@ -334,26 +445,42 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
                     .addComponent(textoCelular)
                     .addComponent(campoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroCel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoUser)
                     .addComponent(campoUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoSenha)
                     .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroPass1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoSenha2)
                     .addComponent(campoSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoNivel)
-                    .addComponent(caixaNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroPass2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoAtivo)
-                    .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textoNivel)
+                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addComponent(caixaNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoErroNivel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelAdicionarModificarFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addComponent(textoAtivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelAdicionarModificarFuncionariosLayout.createSequentialGroup()
+                        .addComponent(caixaAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoErroAtivo)))
+                .addGap(20, 20, 20))
         );
 
         painelProcurarFuncionarios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Procurar Funcionário Existente"));
@@ -616,6 +743,42 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         pesquisaFuncionarios();
     }//GEN-LAST:event_campoPesquisarFuncionarioActionPerformed
 
+    private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
+        valida(campoNome, 9, null, 0, textoErroNome);
+    }//GEN-LAST:event_campoNomeFocusLost
+
+    private void campoCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFocusLost
+        valida(campoCpf, 10, null, 1, textoErroCpf);
+    }//GEN-LAST:event_campoCpfFocusLost
+
+    private void campoEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFocusLost
+        valida(campoEmail, 0, null, 2, textoErroEmail);
+    }//GEN-LAST:event_campoEmailFocusLost
+
+    private void campoCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCelularFocusLost
+        valida(campoCelular, 7, null, 3, textoErroCel);
+    }//GEN-LAST:event_campoCelularFocusLost
+
+    private void campoUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUserFocusLost
+        valida(campoUser, 2, null, 4, textoErroUser);
+    }//GEN-LAST:event_campoUserFocusLost
+
+    private void campoSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenhaFocusLost
+        valida(campoSenha, 4, null, 5, textoErroPass1);
+    }//GEN-LAST:event_campoSenhaFocusLost
+
+    private void campoSenha2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenha2FocusLost
+        validaSenha2();
+    }//GEN-LAST:event_campoSenha2FocusLost
+
+    private void caixaNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaNivelActionPerformed
+        valida(null, null, caixaNivel, 7, textoErroNivel);
+    }//GEN-LAST:event_caixaNivelActionPerformed
+
+    private void caixaAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaAtivoActionPerformed
+        valida(null, null, caixaAtivo, 8, textoErroAtivo);
+    }//GEN-LAST:event_caixaAtivoActionPerformed
+
     private void atualizarFuncionario() {
         fDao.abreConnection();
         fDao.atualizaFuncionario(formToFuncionario());
@@ -766,67 +929,87 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         fDao.fechaConnection();
     }
 
-    public boolean valida(boolean excluir) {
-        boolean valida = true;
-        if (!"".equals(campoNome.getText()) && campoNome.getText().length() > 9) {
-            campoNome.setBorder(normal);
-        } else {
-            campoNome.setBorder(vermelha);
-            valida = false;
-        }
-        if (!"".equals(campoCpf.getText()) && campoCpf.getText().length() > 10) {
-            campoCpf.setBorder(normal);
-        } else {
-            campoCpf.setBorder(vermelha);
-            valida = false;
-        }
-        if (new ValidaEmail().validEmail(campoEmail.getText())) {
-            campoEmail.setBorder(normal);
-        } else {
-            campoEmail.setBorder(vermelha);
-            valida = false;
-        }
-        if (!"".equals(campoCelular.getText()) && campoCelular.getText().length() > 7) {
-            campoCelular.setBorder(normal);
-        } else {
-            campoCelular.setBorder(vermelha);
-            valida = false;
-        }
-        if (!"".equals(campoUser.getText()) && campoUser.getText().length() > 2) {
-            campoUser.setBorder(normal);
-        } else {
-            campoUser.setBorder(vermelha);
-            valida = false;
-        }
-        if (!excluir) {
-            if (!"".equals(campoSenha.getPassword()) && campoSenha.getPassword().length > 4) {
-                campoSenha.setBorder(normal);
+    public void valida(JTextField campo, Integer tamanho, JComboBox combo, int indexVetor, JLabel texto) {
+
+        if (campo != null) {
+            if (!"".equals(campo.getText()) && campo.getText().length() > tamanho) {
+                campo.setBorder(normal);
+                valida[indexVetor] = true;
+                texto.setVisible(false);
             } else {
-                campoSenha.setBorder(vermelha);
-                valida = false;
-            }
-            if (!"".equals(campoSenha2.getPassword()) && campoSenha2.getText().equals(campoSenha.getText())) {
-                campoSenha2.setBorder(normal);
-            } else {
-                campoSenha2.setBorder(vermelha);
-                valida = false;
+                campo.setBorder(vermelha);
+                valida[indexVetor] = false;
+                texto.setVisible(true);
             }
         }
-        if (caixaNivel.getSelectedIndex() != 0) {
-            caixaNivel.setBorder(normal);
-        } else {
-            caixaNivel.setBorder(vermelha);
-            valida = false;
+        if (combo != null) {
+            if (combo.getSelectedIndex() != 0) {
+                combo.setBorder(normal);
+                valida[indexVetor] = true;
+                texto.setVisible(false);
+            } else {
+                combo.setBorder(vermelha);
+                valida[indexVetor] = false;
+                texto.setVisible(true);
+            }
         }
-        if (caixaAtivo.getSelectedIndex() != 0) {
-            caixaAtivo.setBorder(normal);
-        } else {
-            caixaAtivo.setBorder(vermelha);
-            valida = false;
-        }
-        return valida;
     }
 
+    public void validaSenha2() {
+        if (campoSenha2 != null && campoSenha2.getText().equals(campoSenha.getText()) && campoSenha2.getText().length() > 4) {
+            campoSenha2.setBorder(normal);
+            valida[6] = true;
+            textoErroPass2.setVisible(false);
+        } else {
+            campoSenha2.setBorder(vermelha);
+            valida[6] = false;
+            textoErroPass2.setVisible(true);
+        }
+    }
+
+    public boolean valida(boolean excluir) {
+        boolean validar = true;
+
+        if (valida[0] == false) {
+            valida(campoNome, 9, null, 0, textoErroNome);
+            validar = false;
+        }
+        if (valida[1] == false) {
+            valida(campoCpf, 10, null, 1, textoErroCpf);
+            validar = false;
+        }
+        if (valida[2] == false) {
+            valida(campoEmail, 0, null, 2, textoErroEmail);
+            validar = false;
+        }
+        if (valida[3] == false) {
+            valida(campoCelular, 7, null, 3, textoErroCel);
+            validar = false;
+        }
+        if (valida[4] == false) {
+            valida(campoUser, 2, null, 4, textoErroUser);
+            validar = false;
+        }
+        if (!excluir) {
+            if (valida[5] == false) {
+                valida(campoSenha, 4, null, 5, textoErroPass1);
+                validar = false;
+            }
+            if (valida[6] == false) {
+                validaSenha2();
+                validar = false;
+            }
+        }
+        if (valida[7] == false) {
+            valida(null, null, caixaNivel, 7, textoErroNivel);
+            validar = false;
+        }
+        if (valida[8] == false) {
+            valida(null, null, caixaAtivo, 8, textoErroAtivo);
+            validar = false;
+        }
+        return validar;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAtualizarFuncionario;
     private javax.swing.JButton botaoCadastrarFuncionario;
@@ -858,6 +1041,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
     private javax.swing.JLabel textoCliqueParaEditar;
     private javax.swing.JLabel textoCpf;
     private javax.swing.JLabel textoEmail;
+    private javax.swing.JLabel textoErroAtivo;
+    private javax.swing.JLabel textoErroCel;
+    private javax.swing.JLabel textoErroCpf;
+    private javax.swing.JLabel textoErroEmail;
+    private javax.swing.JLabel textoErroNivel;
+    private javax.swing.JLabel textoErroNome;
+    private javax.swing.JLabel textoErroPass1;
+    private javax.swing.JLabel textoErroPass2;
+    private javax.swing.JLabel textoErroUser;
     private javax.swing.JLabel textoIconeNovoFuncionario;
     private javax.swing.JLabel textoId;
     private javax.swing.JLabel textoNivel;

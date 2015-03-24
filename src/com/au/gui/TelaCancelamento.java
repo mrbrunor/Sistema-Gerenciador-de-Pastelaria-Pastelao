@@ -45,6 +45,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
     public TelaCancelamento(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        textoErroNumero.setVisible(false);
         normal = campoNumeroPedido.getBorder();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         this.idCaixa = idCaixa;
@@ -65,6 +66,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
         painelInferior = new javax.swing.JPanel();
         textoNumeroPedido = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
+        textoErroNumero = new javax.swing.JLabel();
         botaoSair = new javax.swing.JButton();
         botaoCancelarPedido = new javax.swing.JButton();
 
@@ -113,12 +115,18 @@ public class TelaCancelamento extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNumeroPedidoFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumeroPedidoFocusLost(evt);
+            }
         });
         campoNumeroPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoNumeroPedidoActionPerformed(evt);
             }
         });
+
+        textoErroNumero.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNumero.setText("Digite o número do produto");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -128,7 +136,11 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(textoNumeroPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoNumeroPedido)
+                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(textoErroNumero)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(campoNumeroPedido))
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -138,7 +150,8 @@ public class TelaCancelamento extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNumeroPedido)
                     .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textoErroNumero))
         );
 
         botaoSair.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -211,14 +224,20 @@ public class TelaCancelamento extends javax.swing.JDialog {
         campoNumeroPedido.selectAll();
     }//GEN-LAST:event_campoNumeroPedidoFocusGained
 
+    private void campoNumeroPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroPedidoFocusLost
+        valida();
+    }//GEN-LAST:event_campoNumeroPedidoFocusLost
+
     public boolean valida() {
         boolean valida;
         if (!"".equals(campoNumeroPedido.getText())) {
             campoNumeroPedido.setBorder(normal);
             valida = validaPedido();
+            textoErroNumero.setVisible(false);
         } else {
             campoNumeroPedido.setBorder(vermelha);
             valida = false;
+            textoErroNumero.setVisible(true);
         }
         return valida;
     }
@@ -257,6 +276,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoCancelamentoPedido;
+    private javax.swing.JLabel textoErroNumero;
     private javax.swing.JLabel textoInsiraDados;
     private javax.swing.JLabel textoNumeroPedido;
     // End of variables declaration//GEN-END:variables
