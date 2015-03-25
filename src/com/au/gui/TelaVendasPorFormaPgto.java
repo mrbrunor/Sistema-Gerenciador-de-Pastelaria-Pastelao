@@ -22,6 +22,7 @@ import com.au.dao.FormaPagamentoDao;
 import com.au.util.CustomComboBoxInt;
 import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
@@ -40,7 +41,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -55,6 +58,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
     private final Border normal;
     private List<FormaPagamento> listaResFormasPagamento;
     private final FormaPagamentoDao fpDao = new FormaPagamentoDao();
+    private boolean[] valida={false, false, false};
 
     /**
      * Cria o novo form TelaVendasPorPeríodo
@@ -66,6 +70,10 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         super(parent, modal);
         buscaFormasPagamento();
         initComponents();
+        textoErroDtFim.setVisible(false);
+        textoErroDtInicio.setVisible(false);
+        textoErroLocal.setVisible(false);
+        textoErroRadio.setVisible(false);
         normal = campoLocalParaSalvar.getBorder();
         campoDataInicio.setBorder(normal);
         campoDataTermino.setBorder(normal);
@@ -108,6 +116,10 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         caixaSelecaoVR = new javax.swing.JComboBox(getFormasVale());
         botaoRadioValeRefeicao = new javax.swing.JRadioButton();
         textoSelecioneFormaPgto = new javax.swing.JLabel();
+        textoErroDtInicio = new javax.swing.JLabel();
+        textoErroDtFim = new javax.swing.JLabel();
+        textoErroRadio = new javax.swing.JLabel();
+        textoErroLocal = new javax.swing.JLabel();
         botaoGerarRelatorio = new javax.swing.JButton();
         botaoCancelarGeracaoDeRelatorio = new javax.swing.JButton();
 
@@ -156,18 +168,33 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
         campoDataInicio.setDateFormatString("dd-MM-yyyy");
         campoDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoDataInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDataInicioFocusLost(evt);
+            }
+        });
 
         textoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoDataTermino.setText("Data de Término:");
 
         campoDataTermino.setDateFormatString("dd-MM-yyyy");
         campoDataTermino.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoDataTermino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDataTerminoFocusLost(evt);
+            }
+        });
 
         textoEscolhaOLocal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoEscolhaOLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEscolhaOLocal.setText("Escolha o local para salvar o relatório em pdf:");
 
         campoLocalParaSalvar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        campoLocalParaSalvar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoLocalParaSalvarFocusLost(evt);
+            }
+        });
 
         botaoProcurarLocal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/folder-26.png"))); // NOI18N
@@ -225,6 +252,18 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         textoSelecioneFormaPgto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSelecioneFormaPgto.setText("Selecione a forma de pagamento desejada:");
 
+        textoErroDtInicio.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroDtInicio.setText("Informe a data inicial");
+
+        textoErroDtFim.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroDtFim.setText("Informe a data final");
+
+        textoErroRadio.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroRadio.setText("Escolha uma das opções");
+
+        textoErroLocal.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroLocal.setText("Informe o local para salvar o relatório");
+
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
         painelInferiorLayout.setHorizontalGroup(
@@ -242,42 +281,54 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                                 .addComponent(botaoProcurarLocal))
                             .addGroup(painelInferiorLayout.createSequentialGroup()
                                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botaoRadioDinheiro)
+                                    .addComponent(textoErroRadio))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textoIconeDinheiro)
+                                .addGap(18, 18, 18)
+                                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                                        .addComponent(botaoRadioDinheiro)
+                                        .addComponent(botaoRadioCartaoCredito)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textoIconeDinheiro)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                                .addComponent(botaoRadioCartaoCredito)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textoIconeCC))
-                                            .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                                .addComponent(botaoRadioCartaoDebito)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textoIconeCD))
-                                            .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(painelInferiorLayout.createSequentialGroup()
-                                                .addComponent(botaoRadioValeRefeicao)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textoIconeVR))
-                                            .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
-                                            .addComponent(textoDataTermino)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
-                                            .addComponent(textoDataInicio)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(textoIconeCC))
+                                    .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                                        .addComponent(botaoRadioCartaoDebito)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoIconeCD)))
+                                .addGap(24, 24, 24)
+                                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                                        .addComponent(botaoRadioValeRefeicao)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textoIconeVR))))
+                            .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
+                                    .addComponent(textoDataTermino)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(painelInferiorLayout.createSequentialGroup()
+                                            .addComponent(textoErroDtFim)
+                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInferiorLayout.createSequentialGroup()
+                                    .addComponent(textoDataInicio)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
+            .addGroup(painelInferiorLayout.createSequentialGroup()
+                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(textoErroDtInicio))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textoErroLocal)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         painelInferiorLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoDataInicio, textoDataTermino});
@@ -288,11 +339,17 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoDataInicio)
-                    .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoErroDtInicio)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoDataTermino)
-                    .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoErroDtFim)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoSelecioneFormaPgto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -304,21 +361,23 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
                             .addComponent(botaoRadioCartaoCredito))
                         .addComponent(botaoRadioCartaoDebito)
                         .addComponent(textoIconeCC)
-                        .addComponent(textoIconeCD)
-                        .addComponent(botaoRadioValeRefeicao, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(botaoRadioValeRefeicao, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(textoIconeCD, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(textoIconeVR))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caixaSelecaoCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(caixaSelecaoCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(caixaSelecaoVR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoErroRadio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textoEscolhaOLocal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoLocalParaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoProcurarLocal))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroLocal))
         );
 
         botaoGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -414,6 +473,18 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
     private void botaoCancelarGeracaoDeRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarGeracaoDeRelatorioActionPerformed
         this.dispose();
     }//GEN-LAST:event_botaoCancelarGeracaoDeRelatorioActionPerformed
+
+    private void campoDataInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataInicioFocusLost
+        validaData(campoDataInicio, 0, textoErroDtInicio);
+    }//GEN-LAST:event_campoDataInicioFocusLost
+
+    private void campoDataTerminoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataTerminoFocusLost
+        validaData(campoDataTermino, 1, textoErroDtFim);
+    }//GEN-LAST:event_campoDataTerminoFocusLost
+
+    private void campoLocalParaSalvarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoLocalParaSalvarFocusLost
+        validaLocal(campoLocalParaSalvar, 2, textoErroLocal);
+    }//GEN-LAST:event_campoLocalParaSalvarFocusLost
 
     private void buscaFormasPagamento() {
         fpDao.abreConnection();
@@ -591,24 +662,48 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         campoLocalParaSalvar.setText(localArquivo);
     }
 
+    public void validaData(JDateChooser data, int index, JLabel texto) {
+        if (data.getDate() != null) {
+            data.setBorder(normal);
+            valida[index] = true;
+            texto.setVisible(false);            
+        } else {
+            data.setBorder(vermelha);
+            valida[index] = false;
+            texto.setVisible(true);
+        }
+    }
+    
+    public void validaLocal(JTextField campo, int index, JLabel texto) {
+        if (!"".equals(campo.getText())) {
+            campo.setBorder(normal);
+            valida[index] = true;
+            texto.setVisible(false);
+        } else {
+            valida[index] = false;
+            campo.setBorder(vermelha);
+            texto.setVisible(true);
+        }
+    }
+
     public boolean valida() {
-        boolean valida = true;
-        if (campoDataInicio.getDate() != null) {
-            campoDataInicio.setBorder(normal);
-        } else {
-            campoDataInicio.setBorder(vermelha);
-            valida = false;
+
+        boolean validar = true;
+
+        if (valida[0] == false) {
+            validaData(campoDataInicio, 0, textoErroDtInicio);
+            validar = false;
         }
-        if (campoDataTermino.getDate() != null) {
-            campoDataTermino.setBorder(normal);
-        } else {
-            campoDataTermino.setBorder(vermelha);
-            valida = false;
+        if (valida[1] == false) {
+            validaData(campoDataTermino, 1, textoErroDtFim);
+            validar = false;
         }
+
         if (botaoRadioDinheiro.isSelected() || botaoRadioCartaoCredito.isSelected() || botaoRadioCartaoDebito.isSelected() || botaoRadioValeRefeicao.isSelected()) {
+            textoErroRadio.setVisible(false);
             limpaBorda();
         } else {
-            valida = false;
+            validar = false;
             botaoRadioCartaoDebito.setBorder(vermelha);
             botaoRadioCartaoDebito.setBorderPainted(true);
             botaoRadioCartaoCredito.setBorder(vermelha);
@@ -617,10 +712,11 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
             botaoRadioDinheiro.setBorderPainted(true);
             botaoRadioValeRefeicao.setBorder(vermelha);
             botaoRadioValeRefeicao.setBorderPainted(true);
+            textoErroRadio.setVisible(true);
         }
         if (botaoRadioCartaoCredito.isSelected()) {
             if (caixaSelecaoCC.getSelectedIndex() == -1) {
-                valida = false;
+                validar = false;
                 caixaSelecaoCC.setBorder(vermelha);
             }
         } else {
@@ -628,7 +724,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         }
         if (botaoRadioCartaoDebito.isSelected()) {
             if (caixaSelecaoCD.getSelectedIndex() == -1) {
-                valida = false;
+                validar = false;
                 caixaSelecaoCD.setBorder(vermelha);
             }
         } else {
@@ -636,20 +732,19 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         }
         if (botaoRadioValeRefeicao.isSelected()) {
             if (caixaSelecaoVR.getSelectedIndex() == -1) {
-                valida = false;
+                validar = false;
                 caixaSelecaoVR.setBorder(vermelha);
             }
         } else {
             caixaSelecaoVR.setBorder(normal);
         }
-
-        if (!"".equals(campoLocalParaSalvar.getText())) {
-            campoLocalParaSalvar.setBorder(normal);
-        } else {
-            valida = false;
-            campoLocalParaSalvar.setBorder(vermelha);
+        
+        if (valida[2] == false) {
+            validaLocal(campoLocalParaSalvar, 2, textoErroLocal);
+            validar = false;
         }
-        return valida;
+        
+        return validar;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -671,6 +766,10 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoDataInicio;
     private javax.swing.JLabel textoDataTermino;
+    private javax.swing.JLabel textoErroDtFim;
+    private javax.swing.JLabel textoErroDtInicio;
+    private javax.swing.JLabel textoErroLocal;
+    private javax.swing.JLabel textoErroRadio;
     private javax.swing.JLabel textoEscolhaOLocal;
     private javax.swing.JLabel textoIconeCC;
     private javax.swing.JLabel textoIconeCD;

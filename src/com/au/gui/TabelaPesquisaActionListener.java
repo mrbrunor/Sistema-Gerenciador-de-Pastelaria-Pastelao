@@ -78,7 +78,8 @@ public class TabelaPesquisaActionListener implements ActionListener, ListSelecti
     }
 
     public void vendaToForm(Produto produto) {
-        frm.getCampoAdicionarItem().setText(String.valueOf(produto.getIdProd()));
+        frm.getCampoAdicionarItem().setText(String.valueOf(produto.getNumProd()));
+        frm.getCampoAdicionarItem().requestFocus();
     }
 
     @Override

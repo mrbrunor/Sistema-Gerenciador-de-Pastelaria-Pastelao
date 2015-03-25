@@ -58,6 +58,9 @@ public class TelaVendasGerais extends javax.swing.JDialog {
     public TelaVendasGerais(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        textoErroDtFim.setVisible(false);
+        textoErroDtInicio.setVisible(false);
+        textoErroLocal.setVisible(false);
         normal = campoLocalParaSalvar.getBorder();
         campoDataInicio.setBorder(normal);
         campoDataTermino.setBorder(normal);
@@ -84,6 +87,9 @@ public class TelaVendasGerais extends javax.swing.JDialog {
         textoEscolhaOLocal = new javax.swing.JLabel();
         campoLocalParaSalvar = new javax.swing.JTextField();
         botaoProcurarLocal = new javax.swing.JButton();
+        textoErroDtInicio = new javax.swing.JLabel();
+        textoErroDtFim = new javax.swing.JLabel();
+        textoErroLocal = new javax.swing.JLabel();
         botaoGerarRelatorio = new javax.swing.JButton();
         botaoCancelarGeracaoDeRelatorio = new javax.swing.JButton();
 
@@ -154,6 +160,15 @@ public class TelaVendasGerais extends javax.swing.JDialog {
             }
         });
 
+        textoErroDtInicio.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroDtInicio.setText("Informe a data inicial");
+
+        textoErroDtFim.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroDtFim.setText("Informe a data final");
+
+        textoErroLocal.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroLocal.setText("Informe o local para salvar o relatório");
+
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
         painelInferiorLayout.setHorizontalGroup(
@@ -166,15 +181,23 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                         .addComponent(campoLocalParaSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoProcurarLocal))
-                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(painelInferiorLayout.createSequentialGroup()
-                            .addComponent(textoDataTermino)
-                            .addGap(18, 18, 18)
-                            .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(painelInferiorLayout.createSequentialGroup()
-                            .addComponent(textoDataInicio)
-                            .addGap(18, 18, 18)
-                            .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(painelInferiorLayout.createSequentialGroup()
+                                    .addComponent(textoDataInicio)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(textoErroDtInicio)))
+                                .addGroup(painelInferiorLayout.createSequentialGroup()
+                                    .addComponent(textoDataTermino)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textoErroDtFim)
+                                        .addComponent(campoDataTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(textoErroLocal))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -186,17 +209,25 @@ public class TelaVendasGerais extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoDataInicio)
-                    .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(campoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoErroDtInicio)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoDataTermino)
-                    .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(campoDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoErroDtFim)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoEscolhaOLocal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoLocalParaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoProcurarLocal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroLocal)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -331,20 +362,26 @@ public class TelaVendasGerais extends javax.swing.JDialog {
         boolean valida = true;
         if (campoDataInicio.getDate() != null) {
             campoDataInicio.setBorder(normal);
+            textoErroDtInicio.setVisible(false);
         } else {
             campoDataInicio.setBorder(vermelha);
+            textoErroDtInicio.setVisible(true);
             valida = false;
         }
         if (campoDataTermino.getDate() != null) {
             campoDataTermino.setBorder(normal);
+            textoErroDtFim.setVisible(false);
         } else {
             campoDataTermino.setBorder(vermelha);
+            textoErroDtFim.setVisible(true);
             valida = false;
         }
         if (!"".equals(campoLocalParaSalvar.getText())) {
             campoLocalParaSalvar.setBorder(normal);
+            textoErroLocal.setVisible(false);
         } else {
             valida = false;
+            textoErroLocal.setVisible(true);
             campoLocalParaSalvar.setBorder(vermelha);
         }
         return valida;
@@ -362,6 +399,9 @@ public class TelaVendasGerais extends javax.swing.JDialog {
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoDataInicio;
     private javax.swing.JLabel textoDataTermino;
+    private javax.swing.JLabel textoErroDtFim;
+    private javax.swing.JLabel textoErroDtInicio;
+    private javax.swing.JLabel textoErroLocal;
     private javax.swing.JLabel textoEscolhaOLocal;
     private javax.swing.JLabel textoIconeVendasPorPeriodo;
     private javax.swing.JLabel textoPreenchaOsCampos;

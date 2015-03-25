@@ -237,7 +237,7 @@ public class PedidoDao {
     
     //UPDATE
     public boolean atualizaPedido(Pedido novoPedido) {
-        String sql = "UPDATE sistemapastelao.Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPagto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";
+        String sql = "UPDATE sistemapastelao.Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPgto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";
         PreparedStatement stmt;
         boolean resultado = false;
 

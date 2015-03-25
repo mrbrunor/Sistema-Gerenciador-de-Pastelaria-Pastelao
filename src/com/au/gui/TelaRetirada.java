@@ -40,6 +40,7 @@ public class TelaRetirada extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaRetirada
+     *
      * @param parent
      * @param modal
      * @param caixa
@@ -47,6 +48,8 @@ public class TelaRetirada extends javax.swing.JDialog {
     public TelaRetirada(java.awt.Frame parent, boolean modal, Caixa caixa) {
         super(parent, modal);
         initComponents();
+        textoErroMotivo.setVisible(false);
+        textoErroValor.setVisible(false);
         campoMotivo.setDocument(new LimitaDigitos((300), ""));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         normal = campoValor.getBorder();
@@ -72,6 +75,8 @@ public class TelaRetirada extends javax.swing.JDialog {
         campoValor.setActionCommand("Valor");
         jScrollPane1 = new javax.swing.JScrollPane();
         campoMotivo = new javax.swing.JTextArea();
+        textoErroValor = new javax.swing.JLabel();
+        textoErroMotivo = new javax.swing.JLabel();
         botaoCancelarRetirada = new javax.swing.JButton();
         botaoRegistrarRetirada = new javax.swing.JButton();
 
@@ -123,6 +128,9 @@ public class TelaRetirada extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoValorFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoValorFocusLost(evt);
+            }
         });
         campoValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +144,9 @@ public class TelaRetirada extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoMotivoFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoMotivoFocusLost(evt);
+            }
         });
         campoMotivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -146,6 +157,12 @@ public class TelaRetirada extends javax.swing.JDialog {
         campoMotivo.setLineWrap(true);
 
         campoMotivo.setWrapStyleWord(true);
+
+        textoErroValor.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroValor.setText("Informe o valor");
+
+        textoErroMotivo.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroMotivo.setText("Minímo quatro caracteres");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -159,7 +176,12 @@ public class TelaRetirada extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoValor)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoErroMotivo)
+                            .addComponent(textoErroValor))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -173,9 +195,14 @@ public class TelaRetirada extends javax.swing.JDialog {
                     .addComponent(textoValor)
                     .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroValor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoSenha)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoErroMotivo)))
                 .addContainerGap())
         );
 
@@ -243,10 +270,7 @@ public class TelaRetirada extends javax.swing.JDialog {
 
     private void campoMotivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMotivoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (valida()) {
-                registrarRetirada();
-                this.dispose();
-            }
+            registrarRetirada();
         }
     }//GEN-LAST:event_campoMotivoKeyPressed
 
@@ -255,42 +279,56 @@ public class TelaRetirada extends javax.swing.JDialog {
     }//GEN-LAST:event_botaoCancelarRetiradaActionPerformed
 
     private void botaoRegistrarRetiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRegistrarRetiradaActionPerformed
-        if (valida()) {
-            registrarRetirada();
-            this.dispose();
-        }
+        registrarRetirada();
     }//GEN-LAST:event_botaoRegistrarRetiradaActionPerformed
 
+    private void campoValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoValorFocusLost
+        validaTxt();
+    }//GEN-LAST:event_campoValorFocusLost
+
+    private void campoMotivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMotivoFocusLost
+        validaTextArea();
+    }//GEN-LAST:event_campoMotivoFocusLost
+
     public void registrarRetirada() {
-        dDao.abreConnection();
-        Despesa despesa = new Despesa();
-        Date data = new Date();
-        despesa.setDataDesp(new java.sql.Date(data.getTime()));
-        despesa.setDescDesp(campoMotivo.getText());
-        despesa.setValorDesp(Double.valueOf(campoValor.getText()));
-        despesa.setRetirada((byte) 1);
-        despesa.setIdCaixa(caixa.getIdCaixa());
-        dDao.adicionaDespesa(despesa);
-        JOptionPane.showMessageDialog(this, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
+        if (validaTxt() && validaTextArea()) {
+            dDao.abreConnection();
+            Despesa despesa = new Despesa();
+            Date data = new Date();
+            despesa.setDataDesp(new java.sql.Date(data.getTime()));
+            despesa.setDescDesp(campoMotivo.getText());
+            despesa.setValorDesp(Double.valueOf(campoValor.getText()));
+            despesa.setRetirada((byte) 1);
+            despesa.setIdCaixa(caixa.getIdCaixa());
+            dDao.adicionaDespesa(despesa);
+            JOptionPane.showMessageDialog(this, "Retirada de caixa efetuada com sucesso!", "Retirada de Caixa", JOptionPane.INFORMATION_MESSAGE);
+            dDao.fechaConnection();
+            this.dispose();
+        }
     }
 
-    public boolean valida() {
-        boolean valida = true;
-
+    public boolean validaTxt() {
         if (!"".equals(campoValor.getText())) {
             campoValor.setBorder(normal);
+            textoErroValor.setVisible(false);
+            return true;
         } else {
             campoValor.setBorder(vermelha);
-            valida = false;
+            textoErroValor.setVisible(true);
+            return false;
         }
+    }
 
+    public boolean validaTextArea() {
         if (!"".equals(campoMotivo.getText()) && campoMotivo.getText().length() > 3) {
             campoMotivo.setBorder(normal);
+            textoErroMotivo.setVisible(false);
+            return true;
         } else {
             campoMotivo.setBorder(vermelha);
-            valida = false;
+            textoErroMotivo.setVisible(true);
+            return false;
         }
-        return valida;
     }
 
     /**
@@ -304,6 +342,8 @@ public class TelaRetirada extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JLabel textoErroMotivo;
+    private javax.swing.JLabel textoErroValor;
     private javax.swing.JLabel textoInsiraDados;
     private javax.swing.JLabel textoRetiradaCaixa;
     private javax.swing.JLabel textoSenha;

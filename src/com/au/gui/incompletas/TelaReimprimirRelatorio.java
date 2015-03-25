@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.au.gui;
+package com.au.gui.incompletas;
 
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;

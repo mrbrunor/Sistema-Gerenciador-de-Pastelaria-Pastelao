@@ -20,11 +20,16 @@ import com.au.bean.Funcionario;
 import com.au.dao.FuncionarioDao;
 import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.plaf.FontUIResource;
 
 /**
@@ -32,12 +37,17 @@ import javax.swing.plaf.FontUIResource;
  * @author tiago_000
  */
 public class TelaLogin extends javax.swing.JFrame {
+    private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
+    private final Border normal;
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        normal = campoUsuario.getBorder();
+        textoErroUsuario.setVisible(false);
+        textoErroSenha.setVisible(false);
         setaFonteAvisos();
         campoSenha.setDocument(new LimitaDigitos((64), ""));
         campoUsuario.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
@@ -61,6 +71,8 @@ public class TelaLogin extends javax.swing.JFrame {
         campoUsuario = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
         campoSenha.setActionCommand("Entrar no Sistema");
+        textoErroUsuario = new javax.swing.JLabel();
+        textoErroSenha = new javax.swing.JLabel();
         botaoEsqueciSenha = new javax.swing.JButton();
         botaoEntrarNoSistema = new javax.swing.JButton();
 
@@ -115,6 +127,9 @@ public class TelaLogin extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoUsuarioFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoUsuarioFocusLost(evt);
+            }
         });
         campoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,12 +142,21 @@ public class TelaLogin extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoSenhaFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoSenhaFocusLost(evt);
+            }
         });
         campoSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoSenhaActionPerformed(evt);
             }
         });
+
+        textoErroUsuario.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroUsuario.setText("Informe o usuário");
+
+        textoErroSenha.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroSenha.setText("Informe a senha");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -146,7 +170,12 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                    .addComponent(campoSenha))
+                    .addComponent(campoSenha)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoErroSenha)
+                            .addComponent(textoErroUsuario))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -157,9 +186,13 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(textoUsuario)
                     .addComponent(campoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoSenha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroSenha)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -205,9 +238,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(painelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoEntrarNoSistema)
                     .addComponent(botaoEsqueciSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -240,6 +273,25 @@ public class TelaLogin extends javax.swing.JFrame {
         logar();
     }//GEN-LAST:event_campoSenhaActionPerformed
 
+    private void campoUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUsuarioFocusLost
+        valida(campoUsuario, 3, textoErroUsuario);
+    }//GEN-LAST:event_campoUsuarioFocusLost
+
+    private void campoSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenhaFocusLost
+        valida(campoSenha, 3, textoErroSenha);
+    }//GEN-LAST:event_campoSenhaFocusLost
+    
+    public void valida(JTextField campo, Integer tamanho, JLabel texto) {
+
+        if (campo != null && !"".equals(campo.getText()) && campo.getText().length() > tamanho) {
+            campo.setBorder(normal);
+            texto.setVisible(false);
+        } else {
+            campo.setBorder(vermelha);
+            texto.setVisible(true);
+        }
+    }
+    
     public void limpaCampos() {
         campoSenha.setText("");
         campoUsuario.setText("");
@@ -353,6 +405,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoBemVindo;
+    private javax.swing.JLabel textoErroSenha;
+    private javax.swing.JLabel textoErroUsuario;
     private javax.swing.JLabel textoInsiraDados;
     private javax.swing.JLabel textoSenha;
     private javax.swing.JLabel textoUsuario;

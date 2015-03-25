@@ -126,7 +126,7 @@ public class TelaCancelamento extends javax.swing.JDialog {
         });
 
         textoErroNumero.setForeground(new java.awt.Color(255, 0, 0));
-        textoErroNumero.setText("Digite o número do produto");
+        textoErroNumero.setText("Informe o número do pedido");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -225,7 +225,13 @@ public class TelaCancelamento extends javax.swing.JDialog {
     }//GEN-LAST:event_campoNumeroPedidoFocusGained
 
     private void campoNumeroPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroPedidoFocusLost
-        valida();
+        if (!"".equals(campoNumeroPedido.getText())) {
+            campoNumeroPedido.setBorder(normal);
+            textoErroNumero.setVisible(false);
+        } else {
+            campoNumeroPedido.setBorder(vermelha);
+            textoErroNumero.setVisible(true);
+        }
     }//GEN-LAST:event_campoNumeroPedidoFocusLost
 
     public boolean valida() {
@@ -233,11 +239,9 @@ public class TelaCancelamento extends javax.swing.JDialog {
         if (!"".equals(campoNumeroPedido.getText())) {
             campoNumeroPedido.setBorder(normal);
             valida = validaPedido();
-            textoErroNumero.setVisible(false);
         } else {
             campoNumeroPedido.setBorder(vermelha);
             valida = false;
-            textoErroNumero.setVisible(true);
         }
         return valida;
     }

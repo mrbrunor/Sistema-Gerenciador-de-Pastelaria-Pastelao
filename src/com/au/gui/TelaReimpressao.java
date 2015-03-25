@@ -47,6 +47,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
     public TelaReimpressao(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
+        textoErroNumero.setVisible(false);
         normal = campoNumeroPedido.getBorder();
         campoNumeroPedido.setDocument(new LimitaDigitos((7), "[^0-9]"));
         this.idCaixa = idCaixa;
@@ -67,6 +68,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
         painelInferior = new javax.swing.JPanel();
         textoNumeroPedido = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
+        textoErroNumero = new javax.swing.JLabel();
         botaoCancelarReimpressao = new javax.swing.JButton();
         botaoConfirmarReimpressao = new javax.swing.JButton();
 
@@ -111,11 +113,19 @@ public class TelaReimpressao extends javax.swing.JDialog {
 
         campoNumeroPedido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         campoNumeroPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        campoNumeroPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumeroPedidoFocusLost(evt);
+            }
+        });
         campoNumeroPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoNumeroPedidoActionPerformed(evt);
             }
         });
+
+        textoErroNumero.setForeground(new java.awt.Color(255, 0, 0));
+        textoErroNumero.setText("Informe o número do pedido");
 
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
@@ -125,7 +135,11 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(textoNumeroPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoNumeroPedido)
+                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelInferiorLayout.createSequentialGroup()
+                        .addComponent(textoErroNumero)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(campoNumeroPedido))
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -135,7 +149,8 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNumeroPedido)
                     .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textoErroNumero))
         );
 
         botaoCancelarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -204,6 +219,16 @@ public class TelaReimpressao extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_campoNumeroPedidoActionPerformed
 
+    private void campoNumeroPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroPedidoFocusLost
+        if (!"".equals(campoNumeroPedido.getText())) {
+            campoNumeroPedido.setBorder(normal);
+            textoErroNumero.setVisible(false);
+        } else {
+            campoNumeroPedido.setBorder(vermelha);
+            textoErroNumero.setVisible(true);
+        }
+    }//GEN-LAST:event_campoNumeroPedidoFocusLost
+
     public boolean valida() {
         boolean valida;
 
@@ -252,6 +277,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
     private javax.swing.JTextField campoNumeroPedido;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JLabel textoErroNumero;
     private javax.swing.JLabel textoInsiraDados;
     private javax.swing.JLabel textoNumeroPedido;
     private javax.swing.JLabel textoReimpressaoPedido;

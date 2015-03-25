@@ -16,6 +16,7 @@
  */
 package com.au.gui;
 
+import com.au.gui.incompletas.TelaReimprimirRelatorio;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.bean.Caixa;
 import com.au.bean.Funcionario;
@@ -474,6 +475,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuPrincipal.add(jSeparator1);
 
         itemMenuTrocarSenha.setText("Trocar Senha");
+        itemMenuTrocarSenha.setEnabled(false);
         menuPrincipal.add(itemMenuTrocarSenha);
 
         itemMenuDeslogar.setText("Deslogar");
@@ -761,11 +763,19 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         Produto produto = new Produto();
         ItemPedido itempedido = new ItemPedido();
         String padrao = "[0-9]{1,2}";
-
         produto.setNumProd(Integer.valueOf(campoAdicionarItem.getText()));
         ProdutoDao pDao = new ProdutoDao();
         pDao.abreConnection();
         produto = pDao.buscaCodigo(produto.getNumProd());
+        pDao.fechaConnection();
+        if (produto.getNumProd() == 0) {
+            new TelaPastelCustomizado(this, true).setVisible(true);
+            itempedido = TelaPastelCustomizado.getItemPedido();
+            System.out.println(itempedido.getNomePastel());
+            if (itempedido == null) {
+                return;
+            }
+        }
         itempedido.setIdProd(produto.getIdProd());
         itempedido.setQtdProd(-1);
         while (itempedido.getQtdProd() == -1) {
@@ -777,8 +787,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             }
         }
         verificaSeExiste(itempedido);
-        itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
-
+        if (produto.getNumProd() == 0) {
+            itempedido.setTotProd(itempedido.getQtdProd() * itempedido.getTotProd());
+        } else {
+            itempedido.setTotProd(itempedido.getQtdProd() * produto.getValorProd());
+        }
         totalPedido = totalPedido + itempedido.getTotProd();
         atualizaTotal();
         campoAdicionarItem.setText("");
@@ -947,10 +960,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
 
     public boolean validaAddItem() {
         boolean valida = true;
-        if ("0".equals(campoAdicionarItem.getText())) {
-            valida = false;
-            JOptionPane.showMessageDialog(this, "Insira o ID do produto para adiciona-lo ao pedido.", "Inserir ID", JOptionPane.INFORMATION_MESSAGE);
-        }
         if ("".equals(campoAdicionarItem.getText())) {
             if (validaPedido()) {
                 fecharPedido();
@@ -1019,7 +1028,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 JOptionPane.showMessageDialog(this, "Você possui um caixa aberto com data anterior ao dia de hoje. \nPor favor, clique em OK para fechar o caixa anterior", "Caixa anterior encontrado", JOptionPane.WARNING_MESSAGE);
                 while (!TelaFechamentoCaixa.isFechou()) {
                     fecharCaixa(caixas.get(i).getIdCaixa());
-                    
+
                 }
                 TelaFechamentoCaixa.setFechou(false);
                 System.out.println("i= " + i);
@@ -1032,19 +1041,37 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private void verificaSeExiste(ItemPedido itempedido) {
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
             if (pedido.getItempedidos().get(i).getIdProd() == itempedido.getIdProd()) {
-                int aux = pedido.getItempedidos().get(i).getOrdemProduto();
-                totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
-                if (itempedido.getQtdProd() == 0) {
-                    if (pedido.getItempedidos().size() == 1) {
-                        limparPedido();
-                    } else {
-                        pedido.getItempedidos().remove(i);
+                if (pedido.getItempedidos().get(i).getNomePastel() != null && itempedido.getNomePastel() != null) {
+                    if (itempedido.getNomePastel().equals(pedido.getItempedidos().get(i).getNomePastel())) {
+                        int aux = pedido.getItempedidos().get(i).getOrdemProduto();
+                        totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
+                        if (itempedido.getQtdProd() == 0) {
+                            if (pedido.getItempedidos().size() == 1) {
+                                limparPedido();
+                            } else {
+                                pedido.getItempedidos().remove(i);
+                            }
+                        } else {
+                            itempedido.setOrdemProduto(aux);
+                            pedido.getItempedidos().set(i, itempedido);
+                        }
+                        return;
                     }
                 } else {
-                    itempedido.setOrdemProduto(aux);
-                    pedido.getItempedidos().set(i, itempedido);
+                    int aux = pedido.getItempedidos().get(i).getOrdemProduto();
+                    totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();
+                    if (itempedido.getQtdProd() == 0) {
+                        if (pedido.getItempedidos().size() == 1) {
+                            limparPedido();
+                        } else {
+                            pedido.getItempedidos().remove(i);
+                        }
+                    } else {
+                        itempedido.setOrdemProduto(aux);
+                        pedido.getItempedidos().set(i, itempedido);
+                    }
+                    return;
                 }
-                return;
             }
         }
 

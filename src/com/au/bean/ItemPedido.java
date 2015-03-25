@@ -27,6 +27,7 @@ public class ItemPedido {
     private int qtdProd;
     private double totProd;
     private int ordemProduto;
+    private String nomePastel;
     
     private Produto produto = new Produto();
 
@@ -77,4 +78,13 @@ public class ItemPedido {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public String getNomePastel() {
+        return nomePastel;
+    }
+
+    public void setNomePastel(String nomePastel) {
+        this.nomePastel = nomePastel;
+    }
+    
 }

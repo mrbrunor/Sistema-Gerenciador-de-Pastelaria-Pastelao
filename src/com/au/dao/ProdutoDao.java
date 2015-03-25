@@ -81,7 +81,7 @@ public class ProdutoDao {
 
     //READ
     public List<Produto> getLista() {
-        String sql = "SELECT * FROM sistemapastelao.Produto";
+        String sql = "SELECT * FROM sistemapastelao.Produto ORDER BY numProd";
         PreparedStatement stmt;
         ResultSet res;
         List<Produto> listaResProd = new ArrayList<>();

@@ -79,6 +79,8 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         CaixaDao cDao = new CaixaDao();
         cDao.abreConnection();
         caixa = cDao.listaCaixaPorId(idCaixa);
+        caixa.setTotalCaixa(0);
+        cDao.fechaConnection();
         inicializaCampos();
     }
 
@@ -885,25 +887,25 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
 
     private void calculaDinheiroEmCaixa() {
         dinheiroCaixa = 0;
-        
+
         calculaValores(campoMoedaCincoCentavos, 0.05);
         calculaValores(campoMoedaDezCentavos, 0.1);
         calculaValores(campoMoedaVinteCincoCentavos, 0.25);
-        calculaValores(campoMoedaCinquentaCentavos, 0.5);        
+        calculaValores(campoMoedaCinquentaCentavos, 0.5);
         calculaValores(campoMoedaUmReal, 1.00);
         calculaValores(campoCedulaDoisReais, 2.00);
         calculaValores(campoCedulaCincoReais, 5.00);
         calculaValores(campoCedulaDezReais, 10.00);
         calculaValores(campoCedulaVinteReais, 20.00);
         calculaValores(campoCedulaCinquentaReais, 50.00);
-        calculaValores(campoCedulaCemReais, 100.00);    
+        calculaValores(campoCedulaCemReais, 100.00);
 
         textoValorTotalEmCaixa.setText(String.format("R$: %.2f", dinheiroCaixa));
     }
-    
-    private void calculaValores(JTextField moeda, Double valor){
+
+    private void calculaValores(JTextField moeda, Double valor) {
         if (!"".equals(moeda.getText())) {
-            dinheiroCaixa += Double.valueOf((moeda.getText())) * 10;
+            dinheiroCaixa += Double.valueOf((moeda.getText())) * valor;
         }
     }
 
@@ -939,9 +941,9 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
             double totalVale = 0;
             FormaPagamentoDao fpDao = new FormaPagamentoDao();
             for (int i = 0; i < pedidos.size(); i++) {
+                fpDao.abreConnection();
                 if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
                     FormaPagamento fp;
-                    fpDao.abreConnection();
                     fp = fpDao.listaFormaPagamentoPorId(pedidos.get(i).getIdFormaPgto());
 
                     if ("Dinheiro".equals(fp.getTipoFormaPgto())) {
@@ -965,8 +967,8 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 } else {
                     qtdPedCanc += 1;
                 }
+                fpDao.fechaConnection();
             }
-            fpDao.fechaConnection();
             textoValorDinheiro.setText(String.format("R$: %.2f", totalDinheiro));
             textoValorCartaoDeCredito.setText(String.format("R$: %.2f", totalCredito));
             textoValorCartaoDeDebito.setText(String.format("R$: %.2f", totalDebito));
@@ -990,6 +992,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         CaixaDao cDao = new CaixaDao();
         cDao.abreConnection();
         cDao.atualizaCaixa(caixa);
+        cDao.fechaConnection();
         //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
         TelaFechamentoCaixa.setFechou(true);
         //new Imprime().geraRelatorioFechamento(caixa.getIdCaixa());        

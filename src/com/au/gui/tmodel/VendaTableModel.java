@@ -71,12 +71,20 @@ public class VendaTableModel extends AbstractTableModel {
                 pDao.abreConnection();
                 produto = pDao.buscaId(itempedido.getIdProd());
                 pDao.fechaConnection();
-                return produto.getDescProd();
+                if(produto.getNumProd() == 0){
+                    return itempedido.getNomePastel();
+                } else {
+                    return produto.getDescProd();
+                }                
             case 2:
                 pDao.abreConnection();
                 produto = pDao.buscaId(itempedido.getIdProd());
                 pDao.fechaConnection();
-                return produto.getValorProd();
+                if(produto.getNumProd() == 0){
+                    return itempedido.getTotProd() / itempedido.getQtdProd();
+                } else {
+                    return produto.getValorProd();
+                }
             case 3:
                 return itempedido.getQtdProd();
             case 4:

@@ -178,7 +178,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         textoAtiva.setText("Ativa:");
 
         textoErroNome.setForeground(new java.awt.Color(255, 0, 0));
-        textoErroNome.setText("Preencha o campo nome.");
+        textoErroNome.setText("Informe o nome.");
 
         textoErroTipo.setForeground(new java.awt.Color(255, 0, 0));
         textoErroTipo.setText("Selecione o tipo da forma de pagamento.");

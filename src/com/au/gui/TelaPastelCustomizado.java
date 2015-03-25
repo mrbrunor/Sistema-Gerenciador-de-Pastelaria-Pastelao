@@ -16,6 +16,8 @@
  */
 package com.au.gui;
 
+import com.au.bean.ItemPedido;
+import com.au.util.LimitaDigitos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,7 +32,8 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     int controle = 0;
     List<String> sabores = new ArrayList<>();
     String erroQtdMaxima = "Só é permitido 5 Sabores por Pastel! Favor remover um sabor antes de tentar adicionar outro.";
-    private static String nomeDoPastel;
+    private String nomeDoPastel;
+    private static ItemPedido itemPedido;
 
     /**
      * Creates new form TelaPastelCustomizado
@@ -41,6 +44,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     public TelaPastelCustomizado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        campoValor.setDocument(new LimitaDigitos((8), "[^0-9\\.]"));
         nomeDoPastel = null;
     }
 
@@ -53,6 +57,12 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        textoPastelCustomizado = new javax.swing.JLabel();
+        textoSelecioneOsIngredientes = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        campoValor = new javax.swing.JTextField();
+        textoValor = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         painelIngredientes = new javax.swing.JPanel();
         jToggleButton6 = new javax.swing.JToggleButton();
         jToggleButton8 = new javax.swing.JToggleButton();
@@ -85,14 +95,27 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         jToggleButton43 = new javax.swing.JToggleButton();
         jToggleButton44 = new javax.swing.JToggleButton();
         jToggleButton45 = new javax.swing.JToggleButton();
-        textoPastelCustomizado = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        textoSelecioneOsIngredientes = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        botaoConfirmarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pastel Customizado - Sistema Pastelão");
+
+        textoPastelCustomizado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        textoPastelCustomizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoPastelCustomizado.setText("Pastel Customizado");
+
+        textoSelecioneOsIngredientes.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        textoSelecioneOsIngredientes.setText("Selecione os Ingredientes abaixo para customizar o pastel");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Pastel de:");
+
+        campoValor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        textoValor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        textoValor.setText("Valor:");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         painelIngredientes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ingredientes"));
 
@@ -470,82 +493,72 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        textoPastelCustomizado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoPastelCustomizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoPastelCustomizado.setText("Pastel Customizado");
-
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botaoConfirmarPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoConfirmarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
+        botaoConfirmarPedido.setText("Confirmar Pastel");
+        botaoConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botaoConfirmarPedidoActionPerformed(evt);
             }
         });
-
-        textoSelecioneOsIngredientes.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
-        textoSelecioneOsIngredientes.setText("Selecione os Ingredientes abaixo para customizar o pastel");
-
-        jLabel2.setText("Pastel de:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(painelIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painelIngredientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(textoValor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel1)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoConfirmarPedido)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textoPastelCustomizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                        .addComponent(textoPastelCustomizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textoPastelCustomizado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoSelecioneOsIngredientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoValor)
+                            .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoConfirmarPedido)))
+                .addGap(8, 8, 8))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        for (int i = 0; i < sabores.size(); i++) {
-            if (nomeDoPastel != null) {
-                nomeDoPastel = nomeDoPastel + (sabores.get(i));
-            } else {
-                nomeDoPastel = sabores.get(i);
-            }
-            if (i < (sabores.size() - 2)) {
-                nomeDoPastel = nomeDoPastel + ", ";
-            } else if (i == (sabores.size() - 2)) {
-                nomeDoPastel = nomeDoPastel + " e ";
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
         validaSabor(jToggleButton6);
@@ -671,6 +684,10 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         validaSabor(jToggleButton43);
     }//GEN-LAST:event_jToggleButton43ActionPerformed
 
+    private void botaoConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarPedidoActionPerformed
+        confirmarPastelCustomizado();
+    }//GEN-LAST:event_botaoConfirmarPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -712,8 +729,8 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             }
         });
     }
-    
-    public void validaSabor(JToggleButton botao){
+
+    public void validaSabor(JToggleButton botao) {
         if (botao.isSelected()) {
             if (controle >= 5) {
                 JOptionPane.showMessageDialog(this, erroQtdMaxima);
@@ -731,17 +748,56 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             jLabel1.setText(sabores.toString());
         }
     }
-    
-     public static String getNomeDoPastel() {
-        return nomeDoPastel;
+
+    public void criarNomePastel() {
+        nomeDoPastel = null;
+
+        for (int i = 0; i < sabores.size(); i++) {
+            if (nomeDoPastel != null) {
+                nomeDoPastel = nomeDoPastel + (sabores.get(i));
+            } else {
+                nomeDoPastel = sabores.get(i);
+            }
+            if (i < (sabores.size() - 2)) {
+                nomeDoPastel = nomeDoPastel + ", ";
+            } else if (i == (sabores.size() - 2)) {
+                nomeDoPastel = nomeDoPastel + " e ";
+            }
+        }
     }
 
-    public static void setNomeDoPastel(String aNomeDoPastel) {
-        nomeDoPastel = aNomeDoPastel;
+    
+
+    public void confirmarPastelCustomizado() {
+
+        if (controle > 0) {
+            if (!"".equals(campoValor.getText())) {
+                criarNomePastel();
+                itemPedido = new ItemPedido();
+                itemPedido.setTotProd(Double.valueOf(campoValor.getText()));
+                itemPedido.setNomePastel(nomeDoPastel);
+                System.out.println(nomeDoPastel);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Informe o campo valor", "Pastel Customizado", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos dois sabores", "Pastel Customizado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public static ItemPedido getItemPedido() {
+        return itemPedido;
+    }
+
+    public static void setItemPedido(ItemPedido aItemPedido) {
+        itemPedido = aItemPedido;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botaoConfirmarPedido;
+    private javax.swing.JTextField campoValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton jToggleButton11;
@@ -778,5 +834,6 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     private javax.swing.JPanel painelIngredientes;
     private javax.swing.JLabel textoPastelCustomizado;
     private javax.swing.JLabel textoSelecioneOsIngredientes;
+    private javax.swing.JLabel textoValor;
     // End of variables declaration//GEN-END:variables
 }
