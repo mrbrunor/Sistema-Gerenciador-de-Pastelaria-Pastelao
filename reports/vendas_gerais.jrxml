@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-03-24T20:10:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_gerais" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
 	<property name="ireport.zoom" value="1.331000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="DATA_INI" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="DATA_FIM" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT produto.idProd AS 'ID do Produto', produto.descProd AS 'Nome do Produto', produto.valorProd AS 'Valor Unitario', SUM(itemPedido.qtdProd) AS 'Quantidade', SUM(itemPedido.totProd) AS 'Valor Total', pedido.dataPedido AS 'Data' FROM produto INNER JOIN itemPedido ON produto.idProd = itemPedido.idProd INNER JOIN pedido ON itempedido.idPedido = pedido.idPedido WHERE pedido.dataPedido BETWEEN $P{DATA_INI} AND $P{DATA_FIM} AND pedido.estadoPedido = 'FINALIZADO' GROUP BY pedido.dataPedido, itemPedido.idProd;]]>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="c2lzdGVtYXBhc3RlbGFvLml0ZW1QZWRpZG8gLDEzNiwxLGRmYjZiMmMzLTY5YTEtNDhiYi1hYTUx&#xA;LTQ4ZWJlYzNhYmM0MjtzaXN0ZW1hcGFzdGVsYW8ucGVkaWRvICwxMjAsMTY2LDBlMDhiMzg2LTI3&#xA;NTgtNDYyNi1hMDlmLTEyY2U4OTY0NzllYjtzaXN0ZW1hcGFzdGVsYW8ucHJvZHV0byAsNCwxMDks&#xA;NzYyZDBkYjQtYmUzNy00YWZkLWFjMTYtYjY0NTEwNmZiODBlOw=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Banco H2"/>
+	<parameter name="DATA_INI" class="java.util.Date"/>
+	<parameter name="DATA_FIM" class="java.util.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT SISTEMAPASTELAO.PRODUTO.IDPROD As "ID do Produto",
+	SISTEMAPASTELAO.PRODUTO.DESCPROD AS "Nome do Produto",
+	SISTEMAPASTELAO.PRODUTO.VALORPROD AS "Valor Unitario",
+	SUM(SISTEMAPASTELAO.ITEMPEDIDO.QTDPROD) AS "Quantidade",
+	SUM(SISTEMAPASTELAO.ITEMPEDIDO.TOTPROD) AS "Valor Total",
+	SISTEMAPASTELAO.PEDIDO.DATAPEDIDO AS "Data"
+FROM SISTEMAPASTELAO.PRODUTO
+	INNER JOIN SISTEMAPASTELAO.ITEMPEDIDO ON 
+	 SISTEMAPASTELAO.PRODUTO.IDPROD = SISTEMAPASTELAO.ITEMPEDIDO.IDPROD 
+	INNER JOIN SISTEMAPASTELAO.PEDIDO ON 
+	 SISTEMAPASTELAO.ITEMPEDIDO.IDPEDIDO = PEDIDO.IDPEDIDO 
+WHERE 
+	 SISTEMAPASTELAO.PEDIDO.DATAPEDIDO BETWEEN $P{DATA_INI} AND  $P{DATA_FIM}
+	 AND SISTEMAPASTELAO.PEDIDO.ESTADOPEDIDO = 'Finalizado' 
+GROUP BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO,
+	SISTEMAPASTELAO.ITEMPEDIDO.IDPROD]]>
 	</queryString>
 	<field name="ID do Produto" class="java.lang.Integer"/>
 	<field name="Nome do Produto" class="java.lang.String"/>

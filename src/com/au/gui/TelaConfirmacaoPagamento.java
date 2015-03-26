@@ -25,6 +25,7 @@ import com.au.util.CustomComboBoxInt;
 import com.au.dao.ItemPedidoDao;
 import com.au.dao.PedidoDao;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.util.BematechNFiscal;
 import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
@@ -33,6 +34,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -63,6 +65,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.pedido.setSubTotPedido(subTotal);
         this.pedido.setTotPedido(subTotal);
         buscaFormasPagamento();
+        try {
+            verificaEstadoImpressoras();
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Erro: " +e);
+        }
         initComponents();
         normal = campoDesconto.getBorder();
         atualizaTableModelVenda();
@@ -77,7 +84,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         campoValorRecebido.setVisible(false);
         textoValorRecebido.setVisible(false);
         campoValorRecebidoVR.setVisible(false);
-        textoValorRecebidoVR.setVisible(false);
+        textoValorRecebidoVR.setVisible(false);        
     }
 
     /**
@@ -124,6 +131,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioMesa = new javax.swing.JRadioButton();
         botaoRadioViagem = new javax.swing.JRadioButton();
         campoMesa = new javax.swing.JTextField();
+        painelEstadoImpressoras = new javax.swing.JPanel();
+        textoImpressoraCaixa = new javax.swing.JLabel();
+        textoImpressoraCozinha = new javax.swing.JLabel();
+        textoValorImpressoraCaixa = new javax.swing.JLabel();
+        textoValorImpressoraCozinha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Confirmação de Pedido");
@@ -202,7 +214,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addComponent(textoConfiraDadosPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textoValorTotal)
@@ -525,11 +537,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botaoRadioBalcao)
-                .addGap(65, 65, 65)
+                .addGap(10, 10, 10)
                 .addComponent(botaoRadioMesa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(10, 10, 10)
                 .addComponent(botaoRadioViagem)
                 .addContainerGap())
         );
@@ -545,6 +557,50 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        painelEstadoImpressoras.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Estado das Impressoras"));
+
+        textoImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        textoImpressoraCaixa.setText("CAIXA:");
+
+        textoImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        textoImpressoraCozinha.setText("COZINHA:");
+
+        textoValorImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textoValorImpressoraCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoValorImpressoraCaixa.setText("ERRO");
+
+        textoValorImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textoValorImpressoraCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoValorImpressoraCozinha.setText("ERRO");
+
+        javax.swing.GroupLayout painelEstadoImpressorasLayout = new javax.swing.GroupLayout(painelEstadoImpressoras);
+        painelEstadoImpressoras.setLayout(painelEstadoImpressorasLayout);
+        painelEstadoImpressorasLayout.setHorizontalGroup(
+            painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoImpressoraCaixa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoValorImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(textoImpressoraCozinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoValorImpressoraCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        painelEstadoImpressorasLayout.setVerticalGroup(
+            painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoValorImpressoraCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textoImpressoraCaixa)
+                        .addComponent(textoImpressoraCozinha)
+                        .addComponent(textoValorImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -556,27 +612,31 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(painelEstadoImpressoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
+                        .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelDadosPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botaoCancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(painelDadosPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(painelEstadoImpressoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoCancelarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1163,6 +1223,96 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public static void setPagou(boolean aPagou) {
         pagou = aPagou;
     }
+    
+    public void verificaEstadoImpressoras () {
+        BematechNFiscal cupom = null;
+        
+        try {
+            cupom = BematechNFiscal.Instance;
+        } catch (NoClassDefFoundError e) {
+            e.printStackTrace();
+        }
+        int iRetorno;
+        Color vermelho = new Color(255, 0, 0);
+        Color amarelo = new Color(255, 255, 0);
+        Color verde = new Color(0, 128, 0);
+        Color cinza = new Color(128, 128, 128);
+        
+        
+        iRetorno = verificaImpressoraIndividual(cupom, 5, "LPT1");
+        switch (iRetorno){
+                case 0:
+                    //Impressora está com pouco papel
+                    textoValorImpressoraCaixa.setText("POUCO PAPEL");
+                    textoValorImpressoraCaixa.setForeground(amarelo);
+                    break;
+                case 24:
+                    //Impressora está OK, online
+                    textoValorImpressoraCaixa.setText("CONECTADA");
+                    textoValorImpressoraCaixa.setForeground(verde);
+                    break;
+                case 40:
+                    //Impressora está offline, pode estar desligada ou algum problema na conexão
+                    textoValorImpressoraCaixa.setText("DESCONECTADA");
+                    textoValorImpressoraCaixa.setForeground(cinza);
+                    break;
+        }
+        
+        iRetorno = verificaImpressoraIndividual(cupom, 7, "192.168.0.183");
+        switch (iRetorno){
+                case 0:
+                    //Erro de Comunicação
+                    textoValorImpressoraCozinha.setText("DESCONECTADA");
+                    textoValorImpressoraCozinha.setForeground(cinza);
+                    break;
+                case 5:
+                    //Impressora com pouco papel
+                    textoValorImpressoraCozinha.setText("POUCO PAPEL");
+                    textoValorImpressoraCozinha.setForeground(amarelo);
+                    break;
+                case 9:
+                    //A tampa da impressora está aberta
+                    textoValorImpressoraCozinha.setText("TAMPA ABERTA");
+                    textoValorImpressoraCozinha.setForeground(amarelo);
+                    break; 
+                case 24:
+                    //A impressora está OK, online
+                    textoValorImpressoraCozinha.setText("CONECTADA");
+                    textoValorImpressoraCozinha.setForeground(verde);
+                    break;
+                case 32:
+                    //A impressora está sem papel
+                    textoValorImpressoraCozinha.setText("SEM PAPEL");
+                    textoValorImpressoraCozinha.setForeground(vermelho);
+                    break;
+            }        
+    }
+
+    public JLabel getTextoValorImpressoraCaixa() {
+        return textoValorImpressoraCaixa;
+    }
+
+    public void setTextoValorImpressoraCaixa(JLabel textoValorImpressoraCaixa) {
+        this.textoValorImpressoraCaixa = textoValorImpressoraCaixa;
+    }
+
+    public JLabel getTextoValorImpressoraCozinha() {
+        return textoValorImpressoraCozinha;
+    }
+
+    public void setTextoValorImpressoraCozinha(JLabel textoValorImpressoraCozinha) {
+        this.textoValorImpressoraCozinha = textoValorImpressoraCozinha;
+    }
+    
+    public int verificaImpressoraIndividual (BematechNFiscal cupom, int modelo, String endereco) {
+        int iRetorno;
+        
+        iRetorno = cupom.ConfiguraModeloImpressora(modelo);
+        iRetorno = cupom.IniciaPorta(endereco);
+        iRetorno = cupom.Le_Status();
+        return iRetorno;
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;
@@ -1186,6 +1336,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel painelDadosPedido;
+    private javax.swing.JPanel painelEstadoImpressoras;
     private javax.swing.JPanel painelFormasDePagamento;
     private javax.swing.JTable tabelaPedido;
     private javax.swing.JLabel textoConfiraDadosPedido;
@@ -1194,7 +1345,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoIconeCD;
     private javax.swing.JLabel textoIconeDinheiro;
     private javax.swing.JLabel textoIconeVR;
+    private javax.swing.JLabel textoImpressoraCaixa;
+    private javax.swing.JLabel textoImpressoraCozinha;
     private javax.swing.JLabel textoSelecioneFormaPagamento;
+    private javax.swing.JLabel textoValorImpressoraCaixa;
+    private javax.swing.JLabel textoValorImpressoraCozinha;
     private javax.swing.JLabel textoValorRecebido;
     private javax.swing.JLabel textoValorRecebidoVR;
     private javax.swing.JLabel textoValorTotal;
