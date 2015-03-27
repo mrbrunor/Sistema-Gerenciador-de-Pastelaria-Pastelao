@@ -32,8 +32,11 @@ import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
@@ -42,17 +45,21 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
  */
 public class GeradorRelatorio {
 
-    private final String nomeArquivo;
     private final Map<String, Object> parametros;
     private final Connection conexao;
+    private final JasperReport templateCompilado;
+    private final String caminhoImg;
 
-    public GeradorRelatorio(String nomeArquivo, Map<String, Object> parametros, Connection conexao) {
-        this.nomeArquivo = nomeArquivo;
+    public GeradorRelatorio(String caminhoTemplate, Map<String, Object> parametros, Connection conexao) throws JRException {
         this.parametros = parametros;
         this.conexao = conexao;
+        caminhoImg = "img\\Logomarca.png";
+        
+        parametros.put("LOGO", caminhoImg);
+        templateCompilado = JasperCompileManager.compileReport(caminhoTemplate);
     }
-
-    public void geraPdfParaOutputStream(OutputStream outputStream) {
+    
+    /* public void geraPdfParaOutputStream(OutputStream outputStream) {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.conexao);
 
@@ -65,6 +72,20 @@ public class GeradorRelatorio {
             throw new RuntimeException(e);
         } catch (IOException ex) {
             Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } */
+    
+    public void geraPdfParaOutputStreamNovo(String localParaSalvar) {
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(templateCompilado, this.parametros, this.conexao);
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, localParaSalvar);
+            
+            
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        //} catch (IOException ex) {
+         //   Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

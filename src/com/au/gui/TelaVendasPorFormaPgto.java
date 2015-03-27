@@ -571,8 +571,8 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         parametros.put("TIPO_PGTO", tipoPgto);
         parametros.put("NOME_PGTO", nomePgto);
 
-        GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
-        gerador.geraPdfParaOutputStream(saida);
+        //GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
+        //gerador.geraPdfParaOutputStream(saida);
 
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {
             try {

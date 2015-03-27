@@ -21,11 +21,15 @@ import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,11 +38,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -306,19 +312,12 @@ public class TelaVendasGerais extends javax.swing.JDialog {
     }//GEN-LAST:event_botaoCancelarGeracaoDeRelatorioActionPerformed
 
     private void geraRelatorio() throws ParseException {
-        String nome = "reports\\vendas_gerais.jasper";
+        String nome = "reports\\vendas_gerais.jrxml";
 
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
-        OutputStream saida = null;
-        try {
-            saida = new FileOutputStream(campoLocalParaSalvar.getText());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TelaVendasGerais.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Houve um erro ao salvar o arquivo:\n" + ex);
-            return;
-        }
-        File arquivo = new File(campoLocalParaSalvar.getText());
+        String caminhoParaSalvar = campoLocalParaSalvar.getText();
+        File arquivo = new File(caminhoParaSalvar);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dataIni = sdf.format(campoDataInicio.getDate());
@@ -326,12 +325,18 @@ public class TelaVendasGerais extends javax.swing.JDialog {
 
         Date dataInicial = sdf.parse(dataIni);
         Date dataFinal = sdf.parse(dataFim);
-
+        
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);
-
-        GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
-        gerador.geraPdfParaOutputStream(saida);
+        
+        GeradorRelatorio gerador;
+        
+        try {
+            gerador = new GeradorRelatorio(nome,parametros,conexao);
+            gerador.geraPdfParaOutputStreamNovo(caminhoParaSalvar);
+        } catch (JRException e) {
+            System.out.println(e);
+        }
 
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {
             try {
