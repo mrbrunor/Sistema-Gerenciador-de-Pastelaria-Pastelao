@@ -21,15 +21,8 @@ import com.au.util.GeradorRelatorio;
 import com.au.util.JFileChooserCustomizado;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -333,7 +325,7 @@ public class TelaVendasGerais extends javax.swing.JDialog {
         
         try {
             gerador = new GeradorRelatorio(nome,parametros,conexao);
-            gerador.geraPdfParaOutputStreamNovo(caminhoParaSalvar);
+            gerador.geraPdf(caminhoParaSalvar);
         } catch (JRException e) {
             System.out.println(e);
         }

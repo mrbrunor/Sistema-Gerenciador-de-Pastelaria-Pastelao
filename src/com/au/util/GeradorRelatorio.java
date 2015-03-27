@@ -75,7 +75,7 @@ public class GeradorRelatorio {
         }
     } */
     
-    public void geraPdfParaOutputStreamNovo(String localParaSalvar) {
+    public void geraPdf(String localParaSalvar) {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(templateCompilado, this.parametros, this.conexao);
 

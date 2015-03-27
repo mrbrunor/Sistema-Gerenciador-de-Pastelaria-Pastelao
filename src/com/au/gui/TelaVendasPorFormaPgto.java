@@ -26,10 +26,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +44,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -530,19 +528,12 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
     }
 
     private void geraRelatorio() throws ParseException {
-        String nome = "reports\\vendas_por_pagamento.jasper";
+        String nome = "reports\\vendas_por_pagamento.jrxml";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
-        OutputStream saida = null;
+        String caminhoParaSalvar = campoLocalParaSalvar.getText();
         String tipoPgto = "";
         String nomePgto = "";
-        try {
-            saida = new FileOutputStream(campoLocalParaSalvar.getText());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TelaVendasPorFormaPgto.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Houve um erro ao salvar o arquivo:\n" + ex);
-            return;
-        }
         File arquivo = new File(campoLocalParaSalvar.getText());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -570,9 +561,15 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         parametros.put("DATA_FIM", dataFinal);
         parametros.put("TIPO_PGTO", tipoPgto);
         parametros.put("NOME_PGTO", nomePgto);
-
-        //GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
-        //gerador.geraPdfParaOutputStream(saida);
+        
+        GeradorRelatorio gerador;
+        
+        try {
+            gerador = new GeradorRelatorio(nome,parametros,conexao);
+            gerador.geraPdf(caminhoParaSalvar);
+        } catch (JRException e) {
+            System.out.println(e);
+        }
 
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {
             try {

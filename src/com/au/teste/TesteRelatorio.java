@@ -57,7 +57,7 @@ public class TesteRelatorio {
         parametros.put("DATA_INI", dataInicial);
         parametros.put("DATA_FIM", dataFinal);
         
-        GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
-        gerador.geraPdfParaOutputStream(saida);
+        //GeradorRelatorio gerador = new GeradorRelatorio(nome, parametros, conexao);
+        //gerador.geraPdfParaOutputStream(saida);
     } 
 }

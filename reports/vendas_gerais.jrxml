@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-03-27T10:40:23 -->
+<!-- 2015-03-27T12:01:21 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_gerais" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
 	<property name="ireport.zoom" value="1.331000000000001"/>
 	<property name="ireport.x" value="0"/>
@@ -13,7 +13,7 @@
 		<parameterDescription><![CDATA[logomarca]]></parameterDescription>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT SISTEMAPASTELAO.PRODUTO.IDPROD As "ID do Produto",
+		<![CDATA[SELECT SISTEMAPASTELAO.PRODUTO.NUMPROD As "ID do Produto",
 	SISTEMAPASTELAO.PRODUTO.DESCPROD AS "Nome do Produto",
 	SISTEMAPASTELAO.PRODUTO.VALORPROD AS "Valor Unitario",
 	SUM(SISTEMAPASTELAO.ITEMPEDIDO.QTDPROD) AS "Quantidade",
@@ -29,8 +29,8 @@ WHERE
 	 AND SISTEMAPASTELAO.PEDIDO.ESTADOPEDIDO = 'Finalizado' 
 GROUP BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO,
 	SISTEMAPASTELAO.ITEMPEDIDO.IDPROD
-ORDER BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO DESC,
-	SISTEMAPASTELAO.ITEMPEDIDO.IDPROD]]>
+ORDER BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO ASC,
+	SISTEMAPASTELAO.PRODUTO.NUMPROD]]>
 	</queryString>
 	<field name="ID do Produto" class="java.lang.Integer"/>
 	<field name="Nome do Produto" class="java.lang.String"/>
@@ -95,22 +95,22 @@ ORDER BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO DESC,
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#ED1C24" uuid="949d17c5-e2f1-4d65-a0d1-89dfc993b8e4"/>
 				<staticText>
-					<reportElement x="334" y="12" width="254" height="43" forecolor="#FFFFFF" uuid="05ba38d7-6f62-43f2-bcff-1669a3b5f700"/>
-					<textElement>
-						<font size="25" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Relatório de Vendas]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Transparent" x="334" y="55" width="255" height="29" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="b0e6f15d-8fac-4fce-8cdc-8dd25ec56a2b"/>
-					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<reportElement mode="Transparent" x="334" y="48" width="255" height="39" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="cf32669c-699d-4bd6-aef1-e31cccd88923"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="16" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<text><![CDATA[Vendas Gerais]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="334" y="7" width="254" height="40" forecolor="#FFFFFF" uuid="780cea1e-debe-4e40-8fbc-28b359a18aae"/>
+					<textElement verticalAlignment="Middle">
+						<font size="25" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Vendas]]></text>
+				</staticText>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement x="20" y="12" width="300" height="75" uuid="9da11f98-dfa6-4fb2-9cb6-c8b26fc6599c"/>
+					<reportElement x="20" y="7" width="300" height="80" uuid="adcb1803-036c-439d-9f09-bc6f6787f40a"/>
 					<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
 				</image>
 			</frame>
