@@ -168,7 +168,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         });
 
         jToggleButton21.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jToggleButton21.setText("<html>Carne<br/> Seca");
+        jToggleButton21.setText("Carne Seca");
         jToggleButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton21ActionPerformed(evt);
@@ -199,6 +199,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             }
         });
 
+        jToggleButton25.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jToggleButton25.setText("Champignon");
         jToggleButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +248,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         });
 
         jToggleButton31.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jToggleButton31.setText("<html>Dois<br/> Queijos");
+        jToggleButton31.setText("Dois Queijos");
         jToggleButton31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,7 +313,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         });
 
         jToggleButton39.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jToggleButton39.setText("<html>Doce de<br/> Leite");
+        jToggleButton39.setText("Doce de Leite");
         jToggleButton39.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton39ActionPerformed(evt);
@@ -352,7 +353,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         });
 
         jToggleButton44.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jToggleButton44.setText("<html>Sonho de<br/> Valsa");
+        jToggleButton44.setText("Sonho de Valsa");
         jToggleButton44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton44ActionPerformed(evt);
@@ -512,9 +513,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(painelIngredientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textoSelecioneOsIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -756,7 +755,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
             if (nomeDoPastel != null) {
                 nomeDoPastel = nomeDoPastel + (sabores.get(i));
             } else {
-                nomeDoPastel = sabores.get(i);
+                nomeDoPastel = "Pastel de " + sabores.get(i);
             }
             if (i < (sabores.size() - 2)) {
                 nomeDoPastel = nomeDoPastel + ", ";

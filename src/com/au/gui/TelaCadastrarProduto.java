@@ -690,6 +690,10 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         campoBarras.setBorder(normal);
         campoNome.setBorder(normal);
         campoValor.setBorder(normal);
+        textoErroCodigo.setVisible(false);
+        textoErroNome.setVisible(false);
+        textoErroTipo.setVisible(false);
+        textoErroValor.setVisible(false);
         limpaInd();
         limpaPrep();
         habilitaInd(false);

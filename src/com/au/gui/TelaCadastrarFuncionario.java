@@ -919,6 +919,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JDialog implements Lis
         campoSenha.setBorder(normal);
         campoSenha2.setBorder(normal);
         campoUser.setBorder(normal);
+        textoErroAtivo.setVisible(false);
+        textoErroCel.setVisible(false);
+        textoErroCpf.setVisible(false);
+        textoErroEmail.setVisible(false);
+        textoErroNivel.setVisible(false);
+        textoErroNome.setVisible(false);
+        textoErroPass1.setVisible(false);
+        textoErroPass2.setVisible(false);
+        textoErroUser.setVisible(false);
     }
 
     public void pesquisaFuncionarios() {

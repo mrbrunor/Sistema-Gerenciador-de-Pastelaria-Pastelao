@@ -52,7 +52,7 @@ public class ItemPedidoDao {
     //CRUD
     //CREATE    
     public boolean adicionaItemPedido(ItemPedido novoItemPedido) {
-        String sql = "INSERT INTO sistemapastelao.itemPedido(idPedido, idProd, qtdProd, totProd, ordemProduto) values(?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.itemPedido(idPedido, idProd, qtdProd, totProd, ordemProduto, nomePastel) values(?,?,?,?,?,?)";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -63,6 +63,7 @@ public class ItemPedidoDao {
             stmt.setInt(3, novoItemPedido.getQtdProd());
             stmt.setDouble(4, novoItemPedido.getTotProd());
             stmt.setInt(5, novoItemPedido.getOrdemProduto());
+            stmt.setString(6, novoItemPedido.getNomePastel());
 
             stmt.execute();
             stmt.close();
@@ -90,6 +91,7 @@ public class ItemPedidoDao {
                 itemPedido.setQtdProd(res.getInt("qtdProd"));
                 itemPedido.setTotProd(res.getDouble("totProd"));
                 itemPedido.setOrdemProduto(res.getInt("ordemProduto"));
+                itemPedido.setNomePastel(res.getString("nomePastel"));
             }
             res.close();
             stmt.close();
@@ -101,7 +103,7 @@ public class ItemPedidoDao {
 
     //UPDATE    
     public boolean atualizaItemPedido(ItemPedido novoItemPedido) {
-        String sql = "UPDATE sistemapastelao.ItemPedido SET qtdProd=?, totProd=?, ordemProduto=? WHERE idPedido=? AND idProd=? ";
+        String sql = "UPDATE sistemapastelao.ItemPedido SET qtdProd=?, totProd=?, ordemProduto=?, nomePastel=? WHERE idPedido=? AND idProd=? ";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -112,6 +114,7 @@ public class ItemPedidoDao {
             stmt.setInt(3, novoItemPedido.getOrdemProduto());
             stmt.setInt(4, novoItemPedido.getIdPedido());
             stmt.setInt(5, novoItemPedido.getIdProd());
+            stmt.setString(6, novoItemPedido.getNomePastel());
 
             stmt.execute();
             stmt.close();

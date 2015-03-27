@@ -97,15 +97,21 @@ public class Imprime {
         iRetorno = cupom.BematechTX("" + (char) 10);
         iRetorno = cupom.FormataTX("Codigo\t\t QTD\tUnit\t Total\r\nDescricao\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
+            if(pedido.getItempedidos().get(i).getProduto().getNumProd() == 0){
+                pedido.getItempedidos().get(i).getProduto().setDescProd(pedido.getItempedidos().get(i).getNomePastel());
+                pedido.getItempedidos().get(i).getProduto().setValorProd(pedido.getItempedidos().get(i).getTotProd() / pedido.getItempedidos().get(i).getQtdProd());;
+            }
             int valorUnitarioInt = (int) pedido.getItempedidos().get(i).getProduto().getValorProd();
             String valorUnitarioStr = Integer.toString(valorUnitarioInt);
             if (valorUnitarioStr.length() == 1) { //Valores com 1 dígito
+                System.out.println(pedido.getItempedidos().get(i).getProduto().getDescProd() + " Test");
                 iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(5)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
                 iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
             } else if (valorUnitarioStr.length() == 2) { //Valores com 2 dígitos
+                System.out.println(pedido.getItempedidos().get(i).getProduto().getDescProd() + " Test");
                 iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(4)

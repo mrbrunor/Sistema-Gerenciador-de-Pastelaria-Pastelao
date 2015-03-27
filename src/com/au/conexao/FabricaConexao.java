@@ -33,7 +33,7 @@ public class FabricaConexao {
     //H2
     String usuario = "sa";
     String senha = "";
-    String url = "jdbc:h2:libs\\banco;AUTO_SERVER=TRUE";
+    String url = "jdbc:h2:libs\\banco;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1";
     Connection ready = null;
 
     /**

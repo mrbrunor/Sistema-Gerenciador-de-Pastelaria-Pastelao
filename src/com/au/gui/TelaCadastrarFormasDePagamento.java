@@ -591,6 +591,9 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         caixaTipo.setBorder(normal);
         campoId.setBorder(normal);
         campoNome.setBorder(normal);
+        textoErroAtivo.setVisible(false);
+        textoErroNome.setVisible(false);
+        textoErroTipo.setVisible(false);
     }
 
     private void pesquisaFormaPagamento() {
