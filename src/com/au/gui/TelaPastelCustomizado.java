@@ -98,7 +98,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         botaoConfirmarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pastel Customizado - Sistema Pastelão");
+        setTitle("Sistema Pastelão - Pastel Customizado");
 
         textoPastelCustomizado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoPastelCustomizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -557,6 +557,7 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed

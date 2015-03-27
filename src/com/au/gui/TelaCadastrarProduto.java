@@ -115,7 +115,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         botaoExcluirProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar/Modificar Produto - Sistema Pastelão");
+        setTitle("Sistema Pastelão - Produtos");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -506,6 +506,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained

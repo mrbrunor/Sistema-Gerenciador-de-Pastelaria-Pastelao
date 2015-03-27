@@ -85,6 +85,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         botaoCancelarNovaSenha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sistema Pastelão - Criar nova senha");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -301,6 +302,7 @@ public class TelaCriarNovaSenha extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoCpfFuncionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCpfFuncionarioFocusGained

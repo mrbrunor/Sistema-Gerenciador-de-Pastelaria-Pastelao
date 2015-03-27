@@ -786,6 +786,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {painelDinheiroEmCaixa, painelFaturamentos});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoMoedaCincoCentavosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMoedaCincoCentavosFocusGained

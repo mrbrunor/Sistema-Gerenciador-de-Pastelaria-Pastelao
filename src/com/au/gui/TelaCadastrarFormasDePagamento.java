@@ -99,6 +99,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         botaoExcluirFormaPagamento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sistema Pastelão - Formas de Pagamento");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -420,6 +421,7 @@ public class TelaCadastrarFormasDePagamento extends javax.swing.JDialog implemen
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusGained

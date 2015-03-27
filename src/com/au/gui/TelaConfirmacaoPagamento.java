@@ -138,7 +138,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoValorImpressoraCozinha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Confirmação de Pedido");
+        setTitle("Sistema Pastelão - Confirmação de Pedido");
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -640,6 +640,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRadioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioDinheiroActionPerformed

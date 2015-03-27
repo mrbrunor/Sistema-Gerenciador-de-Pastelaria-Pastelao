@@ -28,6 +28,7 @@ import com.au.dao.PedidoDao;
 import com.au.dao.ProdutoDao;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
+import com.au.util.setarIcone;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             caixaFechado();
         }
         campoAdicionarItem.requestFocus();
+        setarIcone i = new setarIcone(this);
     }
 
     /**
@@ -141,7 +143,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Vendas - Sistema Pastelão");
+        setTitle("Sistema Pastelão - Vendas");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -596,6 +598,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoBuscaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBuscaFocusGained

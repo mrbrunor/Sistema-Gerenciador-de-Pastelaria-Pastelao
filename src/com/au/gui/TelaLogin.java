@@ -20,10 +20,15 @@ import com.au.bean.Funcionario;
 import com.au.dao.FuncionarioDao;
 import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
+import com.au.util.setarIcone;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -51,6 +56,7 @@ public class TelaLogin extends javax.swing.JFrame {
         setaFonteAvisos();
         campoSenha.setDocument(new LimitaDigitos((64), ""));
         campoUsuario.setDocument(new LimitaDigitos((50), "[^0-9a-zA-Z\\-._]"));
+        setarIcone i = new setarIcone(this);
     }
 
     /**
@@ -78,6 +84,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Pastelão - Efetuar Login");
+        setIconImages(null);
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -247,6 +254,7 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoUsuarioFocusGained
@@ -360,7 +368,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void trocarSenha() {
         new TelaCriarNovaSenha(this, true).setVisible(true);
     }
-
+    
     /**
      * @param args the command line arguments
      */

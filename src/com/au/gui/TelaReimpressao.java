@@ -73,6 +73,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
         botaoConfirmarReimpressao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sistema Pastelão - Reimpressão de Cupom");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -201,6 +202,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoConfirmarReimpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarReimpressaoActionPerformed

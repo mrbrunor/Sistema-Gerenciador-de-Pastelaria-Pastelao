@@ -94,6 +94,7 @@ public class TelaVendasGerais extends javax.swing.JDialog {
         botaoCancelarGeracaoDeRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sistema Pastelão - Relatório de Vendas");
 
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -280,6 +281,7 @@ public class TelaVendasGerais extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoProcurarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarLocalActionPerformed

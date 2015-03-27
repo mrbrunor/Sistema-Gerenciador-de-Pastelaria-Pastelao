@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-03-27T06:28:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendas_por_pagameto" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d5dff59-f3ab-4512-a022-d07e63e68cbb">
 	<property name="ireport.zoom" value="1.331000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="DATA_INI" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="DATA_FIM" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="TIPO_PGTO" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="NOME_PGTO" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Banco H2"/>
+	<parameter name="DATA_INI" class="java.util.Date"/>
+	<parameter name="DATA_FIM" class="java.util.Date"/>
+	<parameter name="TIPO_PGTO" class="java.lang.String"/>
+	<parameter name="NOME_PGTO" class="java.lang.String"/>
+	<queryString language="SQL">
 		<![CDATA[SELECT
-    produto.idProd AS 'ID do Produto',
-    produto.descProd AS 'Nome do Produto',
-    produto.valorProd AS 'Valor Unitario',
-    SUM(itemPedido.qtdProd) AS 'Quantidade',
-    SUM(itemPedido.totProd) AS 'Valor Total',
-    pedido.dataPedido AS 'Data'
+    SISTEMAPASTELAO.PRODUTO.IDPROD AS "ID do Produto",
+    SISTEMAPASTELAO.PRODUTO.DESCPROD AS "Nome do Produto",
+    SISTEMAPASTELAO.PRODUTO.VALORPROD AS "Valor Unitario",
+    SUM(SISTEMAPASTELAO.ITEMPEDIDO.QTDPROD) AS "Quantidade",
+    SUM(SISTEMAPASTELAO.ITEMPEDIDO.TOTPROD) AS "Valor Total",
+    SISTEMAPASTELAO.PEDIDO.DATAPEDIDO AS "Data"
 FROM
-    produto
+    SISTEMAPASTELAO.PRODUTO
         INNER JOIN
-    itemPedido ON produto.idProd = itemPedido.idProd
+    SISTEMAPASTELAO.ITEMPEDIDO ON SISTEMAPASTELAO.PRODUTO.IDPROD = SISTEMAPASTELAO.ITEMPEDIDO.IDPROD
         INNER JOIN
-    pedido ON itempedido.idPedido = pedido.idPedido
+    SISTEMAPASTELAO.PEDIDO ON SISTEMAPASTELAO.ITEMPEDIDO.IDPEDIDO = SISTEMAPASTELAO.PEDIDO.IDPEDIDO
         INNER JOIN
-    formapagamento ON pedido.idFormaPgto = formapagamento.idFormaPgto
+    SISTEMAPASTELAO.FORMAPAGAMENTO ON SISTEMAPASTELAO.PEDIDO.IDFORMAPGTO = SISTEMAPASTELAO.FORMAPAGAMENTO.IDFORMAPGTO
 WHERE
-    pedido.dataPedido BETWEEN $P{DATA_INI} AND $P{DATA_FIM}
-        AND pedido.estadoPedido = 'FINALIZADO'
-        AND formapagamento.tipoFormaPgto LIKE $P{TIPO_PGTO}
-        AND formapagamento.nomeFormaPgto LIKE $P{NOME_PGTO}
-GROUP BY pedido.dataPedido , itemPedido.idProd;]]>
+    SISTEMAPASTELAO.PEDIDO.DATAPEDIDO BETWEEN $P{DATA_INI} AND $P{DATA_FIM}
+        AND SISTEMAPASTELAO.PEDIDO.ESTADOPEDIDO = 'Finalizado'
+        AND SISTEMAPASTELAO.FORMAPAGAMENTO.TIPOFORMAPGTO LIKE $P{TIPO_PGTO}
+        AND SISTEMAPASTELAO.FORMAPAGAMENTO.NOMEFORMAPGTO LIKE $P{NOME_PGTO}
+GROUP BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO,
+	SISTEMAPASTELAO.ITEMPEDIDO.IDPROD
+ORDER BY SISTEMAPASTELAO.PEDIDO.DATAPEDIDO DESC,
+	SISTEMAPASTELAO.ITEMPEDIDO.IDPROD]]>
 	</queryString>
 	<field name="ID do Produto" class="java.lang.Integer"/>
 	<field name="Nome do Produto" class="java.lang.String"/>
@@ -233,6 +231,7 @@ GROUP BY pedido.dataPedido , itemPedido.idProd;]]>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="043e51f8-e60a-4404-8273-a67e4a778234"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="EEEEE&apos;,&apos; dd &apos;de&apos; MMMMM &apos;de&apos; yyyy">
