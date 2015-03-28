@@ -23,23 +23,34 @@ import java.awt.Color;
  *
  * @author Tiago
  */
-public final class MonitorImpressora {
+public class MonitorImpressora {
 
-    private BematechNFiscal cupom = null;
     private int iRetorno;
     private final Color vermelho;
     private final Color amarelo;
     private final Color verde;
     private final Color cinza;
     private final TelaConfirmacaoPagamento tela;
-    private boolean impressoraConectada;
+    private static boolean impressoraInicializadaCaixa;
+    private static boolean impressoraInicializadaCozinha;
+    private static BematechNFiscal caixa; 
+    private static BematechNFiscal cozinha;
 
     //static {
     //    System.loadLibrary("mp2032");
     //}
+    public MonitorImpressora() {
+        vermelho = new Color(255, 0, 0);
+        amarelo = new Color(255, 201, 14);
+        verde = new Color(0, 128, 0);
+        cinza = new Color(128, 128, 128);
+        tela=null;
+    }
+    
     public MonitorImpressora(TelaConfirmacaoPagamento frm) {
         try {
-            cupom = BematechNFiscal.Instance;
+            caixa = BematechNFiscal.Instance;
+            cozinha = BematechNFiscal.Instance;
 
         } catch (UnsatisfiedLinkError e) {
             System.out.println(e);
@@ -49,18 +60,19 @@ public final class MonitorImpressora {
         verde = new Color(0, 128, 0);
         cinza = new Color(128, 128, 128);
         tela = frm;
-        impressoraConectada = false;
-        verificar();
+        impressoraInicializadaCaixa = false;
+        impressoraInicializadaCozinha = false;
+        inicializaImpressora(caixa, iRetorno);
+        inicializaImpressora(cozinha, iRetorno);
     }
 
     public void verificar() {
 
-        impressoraConectada = verificaImpressora(1);
-        if (!impressoraConectada) {
+        if (!impressoraInicializadaCozinha) {
             tela.getTextoValorImpressoraCozinha().setText("DESCONECTADA");
             tela.getTextoValorImpressoraCozinha().setForeground(cinza);
         } else {
-            iRetorno = cupom.Le_Status();
+            iRetorno = cozinha.Le_Status();
             switch (iRetorno) {
                 case 0:
                     //Erro de Comunicação
@@ -90,12 +102,11 @@ public final class MonitorImpressora {
             }
         }
 
-        impressoraConectada = verificaImpressora(2);
-        if (!impressoraConectada) {
+        if (!impressoraInicializadaCaixa) {
             tela.getTextoValorImpressoraCaixa().setText("DESCONECTADA");
             tela.getTextoValorImpressoraCaixa().setForeground(cinza);
         } else {
-            iRetorno = cupom.Le_Status();
+            iRetorno = caixa.Le_Status();
             switch (iRetorno) {
                 case 0:
                     //Impressora está com pouco papel
@@ -116,62 +127,50 @@ public final class MonitorImpressora {
         }
     }
 
-    public boolean verificaImpressora(int impressora) {
-        int iRetorno;
+    public void inicializaImpressora(BematechNFiscal impressora, int tipoImpressora) {
         int modelo = 0;
         String endereco = "";
-        BematechNFiscal cupom = BematechNFiscal.Instance;
-
-        if (impressora == 1) {
+        
+        if (tipoImpressora == 1) {
             modelo = 5;
             endereco = "LPT1";
-        } else if (impressora == 2) {
+        } else if (tipoImpressora == 2) {
             modelo = 7;
             endereco = "192.168.0.183";
         }
-        iRetorno = cupom.ConfiguraModeloImpressora(modelo);
-        System.out.println("Setando Modelo da impressora " + impressora + ": " + iRetorno);
-        iRetorno = cupom.IniciaPorta(endereco);
-        System.out.println("Iniciando Porta da impressora " + impressora + ": " + iRetorno);
-        iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
-        System.out.println("Mandando comandos diretos na impressora " + impressora + ": " + iRetorno);
-        if (iRetorno == 0) {
-            return false;
+        iRetorno = impressora.ConfiguraModeloImpressora(modelo);
+        System.out.println("Setando Modelo da impressora " + tipoImpressora + ": " + iRetorno);
+        iRetorno = impressora.IniciaPorta(endereco);
+        System.out.println("Iniciando Porta da impressora " + tipoImpressora + ": " + iRetorno);
+        iRetorno = impressora.BematechTX(BematechComandosDiretos.INICIALIZA);
+        System.out.println("Mandando comandos diretos na impressora " + tipoImpressora + ": " + iRetorno);
+        if (iRetorno != 0 && tipoImpressora == 1) {
+            impressoraInicializadaCaixa = true;
+        } else if (iRetorno != 0 && tipoImpressora == 2)        {
+            impressoraInicializadaCozinha = true;
         }
-        iRetorno = cupom.Le_Status();
-        if (modelo == 5) {
-            switch (iRetorno) {
-                case 0:
-                    //Impressora está com pouco papel
-                    break;
-                case 24:
-                    //Impressora está OK, online
-                    break;
-                case 40:
-                    //Impressora está offline, pode estar desligada ou algum problema na conexão
-                    return false;
-            }
-        } else if (modelo == 7) {
-            switch (iRetorno) {
-                case 0:
-                    //Erro de Comunicação
-                    return false;
-                case 5:
-                    //Impressora com pouco papel
-                    break;
-                case 9:
-                    //A tampa da impressora está aberta
-                    break;
-                case 24:
-                    //A impressora está OK, online
-                    break;
-                case 32:
-                    //A impressora está sem papel
-                    break;
-            }
-        }
-        iRetorno = cupom.FechaPorta();
-        System.out.println("Fechar Porta Retornou " + iRetorno);
-        return true;
     }
+    
+    public void fechaImpressora (){
+        iRetorno = caixa.FechaPorta();
+        System.out.println("Fechar Porta Caixa Retornou " + iRetorno);
+        iRetorno = cozinha.FechaPorta();
+        System.out.println("Fechar Porta Cozinha Retornou " + iRetorno);
+    }
+
+    public static boolean getImpressoraInicializadaCaixa() {
+        return impressoraInicializadaCaixa;
+    }
+
+    public static boolean getImpressoraInicializadaCozinha() {
+        return impressoraInicializadaCozinha;
+    }
+    
+    public static BematechNFiscal getCaixa() {
+        return caixa;
+    }
+
+    public static BematechNFiscal getCozinha() {
+        return cozinha;
+    }    
 }

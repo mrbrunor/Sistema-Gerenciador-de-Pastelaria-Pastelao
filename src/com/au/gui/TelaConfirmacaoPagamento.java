@@ -68,6 +68,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buscaFormasPagamento();
         initComponents();
         monitor = new MonitorImpressora(this);
+        monitor.verificar();
         normal = campoDesconto.getBorder();
         atualizaTableModelVenda();
         campoDesconto.requestFocus();
@@ -665,7 +666,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
             if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 criaPedido();
-                boolean impressoraConectada = monitor.verificaImpressora(1);
+                boolean impressoraConectada = monitor.getImpressoraInicializadaCaixa();
                 if (impressoraConectada) {
                     System.out.println("Impressora do Caixa Conectou!");
                     try {
@@ -679,7 +680,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     System.out.println("Impressora do Caixa Não Conectou...");
                 }
 
-                impressoraConectada = monitor.verificaImpressora(2);
+                impressoraConectada = monitor.getImpressoraInicializadaCozinha();
                 if (impressoraConectada) {
                     System.out.println("Impressora da Cozinha Conectou!");
                     try {
