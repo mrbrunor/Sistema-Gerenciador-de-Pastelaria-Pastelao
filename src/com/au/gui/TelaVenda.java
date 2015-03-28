@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -84,10 +85,16 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         campoAdicionarItem.requestFocus();
         setarIcone i = new setarIcone(this);
 
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                new MonitorImpressora().fechaImpressora();
+                if (MonitorImpressora.getImpressoraInicializadaCaixa() != false && MonitorImpressora.getImpressoraInicializadaCozinha() != false) {
+                    new MonitorImpressora().fechaImpressora();
+                }
+                dispose();
+                System.exit(0);
             }
         });
     }

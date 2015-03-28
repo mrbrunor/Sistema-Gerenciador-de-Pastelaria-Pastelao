@@ -31,8 +31,8 @@ public class MonitorImpressora {
     private final Color verde;
     private final Color cinza;
     private final TelaConfirmacaoPagamento tela;
-    private static boolean impressoraInicializadaCaixa;
-    private static boolean impressoraInicializadaCozinha;
+    private static boolean impressoraInicializadaCaixa = false;
+    private static boolean impressoraInicializadaCozinha = false;
     private static BematechNFiscal caixa; 
     private static BematechNFiscal cozinha;
 
@@ -60,8 +60,6 @@ public class MonitorImpressora {
         verde = new Color(0, 128, 0);
         cinza = new Color(128, 128, 128);
         tela = frm;
-        impressoraInicializadaCaixa = false;
-        impressoraInicializadaCozinha = false;
         inicializaImpressora(caixa, iRetorno);
         inicializaImpressora(cozinha, iRetorno);
     }
