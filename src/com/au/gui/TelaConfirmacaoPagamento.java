@@ -25,9 +25,9 @@ import com.au.util.CustomComboBoxInt;
 import com.au.dao.ItemPedidoDao;
 import com.au.dao.PedidoDao;
 import com.au.gui.tmodel.VendaTableModel;
+import com.au.util.BematechNFiscal;
 import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
-import com.au.util.MonitorImpressora;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Time;
@@ -57,7 +57,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private VendaTableModel tableModelVenda;
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
-    private final MonitorImpressora monitor;
 
     public TelaConfirmacaoPagamento(java.awt.Frame parent, boolean modal, Pedido pedido, Integer idCaixa, Double subTotal) {
         super(parent, modal);
@@ -66,8 +65,12 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.pedido.setSubTotPedido(subTotal);
         this.pedido.setTotPedido(subTotal);
         buscaFormasPagamento();
+        try {
+            verificaEstadoImpressoras();
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Erro: " +e);
+        }
         initComponents();
-        monitor = new MonitorImpressora(this);
         normal = campoDesconto.getBorder();
         atualizaTableModelVenda();
         campoDesconto.requestFocus();
@@ -81,8 +84,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         campoValorRecebido.setVisible(false);
         textoValorRecebido.setVisible(false);
         campoValorRecebidoVR.setVisible(false);
-        textoValorRecebidoVR.setVisible(false);
-        
+        textoValorRecebidoVR.setVisible(false);        
     }
 
     /**
@@ -665,33 +667,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
             if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 criaPedido();
-                boolean impressoraConectada = monitor.verificaImpressora(1);
-                if (impressoraConectada) {
-                    System.out.println("Impressora do Caixa Conectou!");
-                    try {
-                        new Imprime().geraComandaVenda(pedido.getIdPedido());
-                    } catch (UnsatisfiedLinkError e) {
-                        JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom do CAIXA.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                        System.out.println("Erro: " + e);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom do CAIXA.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Impressora do Caixa Não Conectou...");
+                try {
+                    new Imprime().geraComandaVenda(pedido.getIdPedido());
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                 }
-
-                impressoraConectada = monitor.verificaImpressora(2);
-                if (impressoraConectada) {
-                    System.out.println("Impressora da Cozinha Conectou!");
-                    try {
-                        new Imprime().geraComandaCozinha(pedido.getIdPedido());
-                    } catch (UnsatisfiedLinkError e) {
-                        JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom da COZINHA.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom da COZINHA.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Impressora da Cozinha Não Conectou...");
+                try {
+                    new Imprime().geraComandaCozinha(pedido.getIdPedido());
+                } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                 }
-
                 pagou = true;
                 this.dispose();
             }
@@ -1239,6 +1224,70 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public static void setPagou(boolean aPagou) {
         pagou = aPagou;
     }
+    
+    public void verificaEstadoImpressoras () {
+        BematechNFiscal cupom = null;
+        
+        try {
+            cupom = BematechNFiscal.Instance;
+        } catch (NoClassDefFoundError e) {
+            e.printStackTrace();
+        }
+        int iRetorno;
+        Color vermelho = new Color(255, 0, 0);
+        Color amarelo = new Color(255, 255, 0);
+        Color verde = new Color(0, 128, 0);
+        Color cinza = new Color(128, 128, 128);
+        
+        
+        iRetorno = verificaImpressoraIndividual(cupom, 5, "LPT1");
+        switch (iRetorno){
+                case 0:
+                    //Impressora está com pouco papel
+                    textoValorImpressoraCaixa.setText("POUCO PAPEL");
+                    textoValorImpressoraCaixa.setForeground(amarelo);
+                    break;
+                case 24:
+                    //Impressora está OK, online
+                    textoValorImpressoraCaixa.setText("CONECTADA");
+                    textoValorImpressoraCaixa.setForeground(verde);
+                    break;
+                case 40:
+                    //Impressora está offline, pode estar desligada ou algum problema na conexão
+                    textoValorImpressoraCaixa.setText("DESCONECTADA");
+                    textoValorImpressoraCaixa.setForeground(cinza);
+                    break;
+        }
+        
+        iRetorno = verificaImpressoraIndividual(cupom, 7, "192.168.0.183");
+        switch (iRetorno){
+                case 0:
+                    //Erro de Comunicação
+                    textoValorImpressoraCozinha.setText("DESCONECTADA");
+                    textoValorImpressoraCozinha.setForeground(cinza);
+                    break;
+                case 5:
+                    //Impressora com pouco papel
+                    textoValorImpressoraCozinha.setText("POUCO PAPEL");
+                    textoValorImpressoraCozinha.setForeground(amarelo);
+                    break;
+                case 9:
+                    //A tampa da impressora está aberta
+                    textoValorImpressoraCozinha.setText("TAMPA ABERTA");
+                    textoValorImpressoraCozinha.setForeground(amarelo);
+                    break; 
+                case 24:
+                    //A impressora está OK, online
+                    textoValorImpressoraCozinha.setText("CONECTADA");
+                    textoValorImpressoraCozinha.setForeground(verde);
+                    break;
+                case 32:
+                    //A impressora está sem papel
+                    textoValorImpressoraCozinha.setText("SEM PAPEL");
+                    textoValorImpressoraCozinha.setForeground(vermelho);
+                    break;
+            }        
+    }
 
     public JLabel getTextoValorImpressoraCaixa() {
         return textoValorImpressoraCaixa;
@@ -1255,7 +1304,16 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     public void setTextoValorImpressoraCozinha(JLabel textoValorImpressoraCozinha) {
         this.textoValorImpressoraCozinha = textoValorImpressoraCozinha;
     }
-
+    
+    public int verificaImpressoraIndividual (BematechNFiscal cupom, int modelo, String endereco) {
+        int iRetorno;
+        
+        iRetorno = cupom.ConfiguraModeloImpressora(modelo);
+        iRetorno = cupom.IniciaPorta(endereco);
+        iRetorno = cupom.Le_Status();
+        return iRetorno;
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;

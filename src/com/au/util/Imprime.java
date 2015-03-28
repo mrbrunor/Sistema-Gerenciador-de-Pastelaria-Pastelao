@@ -58,7 +58,7 @@ public class Imprime {
         return str;
     }
 
-    public boolean geraComandaVenda(int idPedido) throws UnsatisfiedLinkError {
+    public void geraComandaVenda(int idPedido) throws UnsatisfiedLinkError {
         int iRetorno;
         String iComando;
 
@@ -78,22 +78,18 @@ public class Imprime {
 
         iRetorno = cupom.ConfiguraModeloImpressora(5);
         iRetorno = cupom.IniciaPorta("LPT1");
-        iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
-        /* if (iRetorno == 0) {
-            throw (new SemImpressoraException("Impressora está offline!"));
-        }
         iRetorno = cupom.Le_Status();
-        switch (iRetorno) {
-            case 0:
-                //Impressora está com pouco papel
-                break;
-            case 24:
-                //Impressora está OK, online
-                break;
-            case 40:
-                //Impressora está offline, pode estar desligada ou algum problema na conexão
-                throw (new SemImpressoraException("Impressora está offline!"));
-        } */
+        switch (iRetorno){
+                case 0:
+                    //Impressora está com pouco papel
+                    break;
+                case 24:
+                    //Impressora está OK, online
+                    break;
+                case 40:
+                    //Impressora está offline, pode estar desligada ou algum problema na conexão
+                    break; }
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
         iRetorno = cupom.BematechTX("AGUARDE PELO NUMERO:   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
@@ -101,7 +97,7 @@ public class Imprime {
         iRetorno = cupom.BematechTX("" + (char) 10);
         iRetorno = cupom.FormataTX("Codigo\t\t QTD\tUnit\t Total\r\nDescricao\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
-            if (pedido.getItempedidos().get(i).getProduto().getNumProd() == 0) {
+            if(pedido.getItempedidos().get(i).getProduto().getNumProd() == 0){
                 pedido.getItempedidos().get(i).getProduto().setDescProd(pedido.getItempedidos().get(i).getNomePastel());
                 pedido.getItempedidos().get(i).getProduto().setValorProd(pedido.getItempedidos().get(i).getTotProd() / pedido.getItempedidos().get(i).getQtdProd());;
             }
@@ -146,7 +142,6 @@ public class Imprime {
             iRetorno = cupom.ComandoTX(iComando, iComando.length());
         }
         iRetorno = cupom.FechaPorta();
-        return true;
     }
 
     public void geraComandaCozinhaVelho(int idPedido) throws UnsatisfiedLinkError {
@@ -199,12 +194,12 @@ public class Imprime {
         boolean imprimir = false;
 
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
-            if (pedido.getItempedidos().get(i).getProduto().getEIndustrializado() == 0) {
+            if(pedido.getItempedidos().get(i).getProduto().getEIndustrializado() == 0){
                 imprimir = true;
                 continue;
-            }
+            }            
         }
-
+        
         if (imprimir) {
 
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
@@ -214,30 +209,25 @@ public class Imprime {
 
             iRetorno = cupom.ConfiguraModeloImpressora(7);
             iRetorno = cupom.IniciaPorta("192.168.0.183");
-            /* System.out.println(iRetorno);
-            if (iRetorno <= 0) {
-                throw (new SemImpressoraException("Impressora está offline!"));
-            }
-            iRetorno = BematechComandosDiretos.inicializaImpressora(cupom);
-
             iRetorno = cupom.Le_Status();
-            switch (iRetorno) {
+            switch (iRetorno){
                 case 0:
                     //Erro de Comunicação
-                    throw (new SemImpressoraException("Impressora está offline!"));
+                    break;
                 case 5:
                     //Impressora com pouco papel
                     break;
                 case 9:
                     //A tampa da impressora está aberta
-                    break;
+                    break; 
                 case 24:
                     //A impressora está OK, online
                     break;
                 case 32:
                     //A impressora está sem papel
                     break;
-            } */
+            }
+            iRetorno = BematechComandosDiretos.inicializaImpressora(cupom);
             //iRetorno = cupom.PrintNVBitmap(1, 0);
             iRetorno = BematechComandosDiretos.alinhaTexto(cupom, 1);
             iRetorno = cupom.FormataTX("VIA DA COZINHA\r\n", 3, 1, 0, 0, 1);
@@ -476,5 +466,4 @@ public class Imprime {
         }
         iRetorno = cupom.FechaPorta();
     }
-
 }
