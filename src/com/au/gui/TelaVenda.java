@@ -28,10 +28,7 @@ import com.au.dao.PedidoDao;
 import com.au.dao.ProdutoDao;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
-import com.au.util.MonitorImpressora;
 import com.au.util.setarIcone;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,13 +80,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         }
         campoAdicionarItem.requestFocus();
         setarIcone i = new setarIcone(this);
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent event) {
-                new MonitorImpressora().fechaImpressora();
-            }
-        });
     }
 
     /**

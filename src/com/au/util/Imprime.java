@@ -74,7 +74,7 @@ public class Imprime {
             System.out.println("Produto: " + pedido.getItempedidos().get(i).getProduto().getDescProd() + " Código: " + pedido.getItempedidos().get(i).getProduto().getNumProd() + " Ordem: " + pedido.getItempedidos().get(i).getOrdemProduto());
         }
 
-        BematechNFiscal cupom = MonitorImpressora.getCaixa();
+        BematechNFiscal cupom = BematechNFiscal.Instance;
 
         iRetorno = cupom.ConfiguraModeloImpressora(5);
         iRetorno = cupom.IniciaPorta("LPT1");
@@ -160,10 +160,10 @@ public class Imprime {
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(pedido.getDataPedido());
 
-        BematechNFiscal cupom = MonitorImpressora.getCozinha();
+        BematechNFiscal cupom = BematechNFiscal.Instance;
 
-        //iRetorno = cupom.ConfiguraModeloImpressora(7);
-        //iRetorno = cupom.IniciaPorta("192.168.0.183");
+        iRetorno = cupom.ConfiguraModeloImpressora(7);
+        iRetorno = cupom.IniciaPorta("192.168.0.183");
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         //iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(1));
@@ -210,11 +210,10 @@ public class Imprime {
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
             String dataStr = formatador.format(pedido.getDataPedido());
 
-            BematechNFiscal cupom = MonitorImpressora.getCozinha();
+            BematechNFiscal cupom = BematechNFiscal.Instance;
 
-            //iRetorno = cupom.ConfiguraModeloImpressora(7);
-            //iRetorno = cupom.IniciaPorta("192.168.0.183");
-            
+            iRetorno = cupom.ConfiguraModeloImpressora(7);
+            iRetorno = cupom.IniciaPorta("192.168.0.183");
             /* System.out.println(iRetorno);
             if (iRetorno <= 0) {
                 throw (new SemImpressoraException("Impressora está offline!"));
@@ -342,7 +341,7 @@ public class Imprime {
         SimpleDateFormat formataHora = new SimpleDateFormat("HH:mm");
         SimpleDateFormat mesExtenso = new SimpleDateFormat("MMMMM");
         String mes = mesExtenso.format(caixa.getDataFechamentoCaixa());
-        BematechNFiscal cupom = MonitorImpressora.getCaixa();
+        BematechNFiscal cupom = BematechNFiscal.Instance;
 
         iRetorno = cupom.ConfiguraModeloImpressora(5);
         iRetorno = cupom.IniciaPorta("LPT1");
