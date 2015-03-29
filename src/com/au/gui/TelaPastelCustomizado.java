@@ -111,6 +111,11 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
         jLabel2.setText("Pastel de:");
 
         campoValor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        campoValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoValorActionPerformed(evt);
+            }
+        });
 
         textoValor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         textoValor.setText("Valor:");
@@ -687,6 +692,10 @@ public class TelaPastelCustomizado extends javax.swing.JDialog {
     private void botaoConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarPedidoActionPerformed
         confirmarPastelCustomizado();
     }//GEN-LAST:event_botaoConfirmarPedidoActionPerformed
+
+    private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
+        botaoConfirmarPedido.requestFocus();
+    }//GEN-LAST:event_campoValorActionPerformed
 
     /**
      * @param args the command line arguments

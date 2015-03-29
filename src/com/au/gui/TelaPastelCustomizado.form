@@ -122,6 +122,9 @@
           <Font name="Tahoma" size="20" style="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoValorActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="textoValor">
       <Properties>

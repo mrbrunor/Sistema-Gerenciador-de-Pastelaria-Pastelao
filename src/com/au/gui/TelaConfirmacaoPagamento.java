@@ -65,12 +65,12 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.pedido.setSubTotPedido(subTotal);
         this.pedido.setTotPedido(subTotal);
         buscaFormasPagamento();
+        initComponents();
         try {
             verificaEstadoImpressoras();
         } catch (UnsatisfiedLinkError e) {
             System.out.println("Erro: " +e);
         }
-        initComponents();
         normal = campoDesconto.getBorder();
         atualizaTableModelVenda();
         campoDesconto.requestFocus();

@@ -17,6 +17,7 @@
 package com.au.gui;
 
 import com.au.bean.Funcionario;
+import com.au.console.Console;
 import com.au.dao.FuncionarioDao;
 import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
@@ -50,6 +51,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        //new Console().run();
         normal = campoUsuario.getBorder();
         textoErroUsuario.setVisible(false);
         textoErroSenha.setVisible(false);

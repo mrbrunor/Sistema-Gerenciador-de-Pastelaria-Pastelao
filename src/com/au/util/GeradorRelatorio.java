@@ -23,12 +23,14 @@
  */
 package com.au.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -81,8 +83,8 @@ public class GeradorRelatorio {
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, localParaSalvar);
             
-            
         } catch (JRException e) {
+            new JOptionPane().showMessageDialog(null, e);
             throw new RuntimeException(e);
         //} catch (IOException ex) {
          //   Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);

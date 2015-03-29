@@ -79,16 +79,17 @@ public class Imprime {
         iRetorno = cupom.ConfiguraModeloImpressora(5);
         iRetorno = cupom.IniciaPorta("LPT1");
         iRetorno = cupom.Le_Status();
-        switch (iRetorno){
-                case 0:
-                    //Impressora está com pouco papel
-                    break;
-                case 24:
-                    //Impressora está OK, online
-                    break;
-                case 40:
-                    //Impressora está offline, pode estar desligada ou algum problema na conexão
-                    break; }
+        switch (iRetorno) {
+            case 0:
+                //Impressora está com pouco papel
+                break;
+            case 24:
+                //Impressora está OK, online
+                break;
+            case 40:
+                //Impressora está offline, pode estar desligada ou algum problema na conexão
+                break;
+        }
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
@@ -97,7 +98,7 @@ public class Imprime {
         iRetorno = cupom.BematechTX("" + (char) 10);
         iRetorno = cupom.FormataTX("Codigo\t\t QTD\tUnit\t Total\r\nDescricao\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
-            if(pedido.getItempedidos().get(i).getProduto().getNumProd() == 0){
+            if (pedido.getItempedidos().get(i).getProduto().getNumProd() == 0) {
                 pedido.getItempedidos().get(i).getProduto().setDescProd(pedido.getItempedidos().get(i).getNomePastel());
                 pedido.getItempedidos().get(i).getProduto().setValorProd(pedido.getItempedidos().get(i).getTotProd() / pedido.getItempedidos().get(i).getQtdProd());;
             }
@@ -194,12 +195,12 @@ public class Imprime {
         boolean imprimir = false;
 
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
-            if(pedido.getItempedidos().get(i).getProduto().getEIndustrializado() == 0){
+            if (pedido.getItempedidos().get(i).getProduto().getEIndustrializado() == 0) {
                 imprimir = true;
                 continue;
-            }            
+            }
         }
-        
+
         if (imprimir) {
 
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
@@ -210,7 +211,7 @@ public class Imprime {
             iRetorno = cupom.ConfiguraModeloImpressora(7);
             iRetorno = cupom.IniciaPorta("192.168.0.183");
             iRetorno = cupom.Le_Status();
-            switch (iRetorno){
+            switch (iRetorno) {
                 case 0:
                     //Erro de Comunicação
                     break;
@@ -219,7 +220,7 @@ public class Imprime {
                     break;
                 case 9:
                     //A tampa da impressora está aberta
-                    break; 
+                    break;
                 case 24:
                     //A impressora está OK, online
                     break;
@@ -250,6 +251,10 @@ public class Imprime {
             iRetorno = BematechComandosDiretos.pulaLinha(cupom);
             iRetorno = cupom.FormataTX("Codigo\t\t QTD\tDescricao\r\n", 3, 0, 0, 0, 0);
             for (int i = 0; pedido.getItempedidos().size() > i; i++) {
+                if (pedido.getItempedidos().get(i).getProduto().getNumProd() == 0) {
+                    pedido.getItempedidos().get(i).getProduto().setDescProd(pedido.getItempedidos().get(i).getNomePastel());
+                    pedido.getItempedidos().get(i).getProduto().setValorProd(pedido.getItempedidos().get(i).getTotProd() / pedido.getItempedidos().get(i).getQtdProd());;
+                }
                 iRetorno = BematechComandosDiretos.ativaExpandidoHorizontal(cupom);
                 iRetorno = BematechComandosDiretos.ativaNegrito(cupom);
                 iRetorno = cupom.BematechTX(String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd()));

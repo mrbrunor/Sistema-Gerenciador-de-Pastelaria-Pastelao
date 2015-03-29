@@ -214,6 +214,7 @@ public class PedidoDao {
                 ip.setQtdProd(res.getInt("qtdProd"));
                 ip.setTotProd(res.getDouble("totProd"));
                 ip.setOrdemProduto(res.getInt("ordemProduto"));
+                ip.setNomePastel(res.getString("nomePastel"));
                 
                 Produto prod = new Produto();
                 prod.setIdProd(res.getInt("idProd"));
