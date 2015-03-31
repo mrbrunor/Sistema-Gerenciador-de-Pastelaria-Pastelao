@@ -24,12 +24,8 @@ import com.au.util.LimitaDigitos;
 import com.au.util.setarIcone;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -43,6 +39,7 @@ import javax.swing.plaf.FontUIResource;
  * @author tiago_000
  */
 public class TelaLogin extends javax.swing.JFrame {
+
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
 
@@ -51,7 +48,11 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-        //new Console().run();
+        /* try {
+            new Console().run();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Não foi possível achar a classe do console: " + e);
+        } */
         normal = campoUsuario.getBorder();
         textoErroUsuario.setVisible(false);
         textoErroSenha.setVisible(false);
@@ -290,7 +291,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void campoSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoSenhaFocusLost
         valida(campoSenha, 3, textoErroSenha);
     }//GEN-LAST:event_campoSenhaFocusLost
-    
+
     public void valida(JTextField campo, Integer tamanho, JLabel texto) {
 
         if (campo != null && !"".equals(campo.getText()) && campo.getText().length() > tamanho) {
@@ -301,7 +302,7 @@ public class TelaLogin extends javax.swing.JFrame {
             texto.setVisible(true);
         }
     }
-    
+
     public void limpaCampos() {
         campoSenha.setText("");
         campoUsuario.setText("");
@@ -370,7 +371,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void trocarSenha() {
         new TelaCriarNovaSenha(this, true).setVisible(true);
     }
-    
+
     /**
      * @param args the command line arguments
      */

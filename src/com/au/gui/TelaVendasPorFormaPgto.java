@@ -529,6 +529,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
 
     private void geraRelatorio() throws ParseException {
         String nome = "reports\\vendas_por_pagamento.jrxml";
+        String templateAlternativo = "reports\\vendas_por_pagamento.jasper";
         Map<String, Object> parametros = new HashMap<>();
         Connection conexao = new FabricaConexao().getConexao();
         String caminhoParaSalvar = campoLocalParaSalvar.getText();
@@ -566,7 +567,7 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         
         try {
             gerador = new GeradorRelatorio(nome,parametros,conexao);
-            gerador.geraPdf(caminhoParaSalvar);
+            gerador.geraPdf(caminhoParaSalvar, templateAlternativo);
         } catch (JRException e) {
             System.out.println(e);
         }

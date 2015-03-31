@@ -1,3 +1,5 @@
+package com.au.console;
+
 //
 // A simple Java Console for your application (Swing version)
 // Requires Java 1.1.5 or higher

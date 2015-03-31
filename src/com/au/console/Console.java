@@ -40,7 +40,10 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		
 		textArea=new JTextArea();
 		textArea.setEditable(false);
-		JButton button=new JButton("clear");
+                textArea.setAutoscrolls(true);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
+		JButton button=new JButton("Limpar");
 		
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(new JScrollPane(textArea),BorderLayout.CENTER);
@@ -93,17 +96,17 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		// testing part
 		// you may omit this part for your application
 		// 
-		System.out.println("Hello World 2");
+		/* System.out.println("Hello World 2");
 		System.out.println("All fonts available to Graphic2D:\n");
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontNames=ge.getAvailableFontFamilyNames();
-		for(int n=0;n<fontNames.length;n++)  System.out.println(fontNames[n]);		
+		for(int n=0;n<fontNames.length;n++)  System.out.println(fontNames[n]); */		
 		// Testing part: simple an error thrown anywhere in this JVM will be printed on the Console
 		// We do it with a seperate Thread becasue we don't wan't to break a Thread used by the Console.
-		System.out.println("\nLets throw an error on this console");	
+		/* System.out.println("\nLets throw an error on this console");	
 		errorThrower=new Thread(this);
 		errorThrower.setDaemon(true);
-		errorThrower.start();					
+		errorThrower.start(); */					
 	}
 	
 	public synchronized void windowClosed(WindowEvent evt)

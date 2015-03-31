@@ -23,23 +23,15 @@
  */
 package com.au.util;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
  *
@@ -56,38 +48,49 @@ public class GeradorRelatorio {
         this.parametros = parametros;
         this.conexao = conexao;
         caminhoImg = "img\\Logomarca.png";
-        
+
         parametros.put("LOGO", caminhoImg);
         templateCompilado = JasperCompileManager.compileReport(caminhoTemplate);
     }
-    
-    /* public void geraPdfParaOutputStream(OutputStream outputStream) {
-        try {
-            JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.conexao);
 
-            JRExporter exporter = new JRPdfExporter();
-            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
-            exporter.exportReport();
-            outputStream.close();
-        } catch (JRException e) {
-            throw new RuntimeException(e);
-        } catch (IOException ex) {
-            Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } */
-    
+    /* public void geraPdfParaOutputStream(OutputStream outputStream) {
+     try {
+     JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.conexao);
+
+     JRExporter exporter = new JRPdfExporter();
+     exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+     exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+     exporter.exportReport();
+     outputStream.close();
+     } catch (JRException e) {
+     throw new RuntimeException(e);
+     } catch (IOException ex) {
+     Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     } */
     public void geraPdf(String localParaSalvar) {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(templateCompilado, this.parametros, this.conexao);
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, localParaSalvar);
-            
+
         } catch (JRException e) {
-            new JOptionPane().showMessageDialog(null, e);
+            System.out.println("Houve Erro ao Compilar o Template... Foi utilizado o template pré-compilado em seu lugar");
             throw new RuntimeException(e);
-        //} catch (IOException ex) {
-         //   Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //} catch (IOException ex) {
+        //   Logger.getLogger(GeradorRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    public void geraPdf(String localParaSalvar, String templateAlternativo) {
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(templateAlternativo, this.parametros, this.conexao);
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, localParaSalvar);
+        } catch (JRException e) {
+            System.out.println("Houve Erro ao usar o template pré-compilado... Impossível criar o relatório");
+            throw new RuntimeException(e);
+        }
+
     }
 }
