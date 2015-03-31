@@ -566,10 +566,17 @@ public class TelaVendasPorFormaPgto extends javax.swing.JDialog {
         GeradorRelatorio gerador;
         
         try {
-            gerador = new GeradorRelatorio(nome,parametros,conexao);
-            gerador.geraPdf(caminhoParaSalvar, templateAlternativo);
-        } catch (JRException e) {
-            System.out.println(e);
+            gerador = new GeradorRelatorio(nome, parametros, conexao);
+            gerador.geraPdf(caminhoParaSalvar);
+        } catch (JRException ex) {
+            /*try {
+                gerador = new GeradorRelatorio(nome, parametros, conexao);
+                gerador.geraPdf(caminhoParaSalvar, templateAlternativo);
+            } catch (JRException e) {
+                System.out.println("Houve Erro ao Usar o Template pré-compilado.... Impossível criar o Relatório");
+                throw new RuntimeException(e);
+            }*/
+            Logger.getLogger(TelaVendasGerais.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Relatório Gerado com Sucesso!\nDeseja abrir o relatório agora?", "Geração de Relatório", JOptionPane.YES_NO_OPTION)) {

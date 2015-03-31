@@ -29,11 +29,16 @@ import com.au.dao.ProdutoDao;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import com.au.util.setarIcone;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -141,6 +146,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuSobre = new javax.swing.JMenuItem();
+        itemMenuConfigurações = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Pastelão - Vendas");
@@ -567,6 +573,15 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         });
         MenuAjuda.add(itemMenuSobre);
 
+        itemMenuConfigurações.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, java.awt.event.InputEvent.SHIFT_MASK));
+        itemMenuConfigurações.setText("Configurações");
+        itemMenuConfigurações.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuConfiguraçõesActionPerformed(evt);
+            }
+        });
+        MenuAjuda.add(itemMenuConfigurações);
+
         barraMenu.add(MenuAjuda);
 
         setJMenuBar(barraMenu);
@@ -744,6 +759,10 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         System.exit(1);
     }//GEN-LAST:event_itemMenuSairActionPerformed
 
+    private void itemMenuConfiguraçõesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuConfiguraçõesActionPerformed
+            new TelaConfiguracoes().setVisible(true);
+    }//GEN-LAST:event_itemMenuConfiguraçõesActionPerformed
+
     private void abrirCaixa() {
         if (idCaixa == null) {
             caixa = novoCaixa();
@@ -852,7 +871,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     }
 
     private void deslogar() {
-        new TelaLogin().setVisible(true);
+        try {
+            new TelaLogin().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }
 
@@ -1134,6 +1157,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JTextField campoBusca;
     private javax.swing.JMenuItem itemMenuAbrirCaixa;
     private javax.swing.JMenuItem itemMenuCancelarCupom;
+    private javax.swing.JMenuItem itemMenuConfigurações;
     private javax.swing.JMenuItem itemMenuDeslogar;
     private javax.swing.JMenuItem itemMenuFecharCaixa;
     private javax.swing.JMenuItem itemMenuFormaPagamento;

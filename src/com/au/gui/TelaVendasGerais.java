@@ -328,13 +328,13 @@ public class TelaVendasGerais extends javax.swing.JDialog {
             gerador = new GeradorRelatorio(nome, parametros, conexao);
             gerador.geraPdf(caminhoParaSalvar);
         } catch (JRException ex) {
-            try {
+            /*try {
                 gerador = new GeradorRelatorio(nome, parametros, conexao);
                 gerador.geraPdf(caminhoParaSalvar, templateAlternativo);
             } catch (JRException e) {
                 System.out.println("Houve Erro ao Usar o Template pré-compilado.... Impossível criar o Relatório");
                 throw new RuntimeException(e);
-            }
+            }*/
             Logger.getLogger(TelaVendasGerais.class.getName()).log(Level.SEVERE, null, ex);
         }
 

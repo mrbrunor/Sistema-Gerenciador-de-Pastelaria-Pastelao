@@ -21,9 +21,12 @@ import com.au.console.Console;
 import com.au.dao.FuncionarioDao;
 import com.au.util.HexSha;
 import com.au.util.LimitaDigitos;
+import static com.au.util.ManipulaConfigs.getProp;
 import com.au.util.setarIcone;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -42,17 +45,25 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
+    private boolean iniciaConsole;
 
     /**
      * Creates new form TelaLogin
+     * @throws java.io.IOException
      */
-    public TelaLogin() {
+    public TelaLogin() throws IOException {
         initComponents();
-        /* try {
-            new Console().run();
-        } catch (NoClassDefFoundError e) {
-            System.out.println("Não foi possível achar a classe do console: " + e);
-        } */
+        Properties props = getProp();
+        iniciaConsole = Boolean.parseBoolean(props.getProperty("prop.debug.console"));
+        if (iniciaConsole) {
+            try {
+                new Console().run();
+                System.out.println("\t\t\t\tBem-Vindo ao console do Sistema Pastelão!");
+                System.out.println("\t\t\tATENÇÃO! FECHAR ESTA JANELA FECHARÁ TAMBÉM O SISTEMA!\n\n");
+            } catch (NoClassDefFoundError e) {
+                System.out.println("Não foi possível achar a classe do console: " + e);
+            }
+        }
         normal = campoUsuario.getBorder();
         textoErroUsuario.setVisible(false);
         textoErroSenha.setVisible(false);
@@ -403,7 +414,11 @@ public class TelaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TelaLogin().setVisible(true);
+                try {
+                    new TelaLogin().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
