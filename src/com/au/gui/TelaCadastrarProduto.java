@@ -22,7 +22,6 @@ import com.au.util.LimitaDigitos;
 import com.au.gui.tmodel.ProdutoTableModel;
 import java.awt.Color;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
