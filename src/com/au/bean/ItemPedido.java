@@ -29,6 +29,10 @@ public class ItemPedido {
     private int ordemProduto;
     private String nomePastel;
     
+    public ItemPedido(){
+        nomePastel = "nulo";
+    }
+    
     private Produto produto = new Produto();
 
     public int getIdPedido() {

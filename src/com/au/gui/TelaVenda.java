@@ -1067,7 +1067,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private void verificaSeExiste(ItemPedido itempedido) {
         for (int i = 0; i < pedido.getItempedidos().size(); i++) {
             if (pedido.getItempedidos().get(i).getIdProd() == itempedido.getIdProd()) {
-                if (pedido.getItempedidos().get(i).getNomePastel() != null && itempedido.getNomePastel() != null) {
+                if (!"nulo".equals(pedido.getItempedidos().get(i).getNomePastel()) && !"nulo".equals(itempedido.getNomePastel())) {
                     if (itempedido.getNomePastel().equals(pedido.getItempedidos().get(i).getNomePastel())) {
                         int aux = pedido.getItempedidos().get(i).getOrdemProduto();
                         totalPedido = totalPedido - pedido.getItempedidos().get(i).getTotProd();

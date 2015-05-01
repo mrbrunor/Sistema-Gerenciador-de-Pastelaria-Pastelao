@@ -934,7 +934,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         cDao.abreConnection();
         caixa = (cDao.listaCaixaPorId(idCaixa));
         System.out.println("Tot antes: " + caixa.getTotalCaixa());
-        System.out.println("pedido total" + pedido.getTotPedido());
+        System.out.println("pedido total: " + pedido.getTotPedido());
         caixa.setTotalCaixa(caixa.getTotalCaixa() + pedido.getTotPedido());
         System.out.println("Tot depois: " + caixa.getTotalCaixa());
         cDao.atualizaCaixa(caixa);
