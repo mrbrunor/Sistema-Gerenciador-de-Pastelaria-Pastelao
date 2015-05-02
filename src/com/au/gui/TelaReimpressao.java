@@ -22,6 +22,7 @@ import com.au.util.Imprime;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -254,14 +255,16 @@ public class TelaReimpressao extends javax.swing.JDialog {
                     if (pedidos.get(i).getEstadoPedido().equals("Cancelado") && JOptionPane.showConfirmDialog(this, "Este pedido foi cancelado. Deseja Reimprimir mesmo assim?", "Pedido Cancelado", JOptionPane.YES_NO_OPTION) == 1) {
                         return false;
                     }
-                    try {
+                    new Imprime(pedidos.get(i).getIdPedido(), true, (JDialog) this);
+                    return true;
+                    /*try {
                         new Imprime().geraComandaVenda(pedidos.get(i).getIdPedido());
                         JOptionPane.showMessageDialog(this, "Pedido impresso com sucesso!", "Reimpressão de Pedido", JOptionPane.INFORMATION_MESSAGE);
                         return true;
                     } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
                         JOptionPane.showMessageDialog(this, "Erro ao imprimir o Cupom.\nVerifique a impressora e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
                         return false;
-                    }
+                    }*/
 
                 }
             }

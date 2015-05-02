@@ -23,10 +23,17 @@ import com.au.dao.CaixaDao;
 import com.au.dao.FuncionarioDao;
 import com.au.dao.PedidoDao;
 import com.au.dao.DespesaDao;
+import com.au.gui.TelaConfirmacaoPagamento;
+import java.awt.Component;
+import java.awt.Frame;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,6 +58,57 @@ public class Imprime {
     double totalDebito = 0;
     double totalVale = 0;
     double totalDesp = 0;
+    private Properties props;
+    private int iRetorno;
+    private String iComando;
+    private int modeloImpressora;
+    private String enderecoImpressora;
+    private final String nomeProp;
+
+    public Imprime(int idPedido, boolean eReimpressao, JDialog parent) {
+        iRetorno = 0;
+        iComando = "";
+        modeloImpressora = 0;
+        enderecoImpressora = "";
+        try {
+            props = ManipulaConfigs.getProp();
+        } catch (IOException e) {
+            System.out.println("Houve um erro ao carregar as configurações. Possíveis causas incluem arquivo de configuração danificado e/ou ausente.\n");
+            e.printStackTrace();
+        }
+        nomeProp = "prop.impressora."; //Facilitar a procura no arquivo de propriedades;
+        boolean impAtiva = false;
+        System.out.println("\n*********************************************\n"
+                + "Iniciando Impressora Caixa\n"
+                + "*********************************************");
+        impAtiva = Boolean.parseBoolean(props.getProperty(nomeProp + "caixa.ativa"));
+        System.out.println("Usar a impressora do caixa: " + impAtiva);
+        if (impAtiva) {
+            try {
+                geraComandaVenda(idPedido);
+            } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                JOptionPane.showMessageDialog(parent, "Erro ao imprimir o Cupom.\nVerifique a impressora do Caixa e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Houve erro ao imprimir o cupom do caixa: " +e);
+            }
+        }
+        System.out.println("É reimpressão: " + eReimpressao);
+        if (eReimpressao) {
+            return;
+        }
+        System.out.println("\n*********************************************\n"
+                + "Iniciando Impressora Cozinha\n"
+                + "*********************************************");
+        impAtiva = Boolean.parseBoolean(props.getProperty(nomeProp + "cozinha.ativa"));
+        System.out.println("Usar a impressora da cozinha: " + impAtiva);
+        if (impAtiva) {
+            try {
+                geraComandaCozinha(idPedido);
+            } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+                JOptionPane.showMessageDialog(parent, "Erro ao imprimir o Cupom.\nVerifique a impressora da Cozinha e tente novamente.", "Erro ao Imprimir o Cupom", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Houve erro ao imprimir o cupom da cozinha: " +e);
+            }
+        }
+    }
 
     public String removeAcentos(String str) {
         str = Normalizer.normalize(str, Normalizer.Form.NFD);
@@ -58,14 +116,19 @@ public class Imprime {
         return str;
     }
 
-    public void geraComandaVenda(int idPedido) throws UnsatisfiedLinkError {
-        int iRetorno;
-        String iComando;
+    public final void geraComandaVenda(int idPedido) throws UnsatisfiedLinkError {
+        System.out.println("--- Iniciando a Geração da Comanda de Venda ---");
+
+        modeloImpressora = Integer.parseInt(props.getProperty(nomeProp + "caixa.modelo"));
+        System.out.println("Recuperou a Impressora de Modelo: " + modeloImpressora);
+        enderecoImpressora = props.getProperty(nomeProp + "caixa.endereco");
+        System.out.println("Recuperou o Endereço: " + enderecoImpressora);
 
         pDao.abreConnection();
         Pedido pedido = pDao.buscaPedidoPorId(idPedido);
         pedido = pDao.listaItemPedido(pedido);
         pDao.fechaConnection();
+        System.out.println("Recuperou a lista de itens do pedido");
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(pedido.getDataPedido());
@@ -76,20 +139,8 @@ public class Imprime {
 
         BematechNFiscal cupom = BematechNFiscal.Instance;
 
-        iRetorno = cupom.ConfiguraModeloImpressora(5);
-        iRetorno = cupom.IniciaPorta("LPT1");
-        iRetorno = cupom.Le_Status();
-        switch (iRetorno) {
-            case 0:
-                //Impressora está com pouco papel
-                break;
-            case 24:
-                //Impressora está OK, online
-                break;
-            case 40:
-                //Impressora está offline, pode estar desligada ou algum problema na conexão
-                break;
-        }
+        iRetorno = cupom.ConfiguraModeloImpressora(modeloImpressora);
+        iRetorno = cupom.IniciaPorta(enderecoImpressora);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
@@ -138,10 +189,7 @@ public class Imprime {
             iRetorno = cupom.ComandoTX(iComando, iComando.length());
         }
         iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-        iComando = "" + (char) 10;
-        for (int i = 0; i < 9; i++) {
-            iRetorno = cupom.ComandoTX(iComando, iComando.length());
-        }
+        terminaCupom(cupom);
         iRetorno = cupom.FechaPorta();
     }
 
@@ -184,13 +232,20 @@ public class Imprime {
         iRetorno = cupom.FechaPorta();
     }
 
-    public void geraComandaCozinha(int idPedido) throws UnsatisfiedLinkError {
-        int iRetorno;
-        String iComando;
+    public final void geraComandaCozinha(int idPedido) throws UnsatisfiedLinkError {
+
+        System.out.println("--- Iniciando a Geração da Comanda da Cozinha ---");
+
+        modeloImpressora = Integer.parseInt(props.getProperty(nomeProp + "cozinha.modelo"));
+        System.out.println("Recuperou a Impressora de Modelo: " + modeloImpressora);
+        enderecoImpressora = props.getProperty(nomeProp + "cozinha.endereco");
+        System.out.println("Recuperou o Endereço: " + enderecoImpressora);
+
         pDao.abreConnection();
         Pedido pedido = pDao.buscaPedidoPorId(idPedido);
         pedido = pDao.listaItemPedido(pedido);
         pDao.fechaConnection();
+        System.out.println("Recuperou a lista de itens do pedido");
 
         boolean imprimir = false;
 
@@ -208,26 +263,8 @@ public class Imprime {
 
             BematechNFiscal cupom = BematechNFiscal.Instance;
 
-            iRetorno = cupom.ConfiguraModeloImpressora(7);
-            iRetorno = cupom.IniciaPorta("192.168.0.183");
-            iRetorno = cupom.Le_Status();
-            switch (iRetorno) {
-                case 0:
-                    //Erro de Comunicação
-                    break;
-                case 5:
-                    //Impressora com pouco papel
-                    break;
-                case 9:
-                    //A tampa da impressora está aberta
-                    break;
-                case 24:
-                    //A impressora está OK, online
-                    break;
-                case 32:
-                    //A impressora está sem papel
-                    break;
-            }
+            iRetorno = cupom.ConfiguraModeloImpressora(modeloImpressora);
+            iRetorno = cupom.IniciaPorta(enderecoImpressora);
             iRetorno = BematechComandosDiretos.inicializaImpressora(cupom);
             //iRetorno = cupom.PrintNVBitmap(1, 0);
             iRetorno = BematechComandosDiretos.alinhaTexto(cupom, 1);
@@ -265,13 +302,21 @@ public class Imprime {
                 iRetorno = cupom.BematechTX("\r\n");
                 iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
             }
-            /* iComando = "" + (char) 10;
-             for (int i = 0; i < 9; i++) {
-             iRetorno = cupom.ComandoTX(iComando, iComando.length());
-             } */
-            iRetorno = cupom.AcionaGuilhotina(0);
+            terminaCupom(cupom);
             iRetorno = cupom.FechaPorta();
         }
+    }
+
+    public void terminaCupom(BematechNFiscal cupom) {
+        iComando = "" + (char) 10;
+        if (modeloImpressora == 5) {
+            for (int i = 0; i < 9; i++) {
+                iRetorno = cupom.ComandoTX(iComando, iComando.length());
+            }
+        } else if (modeloImpressora == 7) {
+            iRetorno = cupom.AcionaGuilhotina(0);
+        }
+
     }
 
     private void calculaTipoPagamento(List<Pedido> pedidos) {
@@ -329,8 +374,6 @@ public class Imprime {
         fDao.fechaConnection();
         calculaTipoPagamento(caixa.getPedidos());
         calculaReducoes(caixa);
-        int iRetorno;
-        String iComando;
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
         SimpleDateFormat formataHora = new SimpleDateFormat("HH:mm");

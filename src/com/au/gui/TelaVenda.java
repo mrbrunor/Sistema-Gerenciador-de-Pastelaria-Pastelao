@@ -16,7 +16,6 @@
  */
 package com.au.gui;
 
-import com.au.gui.incompletas.TelaReimprimirRelatorio;
 import com.au.gui.tmodel.VendaTableModel;
 import com.au.bean.Caixa;
 import com.au.bean.Funcionario;
@@ -29,7 +28,6 @@ import com.au.dao.ProdutoDao;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import com.au.util.setarIcone;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -38,7 +36,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -131,7 +128,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuCancelarCupom = new javax.swing.JMenuItem();
         itemMenuReimprimirCupom = new javax.swing.JMenuItem();
         itemMenuRetiradaDeCaixa = new javax.swing.JMenuItem();
-        itemMenuVisualizarCaixas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemMenuTrocarSenha = new javax.swing.JMenuItem();
         itemMenuDeslogar = new javax.swing.JMenuItem();
@@ -472,14 +468,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             }
         });
         menuPrincipal.add(itemMenuRetiradaDeCaixa);
-
-        itemMenuVisualizarCaixas.setText("Reimprimir Relatório de Caixa");
-        itemMenuVisualizarCaixas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuVisualizarCaixasActionPerformed(evt);
-            }
-        });
-        menuPrincipal.add(itemMenuVisualizarCaixas);
         menuPrincipal.add(jSeparator1);
 
         itemMenuTrocarSenha.setText("Trocar Senha");
@@ -711,11 +699,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuReimprimirCupomActionPerformed
 
-    private void itemMenuVisualizarCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVisualizarCaixasActionPerformed
-        new TelaReimprimirRelatorio(this, true).setVisible(true);
-        campoAdicionarItem.requestFocus();
-    }//GEN-LAST:event_itemMenuVisualizarCaixasActionPerformed
-
     private void botaoAlternarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlternarUsuarioActionPerformed
         deslogar();
     }//GEN-LAST:event_botaoAlternarUsuarioActionPerformed
@@ -831,7 +814,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuRetiradaDeCaixa.setEnabled(true);
         itemMenuCancelarCupom.setEnabled(true);
         itemMenuReimprimirCupom.setEnabled(true);
-        itemMenuVisualizarCaixas.setEnabled(true);
+        //itemMenuVisualizarCaixas.setEnabled(true);
 
         campoAdicionarItem.setEnabled(true);
         campoBusca.setEnabled(true);
@@ -854,7 +837,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuRetiradaDeCaixa.setEnabled(false);
         itemMenuCancelarCupom.setEnabled(false);
         itemMenuReimprimirCupom.setEnabled(false);
-        itemMenuVisualizarCaixas.setEnabled(false);
+        //itemMenuVisualizarCaixas.setEnabled(false);
 
         campoAdicionarItem.setEnabled(false);
         campoBusca.setEnabled(false);
@@ -1171,7 +1154,6 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuTrocarSenha;
     private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
     private javax.swing.JMenuItem itemMenuVendasGerais;
-    private javax.swing.JMenuItem itemMenuVisualizarCaixas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPrincipal;
