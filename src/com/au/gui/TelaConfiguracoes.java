@@ -643,7 +643,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private boolean salvarConfigsImpressoraCaixa() {
         System.out.println("Configurando Impressora do Caixa:");
         usarImpressoraCaixa = checkboxAtivarImpressoraCaixa.isSelected();
-        System.out.println("Usar impressora do caixa: " +usarImpressoraCaixa);
+        System.out.println("Usar impressora do caixa: " + usarImpressoraCaixa);
         switch (comboboxModeloCaixa.getSelectedIndex()) {
             case 0:
                 System.out.println("A opção selecionada é inválida!");
@@ -660,19 +660,19 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 System.out.println("Erro ao selecionar o modelo da impressora");
                 return false;
         }
-        if (botaoRadioEthernetCaixa.isSelected()){
+        if (botaoRadioEthernetCaixa.isSelected()) {
             interfaceImpressoraCaixa = "ethernet";
-                enderecoImpressoraCaixa = campoEnderecoCaixa.getText();
-                System.out.println("Interface selecionada: Ethernet");
-                System.out.println("Endereço IP: " + campoEnderecoCaixa.getText());
-        } else if (botaoRadioParalelaCaixa.isSelected()){
+            enderecoImpressoraCaixa = campoEnderecoCaixa.getText();
+            System.out.println("Interface selecionada: Ethernet");
+            System.out.println("Endereço IP: " + campoEnderecoCaixa.getText());
+        } else if (botaoRadioParalelaCaixa.isSelected()) {
             interfaceImpressoraCaixa = "paralela";
-                enderecoImpressoraCaixa = "LPT1";
-                System.out.println("Interface selecionada: Paralela");
-        } else if (botaoRadioUsbCaixa.isSelected()){
+            enderecoImpressoraCaixa = "LPT1";
+            System.out.println("Interface selecionada: Paralela");
+        } else if (botaoRadioUsbCaixa.isSelected()) {
             interfaceImpressoraCaixa = "usb";
-                enderecoImpressoraCaixa = "USB";
-                System.out.println("Interface selecionada: USB");
+            enderecoImpressoraCaixa = "USB";
+            System.out.println("Interface selecionada: USB");
         }
         try {
             salvou[0] = ManipulaConfigs.setProp("prop.impressora.caixa.ativa", String.valueOf(usarImpressoraCaixa));
@@ -694,7 +694,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private boolean salvarConfigsImpressoraCozinha() {
         System.out.println("Configurando Impressora da Cozinha:");
         usarImpressoraCozinha = checkboxAtivarImpressoraCozinha.isSelected();
-        System.out.println("Usar impressora da cozinha: "+usarImpressoraCozinha);
+        System.out.println("Usar impressora da cozinha: " + usarImpressoraCozinha);
         switch (comboboxModeloCozinha.getSelectedIndex()) {
             case 0:
                 System.out.println("A opção selecionada é inválida!");
@@ -711,19 +711,19 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 System.out.println("Erro ao selecionar o modelo da impressora");
                 return false;
         }
-        if (botaoRadioEthernetCozinha.isSelected()){
+        if (botaoRadioEthernetCozinha.isSelected()) {
             interfaceImpressoraCozinha = "ethernet";
-                enderecoImpressoraCozinha = campoEnderecoCozinha.getText();
-                System.out.println("Interface selecionada: Ethernet");
-                System.out.println("Endereço IP: " + campoEnderecoCozinha.getText());
-        } else if (botaoRadioParalelaCozinha.isSelected()){
+            enderecoImpressoraCozinha = campoEnderecoCozinha.getText();
+            System.out.println("Interface selecionada: Ethernet");
+            System.out.println("Endereço IP: " + campoEnderecoCozinha.getText());
+        } else if (botaoRadioParalelaCozinha.isSelected()) {
             interfaceImpressoraCozinha = "paralela";
-                enderecoImpressoraCozinha = "LPT1";
-                System.out.println("Interface selecionada: Paralela");
-        } else if (botaoRadioUsbCozinha.isSelected()){
+            enderecoImpressoraCozinha = "LPT1";
+            System.out.println("Interface selecionada: Paralela");
+        } else if (botaoRadioUsbCozinha.isSelected()) {
             interfaceImpressoraCozinha = "usb";
-                enderecoImpressoraCozinha = "USB";
-                System.out.println("Interface selecionada: USB");
+            enderecoImpressoraCozinha = "USB";
+            System.out.println("Interface selecionada: USB");
         }
         try {
             salvou[0] = ManipulaConfigs.setProp("prop.impressora.cozinha.ativa", String.valueOf(usarImpressoraCozinha));
