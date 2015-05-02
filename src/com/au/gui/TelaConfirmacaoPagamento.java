@@ -40,6 +40,7 @@ import java.util.Properties;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -1260,7 +1261,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         System.out.println("Endereco Caixa: " + enderecoImpressora);
 
         iRetorno = verificaImpressoraIndividual(cupom, modeloImpressora, enderecoImpressora);
-        verificaEstado(iRetorno, modeloImpressora);
+        verificaEstado(iRetorno, modeloImpressora, textoValorImpressoraCaixa);
 
         System.out.println("--- Iniciando Monitor da Impressora da Cozinha ---");
 
@@ -1271,11 +1272,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         System.out.println("Endereco Cozinha: " + enderecoImpressora);
 
         iRetorno = verificaImpressoraIndividual(cupom, modeloImpressora, enderecoImpressora);
-        verificaEstado(iRetorno, modeloImpressora);
+        verificaEstado(iRetorno, modeloImpressora, textoValorImpressoraCozinha);
 
     }
 
-    private void verificaEstado(int iRetorno, int modeloImpressora) {
+    private void verificaEstado(int iRetorno, int modeloImpressora, JLabel textoParaPreencher) {
         Color vermelho = new Color(255, 0, 0);
         Color laranja = new Color(255, 102, 0);
         Color verde = new Color(0, 128, 0);
@@ -1284,46 +1285,46 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             switch (iRetorno) {
                 case 0:
                     //Impressora está com pouco papel
-                    textoValorImpressoraCaixa.setText("POUCO PAPEL");
-                    textoValorImpressoraCaixa.setForeground(laranja);
+                    textoParaPreencher.setText("POUCO PAPEL");
+                    textoParaPreencher.setForeground(laranja);
                     break;
                 case 24:
                     //Impressora está OK, online
-                    textoValorImpressoraCaixa.setText("CONECTADA");
-                    textoValorImpressoraCaixa.setForeground(verde);
+                    textoParaPreencher.setText("CONECTADA");
+                    textoParaPreencher.setForeground(verde);
                     break;
                 case 40:
                     //Impressora está offline, pode estar desligada ou algum problema na conexão
-                    textoValorImpressoraCaixa.setText("DESCONECTADA");
-                    textoValorImpressoraCaixa.setForeground(cinza);
+                    textoParaPreencher.setText("DESCONECTADA");
+                    textoParaPreencher.setForeground(cinza);
                     break;
             }
         } else if (modeloImpressora == 7) {
             switch (iRetorno) {
                 case 0:
                     //Erro de Comunicação
-                    textoValorImpressoraCozinha.setText("DESCONECTADA");
-                    textoValorImpressoraCozinha.setForeground(cinza);
+                    textoParaPreencher.setText("DESCONECTADA");
+                    textoParaPreencher.setForeground(cinza);
                     break;
                 case 5:
                     //Impressora com pouco papel
-                    textoValorImpressoraCozinha.setText("POUCO PAPEL");
-                    textoValorImpressoraCozinha.setForeground(laranja);
+                    textoParaPreencher.setText("POUCO PAPEL");
+                    textoParaPreencher.setForeground(laranja);
                     break;
                 case 9:
                     //A tampa da impressora está aberta
-                    textoValorImpressoraCozinha.setText("TAMPA ABERTA");
-                    textoValorImpressoraCozinha.setForeground(laranja);
+                    textoParaPreencher.setText("TAMPA ABERTA");
+                    textoParaPreencher.setForeground(laranja);
                     break;
                 case 24:
                     //A impressora está OK, online
-                    textoValorImpressoraCozinha.setText("CONECTADA");
-                    textoValorImpressoraCozinha.setForeground(verde);
+                    textoParaPreencher.setText("CONECTADA");
+                    textoParaPreencher.setForeground(verde);
                     break;
                 case 32:
                     //A impressora está sem papel
-                    textoValorImpressoraCozinha.setText("SEM PAPEL");
-                    textoValorImpressoraCozinha.setForeground(vermelho);
+                    textoParaPreencher.setText("SEM PAPEL");
+                    textoParaPreencher.setForeground(vermelho);
                     break;
             }
         }
