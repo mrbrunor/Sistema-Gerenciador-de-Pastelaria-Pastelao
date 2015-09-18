@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Tiago.TiagoH-PC/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/config/main.properties</file>
-            <file>file:/C:/Users/Tiago.TiagoH-PC/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaVendasGerais.java</file>
-            <file>file:/C:/Users/Tiago.TiagoH-PC/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaVendasPorFormaPgto.java</file>
-            <file>file:/C:/Users/Tiago.TiagoH-PC/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/gui/TelaConfiguracoes.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/BematechComandosDiretos.java</file>
+            <file>file:/C:/Users/BrunoRicardo/Documents/GitHub/Sistema-Gerenciador-de-Pastelaria-Pastelao/src/com/au/util/Imprime.java</file>
         </group>
     </open-files>
 </project-private>

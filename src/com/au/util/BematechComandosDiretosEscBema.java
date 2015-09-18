@@ -20,7 +20,7 @@ package com.au.util;
  *
  * @author Tiago
  */
-public class BematechComandosDiretos {
+public class BematechComandosDiretosEscBema {
 
     //Códigos para Funções Diretas
     public static final char ESC = 27; //escape   
@@ -45,6 +45,7 @@ public class BematechComandosDiretos {
     public static final char Q = 81; //used for setting right margin   
     public static final char $ = 36; //used for absolute horizontal positioning
     public static final char d = 100; //Usado para altura dupla
+    public static final char SO = 14; //Ativa modo expandido na linha atual
     public static final char DC4 = 20; //Desativa a impressão expandida por linha setada pelos comandos ESC SO ou SO.
     public static final char a = 97; //Configura o alinhamento horizontal
     public static final char f = 102; //Usado para avanço horizontal
@@ -55,14 +56,12 @@ public class BematechComandosDiretos {
     public static final char ITALIC_OFF = 53; //unset font italic   
     public static final char CONDENSED_ON = 15;
     public static final char CONDENSED_OFF = 18;
-    public static final byte LIGADO = 1;
-    public static final byte DESLIGADO = 0;
-    
-    
 
     //Funções Diretas 
-    public static final String NEGRITO_ON = "" + ESC + E + LIGADO;
-    public static final String NEGRITO_OFF = "" + ESC + E + DESLIGADO;
+    public static final String NEGRITO_ON = "" + ESC + E;
+    public static final String NEGRITO_OFF = "" + ESC + F;
+    public static final String ITALICO_ON = "" + ESC + ITALIC_ON;
+    public static final String ITALICO_OFF = "" + ESC + ITALIC_OFF;
     public static final String INICIALIZA = "" + ESC + AT; //Reinicia todas as configurações da impressora
 
     public static int inicializaImpressora (BematechNFiscal cupom) {
@@ -71,6 +70,11 @@ public class BematechComandosDiretos {
     
     public static int alinhaTexto (BematechNFiscal cupom, int posicao) {
         String iComando = "" + ESC + a + (char) posicao;
+        return cupom.ComandoTX(iComando, iComando.length());
+    }
+    
+    public static int ativaExpandidoHorizontal (BematechNFiscal cupom) {
+        String iComando = "" + ESC + SO;
         return cupom.ComandoTX(iComando, iComando.length());
     }
     

@@ -23,9 +23,6 @@ import com.au.dao.CaixaDao;
 import com.au.dao.FuncionarioDao;
 import com.au.dao.PedidoDao;
 import com.au.dao.DespesaDao;
-import com.au.gui.TelaConfirmacaoPagamento;
-import java.awt.Component;
-import java.awt.Frame;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -144,9 +141,9 @@ public class Imprime {
         iRetorno = cupom.BematechTX(BematechComandosDiretos.INICIALIZA);
         iRetorno = cupom.PrintNVBitmap(1, 0);
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
-        iRetorno = cupom.BematechTX("AGUARDE PELO NUMERO:   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-        iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + pedido.getFormaConsumo() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-        iRetorno = cupom.BematechTX("" + (char) 10);
+        iRetorno = cupom.BematechTX("AGUARDE PELO NUMERO:   " + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   " + BematechComandosDiretos.NEGRITO_ON + pedido.getFormaConsumo() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX("" + BematechComandosDiretos.LF);
         iRetorno = cupom.FormataTX("Codigo\t\t QTD\tUnit\t Total\r\nDescricao\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
             if (pedido.getItempedidos().get(i).getProduto().getNumProd() == 0) {
@@ -157,14 +154,14 @@ public class Imprime {
             String valorUnitarioStr = Integer.toString(valorUnitarioInt);
             if (valorUnitarioStr.length() == 1) { //Valores com 1 dígito
                 System.out.println(pedido.getItempedidos().get(i).getProduto().getDescProd() + " Test");
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(5)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
                 iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
             } else if (valorUnitarioStr.length() == 2) { //Valores com 2 dígitos
                 System.out.println(pedido.getItempedidos().get(i).getProduto().getDescProd() + " Test");
-                iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
+                iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd())
                         + BematechComandosDiretos.avanco(3) + "x " + String.format("%01d", pedido.getItempedidos().get(i).getQtdProd()) + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getProduto().getValorProd()) + BematechComandosDiretos.avanco(4)
                         + String.format("%.2f", pedido.getItempedidos().get(i).getTotProd()) + "\r\n");
@@ -188,7 +185,7 @@ public class Imprime {
         for (int i = 0; i < 4; i++) {
             iRetorno = cupom.ComandoTX(iComando, iComando.length());
         }
-        iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + "Numero do Pedido: " + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
         terminaCupom(cupom);
         iRetorno = cupom.FechaPorta();
     }
@@ -214,12 +211,12 @@ public class Imprime {
         iRetorno = cupom.FormataTX("VIA DA COZINHA\r\n", 3, 1, 0, 0, 1);
         iRetorno = cupom.BematechTX(BematechComandosDiretos.alinhamento(0));
         iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
-        iRetorno = cupom.BematechTX("PEDIDO NUMERO:   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
-        iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   " + BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + pedido.getFormaConsumo() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX("PEDIDO NUMERO:   " + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getNumPedido()) + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
+        iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   " + BematechComandosDiretos.NEGRITO_ON + pedido.getFormaConsumo() + BematechComandosDiretos.NEGRITO_OFF + "\r\n");
         iRetorno = cupom.BematechTX("" + (char) 10);
         iRetorno = cupom.FormataTX("Codigo\t\t QTD\tDescricao\r\n", 3, 0, 0, 0, 0);
         for (int i = 0; pedido.getItempedidos().size() > i; i++) {
-            iRetorno = cupom.BematechTX(BematechComandosDiretos.SO + BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getIdProd())
+            iRetorno = cupom.BematechTX(BematechComandosDiretos.NEGRITO_ON + String.format("%03d", pedido.getItempedidos().get(i).getProduto().getIdProd())
                     + BematechComandosDiretos.avanco(3) + "x " + String.format("%02d", pedido.getItempedidos().get(i).getQtdProd())
                     + BematechComandosDiretos.NEGRITO_OFF + BematechComandosDiretos.DC4 + "\r\n");
             iRetorno = cupom.FormataTX(removeAcentos(pedido.getItempedidos().get(i).getProduto().getDescProd()) + "\r\n", 3, 0, 0, 0, 1);
@@ -272,14 +269,12 @@ public class Imprime {
             iRetorno = BematechComandosDiretos.alinhaTexto(cupom, 0);
             iRetorno = cupom.BematechTX("\n\n" + dataStr + "                    " + pedido.getHoraPedido() + "\r\n");
             iRetorno = cupom.BematechTX("PEDIDO NUMERO:   ");
-            iRetorno = BematechComandosDiretos.ativaExpandidoHorizontal(cupom);
             iRetorno = BematechComandosDiretos.ativaNegrito(cupom);
             iRetorno = cupom.BematechTX(String.format("%03d", pedido.getNumPedido()));
             iRetorno = BematechComandosDiretos.desativaNegrito(cupom);
             iRetorno = BematechComandosDiretos.desativaExpandidoHorizontal(cupom);
             iRetorno = cupom.BematechTX("\r\n");
             iRetorno = cupom.BematechTX("FORMA DE CONSUMO   :   ");
-            iRetorno = BematechComandosDiretos.ativaExpandidoHorizontal(cupom);
             iRetorno = BematechComandosDiretos.ativaNegrito(cupom);
             iRetorno = cupom.BematechTX(pedido.getFormaConsumo());
             iRetorno = BematechComandosDiretos.desativaNegrito(cupom);
@@ -292,7 +287,6 @@ public class Imprime {
                     pedido.getItempedidos().get(i).getProduto().setDescProd(pedido.getItempedidos().get(i).getNomePastel());
                     pedido.getItempedidos().get(i).getProduto().setValorProd(pedido.getItempedidos().get(i).getTotProd() / pedido.getItempedidos().get(i).getQtdProd());;
                 }
-                iRetorno = BematechComandosDiretos.ativaExpandidoHorizontal(cupom);
                 iRetorno = BematechComandosDiretos.ativaNegrito(cupom);
                 iRetorno = cupom.BematechTX(String.format("%03d", pedido.getItempedidos().get(i).getProduto().getNumProd()));
                 iRetorno = BematechComandosDiretos.avancoCaracteres(cupom, 3);
