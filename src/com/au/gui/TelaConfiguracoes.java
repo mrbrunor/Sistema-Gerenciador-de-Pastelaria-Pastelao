@@ -32,16 +32,10 @@ import java.util.logging.Logger;
 public class TelaConfiguracoes extends javax.swing.JDialog {
 
     private Properties prop;
-    private int modeloImpressoraCaixa;
-    private int modeloImpressoraCozinha;
-    private String interfaceImpressoraCaixa;
-    private String interfaceImpressoraCozinha;
-    private String enderecoImpressoraCaixa;
-    private String enderecoImpressoraCozinha;
     private boolean ativarConsole;
     private boolean usarImpressoraCaixa;
     private boolean usarImpressoraCozinha;
-    private boolean[] salvou = {false, false, false, false};
+    private boolean[] salvou = {false, false};
 
     /**
      * Creates new form TelaConfiguracoes
@@ -53,10 +47,6 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         } catch (IOException ex) {
             Logger.getLogger(TelaConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        textoEnderecoCaixa.setEnabled(false);
-        campoEnderecoCaixa.setEnabled(false);
-        textoEnderecoCozinha.setEnabled(false);
-        campoEnderecoCozinha.setEnabled(false);
         preencheCamposImpressora();
         preencheCamposDebug();
     }
@@ -79,25 +69,13 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         painelComAbasGeral = new javax.swing.JTabbedPane();
         painelImpressoras = new javax.swing.JPanel();
         painelImpressoraCaixa = new javax.swing.JPanel();
-        textoModeloCaixa = new javax.swing.JLabel();
-        comboboxModeloCaixa = new javax.swing.JComboBox();
-        textoInterfaceCaixa = new javax.swing.JLabel();
-        botaoRadioParalelaCaixa = new javax.swing.JRadioButton();
-        botaoRadioEthernetCaixa = new javax.swing.JRadioButton();
-        textoEnderecoCaixa = new javax.swing.JLabel();
-        campoEnderecoCaixa = new javax.swing.JTextField();
         checkboxAtivarImpressoraCaixa = new javax.swing.JCheckBox();
-        botaoRadioUsbCaixa = new javax.swing.JRadioButton();
+        textoNomeCaixa = new javax.swing.JLabel();
+        campoNomeCaixa = new javax.swing.JTextField();
         painelImpressoraCozinha = new javax.swing.JPanel();
-        botaoRadioEthernetCozinha = new javax.swing.JRadioButton();
-        textoInterfaceCozinha = new javax.swing.JLabel();
-        botaoRadioParalelaCozinha = new javax.swing.JRadioButton();
-        textoModeloCozinha = new javax.swing.JLabel();
-        comboboxModeloCozinha = new javax.swing.JComboBox();
-        textoEnderecoCozinha = new javax.swing.JLabel();
-        campoEnderecoCozinha = new javax.swing.JTextField();
         checkboxAtivarImpressoraCozinha = new javax.swing.JCheckBox();
-        botaoRadioUsbCozinha = new javax.swing.JRadioButton();
+        textoNomeCozinha = new javax.swing.JLabel();
+        CampoNomeCozinha = new javax.swing.JTextField();
         textoDefinaModelosEPortas = new javax.swing.JLabel();
         painelDebug = new javax.swing.JPanel();
         textoDefinaConfiguracoesDebug = new javax.swing.JLabel();
@@ -154,35 +132,13 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
 
         painelImpressoraCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Caixa"));
 
-        textoModeloCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoModeloCaixa.setText("Modelo:");
-
-        comboboxModeloCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        comboboxModeloCaixa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o modelo", "MP-4000 TH", "MP-4200 TH" }));
-
-        textoInterfaceCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoInterfaceCaixa.setText("Interface:");
-
-        grupoBotoesCaixa.add(botaoRadioParalelaCaixa);
-        botaoRadioParalelaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioParalelaCaixa.setText("Paralela");
-
-        grupoBotoesCaixa.add(botaoRadioEthernetCaixa);
-        botaoRadioEthernetCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioEthernetCaixa.setText("Ethernet");
-
-        textoEnderecoCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoEnderecoCaixa.setText("Endereço IP:");
-
-        campoEnderecoCaixa.setColumns(15);
-        campoEnderecoCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-
         checkboxAtivarImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         checkboxAtivarImpressoraCaixa.setText("Ativar a impressora do Caixa");
 
-        grupoBotoesCaixa.add(botaoRadioUsbCaixa);
-        botaoRadioUsbCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioUsbCaixa.setText("USB");
+        textoNomeCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNomeCaixa.setText("Nome da Impressora do Caixa");
+
+        campoNomeCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout painelImpressoraCaixaLayout = new javax.swing.GroupLayout(painelImpressoraCaixa);
         painelImpressoraCaixa.setLayout(painelImpressoraCaixaLayout);
@@ -191,83 +147,34 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
             .addGroup(painelImpressoraCaixaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoNomeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelImpressoraCaixaLayout.createSequentialGroup()
-                        .addComponent(textoModeloCaixa)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboboxModeloCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(checkboxAtivarImpressoraCaixa)
-                    .addGroup(painelImpressoraCaixaLayout.createSequentialGroup()
-                        .addComponent(textoInterfaceCaixa)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoRadioEthernetCaixa)
-                        .addGap(2, 2, 2)
-                        .addComponent(botaoRadioParalelaCaixa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoRadioUsbCaixa))
-                    .addGroup(painelImpressoraCaixaLayout.createSequentialGroup()
-                        .addComponent(textoEnderecoCaixa)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoEnderecoCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(checkboxAtivarImpressoraCaixa)
+                        .addGap(0, 98, Short.MAX_VALUE))
+                    .addComponent(campoNomeCaixa))
+                .addContainerGap())
         );
-
-        painelImpressoraCaixaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoEnderecoCaixa, textoInterfaceCaixa, textoModeloCaixa});
-
         painelImpressoraCaixaLayout.setVerticalGroup(
             painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelImpressoraCaixaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkboxAtivarImpressoraCaixa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoModeloCaixa)
-                    .addComponent(comboboxModeloCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textoInterfaceCaixa)
-                        .addComponent(botaoRadioEthernetCaixa))
-                    .addComponent(botaoRadioUsbCaixa)
-                    .addComponent(botaoRadioParalelaCaixa, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoEnderecoCaixa)
-                    .addComponent(campoEnderecoCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textoNomeCaixa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoNomeCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         painelImpressoraCozinha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cozinha"));
 
-        grupoBotoesCozinha.add(botaoRadioEthernetCozinha);
-        botaoRadioEthernetCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioEthernetCozinha.setText("Ethernet");
-
-        textoInterfaceCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoInterfaceCozinha.setText("Interface:");
-
-        grupoBotoesCozinha.add(botaoRadioParalelaCozinha);
-        botaoRadioParalelaCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioParalelaCozinha.setText("Paralela");
-
-        textoModeloCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoModeloCozinha.setText("Modelo:");
-
-        comboboxModeloCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        comboboxModeloCozinha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o modelo", "MP-4000 TH", "MP-4200 TH" }));
-
-        textoEnderecoCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoEnderecoCozinha.setText("Endereço IP:");
-
-        campoEnderecoCozinha.setColumns(15);
-        campoEnderecoCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        campoEnderecoCozinha.setMinimumSize(new java.awt.Dimension(6, 25));
-
         checkboxAtivarImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         checkboxAtivarImpressoraCozinha.setText("Ativar a impressora da Cozinha");
 
-        grupoBotoesCozinha.add(botaoRadioUsbCozinha);
-        botaoRadioUsbCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        botaoRadioUsbCozinha.setText("USB");
+        textoNomeCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoNomeCozinha.setText("Nome da Impressora do Cozinha");
+
+        CampoNomeCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout painelImpressoraCozinhaLayout = new javax.swing.GroupLayout(painelImpressoraCozinha);
         painelImpressoraCozinha.setLayout(painelImpressoraCozinhaLayout);
@@ -276,47 +183,22 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
             .addGroup(painelImpressoraCozinhaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelImpressoraCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoNomeCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelImpressoraCozinhaLayout.createSequentialGroup()
-                        .addComponent(textoInterfaceCozinha)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoRadioEthernetCozinha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoRadioParalelaCozinha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoRadioUsbCozinha))
-                    .addGroup(painelImpressoraCozinhaLayout.createSequentialGroup()
-                        .addComponent(textoModeloCozinha)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboboxModeloCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(checkboxAtivarImpressoraCozinha)
-                    .addGroup(painelImpressoraCozinhaLayout.createSequentialGroup()
-                        .addComponent(textoEnderecoCozinha)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoEnderecoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(checkboxAtivarImpressoraCozinha)
+                        .addGap(0, 65, Short.MAX_VALUE))
+                    .addComponent(CampoNomeCozinha))
+                .addContainerGap())
         );
-
-        painelImpressoraCozinhaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoEnderecoCozinha, textoInterfaceCozinha, textoModeloCozinha});
-
         painelImpressoraCozinhaLayout.setVerticalGroup(
             painelImpressoraCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelImpressoraCozinhaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkboxAtivarImpressoraCozinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoModeloCozinha)
-                    .addComponent(comboboxModeloCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoInterfaceCozinha)
-                    .addComponent(botaoRadioEthernetCozinha)
-                    .addComponent(botaoRadioParalelaCozinha)
-                    .addComponent(botaoRadioUsbCozinha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelImpressoraCozinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoEnderecoCozinha)
-                    .addComponent(campoEnderecoCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textoNomeCozinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CampoNomeCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -335,7 +217,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                         .addComponent(painelImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelImpressoraCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelImpressorasLayout.setVerticalGroup(
@@ -447,188 +329,33 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         usarImpressoraCaixa = Boolean.parseBoolean(prop.getProperty("prop.impressora.caixa.ativa"));
         usarImpressoraCozinha = Boolean.parseBoolean(prop.getProperty("prop.impressora.cozinha.ativa"));
 
-        modeloImpressoraCaixa = Integer.parseInt(prop.getProperty("prop.impressora.caixa.modelo"));
-        modeloImpressoraCozinha = Integer.parseInt(prop.getProperty("prop.impressora.cozinha.modelo"));
-
-        interfaceImpressoraCaixa = prop.getProperty("prop.impressora.caixa.interface");
-        interfaceImpressoraCozinha = prop.getProperty("prop.impressora.cozinha.interface");
-
-        enderecoImpressoraCaixa = prop.getProperty("prop.impressora.caixa.endereco");
-        enderecoImpressoraCozinha = prop.getProperty("prop.impressora.cozinha.endereco");
-
         //Definindo e verificando quais impressoras estão ativas
         checkboxAtivarImpressoraCaixa.setSelected(usarImpressoraCaixa);
         checkboxAtivarImpressoraCozinha.setSelected(usarImpressoraCozinha);
+        
+        //Definindo os nomes das impressoras
+        campoNomeCaixa.setText(prop.getProperty("prop.impressora.caixa.nome"));
+        CampoNomeCozinha.setText(prop.getProperty("prop.impressora.cozinha.nome"));
 
         //Desativando os campos caso as impressoras não estejam ativadas
         if (!usarImpressoraCaixa) {
-            textoModeloCaixa.setEnabled(false);
-            comboboxModeloCaixa.setEnabled(false);
-            textoInterfaceCaixa.setEnabled(false);
-            botaoRadioEthernetCaixa.setEnabled(false);
-            botaoRadioParalelaCaixa.setEnabled(false);
-            botaoRadioUsbCaixa.setEnabled(false);
-            textoEnderecoCaixa.setEnabled(false);
-            campoEnderecoCaixa.setEnabled(false);
+            campoNomeCaixa.setEnabled(false);
         }
         if (!usarImpressoraCozinha) {
-            textoModeloCozinha.setEnabled(false);
-            comboboxModeloCozinha.setEnabled(false);
-            textoInterfaceCozinha.setEnabled(false);
-            botaoRadioEthernetCozinha.setEnabled(false);
-            botaoRadioParalelaCozinha.setEnabled(false);
-            botaoRadioUsbCozinha.setEnabled(false);
-            textoEnderecoCozinha.setEnabled(false);
-            campoEnderecoCozinha.setEnabled(false);
+            CampoNomeCozinha.setEnabled(false);
         }
         checkboxAtivarImpressoraCaixa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean estaSelecionado = checkboxAtivarImpressoraCaixa.isSelected();
-                textoModeloCaixa.setEnabled(estaSelecionado);
-                comboboxModeloCaixa.setEnabled(estaSelecionado);
-                textoInterfaceCaixa.setEnabled(estaSelecionado);
-                botaoRadioEthernetCaixa.setEnabled(estaSelecionado);
-                botaoRadioParalelaCaixa.setEnabled(estaSelecionado);
-                botaoRadioUsbCaixa.setEnabled(estaSelecionado);
-                if (botaoRadioEthernetCaixa.isSelected()) {
-                    textoEnderecoCaixa.setEnabled(estaSelecionado);
-                    campoEnderecoCaixa.setEnabled(estaSelecionado);
-                    if (interfaceImpressoraCaixa.equals("ethernet")) {
-                        campoEnderecoCaixa.setText(enderecoImpressoraCaixa);
-                    }
-                }
-                //textoEnderecoCaixa.setEnabled(estaSelecionado);
-                //campoEnderecoCaixa.setEnabled(estaSelecionado);
+                campoNomeCaixa.setEnabled(estaSelecionado);
             }
         });
         checkboxAtivarImpressoraCozinha.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean estaSelecionado = checkboxAtivarImpressoraCozinha.isSelected();
-                textoModeloCozinha.setEnabled(estaSelecionado);
-                comboboxModeloCozinha.setEnabled(estaSelecionado);
-                textoInterfaceCozinha.setEnabled(estaSelecionado);
-                botaoRadioEthernetCozinha.setEnabled(estaSelecionado);
-                botaoRadioParalelaCozinha.setEnabled(estaSelecionado);
-                botaoRadioUsbCozinha.setEnabled(estaSelecionado);
-                if (botaoRadioEthernetCozinha.isSelected()) {
-                    textoEnderecoCozinha.setEnabled(estaSelecionado);
-                    campoEnderecoCozinha.setEnabled(estaSelecionado);
-                    if (interfaceImpressoraCozinha.equals("ethernet")) {
-                        campoEnderecoCozinha.setText(enderecoImpressoraCozinha);
-                    }
-                }
-            }
-        });
-
-        //Configurando a opção selecionada na Combo Box
-        switch (modeloImpressoraCaixa) {
-            case 5:
-                comboboxModeloCaixa.setSelectedIndex(1);
-                break;
-            case 7:
-                comboboxModeloCaixa.setSelectedIndex(2);
-                break;
-            default:
-                comboboxModeloCaixa.setSelectedIndex(0);
-        }
-        switch (modeloImpressoraCozinha) {
-            case 5:
-                comboboxModeloCozinha.setSelectedIndex(1);
-                break;
-            case 7:
-                comboboxModeloCozinha.setSelectedIndex(2);
-                break;
-            default:
-                comboboxModeloCozinha.setSelectedIndex(0);
-        }
-
-        //Configurando qual RadioButton iniciará selecionado
-        switch (interfaceImpressoraCaixa) {
-            case "ethernet":
-                botaoRadioEthernetCaixa.setSelected(true);
-                break;
-            case "paralela":
-                botaoRadioParalelaCaixa.setSelected(true);
-                break;
-            case "usb":
-                botaoRadioUsbCaixa.setSelected(true);
-                break;
-            default:
-                grupoBotoesCaixa.clearSelection();
-        }
-        switch (interfaceImpressoraCozinha) {
-            case "ethernet":
-                botaoRadioEthernetCozinha.setSelected(true);
-                break;
-            case "paralela":
-                botaoRadioParalelaCozinha.setSelected(true);
-                break;
-            case "usb":
-                botaoRadioUsbCozinha.setSelected(true);
-                break;
-            default:
-                grupoBotoesCozinha.clearSelection();
-        }
-
-        //Ativa o texto e campo de endereço no caso da opção Ethernet ser selecionada, bem como colocar o valor do endereço no campo
-        if (botaoRadioEthernetCaixa.isSelected()) {
-            if (usarImpressoraCaixa) {
-                textoEnderecoCaixa.setEnabled(true);
-                campoEnderecoCaixa.setEnabled(true);
-                campoEnderecoCaixa.setText(enderecoImpressoraCaixa);
-            }
-        }
-        if (botaoRadioEthernetCozinha.isSelected()) {
-            if (usarImpressoraCozinha) {
-                textoEnderecoCozinha.setEnabled(true);
-                campoEnderecoCozinha.setEnabled(true);
-                campoEnderecoCozinha.setText(enderecoImpressoraCozinha);
-            }
-        }
-
-        //Configurando se o texto e campo de Endereço serão ativos (eles são ativos no caso da opção "Ethernet" estiver selecionada
-        botaoRadioEthernetCaixa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCaixa.setEnabled(true);
-                campoEnderecoCaixa.setEnabled(true);
-            }
-        });
-        botaoRadioParalelaCaixa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCaixa.setEnabled(false);
-                campoEnderecoCaixa.setEnabled(false);
-            }
-        });
-        botaoRadioUsbCaixa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCaixa.setEnabled(false);
-                campoEnderecoCaixa.setEnabled(false);
-            }
-        });
-        botaoRadioEthernetCozinha.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCozinha.setEnabled(true);
-                campoEnderecoCozinha.setEnabled(true);
-            }
-        });
-        botaoRadioParalelaCozinha.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCozinha.setEnabled(false);
-                campoEnderecoCozinha.setEnabled(false);
-            }
-        });
-        botaoRadioUsbCozinha.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textoEnderecoCozinha.setEnabled(false);
-                campoEnderecoCozinha.setEnabled(false);
+                CampoNomeCozinha.setEnabled(estaSelecionado);
             }
         });
     }
@@ -642,47 +369,17 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
 
     private boolean salvarConfigsImpressoraCaixa() {
         System.out.println("Configurando Impressora do Caixa:");
-        usarImpressoraCaixa = checkboxAtivarImpressoraCaixa.isSelected();
-        System.out.println("Usar impressora do caixa: " + usarImpressoraCaixa);
-        switch (comboboxModeloCaixa.getSelectedIndex()) {
-            case 0:
-                System.out.println("A opção selecionada é inválida!");
-                return false;
-            case 1:
-                System.out.println("Modelo selecionado: MP-4000 TH");
-                modeloImpressoraCaixa = 5;
-                break;
-            case 2:
-                System.out.println("Modelo selecionado: MP-4200 TH");
-                modeloImpressoraCaixa = 7;
-                break;
-            default:
-                System.out.println("Erro ao selecionar o modelo da impressora");
-                return false;
-        }
-        if (botaoRadioEthernetCaixa.isSelected()) {
-            interfaceImpressoraCaixa = "ethernet";
-            enderecoImpressoraCaixa = campoEnderecoCaixa.getText();
-            System.out.println("Interface selecionada: Ethernet");
-            System.out.println("Endereço IP: " + campoEnderecoCaixa.getText());
-        } else if (botaoRadioParalelaCaixa.isSelected()) {
-            interfaceImpressoraCaixa = "paralela";
-            enderecoImpressoraCaixa = "LPT1";
-            System.out.println("Interface selecionada: Paralela");
-        } else if (botaoRadioUsbCaixa.isSelected()) {
-            interfaceImpressoraCaixa = "usb";
-            enderecoImpressoraCaixa = "USB";
-            System.out.println("Interface selecionada: USB");
-        }
+        usarImpressoraCaixa = checkboxAtivarImpressoraCaixa.isSelected();        
+        System.out.println("Usar impressora do caixa: " + usarImpressoraCaixa);        
+        
+        
         try {
             salvou[0] = ManipulaConfigs.setProp("prop.impressora.caixa.ativa", String.valueOf(usarImpressoraCaixa));
-            salvou[1] = ManipulaConfigs.setProp("prop.impressora.caixa.modelo", String.valueOf(modeloImpressoraCaixa));
-            salvou[2] = ManipulaConfigs.setProp("prop.impressora.caixa.interface", interfaceImpressoraCaixa);
-            salvou[3] = ManipulaConfigs.setProp("prop.impressora.caixa.endereco", enderecoImpressoraCaixa);
+            salvou[1] = ManipulaConfigs.setProp("prop.impressora.caixa.nome", String.valueOf(campoNomeCaixa.getText()));
         } catch (IOException ex) {
             Logger.getLogger(TelaConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             if (salvou[i] == false) {
                 return false;
             }
@@ -694,46 +391,15 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private boolean salvarConfigsImpressoraCozinha() {
         System.out.println("Configurando Impressora da Cozinha:");
         usarImpressoraCozinha = checkboxAtivarImpressoraCozinha.isSelected();
-        System.out.println("Usar impressora da cozinha: " + usarImpressoraCozinha);
-        switch (comboboxModeloCozinha.getSelectedIndex()) {
-            case 0:
-                System.out.println("A opção selecionada é inválida!");
-                return false;
-            case 1:
-                System.out.println("Modelo selecionado: MP-4000 TH");
-                modeloImpressoraCozinha = 5;
-                break;
-            case 2:
-                System.out.println("Modelo selecionado: MP-4200 TH");
-                modeloImpressoraCozinha = 7;
-                break;
-            default:
-                System.out.println("Erro ao selecionar o modelo da impressora");
-                return false;
-        }
-        if (botaoRadioEthernetCozinha.isSelected()) {
-            interfaceImpressoraCozinha = "ethernet";
-            enderecoImpressoraCozinha = campoEnderecoCozinha.getText();
-            System.out.println("Interface selecionada: Ethernet");
-            System.out.println("Endereço IP: " + campoEnderecoCozinha.getText());
-        } else if (botaoRadioParalelaCozinha.isSelected()) {
-            interfaceImpressoraCozinha = "paralela";
-            enderecoImpressoraCozinha = "LPT1";
-            System.out.println("Interface selecionada: Paralela");
-        } else if (botaoRadioUsbCozinha.isSelected()) {
-            interfaceImpressoraCozinha = "usb";
-            enderecoImpressoraCozinha = "USB";
-            System.out.println("Interface selecionada: USB");
-        }
+        System.out.println("Usar impressora da cozinha: " + usarImpressoraCozinha);        
+        
         try {
             salvou[0] = ManipulaConfigs.setProp("prop.impressora.cozinha.ativa", String.valueOf(usarImpressoraCozinha));
-            salvou[1] = ManipulaConfigs.setProp("prop.impressora.cozinha.modelo", String.valueOf(modeloImpressoraCozinha));
-            salvou[2] = ManipulaConfigs.setProp("prop.impressora.cozinha.interface", interfaceImpressoraCozinha);
-            salvou[3] = ManipulaConfigs.setProp("prop.impressora.cozinha.endereco", enderecoImpressoraCozinha);
+            salvou[1] = ManipulaConfigs.setProp("prop.impressora.cozinha.nome", String.valueOf(CampoNomeCozinha.getText()));
         } catch (IOException ex) {
             Logger.getLogger(TelaConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             if (salvou[i] == false) {
                 return false;
             }
@@ -805,21 +471,13 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CampoNomeCozinha;
     private javax.swing.JButton botaCancelarConfiguracoes;
-    private javax.swing.JRadioButton botaoRadioEthernetCaixa;
-    private javax.swing.JRadioButton botaoRadioEthernetCozinha;
-    private javax.swing.JRadioButton botaoRadioParalelaCaixa;
-    private javax.swing.JRadioButton botaoRadioParalelaCozinha;
-    private javax.swing.JRadioButton botaoRadioUsbCaixa;
-    private javax.swing.JRadioButton botaoRadioUsbCozinha;
     private javax.swing.JButton botaoSalvarConfiguracoes;
-    private javax.swing.JTextField campoEnderecoCaixa;
-    private javax.swing.JTextField campoEnderecoCozinha;
+    private javax.swing.JTextField campoNomeCaixa;
     private javax.swing.JCheckBox checkboxAtivarImpressoraCaixa;
     private javax.swing.JCheckBox checkboxAtivarImpressoraCozinha;
     private javax.swing.JCheckBox checkboxIniciarConsole;
-    private javax.swing.JComboBox comboboxModeloCaixa;
-    private javax.swing.JComboBox comboboxModeloCozinha;
     private javax.swing.ButtonGroup grupoBotoesCaixa;
     private javax.swing.ButtonGroup grupoBotoesCozinha;
     private javax.swing.JTabbedPane painelComAbasGeral;
@@ -831,14 +489,10 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private javax.swing.JLabel textoConfiguracoes;
     private javax.swing.JLabel textoDefinaConfiguracoesDebug;
     private javax.swing.JLabel textoDefinaModelosEPortas;
-    private javax.swing.JLabel textoEnderecoCaixa;
-    private javax.swing.JLabel textoEnderecoCozinha;
     private javax.swing.JLabel textoIconeConfiguracoes;
-    private javax.swing.JLabel textoInterfaceCaixa;
-    private javax.swing.JLabel textoInterfaceCozinha;
-    private javax.swing.JLabel textoModeloCaixa;
-    private javax.swing.JLabel textoModeloCozinha;
     private javax.swing.JLabel textoNaveguePelasAbas;
+    private javax.swing.JLabel textoNomeCaixa;
+    private javax.swing.JLabel textoNomeCozinha;
     private javax.swing.JLabel textoParaFazerEfeito;
     // End of variables declaration//GEN-END:variables
 }

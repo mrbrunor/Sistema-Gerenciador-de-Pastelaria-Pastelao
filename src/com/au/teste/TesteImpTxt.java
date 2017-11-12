@@ -54,7 +54,7 @@ public class TesteImpTxt {
         PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
         // prints the file
-        InputStream is = new FileInputStream("texto.txt");
+        InputStream is = new FileInputStream("D:\\mrbru\\Documents\\GitHub\\Sistema-Gerenciador-de-Pastelaria-Pastelao\\src\\texto.txt");
 
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         pras.add(new Copies(1));

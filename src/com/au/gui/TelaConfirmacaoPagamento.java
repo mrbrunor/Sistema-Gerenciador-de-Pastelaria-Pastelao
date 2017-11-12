@@ -25,8 +25,7 @@ import com.au.util.CustomComboBoxInt;
 import com.au.dao.ItemPedidoDao;
 import com.au.dao.PedidoDao;
 import com.au.gui.tmodel.VendaTableModel;
-import com.au.util.BematechNFiscal;
-import com.au.util.Imprime;
+import com.au.util.Imprimir;
 import com.au.util.LimitaDigitos;
 import com.au.util.ManipulaConfigs;
 import java.awt.Color;
@@ -40,7 +39,6 @@ import java.util.Properties;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -72,7 +70,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         buscaFormasPagamento();
         initComponents();
         try {
-            verificaEstadoImpressoras();
+            verificaNomeImpressoras();
         } catch (UnsatisfiedLinkError e) {
             System.out.println("Erro: " + e);
         }
@@ -139,8 +137,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         painelEstadoImpressoras = new javax.swing.JPanel();
         textoImpressoraCaixa = new javax.swing.JLabel();
         textoImpressoraCozinha = new javax.swing.JLabel();
-        textoValorImpressoraCaixa = new javax.swing.JLabel();
-        textoValorImpressoraCozinha = new javax.swing.JLabel();
+        textoNomeCaixa = new javax.swing.JLabel();
+        textoNomeCozinha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Pastelão - Confirmação de Pedido");
@@ -562,7 +560,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelEstadoImpressoras.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Estado das Impressoras"));
+        painelEstadoImpressoras.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nome das Impressoras"));
 
         textoImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         textoImpressoraCaixa.setText("CAIXA:");
@@ -570,13 +568,13 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         textoImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         textoImpressoraCozinha.setText("COZINHA:");
 
-        textoValorImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textoValorImpressoraCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoValorImpressoraCaixa.setText("ERRO");
+        textoNomeCaixa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textoNomeCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        textoNomeCaixa.setText("ERRO");
 
-        textoValorImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textoValorImpressoraCozinha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoValorImpressoraCozinha.setText("ERRO");
+        textoNomeCozinha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textoNomeCozinha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        textoNomeCozinha.setText("ERRO");
 
         javax.swing.GroupLayout painelEstadoImpressorasLayout = new javax.swing.GroupLayout(painelEstadoImpressoras);
         painelEstadoImpressoras.setLayout(painelEstadoImpressorasLayout);
@@ -584,26 +582,25 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoImpressoraCaixa)
+                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoImpressoraCozinha)
+                    .addComponent(textoImpressoraCaixa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoValorImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(textoImpressoraCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoValorImpressoraCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoNomeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoNomeCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelEstadoImpressorasLayout.setVerticalGroup(
             painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoValorImpressoraCozinha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textoImpressoraCaixa)
-                        .addComponent(textoImpressoraCozinha)
-                        .addComponent(textoValorImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoImpressoraCaixa)
+                    .addComponent(textoNomeCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoImpressoraCozinha)
+                    .addComponent(textoNomeCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -671,9 +668,8 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 valorRecebidoTemp = pedido.getTotPedido();
             }
             if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-                criaPedido();
-                Boolean eReimpressao = false;
-                new Imprime(pedido.getIdPedido(), eReimpressao, (JDialog) this);
+                criaPedido();                
+                new Imprimir(pedido.getIdPedido(), true, true, (JDialog) this);
                 /*try {
                  new Imprime().geraComandaVenda(pedido.getIdPedido());
                  } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
@@ -1232,128 +1228,33 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         pagou = aPagou;
     }
 
-    public void verificaEstadoImpressoras() {
-        int iRetorno;
-        BematechNFiscal cupom = null;
+    public void verificaNomeImpressoras() {        
         Properties props = null;
-        int modeloImpressora = 0;
-        String enderecoImpressora = "";
-
         try {
             props = ManipulaConfigs.getProp();
         } catch (IOException e) {
             System.out.println("Houve um erro ao carregar as configurações. Possíveis causas incluem arquivo de configuração danificado e/ou ausente.\n");
             e.printStackTrace();
-        }
+        }               
+        getTextoNomeCaixa().setText(props.getProperty("prop.impressora.caixa.nome"));
+        getTextoNomeCozinha().setText(props.getProperty("prop.impressora.cozinha.nome"));
+    }    
 
-        try {
-            cupom = BematechNFiscal.Instance;
-        } catch (NoClassDefFoundError e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("--- Iniciando Monitor da Impressora do Caixa ---");
-
-        modeloImpressora = Integer.parseInt(props.getProperty("prop.impressora.caixa.modelo"));
-        enderecoImpressora = props.getProperty("prop.impressora.caixa.endereco");
-
-        System.out.println("Modelo Caixa: " + modeloImpressora);
-        System.out.println("Endereco Caixa: " + enderecoImpressora);
-
-        iRetorno = verificaImpressoraIndividual(cupom, modeloImpressora, enderecoImpressora);
-        verificaEstado(iRetorno, modeloImpressora, textoValorImpressoraCaixa);
-
-        System.out.println("--- Iniciando Monitor da Impressora da Cozinha ---");
-
-        modeloImpressora = Integer.parseInt(props.getProperty("prop.impressora.cozinha.modelo"));
-        enderecoImpressora = props.getProperty("prop.impressora.cozinha.endereco");
-
-        System.out.println("Modelo Cozinha: " + modeloImpressora);
-        System.out.println("Endereco Cozinha: " + enderecoImpressora);
-
-        iRetorno = verificaImpressoraIndividual(cupom, modeloImpressora, enderecoImpressora);
-        verificaEstado(iRetorno, modeloImpressora, textoValorImpressoraCozinha);
-
+    public JLabel getTextoNomeCaixa() {
+        return textoNomeCaixa;
     }
 
-    private void verificaEstado(int iRetorno, int modeloImpressora, JLabel textoParaPreencher) {
-        Color vermelho = new Color(255, 0, 0);
-        Color laranja = new Color(255, 102, 0);
-        Color verde = new Color(0, 128, 0);
-        Color cinza = new Color(128, 128, 128);
-        if (modeloImpressora == 5) {
-            switch (iRetorno) {
-                case 0:
-                    //Impressora está com pouco papel
-                    textoParaPreencher.setText("POUCO PAPEL");
-                    textoParaPreencher.setForeground(laranja);
-                    break;
-                case 24:
-                    //Impressora está OK, online
-                    textoParaPreencher.setText("CONECTADA");
-                    textoParaPreencher.setForeground(verde);
-                    break;
-                case 40:
-                    //Impressora está offline, pode estar desligada ou algum problema na conexão
-                    textoParaPreencher.setText("DESCONECTADA");
-                    textoParaPreencher.setForeground(cinza);
-                    break;
-            }
-        } else if (modeloImpressora == 7) {
-            switch (iRetorno) {
-                case 0:
-                    //Erro de Comunicação
-                    textoParaPreencher.setText("DESCONECTADA");
-                    textoParaPreencher.setForeground(cinza);
-                    break;
-                case 5:
-                    //Impressora com pouco papel
-                    textoParaPreencher.setText("POUCO PAPEL");
-                    textoParaPreencher.setForeground(laranja);
-                    break;
-                case 9:
-                    //A tampa da impressora está aberta
-                    textoParaPreencher.setText("TAMPA ABERTA");
-                    textoParaPreencher.setForeground(laranja);
-                    break;
-                case 24:
-                    //A impressora está OK, online
-                    textoParaPreencher.setText("CONECTADA");
-                    textoParaPreencher.setForeground(verde);
-                    break;
-                case 32:
-                    //A impressora está sem papel
-                    textoParaPreencher.setText("SEM PAPEL");
-                    textoParaPreencher.setForeground(vermelho);
-                    break;
-            }
-        }
+    public void setTextoNomeCaixa(JLabel textoValorImpressoraCaixa) {
+        this.textoNomeCaixa = textoValorImpressoraCaixa;
     }
 
-    public JLabel getTextoValorImpressoraCaixa() {
-        return textoValorImpressoraCaixa;
+    public JLabel getTextoNomeCozinha() {
+        return textoNomeCozinha;
     }
 
-    public void setTextoValorImpressoraCaixa(JLabel textoValorImpressoraCaixa) {
-        this.textoValorImpressoraCaixa = textoValorImpressoraCaixa;
-    }
-
-    public JLabel getTextoValorImpressoraCozinha() {
-        return textoValorImpressoraCozinha;
-    }
-
-    public void setTextoValorImpressoraCozinha(JLabel textoValorImpressoraCozinha) {
-        this.textoValorImpressoraCozinha = textoValorImpressoraCozinha;
-    }
-
-    public int verificaImpressoraIndividual(BematechNFiscal cupom, int modelo, String endereco) {
-        int iRetorno;
-
-        iRetorno = cupom.ConfiguraModeloImpressora(modelo);
-        iRetorno = cupom.IniciaPorta(endereco);
-        iRetorno = cupom.Le_Status();
-        return iRetorno;
-    }
+    public void setTextoNomeCozinha(JLabel textoValorImpressoraCozinha) {
+        this.textoNomeCozinha = textoValorImpressoraCozinha;
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
@@ -1389,9 +1290,9 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoIconeVR;
     private javax.swing.JLabel textoImpressoraCaixa;
     private javax.swing.JLabel textoImpressoraCozinha;
+    private javax.swing.JLabel textoNomeCaixa;
+    private javax.swing.JLabel textoNomeCozinha;
     private javax.swing.JLabel textoSelecioneFormaPagamento;
-    private javax.swing.JLabel textoValorImpressoraCaixa;
-    private javax.swing.JLabel textoValorImpressoraCozinha;
     private javax.swing.JLabel textoValorRecebido;
     private javax.swing.JLabel textoValorRecebidoVR;
     private javax.swing.JLabel textoValorTotal;

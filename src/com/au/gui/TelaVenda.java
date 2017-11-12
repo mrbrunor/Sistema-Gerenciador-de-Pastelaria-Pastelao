@@ -79,9 +79,14 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             abrirCaixa();
         } else if (idCaixa == null) {
             caixaFechado();
+            textoPedido.setText("" + 0);
         }
         campoAdicionarItem.requestFocus();
         setarIcone i = new setarIcone(this);
+        
+        if (idCaixa != null) {
+            verificaNumeroPedido();            
+        }
     }
 
     /**
@@ -102,6 +107,8 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         t.start();
         botaoAlternarUsuario = new javax.swing.JButton();
         botaoCaixa = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        textoPedido = new javax.swing.JLabel();
         painelPedido = new javax.swing.JPanel();
         textoDigiteParaAdicionar = new javax.swing.JLabel();
         botaoAdicionarItem = new javax.swing.JButton();
@@ -180,6 +187,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Último Pedido:");
+
+        textoPedido.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout painelSuperiorLayout = new javax.swing.GroupLayout(painelSuperior);
         painelSuperior.setLayout(painelSuperiorLayout);
         painelSuperiorLayout.setHorizontalGroup(
@@ -197,6 +209,10 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                         .addComponent(botaoAlternarUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoCaixa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoHora)))
                 .addContainerGap())
@@ -207,16 +223,21 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 .addContainerGap()
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelSuperiorLayout.createSequentialGroup()
-                        .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textoData)
-                            .addComponent(textoNomeFuncionario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoHora)
-                            .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(botaoAlternarUsuario)
-                                .addComponent(botaoCaixa)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(painelSuperiorLayout.createSequentialGroup()
+                                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textoData)
+                                    .addComponent(textoNomeFuncionario))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoHora)
+                                    .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botaoAlternarUsuario)
+                                        .addComponent(botaoCaixa))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(textoPedido)))
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addComponent(textoFotoFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -333,7 +354,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                     .addComponent(botaoAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(painelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                     .addGroup(painelPedidoLayout.createSequentialGroup()
                         .addComponent(botaoExcluirItem)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -415,7 +436,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                     .addComponent(botaoBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(painelBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(painelScrollTabelaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                     .addGroup(painelBuscaLayout.createSequentialGroup()
                         .addComponent(botaoAdicionarAoPedido)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -453,6 +474,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         });
         menuPrincipal.add(itemMenuCancelarCupom);
 
+        itemMenuReimprimirCupom.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         itemMenuReimprimirCupom.setText("Reimprimir Cupom");
         itemMenuReimprimirCupom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -875,6 +897,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         if (numeroPedidoVerificado) {
             pedido.setNumPedido(numPedido);
             numPedido++;
+            textoPedido.setText("" + (numPedido - 1));
         } else {
             pedido.setNumPedido(verificaNumeroPedido());
             numPedido++;
@@ -1017,6 +1040,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 }
             }
             numeroPedidoVerificado = true;
+            textoPedido.setText("" + (numPedido - 1));
         }
         return numPedido;
     }
@@ -1154,6 +1178,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuTrocarSenha;
     private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
     private javax.swing.JMenuItem itemMenuVendasGerais;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPrincipal;
@@ -1170,6 +1195,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JLabel textoFotoFuncionario;
     private javax.swing.JLabel textoHora;
     private javax.swing.JLabel textoNomeFuncionario;
+    private javax.swing.JLabel textoPedido;
     private javax.swing.JLabel textoValorTotal;
     // End of variables declaration//GEN-END:variables
 

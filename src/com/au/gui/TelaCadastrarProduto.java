@@ -525,7 +525,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
     }//GEN-LAST:event_campoPesquisarProdutoFocusGained
 
     private void botaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarProdutoActionPerformed
-        if (valida()) {
+        if (valida()) {        
             cadastrarProduto();
         }
     }//GEN-LAST:event_botaoCadastrarProdutoActionPerformed
@@ -618,6 +618,7 @@ public class TelaCadastrarProduto extends javax.swing.JDialog implements ListSel
             JOptionPane.showMessageDialog(this, "Um produto com este código já foi cadastrado!", "Cadastro de Produtos", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        pDao.adicionaProduto(produto);
         pDao.fechaConnection();
         JOptionPane.showMessageDialog(this, "Produto Cadastrado Com Sucesso", "Cadastro de Produtos", JOptionPane.INFORMATION_MESSAGE);
         limpaCampos();

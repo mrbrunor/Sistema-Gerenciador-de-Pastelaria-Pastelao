@@ -55,7 +55,7 @@ public class ProdutoDao {
         String sql = "INSERT INTO sistemapastelao.Produto(numProd,descProd,valorProd,codBarras,eIndustrializado) values(?,?,?,?,?)";
         PreparedStatement stmt;
         int resultado = 0;
-
+        System.out.println("Inicio Add Produto");
         try {
             stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, novoProd.getNumProd());
@@ -63,6 +63,7 @@ public class ProdutoDao {
             stmt.setDouble(3, novoProd.getValorProd());
             stmt.setString(4, novoProd.getCodBarras());
             stmt.setInt(5, novoProd.getEIndustrializado());
+            System.out.println("Entrou no try");
 
             stmt.execute();
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -76,6 +77,7 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(resultado);
         return resultado;
     }
 

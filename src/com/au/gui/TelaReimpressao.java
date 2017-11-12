@@ -18,7 +18,7 @@ package com.au.gui;
 
 import com.au.bean.Pedido;
 import com.au.dao.PedidoDao;
-import com.au.util.Imprime;
+import com.au.util.Imprimir;
 import com.au.util.LimitaDigitos;
 import java.awt.Color;
 import java.util.List;
@@ -70,6 +70,8 @@ public class TelaReimpressao extends javax.swing.JDialog {
         textoNumeroPedido = new javax.swing.JLabel();
         campoNumeroPedido = new javax.swing.JTextField();
         textoErroNumero = new javax.swing.JLabel();
+        comboCaixa = new javax.swing.JCheckBox();
+        comboCozinha = new javax.swing.JCheckBox();
         botaoCancelarReimpressao = new javax.swing.JButton();
         botaoConfirmarReimpressao = new javax.swing.JButton();
 
@@ -129,6 +131,18 @@ public class TelaReimpressao extends javax.swing.JDialog {
         textoErroNumero.setForeground(new java.awt.Color(255, 0, 0));
         textoErroNumero.setText("Informe o número do pedido");
 
+        comboCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        comboCaixa.setSelected(true);
+        comboCaixa.setText("Comanda Caixa");
+        comboCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCaixaActionPerformed(evt);
+            }
+        });
+
+        comboCozinha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        comboCozinha.setText("Comanda Cozinha");
+
         javax.swing.GroupLayout painelInferiorLayout = new javax.swing.GroupLayout(painelInferior);
         painelInferior.setLayout(painelInferiorLayout);
         painelInferiorLayout.setHorizontalGroup(
@@ -138,10 +152,15 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addComponent(textoNumeroPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoNumeroPedido)
                     .addGroup(painelInferiorLayout.createSequentialGroup()
-                        .addComponent(textoErroNumero)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(campoNumeroPedido))
+                        .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoErroNumero)
+                            .addGroup(painelInferiorLayout.createSequentialGroup()
+                                .addComponent(comboCaixa)
+                                .addGap(60, 60, 60)
+                                .addComponent(comboCozinha)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelInferiorLayout.setVerticalGroup(
@@ -151,8 +170,13 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNumeroPedido)
                     .addComponent(campoNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textoErroNumero))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoErroNumero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboCozinha)
+                    .addComponent(comboCaixa))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botaoCancelarReimpressao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -199,7 +223,7 @@ public class TelaReimpressao extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelarReimpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoConfirmarReimpressao))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -232,6 +256,10 @@ public class TelaReimpressao extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_campoNumeroPedidoFocusLost
 
+    private void comboCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCaixaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCaixaActionPerformed
+
     public boolean valida() {
         boolean valida;
 
@@ -255,7 +283,15 @@ public class TelaReimpressao extends javax.swing.JDialog {
                     if (pedidos.get(i).getEstadoPedido().equals("Cancelado") && JOptionPane.showConfirmDialog(this, "Este pedido foi cancelado. Deseja Reimprimir mesmo assim?", "Pedido Cancelado", JOptionPane.YES_NO_OPTION) == 1) {
                         return false;
                     }
-                    new Imprime(pedidos.get(i).getIdPedido(), true, (JDialog) this);
+                    if(comboCaixa.isSelected() && comboCozinha.isSelected()) {
+                        new Imprimir(pedidos.get(i).getIdPedido(), true, true, (JDialog) this);
+                    } else if(comboCaixa.isSelected() && !comboCozinha.isSelected()) {
+                        new Imprimir(pedidos.get(i).getIdPedido(), true, false, (JDialog) this);
+                    } else if(!comboCaixa.isSelected() && !comboCozinha.isSelected()) {
+                        new Imprimir(pedidos.get(i).getIdPedido(), false, false, (JDialog) this);
+                    } else if(!comboCaixa.isSelected() && comboCozinha.isSelected()) {
+                        new Imprimir(pedidos.get(i).getIdPedido(), false, true, (JDialog) this);
+                    }
                     return true;
                     /*try {
                         new Imprime().geraComandaVenda(pedidos.get(i).getIdPedido());
@@ -280,6 +316,8 @@ public class TelaReimpressao extends javax.swing.JDialog {
     private javax.swing.JButton botaoCancelarReimpressao;
     private javax.swing.JButton botaoConfirmarReimpressao;
     private javax.swing.JTextField campoNumeroPedido;
+    private javax.swing.JCheckBox comboCaixa;
+    private javax.swing.JCheckBox comboCozinha;
     private javax.swing.JPanel painelInferior;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JLabel textoErroNumero;

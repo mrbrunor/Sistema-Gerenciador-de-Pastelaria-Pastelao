@@ -175,7 +175,7 @@
                               <Component id="painelImpressoraCaixa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="painelImpressoraCozinha" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -217,28 +217,14 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoModeloCaixa" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="comboboxModeloCaixa" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoNomeCaixa" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="checkboxAtivarImpressoraCaixa" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="checkboxAtivarImpressoraCaixa" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoInterfaceCaixa" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioEthernetCaixa" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioParalelaCaixa" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioUsbCaixa" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoEnderecoCaixa" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="campoEnderecoCaixa" min="-2" pref="120" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="campoNomeCaixa" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -248,98 +234,15 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkboxAtivarImpressoraCaixa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoModeloCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboboxModeloCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="textoInterfaceCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioEthernetCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="botaoRadioUsbCaixa" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoRadioParalelaCaixa" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoEnderecoCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoEnderecoCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="textoNomeCaixa" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="campoNomeCaixa" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="textoModeloCaixa">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Modelo:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="comboboxModeloCaixa">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Selecione o modelo"/>
-                        <StringItem index="1" value="MP-4000 TH"/>
-                        <StringItem index="2" value="MP-4200 TH"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="textoInterfaceCaixa">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Interface:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioParalelaCaixa">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCaixa"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Paralela"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioEthernetCaixa">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCaixa"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Ethernet"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="textoEnderecoCaixa">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Endere&#xe7;o IP:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="campoEnderecoCaixa">
-                  <Properties>
-                    <Property name="columns" type="int" value="15"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JCheckBox" name="checkboxAtivarImpressoraCaixa">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -348,15 +251,19 @@
                     <Property name="text" type="java.lang.String" value="Ativar a impressora do Caixa"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioUsbCaixa">
+                <Component class="javax.swing.JLabel" name="textoNomeCaixa">
                   <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCaixa"/>
-                    </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="15" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="USB"/>
+                    <Property name="text" type="java.lang.String" value="Nome da Impressora do Caixa"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="campoNomeCaixa">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="15" style="0"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -380,28 +287,14 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoInterfaceCozinha" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioEthernetCozinha" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioParalelaCozinha" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoRadioUsbCozinha" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoNomeCozinha" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="checkboxAtivarImpressoraCozinha" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="65" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoModeloCozinha" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="comboboxModeloCozinha" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="checkboxAtivarImpressoraCozinha" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoEnderecoCozinha" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="campoEnderecoCozinha" min="-2" pref="120" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="CampoNomeCozinha" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -411,96 +304,15 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkboxAtivarImpressoraCozinha" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoModeloCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboboxModeloCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoInterfaceCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoRadioEthernetCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoRadioParalelaCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botaoRadioUsbCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoEnderecoCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoEnderecoCozinha" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="textoNomeCozinha" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="CampoNomeCozinha" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioEthernetCozinha">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCozinha"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Ethernet"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="textoInterfaceCozinha">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Interface:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioParalelaCozinha">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCozinha"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Paralela"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="textoModeloCozinha">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Modelo:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="comboboxModeloCozinha">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Selecione o modelo"/>
-                        <StringItem index="1" value="MP-4000 TH"/>
-                        <StringItem index="2" value="MP-4200 TH"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="textoEnderecoCozinha">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Endere&#xe7;o IP:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="campoEnderecoCozinha">
-                  <Properties>
-                    <Property name="columns" type="int" value="15"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="15" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JCheckBox" name="checkboxAtivarImpressoraCozinha">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -509,15 +321,19 @@
                     <Property name="text" type="java.lang.String" value="Ativar a impressora da Cozinha"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="botaoRadioUsbCozinha">
+                <Component class="javax.swing.JLabel" name="textoNomeCozinha">
                   <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="grupoBotoesCozinha"/>
-                    </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="15" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="USB"/>
+                    <Property name="text" type="java.lang.String" value="Nome da Impressora do Cozinha"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="CampoNomeCozinha">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="15" style="0"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
