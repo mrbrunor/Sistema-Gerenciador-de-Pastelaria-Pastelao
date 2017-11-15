@@ -31,6 +31,7 @@ import com.au.dao.CaixaDao;
 import com.au.dao.DespesaDao;
 import com.au.dao.FormaPagamentoDao;
 import com.au.dao.PedidoDao;
+import com.au.util.Imprimir;
 import com.au.util.LimitaDigitos;
 import java.sql.Time;
 import java.util.Date;
@@ -81,7 +82,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         caixa = cDao.listaCaixaPorId(idCaixa);
         caixa.setTotalCaixa(0);
         cDao.fechaConnection();
-        inicializaCampos();
+        inicializaCampos();        
     }
 
     /**
@@ -914,12 +915,12 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         double totalDesp = 0;
         DespesaDao despDao = new DespesaDao();
         despDao.abreConnection();
-        List<Despesa> despesas = despDao.listaDespesasPorCaixa(caixa.getIdCaixa());
-        despDao.fechaConnection();
-        if (despesas != null && !despesas.isEmpty()) {
-            for (Despesa despesa : despesas) {
+        List<Despesa> despesas = despDao.listaDespesasPorCaixa(caixa.getIdCaixa());        
+        despDao.fechaConnection();        
+        if (despesas != null && !despesas.isEmpty()) {            
+            for (Despesa despesa : despesas) {                
                 totalDesp = totalDesp + despesa.getValorDesp();
-            }
+            }            
             textoValorTotalRetiradas.setText(String.format("R$: %.2f", totalDesp));
             textoValorRetiradas.setText(String.format("R$: %.2f", totalDesp));
         } else {
@@ -995,8 +996,8 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         cDao.atualizaCaixa(caixa);
         cDao.fechaConnection();
         //Seta o atributo "fechou" como true, para que o metodo que chamouo o Fechamento de caixa possa saber que o fechamento foi efetuado com Sucesso
-        TelaFechamentoCaixa.setFechou(true);
-        //new Imprime().geraRelatorioFechamento(caixa.getIdCaixa());        
+        TelaFechamentoCaixa.setFechou(true);                
+        new Imprimir(caixa.getIdCaixa());      
     }
 
     private void inicializaCampos() {

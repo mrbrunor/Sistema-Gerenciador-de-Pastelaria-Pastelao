@@ -18,9 +18,11 @@ package com.au.util;
 
 import com.au.bean.Caixa;
 import com.au.bean.Despesa;
+import com.au.bean.FormaPagamento;
 import com.au.bean.Pedido;
 import com.au.dao.CaixaDao;
 import com.au.dao.DespesaDao;
+import com.au.dao.FormaPagamentoDao;
 import com.au.dao.FuncionarioDao;
 import com.au.dao.PedidoDao;
 import java.awt.Font;
@@ -36,6 +38,7 @@ import java.awt.print.PrinterJob;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -55,25 +58,61 @@ public class Imprimir {
     private final FuncionarioDao fDao = new FuncionarioDao();
     private final DespesaDao dDao = new DespesaDao();
     private double descontoTotal = 0;
-    private int qtdPedDinheiro = 0;
-    private int qtdPedCred = 0;
-    private int qtdPedDeb = 0;
-    private int qtdPedVale = 0;
-    private int qtdPedCanc = 0;
-    private int qtdPedDesc = 0;
-    double totalDinheiro = 0;
-    double totalCredito = 0;
-    double totalDebito = 0;
-    double totalVale = 0;
-    double totalDesp = 0;
+    private int qtdPedDinheiro;
+    private int qtdPedCred;
+    private int qtdPedDeb;
+    private int qtdPedVale;
+    private int qtdPedCanc;
+    private int qtdPedDesc;
+    private double totalDinheiro;
+    private double totalCredito;
+    private double totalDebito;
+    private double totalVale;
+    private double totalDesp;
+    private double totalCanc;
     private Properties props;
     private final String nomeProp;
     private String impCaixaName;
     private String impCozinhaName;
-    
+    private int idFormaDinheiro = 0;
+    private int idFormaDebito = 0;
+    private int idFormaCredito = 0;
+    private int idFormaVale = 0;    
     public static PrinterJob pjCaixa = PrinterJob.getPrinterJob();
     public static PrinterJob pjCozinha = PrinterJob.getPrinterJob();    
-
+    public static PrinterJob pjFechamento = PrinterJob.getPrinterJob();    
+    
+    public Imprimir(int idCaixa) {
+        Fechamento fechamento = new Fechamento(idCaixa);
+        
+        PrintService[] services = PrinterJob.lookupPrintServices();
+        
+        try {
+            props = ManipulaConfigs.getProp();
+        } catch (IOException e) {
+            System.out.println("Houve um erro ao carregar as configurações. Possíveis causas incluem arquivo de configuração danificado e/ou ausente.\n");
+            e.printStackTrace();
+        }
+        nomeProp = "prop.impressora."; //Facilitar a procura no arquivo de propriedades;
+        impCaixaName = props.getProperty(nomeProp + "caixa.nome");
+        
+        for (PrintService service : services) {
+            if (impCaixaName.equals(service.getName())) {
+                try {
+                    pjFechamento.setPrintService(service);
+                } catch (PrinterException e) {
+                    System.out.println("Erro: " + e.getMessage());
+                }
+            }
+        }
+        try {               
+            pjFechamento.setPrintable(fechamento, getPageFormat(pjFechamento)); 
+            pjFechamento.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(Imprimir.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Imprimir(int idPedido, boolean eReimpressaoCaixa, boolean eReimpressaoCozinha, JDialog parent) {
         
         CupomCaixa cupomCaixa = new CupomCaixa(idPedido);
@@ -154,9 +193,9 @@ public class Imprimir {
         PageFormat pf = pj.defaultPage();
         Paper paper = pf.getPaper();
 
-        double middleHeight = 150;
-        double headerHeight = 2.0;
-        double footerHeight = 2.0;
+        double middleHeight = 1000.0;
+        double headerHeight = 1000.0;
+        double footerHeight = 1000.0;
         double width = convert_CM_To_PPI(8);
         double height = convert_CM_To_PPI(headerHeight + middleHeight + footerHeight);
         paper.setSize(width, height);
@@ -180,41 +219,69 @@ public class Imprimir {
     protected static double toPPI(double inch) {
         return inch * 72d;
     }
-    
+
     private void calculaTipoPagamento(List<Pedido> pedidos) {
+        
         if (pedidos != null && !pedidos.isEmpty()) {
             totalDinheiro = 0;
+            qtdPedDinheiro = 0;
             totalCredito = 0;
+            qtdPedCred = 0;
             totalDebito = 0;
+            qtdPedDeb = 0;
             totalVale = 0;
+            qtdPedVale = 0;
+            descontoTotal = 0;
+            qtdPedDesc = 0;
+            totalCanc = 0;
+            qtdPedCanc = 0;
+            FormaPagamentoDao fpDao = new FormaPagamentoDao();
             for (int i = 0; i < pedidos.size(); i++) {
+                fpDao.abreConnection();
                 if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
-                    if ("Dinheiro".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    FormaPagamento fp;
+                    fp = fpDao.listaFormaPagamentoPorId(pedidos.get(i).getIdFormaPgto());
+
+                    if ("Dinheiro".equals(fp.getTipoFormaPgto())) {
                         totalDinheiro = totalDinheiro + pedidos.get(i).getTotPedido();
                         qtdPedDinheiro += 1;
-                    } else if ("Credito".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    } else if ("Credito".equals(fp.getTipoFormaPgto())) {
                         totalCredito = totalCredito + pedidos.get(i).getTotPedido();
                         qtdPedCred += 1;
-                    } else if ("Debito".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    } else if ("Debito".equals(fp.getTipoFormaPgto())) {
                         totalDebito = totalDebito + pedidos.get(i).getTotPedido();
                         qtdPedDeb += 1;
-                    } else if ("Vale".equals(pedidos.get(i).getFormaPagamento().getTipoFormaPgto())) {
+                    } else if ("Vale".equals(fp.getTipoFormaPgto())) {
                         totalVale = totalVale + pedidos.get(i).getTotPedido();
                         qtdPedVale += 1;
                     }
-                    if (pedidos.get(i).getDescPedido() > 0 && "Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                    if (pedidos.get(i).getDescPedido() > 0) {
                         descontoTotal += pedidos.get(i).getDescPedido();
                         qtdPedDesc += 1;
-                    }
+                    }                    
                 } else {
+                    totalCanc += pedidos.get(i).getSubTotPedido();
                     qtdPedCanc += 1;
                 }
-            }
+                fpDao.fechaConnection();
+            }            
         }
+        System.out.println("Total Dinheiro" + totalDinheiro);
+        System.out.println("QTD Dinheiro" + qtdPedDinheiro);
+            
+        System.out.println("Total Credito" + totalCredito);
+        System.out.println("QTD Credito" + qtdPedCred);
+          
+        System.out.println("Total Debito" + totalDebito);
+        System.out.println("QTD Debito" + qtdPedDeb);
+            
+        System.out.println("Total Vale" + totalVale);
+        System.out.println("QTD Vale" + qtdPedVale);
     }
 
     public void calculaReducoes(Caixa caixa) {
-        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
+        totalDesp = 0;
+        if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {            
             for (Despesa despesa : caixa.getDespesas()) {
                 totalDesp = totalDesp + despesa.getValorDesp();
             }
@@ -426,6 +493,189 @@ public class Imprimir {
                         System.out.println("Erro:" + pf.getMessage());
                     }
                 } 
+                result = PAGE_EXISTS;
+            }
+            return result;
+        }
+    }
+    
+    private class Fechamento implements Printable {
+        
+        private int idCaixa;
+
+        public Fechamento(int idCaixa) {
+            this.idCaixa = idCaixa;
+        }
+
+        @Override
+        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {           
+            System.out.println("--- Iniciando a Geração do Relatório de Fechamento ---");
+            int result = NO_SUCH_PAGE;
+            if (pageIndex == 0) {
+                Graphics2D g2d = (Graphics2D) graphics;
+                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+                
+                cDao.abreConnection();
+                Caixa caixa = cDao.listaCaixaPorId(idCaixa);
+                cDao.fechaConnection();
+
+                dDao.abreConnection();
+                caixa.setDespesas(dDao.listaDespesasPorCaixa(caixa.getIdCaixa()));
+                dDao.fechaConnection();
+
+                pDao.abreConnection();
+                caixa.setPedidos(pDao.listaPedidosPorCaixa(caixa.getIdCaixa()));
+                pDao.fechaConnection();
+
+                fDao.abreConnection();
+                caixa.setFuncionario(fDao.buscaPrId(caixa.getIdFunc()));
+                fDao.fechaConnection();
+                                
+                calculaTipoPagamento(caixa.getPedidos());
+                calculaReducoes(caixa);
+
+                SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+                String dataStr = formatador.format(caixa.getDataFechamentoCaixa());
+                SimpleDateFormat formataHora = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat mesExtenso = new SimpleDateFormat("MMMMM");
+                String mes = mesExtenso.format(caixa.getDataFechamentoCaixa());
+                
+                System.out.println("Recuperou dados do caixa");                
+
+                try {
+                    int y = 20;
+                    int yShift = 10;
+                    int headerRectHeight = 15;
+
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("------------------------------------------------", 6, y); y += yShift;
+                    g2d.drawString("       FECHAMENTO DE CAIXA        ", 12, y); y += yShift;
+                    g2d.drawString("------------------------------------------------", 6, y); y += headerRectHeight;
+                    
+                    g2d.drawString("Informações Gerais", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));
+                    g2d.drawString(dataStr + "                          " + caixa.getFechamentoCaixa(), 6, y); y += yShift + 10;
+                    g2d.drawString("Funcionário: " + caixa.getFuncionario().getNomeFunc(), 6, y); y += yShift + 10;
+                    g2d.drawString("Fundo de Caixa: " + String.format("R$: %.2f", caixa.getFundoCaixa()), 6, y); y += yShift + 10;
+                    g2d.drawString("Quantidade de Pedidos: " + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale + qtdPedCanc), 6, y); y += yShift + 10;
+                    g2d.drawString("    Pagos com Dinheiro: " + qtdPedDinheiro, 6, y); y += yShift + 10;
+                    g2d.drawString("    Pagos com Crédito: " + qtdPedCred, 6, y); y += yShift + 10;
+                    g2d.drawString("    Pagos com Débito: " + qtdPedDeb, 6, y); y += yShift + 10;
+                    g2d.drawString("    Pagos com Vale: " + qtdPedVale, 6, y); y += yShift + 10;
+                    g2d.drawString("    Cancelados: " + qtdPedCanc, 6, y); y += yShift + 10;
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Informações de Faturamento", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));
+                    g2d.drawString("Total Faturado: " + String.format("R$ %.2f", caixa.getTotalCaixa()), 6, y); y += yShift + 10;
+                    g2d.drawString("    Dinheiro: " + String.format("R$ %.2f", totalDinheiro), 6, y); y += yShift + 10;
+                    g2d.drawString("    Credito: " + String.format("R$ %.2f", totalCredito), 6, y); y += yShift + 10;
+                    g2d.drawString("    Debito: " + String.format("R$ %.2f", totalDebito), 6, y); y += yShift + 10;
+                    g2d.drawString("    Vale: " + String.format("R$ %.2f", totalVale), 6, y); y += yShift + 10;
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Informações de Balanço do Caixa", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
+                    g2d.drawString("Total Faturado: " + String.format("R$ %.2f", caixa.getTotalCaixa()), 6, y); y += yShift + 10;                    
+                    g2d.drawString("Total Retiradas: " + String.format("R$ %.2f", totalDesp), 6, y); y += yShift + 10;                    
+                    g2d.drawString("Total Caixa: " + String.format("R$ %.2f", caixa.getTotalCaixa()), 6, y); y += yShift + 10;                    
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Informações de Retiradas", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
+                    
+                    if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
+                        g2d.drawString("Quantidade de Retiradas: " + caixa.getDespesas().size(), 6, y); y += yShift + 10;
+                        
+                        /*
+                        g2d.drawString("Lista de Retiradas", 6, y); y += yShift + 15;                        
+                        for (int i = 0; caixa.getDespesas().size() > i; i++) {
+                            g2d.drawString("Retirada " + (i + 1), 6, y); y += yShift + 10;
+                            g2d.drawString("Motivo: " + caixa.getDespesas().get(i).getDescDesp(), 6, y); y += yShift + 10;
+                            g2d.drawString("Valor: " + String.format("R$ %.2f", caixa.getDespesas().get(i).getValorDesp()), 6, y); y += yShift + 20;                           
+                        }
+                        */
+                        g2d.drawString("Total de Retiradas: " + String.format("R$ %.2f", totalDesp), 6, y); y += yShift + 10;
+                    } else {
+                        y += 10;
+                        g2d.drawString("Sem Retiradas", 6, y); y += yShift + 10;
+                    }
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Informações de Descontos", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
+                    
+                    if (qtdPedDesc == 0) {
+                        g2d.drawString("Sem Descontos", 6, y); y += yShift + 10;
+                    } else {
+                        g2d.drawString("Quantidade de Descontos: " + qtdPedDesc, 6, y); y += yShift + 10;
+                        /*
+                        g2d.drawString("Lista de Descontos", 6, y); y += yShift + 15;
+                        for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                            if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
+                                g2d.drawString("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
+                                g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 10;
+                                g2d.drawString("Valor do Desconto: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()), 6, y); y += yShift + 20;                           
+                            }                            
+                        }
+                        */
+                        g2d.drawString("Total de Descontos: " + String.format("R$ %.2f", descontoTotal), 6, y); y += yShift + 10;                        
+                    }
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Informações de Cancelamentos", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
+                    
+                    if (qtdPedCanc == 0) {
+                        g2d.drawString("Sem Cancelamentos", 6, y); y += yShift + 10;
+                    } else {
+                        g2d.drawString("Quantidade de Cancelamentos: " + qtdPedCanc, 6, y); y += yShift + 10;
+                        /*
+                        g2d.drawString("Lista de Cancelamentos", 6, y); y += yShift + 15;
+                        double totalCanc = 0;
+                        for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                            if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {                                
+                                g2d.drawString("Numero do Pedido: "+ caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
+                                g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 20;
+                            }                            
+                        }
+                        */
+                        g2d.drawString("Total de Cancelamentos: " + String.format("R$ %.2f", totalCanc), 6, y); y += yShift + 10;                        
+                    }
+                    g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
+                    
+                    y += 10;
+                    
+                    g2d.setFont(new Font("Arial", Font.BOLD, 12));
+                    g2d.drawString("Li e reconheço as informações", 6, y); y += yShift + 6;
+                    g2d.drawString("              acima citadas", 6, y); y += yShift + 10;
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
+                    Calendar calendario = Calendar.getInstance();
+                    calendario.setTime(caixa.getDataFechamentoCaixa());
+                    g2d.drawString("Curitiba, " + String.format("%02d", calendario.get(Calendar.DAY_OF_MONTH)) + " de " + mes + " de " + calendario.get(Calendar.YEAR), 6, y); y += yShift + 10;                    
+                    g2d.drawString("_____________________________________", 6, y); y += yShift + 10;
+                    g2d.drawString("              " + caixa.getFuncionario().getNomeFunc(), 6, y); y += yShift+50;
+                    g2d.drawString(".", 12, y); y += yShift+10;
+                    
+                } catch (Exception pf) {
+                    System.out.println("Erro:" + pf.getMessage());
+                }
+
                 result = PAGE_EXISTS;
             }
             return result;

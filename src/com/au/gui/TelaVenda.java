@@ -962,8 +962,9 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         caixa2.setEstaAberto((byte) 1);
         caixa2.setIdFunc(funcionario.getIdFunc());
         caixa2.setFundoCaixa(0);
-        String padrao = "[0-9]{1,3}";
-        String msg = "Digite o valor do fundo de caixa";
+        String padrao = "^[0-9]*$";
+//        String padrao = "[0-9]{1,3}";
+        String msg = "Digite o valor do fundo de caixa, não utilize centavos!";
         while (caixa2.getFundoCaixa() == 0) {
             String aux = JOptionPane.showInputDialog(this, msg, "Fundo de Caixa", JOptionPane.INFORMATION_MESSAGE);
             if (aux == null) {
@@ -971,7 +972,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             } else if (aux.matches(padrao)) {
                 caixa2.setFundoCaixa(Double.valueOf(aux));
             } else {
-                msg = "Digite o valor do fundo de caixa, Ex.: 80";
+                msg = "Digite o valor do fundo de caixa, não utilize centavos!";
             }
         }
         caixa2.setTotalCaixa(0);

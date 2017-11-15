@@ -118,6 +118,7 @@ public class DespesaDao {
                 despesa.setValorDesp(res.getDouble("valorDesp"));
                 despesa.setIdCaixa(res.getInt("idCaixa"));
                 despesa.setRetirada(res.getInt("retirada"));
+                listaResDesp.add(despesa);
             }
             res.close();
             stmt.close();
