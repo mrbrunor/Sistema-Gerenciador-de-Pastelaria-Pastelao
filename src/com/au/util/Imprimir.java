@@ -584,7 +584,7 @@ public class Imprimir {
                     g2d.setFont(new Font("Arial", Font.PLAIN, 10));                    
                     g2d.drawString("Total Faturado: " + String.format("R$ %.2f", caixa.getTotalCaixa()), 6, y); y += yShift + 10;                    
                     g2d.drawString("Total Retiradas: " + String.format("R$ %.2f", totalDesp), 6, y); y += yShift + 10;                    
-                    g2d.drawString("Total Caixa: " + String.format("R$ %.2f", caixa.getTotalCaixa()), 6, y); y += yShift + 10;                    
+                    g2d.drawString("Total Caixa: " + String.format("R$ %.2f", caixa.getTotalCaixa() - totalDesp), 6, y); y += yShift + 10;                    
                     g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
                     
                     y += 10;
