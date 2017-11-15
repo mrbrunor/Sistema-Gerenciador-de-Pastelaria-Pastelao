@@ -147,6 +147,8 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         MenuRelatorio = new javax.swing.JMenu();
         itemMenuVendasGerais = new javax.swing.JMenuItem();
         itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        itemMenuRFechamentoCaixa = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuSobre = new javax.swing.JMenuItem();
         itemMenuConfigurações = new javax.swing.JMenuItem();
@@ -569,6 +571,15 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             }
         });
         MenuRelatorio.add(itemMenuVendasFiltradasFormaPgto);
+        MenuRelatorio.add(jSeparator2);
+
+        itemMenuRFechamentoCaixa.setText("Reimprimir Fechamento de Caixa");
+        itemMenuRFechamentoCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuRFechamentoCaixaActionPerformed(evt);
+            }
+        });
+        MenuRelatorio.add(itemMenuRFechamentoCaixa);
 
         barraMenu.add(MenuRelatorio);
 
@@ -765,8 +776,12 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     }//GEN-LAST:event_itemMenuSairActionPerformed
 
     private void itemMenuConfiguraçõesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuConfiguraçõesActionPerformed
-            new TelaConfiguracoes().setVisible(true);
+        new TelaConfiguracoes(this, true).setVisible(true);
     }//GEN-LAST:event_itemMenuConfiguraçõesActionPerformed
+
+    private void itemMenuRFechamentoCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRFechamentoCaixaActionPerformed
+        new TelaReimprimirFechamento(this, true).setVisible(true);
+    }//GEN-LAST:event_itemMenuRFechamentoCaixaActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {
@@ -1172,6 +1187,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuFuncionarios;
     private javax.swing.JMenuItem itemMenuIngredientes;
     private javax.swing.JMenuItem itemMenuProdutos;
+    private javax.swing.JMenuItem itemMenuRFechamentoCaixa;
     private javax.swing.JMenuItem itemMenuReimprimirCupom;
     private javax.swing.JMenuItem itemMenuRetiradaDeCaixa;
     private javax.swing.JMenuItem itemMenuSair;
@@ -1181,6 +1197,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuVendasGerais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPrincipal;
     private javax.swing.JPanel painelBusca;

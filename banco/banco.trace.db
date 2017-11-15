@@ -6226,3 +6226,218 @@ SELECT idFormaPgto, tipoFormaPgto FROM sistemapastelao.FormaPagamento GROUP BY T
 	at org.netbeans.modules.openide.util.GlobalLookup.execute(GlobalLookup.java:68)
 	at org.openide.util.lookup.Lookups.executeWith(Lookups.java:303)
 	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2058)
+11-15 12:05:24 jdbc[7]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.FormaPagamentoDao.abreConnection(FormaPagamentoDao.java:40)
+	at com.au.gui.TelaCadastrarFormasDePagamento.inicializaTableModel(TelaCadastrarFormasDePagamento.java:582)
+	at com.au.gui.TelaCadastrarFormasDePagamento.<init>(TelaCadastrarFormasDePagamento.java:58)
+	at com.au.gui.TelaVenda.itemMenuFormaPagamentoActionPerformed(TelaVenda.java:649)
+	at com.au.gui.TelaVenda.access$1600(TelaVenda.java:47)
+	at com.au.gui.TelaVenda$17.actionPerformed(TelaVenda.java:525)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:833)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:877)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 54 more
+11-15 12:53:20 jdbc[7]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.FuncionarioDao.abreConnection(FuncionarioDao.java:40)
+	at com.au.gui.TelaReimprimirFechamento.getFuncionarios(TelaReimprimirFechamento.java:349)
+	at com.au.gui.TelaReimprimirFechamento.initComponents(TelaReimprimirFechamento.java:75)
+	at com.au.gui.TelaReimprimirFechamento.<init>(TelaReimprimirFechamento.java:44)
+	at com.au.gui.TelaVenda.itemMenuRFechamentoCaixaActionPerformed(TelaVenda.java:783)
+	at com.au.gui.TelaVenda.access$2200(TelaVenda.java:47)
+	at com.au.gui.TelaVenda$23.actionPerformed(TelaVenda.java:579)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:833)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:877)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 55 more
+11-15 12:56:29 jdbc[7]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.au.conexao.FabricaConexao.getConexao(FabricaConexao.java:45)
+	at com.au.dao.FuncionarioDao.abreConnection(FuncionarioDao.java:40)
+	at com.au.gui.TelaReimprimirFechamento.getFuncionarios(TelaReimprimirFechamento.java:355)
+	at com.au.gui.TelaReimprimirFechamento.initComponents(TelaReimprimirFechamento.java:76)
+	at com.au.gui.TelaReimprimirFechamento.<init>(TelaReimprimirFechamento.java:45)
+	at com.au.gui.TelaVenda.itemMenuRFechamentoCaixaActionPerformed(TelaVenda.java:783)
+	at com.au.gui.TelaVenda.access$2200(TelaVenda.java:47)
+	at com.au.gui.TelaVenda$23.actionPerformed(TelaVenda.java:579)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:833)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:877)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 55 more
+11-15 13:47:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE (DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15'),[*] IDFUNC = 1, ESTAABERTO = 0 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15'), idFunc = 1, estaAberto = 0 [42000-176]
+11-15 13:47:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE (DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15'),[*] IDFUNC = 1, ESTAABERTO = 0 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15'), idFunc = 1, estaAberto = 0 [42000-176]
+11-15 13:48:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE IDFUNC = 1,[*] ESTAABERTO = 0 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where idFunc = 1, estaAberto = 0 [42000-176]
+11-15 13:48:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE IDFUNC = 1,[*] ESTAABERTO = 0 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where idFunc = 1, estaAberto = 0 [42000-176]
+11-15 13:48:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE (DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15'),[*] IDFUNC = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15'), idFunc = 1 [42000-176]
+11-15 13:48:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE (DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15'),[*] IDFUNC = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15'), idFunc = 1 [42000-176]
+11-15 13:48:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE (DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15'),[*] IDFUNC = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15'), idFunc = 1 [42000-176]
+11-15 13:49:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15',[*] IDFUNC = 1, ESTAABERTO = 0 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15', idFunc = 1, estaAberto = 0 [42000-176]
+11-15 13:49:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15',[*] IDFUNC = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15', idFunc = 1 [42000-176]
+11-15 13:49:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15',[*] IDFUNC = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15', idFunc = 1 [42000-176]
+11-15 13:49:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15' IDFUNC[*] = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15' idFunc = 1 [42000-176]
+11-15 13:49:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM SISTEMAPASTELAO.CAIXA WHERE DATAABERTURACAIXA BETWEEN '2017-10-01' AND '2017-11-15' IDFUNC[*] = 1 "; SQL statement:
+SELECT * FROM sistemapastelao.Caixa where dataAberturaCaixa BETWEEN '2017-10-01' AND '2017-11-15' idFunc = 1 [42000-176]

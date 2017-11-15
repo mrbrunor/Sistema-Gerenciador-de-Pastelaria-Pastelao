@@ -17,6 +17,7 @@
 package com.au.gui.tmodel;
 
 import com.au.bean.Caixa;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -32,7 +33,7 @@ public class CaixaTableModel extends AbstractTableModel {
 
     public CaixaTableModel(List<Caixa> caixas) {
         this.caixas = caixas;
-        colunas = Arrays.asList("ID", "Funcionário", "Data", "Abertura", "Fechamento");
+        colunas = Arrays.asList("ID", "Abertura", "Fechamento", "Total Caixa");
     }
 
     @Override
@@ -56,18 +57,17 @@ public class CaixaTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Caixa ingrediente = caixas.get(rowIndex);
+        Caixa caixa = caixas.get(rowIndex);
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         switch (columnIndex) {
             case 0:
-                return ingrediente.getIdCaixa();
-            case 1:
-                return ingrediente.getFuncionario().getNomeFunc();
+                return caixa.getIdCaixa();
+            case 1:                
+                return formatador.format(caixa.getDataAberturaCaixa().getTime());
             case 2:
-                return ingrediente.getDataAberturaCaixa();
+                return formatador.format(caixa.getDataFechamentoCaixa().getTime());
             case 3:
-                return ingrediente.getAberturaCaixa();
-            case 4:
-                return ingrediente.getFechamentoCaixa();
+                return caixa.getTotalCaixa();            
         }
         return null;
     }

@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,7 +95,7 @@ public class CaixaDao {
             while (res.next()) {
                 Caixa caixa = new Caixa();
                 caixa.setIdCaixa(res.getInt("idCaixa"));
-                caixa.setIdFunc(res.getInt("idFunc"));
+                caixa.setIdFunc(res.getInt("idFunc"));                
                 caixa.setFundoCaixa(res.getDouble("fundoCaixa"));
                 caixa.setDataAberturaCaixa(res.getDate("dataAberturaCaixa"));
                 caixa.setAberturaCaixa(res.getTime("aberturaCaixa"));
@@ -171,6 +172,51 @@ public class CaixaDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public List<Caixa> listaCaixaPersonalizado(Date dataInicio, Date dataFinal, int idFuncionario, boolean caixaAberto) {
+        
+        String sql;
+        
+        if (caixaAberto) {
+            sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ?";
+        } else {
+            sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ? AND estaAberto = 0";            
+        }
+                
+        PreparedStatement stmt;
+        ResultSet res;
+        List<Caixa> listaResCaixa = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            java.sql.Date dateInicio = new java.sql.Date(dataInicio.getTime());
+            java.sql.Date dateFinal = new java.sql.Date(dataFinal.getTime());
+            
+            stmt.setDate(1, dateInicio);
+            stmt.setDate(2, dateFinal);
+            stmt.setInt(3, idFuncionario);            
+            res = stmt.executeQuery();           
+            
+            while (res.next()) {
+                Caixa caixa = new Caixa();
+                caixa.setIdCaixa(res.getInt("idCaixa"));
+                caixa.setIdFunc(res.getInt("idFunc"));                
+                caixa.setFundoCaixa(res.getDouble("fundoCaixa"));
+                caixa.setDataAberturaCaixa(res.getDate("dataAberturaCaixa"));
+                caixa.setAberturaCaixa(res.getTime("aberturaCaixa"));
+                caixa.setFechamentoCaixa(res.getTime("fechamentoCaixa"));
+                caixa.setDataFechamentoCaixa(res.getDate("dataFechamentoCaixa"));
+                caixa.setEstaAberto(res.getInt("estaAberto"));
+                caixa.setTotalCaixa(res.getDouble("totalCaixa"));
+                listaResCaixa.add(caixa);
+            }
+            res.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaResCaixa;
     }
     
     public Caixa listaDespesas(int idCaixa) {

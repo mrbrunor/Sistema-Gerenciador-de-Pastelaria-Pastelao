@@ -14,29 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.au.gui.incompletas;
+package com.au.gui;
 
+import com.au.bean.Caixa;
+import com.au.bean.Funcionario;
+import com.au.dao.CaixaDao;
+import com.au.dao.FuncionarioDao;
+import com.au.gui.tmodel.CaixaTableModel;
+import com.au.util.CustomComboBoxInt;
+import com.au.util.Imprimir;
 import com.toedter.calendar.JDateChooser;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author tiago_000
  */
-public class TelaReimprimirRelatorio extends javax.swing.JDialog {
-
-
+public class TelaReimprimirFechamento extends javax.swing.JDialog implements ListSelectionListener {
+    
+    private CaixaTableModel tableModel;
+    FuncionarioDao fDao = new FuncionarioDao();
+    CaixaDao cDao = new CaixaDao();        
+    private Caixa idCaixa = null;
     /**
      * Creates new form TelaCadastrarUsuario
      * @param parent
      * @param modal
      */
-    public TelaReimprimirRelatorio(java.awt.Frame parent, boolean modal) {
+    public TelaReimprimirFechamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        dateChooserDataAberturaCaixa.requestFocus();
+        dateChooserDataInicio.requestFocus();
     }
 
     /**
@@ -53,16 +67,20 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
         textoIconeVisualizarCaixas = new javax.swing.JLabel();
         textoPreencherDados = new javax.swing.JLabel();
         painelBuscarCaixa = new javax.swing.JPanel();
-        botaoProcurarCaixa = new javax.swing.JButton();
         textoDataAberturaCaixa = new javax.swing.JLabel();
         textoCaixasAbertos = new javax.swing.JLabel();
+        dateChooserDataInicio = new com.toedter.calendar.JDateChooser();
+        dateChooserDataFinal = new com.toedter.calendar.JDateChooser();
         comboBoxCaixasAbertos = new javax.swing.JComboBox();
-        dateChooserDataAberturaCaixa = new com.toedter.calendar.JDateChooser();
+        botaoProcurarCaixa = new javax.swing.JButton();
         separadorBuscaResultado = new javax.swing.JSeparator();
         textoSelecioneOCaixaDesejado = new javax.swing.JLabel();
         painelScrollCaixasEncontrados = new javax.swing.JScrollPane();
         tabelaCaixasEncontrados = new javax.swing.JTable();
         textoReimprimirORelatorio = new javax.swing.JLabel();
+        textoCaixasAbertos1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        caixaSelecaoFuncionario = new javax.swing.JComboBox(getFuncionarios());
         botaoVoltarTelaPrincipal = new javax.swing.JButton();
         botaoReimprimirRelatorio = new javax.swing.JButton();
 
@@ -71,7 +89,7 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
         painelSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         textoReimprimirRelatorio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoReimprimirRelatorio.setText("Reimprimir Relatório de Caixa");
+        textoReimprimirRelatorio.setText("Reimprimir Fechamento de Caixa");
 
         textoIconeVisualizarCaixas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/bill-64.png"))); // NOI18N
 
@@ -107,20 +125,29 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
         painelBuscarCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Buscar Caixa"));
         painelBuscarCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        textoDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoDataAberturaCaixa.setText("Data de Inicio:");
+
+        textoCaixasAbertos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCaixasAbertos.setText("Data Final:");
+
+        dateChooserDataInicio.setDateFormatString("dd-MM-yyyy");
+        dateChooserDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        dateChooserDataFinal.setDateFormatString("dd-MM-yyyy");
+        dateChooserDataFinal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        comboBoxCaixasAbertos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        comboBoxCaixasAbertos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
+
         botaoProcurarCaixa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarCaixa.setText("Procurar");
-
-        textoDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoDataAberturaCaixa.setText("Data de Abertura do Caixa:");
-
-        textoCaixasAbertos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoCaixasAbertos.setText("Incluir Caixas Abertos?");
-
-        comboBoxCaixasAbertos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
-
-        dateChooserDataAberturaCaixa.setDateFormatString("dd-MM-yyyy");
-        dateChooserDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        botaoProcurarCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarCaixaActionPerformed(evt);
+            }
+        });
 
         textoSelecioneOCaixaDesejado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoSelecioneOCaixaDesejado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,14 +158,45 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Funcionário", "Data", "Abertura", "Fechamento"
+                "ID", "Abertura", "Fechamento", "Total Caixa"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaCaixasEncontrados.getTableHeader().setReorderingAllowed(false);
         painelScrollCaixasEncontrados.setViewportView(tabelaCaixasEncontrados);
+        if (tabelaCaixasEncontrados.getColumnModel().getColumnCount() > 0) {
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMinWidth(80);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(80);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMinWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMaxWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMinWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMinWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(150);
+        }
 
         textoReimprimirORelatorio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoReimprimirORelatorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoReimprimirORelatorio.setText("reimprimir o relatório deste caixa:");
+
+        textoCaixasAbertos1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCaixasAbertos1.setText("Incluir Caixas Abertos?");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel1.setText("Funcionário:");
+
+        caixaSelecaoFuncionario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout painelBuscarCaixaLayout = new javax.swing.GroupLayout(painelBuscarCaixa);
         painelBuscarCaixa.setLayout(painelBuscarCaixaLayout);
@@ -150,20 +208,25 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
                     .addComponent(textoReimprimirORelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(separadorBuscaResultado)
                     .addComponent(textoSelecioneOCaixaDesejado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelScrollCaixasEncontrados)
                     .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                         .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
-                                .addComponent(textoDataAberturaCaixa)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateChooserDataAberturaCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
-                                .addComponent(textoCaixasAbertos)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textoCaixasAbertos)
+                            .addComponent(textoCaixasAbertos1)
+                            .addComponent(textoDataAberturaCaixa)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoProcurarCaixa)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(painelScrollCaixasEncontrados))
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                .addComponent(caixaSelecaoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateChooserDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoProcurarCaixa)))))
                 .addContainerGap())
         );
 
@@ -173,18 +236,30 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
             painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botaoProcurarCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelBuscarCaixaLayout.createSequentialGroup()
+                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoProcurarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(textoDataAberturaCaixa)
+                                .addGap(7, 7, 7))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBuscarCaixaLayout.createSequentialGroup()
+                                .addComponent(dateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textoDataAberturaCaixa)
-                            .addComponent(dateChooserDataAberturaCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoCaixasAbertos)
+                            .addComponent(dateChooserDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(caixaSelecaoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoCaixasAbertos1)
                             .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(separadorBuscaResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(separadorBuscaResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoSelecioneOCaixaDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -197,10 +272,20 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
         botaoVoltarTelaPrincipal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoVoltarTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/undo-32.png"))); // NOI18N
         botaoVoltarTelaPrincipal.setText("Voltar à Tela Principal");
+        botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarTelaPrincipalActionPerformed(evt);
+            }
+        });
 
         botaoReimprimirRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoReimprimirRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/check-32.png"))); // NOI18N
         botaoReimprimirRelatorio.setText("Reimprimir Relatório de Fechamento de Caixa");
+        botaoReimprimirRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoReimprimirRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,12 +316,51 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltarTelaPrincipal)
                     .addComponent(botaoReimprimirRelatorio))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botaoProcurarCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarCaixaActionPerformed
+        idCaixa = null;
+        CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoFuncionario.getSelectedItem();        
+        boolean aberto = true;
+        if (comboBoxCaixasAbertos.getSelectedItem() == "Não") {
+            aberto = false;
+        }        
+        List<Caixa> listaResCaixa;        
+        cDao.abreConnection();
+        listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), ob.getId(), aberto);        
+        atualizaTableModel(listaResCaixa);
+    }//GEN-LAST:event_botaoProcurarCaixaActionPerformed
+
+    private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoVoltarTelaPrincipalActionPerformed
+
+    private void botaoReimprimirRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReimprimirRelatorioActionPerformed
+        if(tabelaCaixasEncontrados.getSelectedRow() != -1 && idCaixa != null){                        
+            if(idCaixa.getEstaAberto() != 1) {
+                new Imprimir(idCaixa.getIdCaixa());
+            } else {
+                JOptionPane.showMessageDialog(this, "Não é possivel efetuar a impressão de um caixa aberto!", "Caixa Aberto", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um caixa antes de solicitar a impressão!", "Nenhum Caixa Selecionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoReimprimirRelatorioActionPerformed
+
+    private void atualizaTableModel(List<Caixa> caixas) {        
+        tableModel = new CaixaTableModel(caixas);
+        tabelaCaixasEncontrados.setModel(tableModel);
+        tabelaCaixasEncontrados.getSelectionModel().addListSelectionListener(this);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(80);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMaxWidth(150);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);        
+        tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(150);        
+    }
+    
     public JButton getBotaoProcurarCaixa() {
         return botaoProcurarCaixa;
     }
@@ -270,11 +394,11 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
     }
 
     public JDateChooser getDateChooserDataAberturaCaixa() {
-        return dateChooserDataAberturaCaixa;
+        return dateChooserDataInicio;
     }
 
     public void setDateChooserDataAberturaCaixa(JDateChooser dateChooserDataAberturaCaixa) {
-        this.dateChooserDataAberturaCaixa = dateChooserDataAberturaCaixa;
+        this.dateChooserDataInicio = dateChooserDataAberturaCaixa;
     }
 
     public JTable getTabelaCaixasEncontrados() {
@@ -284,19 +408,36 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
     public void setTabelaCaixasEncontrados(JTable tabelaCaixasEncontrados) {
         this.tabelaCaixasEncontrados = tabelaCaixasEncontrados;
     }
+    
+    private CustomComboBoxInt[] getFuncionarios() {
+        List<Funcionario> listaResFuncionarios;        
+        fDao.abreConnection();
+        listaResFuncionarios = fDao.getLista();
+        fDao.fechaConnection();            
+        
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResFuncionarios.size()];
+        for (int i = 0; i < listaResFuncionarios.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResFuncionarios.get(i).getNomeFunc(), listaResFuncionarios.get(i).getIdFunc());
+        }
+        return oItems;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoProcurarCaixa;
     private javax.swing.JButton botaoReimprimirRelatorio;
     private javax.swing.JButton botaoVoltarTelaPrincipal;
+    private javax.swing.JComboBox<String> caixaSelecaoFuncionario;
     private javax.swing.JComboBox comboBoxCaixasAbertos;
-    private com.toedter.calendar.JDateChooser dateChooserDataAberturaCaixa;
+    private com.toedter.calendar.JDateChooser dateChooserDataFinal;
+    private com.toedter.calendar.JDateChooser dateChooserDataInicio;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel painelBuscarCaixa;
     private javax.swing.JScrollPane painelScrollCaixasEncontrados;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JSeparator separadorBuscaResultado;
     private javax.swing.JTable tabelaCaixasEncontrados;
     private javax.swing.JLabel textoCaixasAbertos;
+    private javax.swing.JLabel textoCaixasAbertos1;
     private javax.swing.JLabel textoDataAberturaCaixa;
     private javax.swing.JLabel textoIconeVisualizarCaixas;
     private javax.swing.JLabel textoPreencherDados;
@@ -304,4 +445,14 @@ public class TelaReimprimirRelatorio extends javax.swing.JDialog {
     private javax.swing.JLabel textoReimprimirRelatorio;
     private javax.swing.JLabel textoSelecioneOCaixaDesejado;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (tabelaCaixasEncontrados.getSelectedRow() != -1) {
+            Caixa caixa = tableModel.getCaixas().get(tabelaCaixasEncontrados.getSelectedRow());
+            if(caixa.getIdCaixa() > 0) {
+                idCaixa = caixa;
+            }
+        }
+    }
 }

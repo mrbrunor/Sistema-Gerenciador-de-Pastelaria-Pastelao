@@ -55,7 +55,7 @@
                   <Component id="botaoVoltarTelaPrincipal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoReimprimirRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -108,7 +108,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reimprimir Relat&#xf3;rio de Caixa"/>
+            <Property name="text" type="java.lang.String" value="Reimprimir Fechamento de Caixa"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="textoIconeVisualizarCaixas">
@@ -147,30 +147,37 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="textoReimprimirORelatorio" max="32767" attributes="0"/>
                       <Component id="separadorBuscaResultado" max="32767" attributes="0"/>
                       <Component id="textoSelecioneOCaixaDesejado" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Component id="painelScrollCaixasEncontrados" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoDataAberturaCaixa" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="dateChooserDataAberturaCaixa" min="-2" pref="110" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textoCaixasAbertos" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="comboBoxCaixasAbertos" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="textoCaixasAbertos" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoCaixasAbertos1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoDataAberturaCaixa" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="botaoProcurarCaixa" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="caixaSelecaoFuncionario" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="dateChooserDataInicio" min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Component id="comboBoxCaixasAbertos" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateChooserDataFinal" min="-2" pref="110" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="botaoProcurarCaixa" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Component id="painelScrollCaixasEncontrados" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -180,22 +187,38 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="botaoProcurarCaixa" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="botaoProcurarCaixa" min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="textoDataAberturaCaixa" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateChooserDataAberturaCaixa" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                  <Component id="textoDataAberturaCaixa" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="dateChooserDataInicio" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="textoCaixasAbertos" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateChooserDataFinal" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textoCaixasAbertos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="caixaSelecaoFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="textoCaixasAbertos1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="comboBoxCaixasAbertos" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="separadorBuscaResultado" min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Component id="separadorBuscaResultado" min="-2" pref="1" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textoSelecioneOCaixaDesejado" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -208,6 +231,51 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="textoDataAberturaCaixa">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Data de Inicio:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textoCaixasAbertos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Data Final:"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDataInicio">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDataFinal">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboBoxCaixasAbertos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Sim"/>
+                <StringItem index="1" value="N&#xe3;o"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JButton" name="botaoProcurarCaixa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -218,40 +286,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="textoDataAberturaCaixa">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="15" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Data de Abertura do Caixa:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="textoCaixasAbertos">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="15" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Incluir Caixas Abertos?"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="comboBoxCaixasAbertos">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Sim"/>
-                <StringItem index="1" value="N&#xe3;o"/>
-              </StringArray>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDataAberturaCaixa">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="15" style="0"/>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarCaixaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="separadorBuscaResultado">
         </Component>
@@ -274,37 +311,31 @@
             <Component class="javax.swing.JTable" name="tabelaCaixasEncontrados">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="ID" type="java.lang.Object"/>
-                    <Column editable="true" title="Funcion&#xe1;rio" type="java.lang.Object"/>
-                    <Column editable="true" title="Data" type="java.lang.Object"/>
-                    <Column editable="true" title="Abertura" type="java.lang.Object"/>
-                    <Column editable="true" title="Fechamento" type="java.lang.Object"/>
+                  <Table columnCount="4" rowCount="0">
+                    <Column editable="false" title="ID" type="java.lang.Object"/>
+                    <Column editable="false" title="Abertura" type="java.lang.Object"/>
+                    <Column editable="false" title="Fechamento" type="java.lang.Object"/>
+                    <Column editable="true" title="Total Caixa" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -312,7 +343,7 @@
                   </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>
@@ -327,6 +358,36 @@
             <Property name="text" type="java.lang.String" value="reimprimir o relat&#xf3;rio deste caixa:"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="textoCaixasAbertos1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Incluir Caixas Abertos?"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="caixaSelecaoFuncionario">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox(getFuncionarios());"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="botaoVoltarTelaPrincipal">
@@ -339,6 +400,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Voltar &#xe0; Tela Principal"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoVoltarTelaPrincipalActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoReimprimirRelatorio">
       <Properties>
@@ -350,6 +414,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Reimprimir Relat&#xf3;rio de Fechamento de Caixa"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoReimprimirRelatorioActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
