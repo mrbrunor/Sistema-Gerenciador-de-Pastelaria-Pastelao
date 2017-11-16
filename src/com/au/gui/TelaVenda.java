@@ -382,11 +382,21 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 campoBuscaFocusGained(evt);
             }
         });
+        campoBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoBuscaActionPerformed(evt);
+            }
+        });
 
         botaoBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoBuscar.setText("Buscar");
         botaoBuscar.setToolTipText("Clique aqui para buscar");
+        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoBuscarActionPerformed(evt);
+            }
+        });
 
         tabelaBusca.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tabelaBusca.setModel(new javax.swing.table.DefaultTableModel(
@@ -776,12 +786,20 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     }//GEN-LAST:event_itemMenuSairActionPerformed
 
     private void itemMenuConfiguraçõesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuConfiguraçõesActionPerformed
-        new TelaConfiguracoes(this, true).setVisible(true);
+        new TelaConfiguracoes(this, true, funcionario.getNivelFunc()).setVisible(true);
     }//GEN-LAST:event_itemMenuConfiguraçõesActionPerformed
 
     private void itemMenuRFechamentoCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRFechamentoCaixaActionPerformed
         new TelaReimprimirFechamento(this, true).setVisible(true);
     }//GEN-LAST:event_itemMenuRFechamentoCaixaActionPerformed
+
+    private void campoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoBuscaActionPerformed
+
+    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoBuscarActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {

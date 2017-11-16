@@ -34,15 +34,28 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private Properties prop;
     private boolean ativarConsole;
     private boolean usarImpressoraCaixa;
-    private boolean usarImpressoraCozinha;
+    private boolean usarImpressoraCozinha;    
     private boolean[] salvou = {false, false};
+    private boolean[] salvouF = {false, false, false};    
 
     /**
      * Creates new form TelaConfiguracoes
      */
-    public TelaConfiguracoes(java.awt.Frame parent, boolean modal) {
+    public TelaConfiguracoes(java.awt.Frame parent, boolean modal, int nivel) {
         super(parent, modal);
         initComponents();
+        if(nivel == 0) {
+            checkboxAtivarImpressoraCaixa.setEnabled(false);
+            checkboxAtivarImpressoraCozinha.setEnabled(false);
+            CampoNomeCozinha.setEnabled(false);
+            campoNomeCaixa.setEnabled(false);
+            radioCancelamentosCompleto.setEnabled(false);
+            radioCancelamentosResumido.setEnabled(false);
+            radioDescontosCompleto.setEnabled(false);
+            radioDescontosResumido.setEnabled(false);
+            radioRetiradaCompleto.setEnabled(false);
+            radioRetiradaResumido.setEnabled(false);
+        }        
         try {
             prop = getProp();
         } catch (IOException ex) {
@@ -50,6 +63,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         }
         preencheCamposImpressora();
         preencheCamposDebug();
+        preencheCamposFechamento();
     }
 
     /**
@@ -61,8 +75,9 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grupoBotoesCaixa = new javax.swing.ButtonGroup();
-        grupoBotoesCozinha = new javax.swing.ButtonGroup();
+        grupoBotoesRetiradas = new javax.swing.ButtonGroup();
+        grupoBotoesDescontos = new javax.swing.ButtonGroup();
+        grupoBotoesCancelamentos = new javax.swing.ButtonGroup();
         painelSuperior = new javax.swing.JPanel();
         textoIconeConfiguracoes = new javax.swing.JLabel();
         textoConfiguracoes = new javax.swing.JLabel();
@@ -82,6 +97,19 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         textoDefinaConfiguracoesDebug = new javax.swing.JLabel();
         checkboxIniciarConsole = new javax.swing.JCheckBox();
         textoParaFazerEfeito = new javax.swing.JLabel();
+        painelFechamento = new javax.swing.JPanel();
+        textoPrincipal = new javax.swing.JLabel();
+        textoRetiradas = new javax.swing.JLabel();
+        radioRetiradaCompleto = new javax.swing.JRadioButton();
+        radioRetiradaResumido = new javax.swing.JRadioButton();
+        separador1 = new javax.swing.JSeparator();
+        textoDescontos = new javax.swing.JLabel();
+        radioDescontosCompleto = new javax.swing.JRadioButton();
+        radioDescontosResumido = new javax.swing.JRadioButton();
+        separador2 = new javax.swing.JSeparator();
+        textoCancelamentos = new javax.swing.JLabel();
+        radioCancelamentosCompleto = new javax.swing.JRadioButton();
+        radioCancelamentosResumido = new javax.swing.JRadioButton();
         botaoSalvarConfiguracoes = new javax.swing.JButton();
         botaCancelarConfiguracoes = new javax.swing.JButton();
 
@@ -164,7 +192,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 .addComponent(textoNomeCaixa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoNomeCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelImpressoraCozinha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cozinha"));
@@ -218,7 +246,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                         .addComponent(painelImpressoraCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelImpressoraCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelImpressorasLayout.setVerticalGroup(
@@ -256,7 +284,7 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                         .addComponent(checkboxIniciarConsole)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(textoParaFazerEfeito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoDefinaConfiguracoesDebug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
+                    .addComponent(textoDefinaConfiguracoesDebug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelDebugLayout.setVerticalGroup(
@@ -266,12 +294,141 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 .addComponent(textoDefinaConfiguracoesDebug)
                 .addGap(18, 18, 18)
                 .addComponent(checkboxIniciarConsole)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(textoParaFazerEfeito)
-                .addContainerGap())
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         painelComAbasGeral.addTab("<html><font size=4><b>Debug", new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/monitor-26.png")), painelDebug); // NOI18N
+
+        textoPrincipal.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        textoPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoPrincipal.setText("Selecione a opção desejada para a impressão do relatório de Fechamento de Caixa.");
+
+        textoRetiradas.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoRetiradas.setText("Informações de Retiradas");
+
+        grupoBotoesRetiradas.add(radioRetiradaCompleto);
+        radioRetiradaCompleto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioRetiradaCompleto.setText("Completo");
+        radioRetiradaCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioRetiradaCompletoActionPerformed(evt);
+            }
+        });
+
+        grupoBotoesRetiradas.add(radioRetiradaResumido);
+        radioRetiradaResumido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioRetiradaResumido.setText("Resumido");
+
+        separador1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        textoDescontos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoDescontos.setText("Informações de Descontos");
+
+        grupoBotoesDescontos.add(radioDescontosCompleto);
+        radioDescontosCompleto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioDescontosCompleto.setText("Completo");
+        radioDescontosCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioDescontosCompletoActionPerformed(evt);
+            }
+        });
+
+        grupoBotoesDescontos.add(radioDescontosResumido);
+        radioDescontosResumido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioDescontosResumido.setText("Resumido");
+
+        separador2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        textoCancelamentos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoCancelamentos.setText("Informações de Cancelamentos");
+
+        grupoBotoesCancelamentos.add(radioCancelamentosCompleto);
+        radioCancelamentosCompleto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioCancelamentosCompleto.setText("Completo");
+        radioCancelamentosCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioCancelamentosCompletoActionPerformed(evt);
+            }
+        });
+
+        grupoBotoesCancelamentos.add(radioCancelamentosResumido);
+        radioCancelamentosResumido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radioCancelamentosResumido.setText("Resumido");
+
+        javax.swing.GroupLayout painelFechamentoLayout = new javax.swing.GroupLayout(painelFechamento);
+        painelFechamento.setLayout(painelFechamentoLayout);
+        painelFechamentoLayout.setHorizontalGroup(
+            painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelFechamentoLayout.createSequentialGroup()
+                        .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoRetiradas)
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioRetiradaCompleto)
+                                    .addComponent(radioRetiradaResumido))))
+                        .addGap(35, 35, 35)
+                        .addComponent(separador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoDescontos)
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioDescontosCompleto)
+                                    .addComponent(radioDescontosResumido))))
+                        .addGap(35, 35, 35)
+                        .addComponent(separador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoCancelamentos)
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioCancelamentosCompleto)
+                                    .addComponent(radioCancelamentosResumido))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        painelFechamentoLayout.setVerticalGroup(
+            painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoPrincipal)
+                .addGap(25, 25, 25)
+                .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelFechamentoLayout.createSequentialGroup()
+                        .addGroup(painelFechamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addComponent(textoRetiradas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(radioRetiradaCompleto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioRetiradaResumido))
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addComponent(textoDescontos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioDescontosCompleto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioDescontosResumido))
+                            .addGroup(painelFechamentoLayout.createSequentialGroup()
+                                .addComponent(textoCancelamentos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioCancelamentosCompleto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioCancelamentosResumido)))
+                        .addGap(31, 31, 31))
+                    .addComponent(separador1)
+                    .addComponent(separador2)))
+        );
+
+        painelComAbasGeral.addTab("<html><font size=4><b>Fechamento de Caixa", new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/check-32.png")), painelFechamento); // NOI18N
 
         botaoSalvarConfiguracoes.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         botaoSalvarConfiguracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/ok-32.png"))); // NOI18N
@@ -299,13 +456,14 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaCancelarConfiguracoes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoSalvarConfiguracoes))
                     .addComponent(painelComAbasGeral))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(botaCancelarConfiguracoes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoSalvarConfiguracoes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,15 +471,15 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelComAbasGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(painelComAbasGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 211, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoSalvarConfiguracoes)
-                    .addComponent(botaCancelarConfiguracoes))
+                    .addComponent(botaCancelarConfiguracoes)
+                    .addComponent(botaoSalvarConfiguracoes))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(757, 459));
+        setSize(new java.awt.Dimension(738, 415));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -365,6 +523,26 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
         ativarConsole = Boolean.parseBoolean(prop.getProperty("prop.debug.console"));
         if (ativarConsole) {
             checkboxIniciarConsole.setSelected(true);
+        }
+    }
+    
+    private void preencheCamposFechamento() {        
+        if(Boolean.parseBoolean(prop.getProperty("prop.fechamento.resumido.cancelamento"))) {
+            radioCancelamentosResumido.setSelected(true);
+        } else {
+            radioCancelamentosCompleto.setSelected(true);
+        }
+        
+        if(Boolean.parseBoolean(prop.getProperty("prop.fechamento.resumido.desconto"))) {
+            radioDescontosResumido.setSelected(true);
+        } else {
+            radioDescontosCompleto.setSelected(true);
+        }
+        
+        if(Boolean.parseBoolean(prop.getProperty("prop.fechamento.resumido.retirada"))) {
+            radioRetiradaResumido.setSelected(true);
+        } else {
+            radioRetiradaCompleto.setSelected(true);
         }
     }
 
@@ -421,6 +599,23 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
             return false;
         }
     }
+    
+    private boolean salvarConfigsFechamento() {
+        try {
+            salvouF[0] = ManipulaConfigs.setProp("prop.fechamento.resumido.cancelamento", String.valueOf(radioCancelamentosResumido.isSelected()));            
+            salvouF[1] = ManipulaConfigs.setProp("prop.fechamento.resumido.desconto", String.valueOf(radioDescontosResumido.isSelected()));            
+            salvouF[2] = ManipulaConfigs.setProp("prop.fechamento.resumido.retirada", String.valueOf(radioRetiradaResumido.isSelected()));                        
+        } catch (IOException ex) {
+            Logger.getLogger(TelaConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        for (int i = 0; i < 3; i++) {
+            if (salvouF[i] == false) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void botaCancelarConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaCancelarConfiguracoesActionPerformed
         this.dispose();
@@ -428,13 +623,26 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
 
     private void botaoSalvarConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarConfiguracoesActionPerformed
         // VERIFICAR E SALVAR AS CONFIGS, no momento apenas a config do console está sendo salva
-        if (salvarConfigsDebug() && salvarConfigsImpressoraCaixa() && salvarConfigsImpressoraCozinha()) {
+        if (salvarConfigsDebug() && salvarConfigsImpressoraCaixa() && salvarConfigsImpressoraCozinha() && salvarConfigsFechamento()) {
             System.out.println("As configurações foram salvas com sucesso!");
             this.dispose();
         } else {
             System.out.println("Houve erro ao salvar as Configurações");
         }
     }//GEN-LAST:event_botaoSalvarConfiguracoesActionPerformed
+
+    private void radioRetiradaCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioRetiradaCompletoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioRetiradaCompletoActionPerformed
+
+    private void radioDescontosCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioDescontosCompletoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioDescontosCompletoActionPerformed
+
+    private void radioCancelamentosCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCancelamentosCompletoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioCancelamentosCompletoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CampoNomeCozinha;
     private javax.swing.JButton botaCancelarConfiguracoes;
@@ -443,21 +651,35 @@ public class TelaConfiguracoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox checkboxAtivarImpressoraCaixa;
     private javax.swing.JCheckBox checkboxAtivarImpressoraCozinha;
     private javax.swing.JCheckBox checkboxIniciarConsole;
-    private javax.swing.ButtonGroup grupoBotoesCaixa;
-    private javax.swing.ButtonGroup grupoBotoesCozinha;
+    private javax.swing.ButtonGroup grupoBotoesCancelamentos;
+    private javax.swing.ButtonGroup grupoBotoesDescontos;
+    private javax.swing.ButtonGroup grupoBotoesRetiradas;
     private javax.swing.JTabbedPane painelComAbasGeral;
     private javax.swing.JPanel painelDebug;
+    private javax.swing.JPanel painelFechamento;
     private javax.swing.JPanel painelImpressoraCaixa;
     private javax.swing.JPanel painelImpressoraCozinha;
     private javax.swing.JPanel painelImpressoras;
     private javax.swing.JPanel painelSuperior;
+    private javax.swing.JRadioButton radioCancelamentosCompleto;
+    private javax.swing.JRadioButton radioCancelamentosResumido;
+    private javax.swing.JRadioButton radioDescontosCompleto;
+    private javax.swing.JRadioButton radioDescontosResumido;
+    private javax.swing.JRadioButton radioRetiradaCompleto;
+    private javax.swing.JRadioButton radioRetiradaResumido;
+    private javax.swing.JSeparator separador1;
+    private javax.swing.JSeparator separador2;
+    private javax.swing.JLabel textoCancelamentos;
     private javax.swing.JLabel textoConfiguracoes;
     private javax.swing.JLabel textoDefinaConfiguracoesDebug;
     private javax.swing.JLabel textoDefinaModelosEPortas;
+    private javax.swing.JLabel textoDescontos;
     private javax.swing.JLabel textoIconeConfiguracoes;
     private javax.swing.JLabel textoNaveguePelasAbas;
     private javax.swing.JLabel textoNomeCaixa;
     private javax.swing.JLabel textoNomeCozinha;
     private javax.swing.JLabel textoParaFazerEfeito;
+    private javax.swing.JLabel textoPrincipal;
+    private javax.swing.JLabel textoRetiradas;
     // End of variables declaration//GEN-END:variables
 }
