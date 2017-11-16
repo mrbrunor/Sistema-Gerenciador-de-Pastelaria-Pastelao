@@ -65,9 +65,13 @@ public class CaixaTableModel extends AbstractTableModel {
             case 1:                
                 return formatador.format(caixa.getDataAberturaCaixa().getTime());
             case 2:
-                return formatador.format(caixa.getDataFechamentoCaixa().getTime());
+                if(caixa.getEstaAberto() == 1) {
+                    return "Caixa Aberto";
+                } else {
+                    return formatador.format(caixa.getDataFechamentoCaixa().getTime());
+                }
             case 3:
-                return caixa.getTotalCaixa();            
+                return String.format("%.02f", caixa.getTotalCaixa());
         }
         return null;
     }
