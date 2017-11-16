@@ -80,7 +80,10 @@ public class Imprimir {
     private int idFormaVale = 0;    
     public static PrinterJob pjCaixa = PrinterJob.getPrinterJob();
     public static PrinterJob pjCozinha = PrinterJob.getPrinterJob();    
-    public static PrinterJob pjFechamento = PrinterJob.getPrinterJob();    
+    public static PrinterJob pjFechamento = PrinterJob.getPrinterJob(); 
+    private boolean resumirCancelamentos;
+    private boolean resumirDescontos;
+    private boolean resumirRetiradas;    
     
     public Imprimir(int idCaixa) {
         Fechamento fechamento = new Fechamento(idCaixa);
@@ -95,6 +98,10 @@ public class Imprimir {
         }
         nomeProp = "prop.impressora."; //Facilitar a procura no arquivo de propriedades;
         impCaixaName = props.getProperty(nomeProp + "caixa.nome");
+        
+        resumirCancelamentos = Boolean.parseBoolean(props.getProperty("prop.fechamento.resumido.cancelamento"));
+        resumirDescontos = Boolean.parseBoolean(props.getProperty("prop.fechamento.resumido.desconto"));
+        resumirRetiradas = Boolean.parseBoolean(props.getProperty("prop.fechamento.resumido.retirada"));
         
         for (PrintService service : services) {
             if (impCaixaName.equals(service.getName())) {
@@ -596,14 +603,14 @@ public class Imprimir {
                     if (caixa.getDespesas() != null && !caixa.getDespesas().isEmpty()) {
                         g2d.drawString("Quantidade de Retiradas: " + caixa.getDespesas().size(), 6, y); y += yShift + 10;
                         
-                        /*
-                        g2d.drawString("Lista de Retiradas", 6, y); y += yShift + 15;                        
-                        for (int i = 0; caixa.getDespesas().size() > i; i++) {
-                            g2d.drawString("Retirada " + (i + 1), 6, y); y += yShift + 10;
-                            g2d.drawString("Motivo: " + caixa.getDespesas().get(i).getDescDesp(), 6, y); y += yShift + 10;
-                            g2d.drawString("Valor: " + String.format("R$ %.2f", caixa.getDespesas().get(i).getValorDesp()), 6, y); y += yShift + 20;                           
+                        if(!resumirRetiradas) {                        
+                            g2d.drawString("Lista de Retiradas", 6, y); y += yShift + 15;                        
+                            for (int i = 0; caixa.getDespesas().size() > i; i++) {
+                                g2d.drawString("Retirada " + (i + 1), 6, y); y += yShift + 10;
+                                g2d.drawString("Motivo: " + caixa.getDespesas().get(i).getDescDesp(), 6, y); y += yShift + 10;
+                                g2d.drawString("Valor: " + String.format("R$ %.2f", caixa.getDespesas().get(i).getValorDesp()), 6, y); y += yShift + 20;                           
+                            }
                         }
-                        */
                         g2d.drawString("Total de Retiradas: " + String.format("R$ %.2f", totalDesp), 6, y); y += yShift + 10;
                     } else {
                         y += 10;
@@ -621,16 +628,17 @@ public class Imprimir {
                         g2d.drawString("Sem Descontos", 6, y); y += yShift + 10;
                     } else {
                         g2d.drawString("Quantidade de Descontos: " + qtdPedDesc, 6, y); y += yShift + 10;
-                        /*
-                        g2d.drawString("Lista de Descontos", 6, y); y += yShift + 15;
-                        for (int i = 0; caixa.getPedidos().size() > i; i++) {
-                            if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
-                                g2d.drawString("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
-                                g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 10;
-                                g2d.drawString("Valor do Desconto: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()), 6, y); y += yShift + 20;                           
-                            }                            
+                        
+                        if(!resumirDescontos) {
+                            g2d.drawString("Lista de Descontos", 6, y); y += yShift + 15;
+                            for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                                if (caixa.getPedidos().get(i).getDescPedido() > 0 && "Finalizado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {
+                                    g2d.drawString("Numero do Pedido: " + caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
+                                    g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 10;
+                                    g2d.drawString("Valor do Desconto: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getDescPedido()), 6, y); y += yShift + 20;                           
+                                }                            
+                            }
                         }
-                        */
                         g2d.drawString("Total de Descontos: " + String.format("R$ %.2f", descontoTotal), 6, y); y += yShift + 10;                        
                     }
                     g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
@@ -645,16 +653,15 @@ public class Imprimir {
                         g2d.drawString("Sem Cancelamentos", 6, y); y += yShift + 10;
                     } else {
                         g2d.drawString("Quantidade de Cancelamentos: " + qtdPedCanc, 6, y); y += yShift + 10;
-                        /*
-                        g2d.drawString("Lista de Cancelamentos", 6, y); y += yShift + 15;
-                        double totalCanc = 0;
-                        for (int i = 0; caixa.getPedidos().size() > i; i++) {
-                            if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {                                
-                                g2d.drawString("Numero do Pedido: "+ caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
-                                g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 20;
-                            }                            
+                        if(!resumirCancelamentos) {
+                            g2d.drawString("Lista de Cancelamentos", 6, y); y += yShift + 15;                            
+                            for (int i = 0; caixa.getPedidos().size() > i; i++) {
+                                if ("Cancelado".equals(caixa.getPedidos().get(i).getEstadoPedido())) {                                
+                                    g2d.drawString("Numero do Pedido: "+ caixa.getPedidos().get(i).getNumPedido(), 6, y); y += yShift + 10;
+                                    g2d.drawString("Valor do Pedido: " + String.format("R$ %.2f", caixa.getPedidos().get(i).getSubTotPedido()), 6, y); y += yShift + 20;
+                                }                            
+                            }
                         }
-                        */
                         g2d.drawString("Total de Cancelamentos: " + String.format("R$ %.2f", totalCanc), 6, y); y += yShift + 10;                        
                     }
                     g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
