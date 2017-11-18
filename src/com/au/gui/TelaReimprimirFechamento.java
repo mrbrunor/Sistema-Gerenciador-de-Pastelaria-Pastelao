@@ -329,11 +329,13 @@ public class TelaReimprimirFechamento extends javax.swing.JDialog implements Lis
         if (comboBoxCaixasAbertos.getSelectedItem() == "Não") {
             aberto = false;
         }        
-        List<Caixa> listaResCaixa;        
-        cDao.abreConnection();
-        listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), ob.getId(), aberto);        
-        atualizaTableModel(listaResCaixa);
-        cDao.fechaConnection();
+        List<Caixa> listaResCaixa;
+        if(valida()) {
+            cDao.abreConnection();
+            listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), ob.getId(), aberto);        
+            atualizaTableModel(listaResCaixa);
+            cDao.fechaConnection();
+        }
     }//GEN-LAST:event_botaoProcurarCaixaActionPerformed
 
     private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
@@ -360,6 +362,20 @@ public class TelaReimprimirFechamento extends javax.swing.JDialog implements Lis
         tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMaxWidth(150);
         tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);        
         tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(150);        
+    }
+    
+    private boolean valida() {
+        boolean valida = true;
+        
+        if(dateChooserDataInicio.getDate() == null || dateChooserDataFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione os campos Data de Inicio e Data Final antes de clicar em continuar.", "Selecionar as Datas", JOptionPane.WARNING_MESSAGE);
+            valida = false;
+        } else if(caixaSelecaoFuncionario.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione o Funcionário antes de clicar em continuar.", "Selecionar o Funcionário", JOptionPane.WARNING_MESSAGE);
+            valida = false;
+        }
+        
+        return valida;
     }
     
     public JButton getBotaoProcurarCaixa() {

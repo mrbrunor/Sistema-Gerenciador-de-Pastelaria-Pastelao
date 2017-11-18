@@ -33,7 +33,7 @@ public class CaixaTableModelTela extends AbstractTableModel {
 
     public CaixaTableModelTela(List<Caixa> caixas) {
         this.caixas = caixas;
-        colunas = Arrays.asList("ID", "Funcionário", "Abertura", "Fechamento", "Total Caixa");
+        colunas = Arrays.asList("ID", "Funcionário", "Abertura", "Fechamento", "Total");
     }
 
     @Override

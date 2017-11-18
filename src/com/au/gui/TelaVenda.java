@@ -25,7 +25,6 @@ import com.au.bean.Produto;
 import com.au.dao.CaixaDao;
 import com.au.dao.PedidoDao;
 import com.au.dao.ProdutoDao;
-import com.au.gui.incompletas.TelaVisualizarCaixa;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import com.au.util.setarIcone;

@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.au.gui.incompletas;
+package com.au.gui;
 
 import com.au.bean.Caixa;
 import com.au.bean.Despesa;
-import com.au.bean.FormaPagamento;
 import com.au.bean.Pedido;
 import com.au.dao.CaixaDao;
 import com.au.dao.DespesaDao;
 import com.au.dao.FormaPagamentoDao;
+import com.au.dao.FuncionarioDao;
 import com.au.dao.PedidoDao;
 import com.au.gui.tmodel.CaixaTableModelTela;
 import com.au.util.Imprimir;
@@ -48,6 +48,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
     FormaPagamentoDao fpDao = new FormaPagamentoDao();
     PedidoDao pDao = new PedidoDao();
     DespesaDao dDao = new DespesaDao();
+    FuncionarioDao fDao = new FuncionarioDao();    
     /**
      * Creates new form TelaCadastrarUsuario
      * @param parent
@@ -214,10 +215,25 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
 
             },
             new String [] {
-                "ID", "Funcionário", "Abertura", "Fechamento", "Total Caixa"
+                "ID", "Funcionário", "Abertura", "Fechamento", "Total"
             }
         ));
         painelScrollCaixasEncontrados.setViewportView(tabelaCaixasEncontrados);
+        if (tabelaCaixasEncontrados.getColumnModel().getColumnCount() > 0) {
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMinWidth(60);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(60);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMinWidth(100);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMaxWidth(100);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMinWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(4).setMinWidth(100);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabelaCaixasEncontrados.getColumnModel().getColumn(4).setMaxWidth(100);
+        }
 
         textoParaEditaloNoPainelAoLado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoParaEditaloNoPainelAoLado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -748,7 +764,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -768,11 +784,33 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
         }        
         List<Caixa> listaResCaixa; 
         
-        cDao.abreConnection();
-        listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), 0, aberto);        
-        cDao.fechaConnection();
-        atualizaTableModel(listaResCaixa);
-        cDao.fechaConnection();
+        if(valida()) {
+            cDao.abreConnection();
+            listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), 0, aberto);
+
+            fDao.abreConnection();
+            pDao.abreConnection();
+            dDao.abreConnection();
+            fpDao.abreConnection();
+            
+            for(Caixa caixa : listaResCaixa) {
+                caixa.setFuncionario(fDao.buscaPrId(caixa.getIdFunc()));
+                caixa.setPedidos(pDao.listaPedidosPorCaixa(caixa.getIdCaixa()));
+                for(Pedido pedido : caixa.getPedidos()) {
+                    pedido.setFormaPagamento(fpDao.listaFormaPagamentoPorId(pedido.getIdFormaPgto()));
+                }
+                caixa.setDespesas(dDao.listaDespesasPorCaixa(caixa.getIdCaixa()));
+            }
+            
+            cDao.fechaConnection();
+            fDao.fechaConnection();
+            pDao.fechaConnection();
+            dDao.fechaConnection();                        
+            fpDao.fechaConnection();
+            
+            
+            atualizaTableModel(listaResCaixa);            
+        }
     }//GEN-LAST:event_botaoProcurarCaixaActionPerformed
 
     private void botaoReimprimirRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReimprimirRelatorioActionPerformed
@@ -791,10 +829,21 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
         tableModel = new CaixaTableModelTela(caixas);
         tabelaCaixasEncontrados.setModel(tableModel);
         tabelaCaixasEncontrados.getSelectionModel().addListSelectionListener(this);
-        tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(80);
-        tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);
-        tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(150);        
-        tabelaCaixasEncontrados.getColumnModel().getColumn(4).setMaxWidth(150);        
+        tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(1).setMaxWidth(120);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(140);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(140);        
+        tabelaCaixasEncontrados.getColumnModel().getColumn(4).setMaxWidth(80);        
+    }
+    
+    private boolean valida() {
+        boolean valida = true;
+        
+        if(dateChooserDataInicio.getDate() == null || dateChooserDataFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione os campos Data de Inicio e Data Final antes de clicar em continuar.", "Selecionar as Datas", JOptionPane.WARNING_MESSAGE);
+            valida = false;
+        }        
+        return valida;
     }
     
     private void caixaToForm() {
@@ -814,30 +863,19 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
         double totalPagoDebito = 0;
         double totalPagoVale = 0;
         
-        pDao.abreConnection();
-        idCaixa.setPedidos(pDao.listaPedidosPorCaixa(idCaixa.getIdCaixa()));
-        pDao.fechaConnection();
-        
-        dDao.abreConnection();
-        idCaixa.setDespesas(dDao.listaDespesasPorCaixa(idCaixa.getIdCaixa()));
-        dDao.fechaConnection();
-        
-        fpDao.abreConnection();             
-        FormaPagamento fp;
         for(Pedido pedido : idCaixa.getPedidos()) {
-            qtdPedidos++;
-            fp = fpDao.listaFormaPagamentoPorId(pedido.getIdFormaPgto());            
+            qtdPedidos++;            
             if(pedido.getEstadoPedido().equals("Finalizado")){
-                if(fp.getTipoFormaPgto().equals("Dinheiro")) {
+                if(pedido.getFormaPagamento().getTipoFormaPgto().equals("Dinheiro")) {
                     qtdPedDinheiro++;
                     totalPagoDinheiro += pedido.getSubTotPedido();
-                } else if(fp.getTipoFormaPgto().equals("Credito")) {
+                } else if(pedido.getFormaPagamento().getTipoFormaPgto().equals("Credito")) {
                     qtdPedCredito++;
                     totalPagoCredito += pedido.getSubTotPedido();
-                } else if(fp.getTipoFormaPgto().equals("Debito")) {
+                } else if(pedido.getFormaPagamento().getTipoFormaPgto().equals("Debito")) {
                     qtdPedDebito++;
                     totalPagoDebito += pedido.getSubTotPedido();
-                } else if(fp.getTipoFormaPgto().equals("Vale")) {
+                } else if(pedido.getFormaPagamento().getTipoFormaPgto().equals("Vale")) {
                     qtdPedVale++;
                     totalPagoVale += pedido.getSubTotPedido();
                 } 
@@ -850,8 +888,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSele
                 qtdCancelamento++;
                 totalCancelamento += pedido.getTotPedido();
             }
-        }
-        fpDao.fechaConnection();
+        }       
         
         for(Despesa despesa : idCaixa.getDespesas()) {
             if(despesa.getRetirada() == 1) {
