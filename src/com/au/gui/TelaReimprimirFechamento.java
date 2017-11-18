@@ -333,6 +333,7 @@ public class TelaReimprimirFechamento extends javax.swing.JDialog implements Lis
         cDao.abreConnection();
         listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), ob.getId(), aberto);        
         atualizaTableModel(listaResCaixa);
+        cDao.fechaConnection();
     }//GEN-LAST:event_botaoProcurarCaixaActionPerformed
 
     private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed

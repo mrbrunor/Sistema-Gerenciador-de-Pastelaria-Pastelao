@@ -25,6 +25,7 @@ import com.au.bean.Produto;
 import com.au.dao.CaixaDao;
 import com.au.dao.PedidoDao;
 import com.au.dao.ProdutoDao;
+import com.au.gui.incompletas.TelaVisualizarCaixa;
 import com.au.util.Clock;
 import com.au.util.LimitaDigitos;
 import com.au.util.setarIcone;
@@ -149,6 +150,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuVendasFiltradasFormaPgto = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         itemMenuRFechamentoCaixa = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         itemMenuSobre = new javax.swing.JMenuItem();
         itemMenuConfigurações = new javax.swing.JMenuItem();
@@ -382,21 +384,11 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
                 campoBuscaFocusGained(evt);
             }
         });
-        campoBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoBuscaActionPerformed(evt);
-            }
-        });
 
         botaoBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoBuscar.setText("Buscar");
         botaoBuscar.setToolTipText("Clique aqui para buscar");
-        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoBuscarActionPerformed(evt);
-            }
-        });
 
         tabelaBusca.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tabelaBusca.setModel(new javax.swing.table.DefaultTableModel(
@@ -590,6 +582,14 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
             }
         });
         MenuRelatorio.add(itemMenuRFechamentoCaixa);
+
+        jMenuItem1.setText("Visualizar Fechamento de Caixa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenuRelatorio.add(jMenuItem1);
 
         barraMenu.add(MenuRelatorio);
 
@@ -793,13 +793,9 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         new TelaReimprimirFechamento(this, true).setVisible(true);
     }//GEN-LAST:event_itemMenuRFechamentoCaixaActionPerformed
 
-    private void campoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoBuscaActionPerformed
-
-    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoBuscarActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new TelaVisualizarCaixa(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {
@@ -1214,6 +1210,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuVendasFiltradasFormaPgto;
     private javax.swing.JMenuItem itemMenuVendasGerais;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;

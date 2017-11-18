@@ -179,9 +179,17 @@ public class CaixaDao {
         String sql;
         
         if (caixaAberto) {
-            sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ?";
+            if(idFuncionario != 0) {
+                sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ?";
+            } else {
+                sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?)";
+            }
         } else {
-            sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ? AND estaAberto = 0";            
+            if(idFuncionario != 0) {
+                sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND idFunc = ? AND estaAberto = 0";
+            } else {
+                sql = "SELECT * FROM sistemapastelao.Caixa where (dataAberturaCaixa BETWEEN ? AND ?) AND estaAberto = 0";
+            }
         }
                 
         PreparedStatement stmt;
@@ -195,7 +203,9 @@ public class CaixaDao {
             
             stmt.setDate(1, dateInicio);
             stmt.setDate(2, dateFinal);
-            stmt.setInt(3, idFuncionario);            
+            if(idFuncionario != 0) {
+                stmt.setInt(3, idFuncionario);            
+            }
             res = stmt.executeQuery();           
             
             while (res.next()) {

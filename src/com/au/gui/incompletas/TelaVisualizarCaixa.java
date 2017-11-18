@@ -16,18 +16,38 @@
  */
 package com.au.gui.incompletas;
 
+import com.au.bean.Caixa;
+import com.au.bean.Despesa;
+import com.au.bean.FormaPagamento;
+import com.au.bean.Pedido;
+import com.au.dao.CaixaDao;
+import com.au.dao.DespesaDao;
+import com.au.dao.FormaPagamentoDao;
+import com.au.dao.PedidoDao;
+import com.au.gui.tmodel.CaixaTableModelTela;
+import com.au.util.Imprimir;
 import com.toedter.calendar.JDateChooser;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author tiago_000
  */
-public class TelaVisualizarCaixa extends javax.swing.JDialog {
-
+public class TelaVisualizarCaixa extends javax.swing.JDialog implements ListSelectionListener {
+    
+    private CaixaTableModelTela tableModel;    
+    private Caixa idCaixa = null;
+    CaixaDao cDao = new CaixaDao();
+    FormaPagamentoDao fpDao = new FormaPagamentoDao();
+    PedidoDao pDao = new PedidoDao();
+    DespesaDao dDao = new DespesaDao();
     /**
      * Creates new form TelaCadastrarUsuario
      * @param parent
@@ -36,7 +56,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     public TelaVisualizarCaixa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        dateChooserDataAberturaCaixa.requestFocus();
+        dateChooserDataInicio.requestFocus();
     }
 
     /**
@@ -57,13 +77,14 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         textoDataAberturaCaixa = new javax.swing.JLabel();
         textoCaixasAbertos = new javax.swing.JLabel();
         comboBoxCaixasAbertos = new javax.swing.JComboBox();
-        dateChooserDataAberturaCaixa = new com.toedter.calendar.JDateChooser();
+        dateChooserDataInicio = new com.toedter.calendar.JDateChooser();
         separadorBuscaResultado = new javax.swing.JSeparator();
         textoCliqueNoCaixaDesejado = new javax.swing.JLabel();
         painelScrollCaixasEncontrados = new javax.swing.JScrollPane();
         tabelaCaixasEncontrados = new javax.swing.JTable();
-        botaoVisualizarDetalhesCaixa = new javax.swing.JButton();
         textoParaEditaloNoPainelAoLado = new javax.swing.JLabel();
+        textoDataAberturaCaixa1 = new javax.swing.JLabel();
+        dateChooserDataFinal = new com.toedter.calendar.JDateChooser();
         painelDetalhesCaixa = new javax.swing.JPanel();
         separador1 = new javax.swing.JSeparator();
         textoInformacoesGerais = new javax.swing.JLabel();
@@ -146,7 +167,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                 .addGroup(painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoVisualizarCaixas)
                     .addComponent(textoPreencherDados))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(606, Short.MAX_VALUE))
         );
         painelSuperiorLayout.setVerticalGroup(
             painelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,17 +188,22 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         botaoProcurarCaixa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoProcurarCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/search-26.png"))); // NOI18N
         botaoProcurarCaixa.setText("Procurar");
+        botaoProcurarCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProcurarCaixaActionPerformed(evt);
+            }
+        });
 
         textoDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        textoDataAberturaCaixa.setText("Data de Abertura do Caixa:");
+        textoDataAberturaCaixa.setText("Data de Inicio:");
 
         textoCaixasAbertos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCaixasAbertos.setText("Incluir Caixas Abertos?");
 
         comboBoxCaixasAbertos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
 
-        dateChooserDataAberturaCaixa.setDateFormatString("dd-MM-yyyy");
-        dateChooserDataAberturaCaixa.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        dateChooserDataInicio.setDateFormatString("dd-MM-yyyy");
+        dateChooserDataInicio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
         textoCliqueNoCaixaDesejado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoCliqueNoCaixaDesejado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -188,45 +214,54 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Funcionário", "Data", "Abertura", "Fechamento"
+                "ID", "Funcionário", "Abertura", "Fechamento", "Total Caixa"
             }
         ));
         painelScrollCaixasEncontrados.setViewportView(tabelaCaixasEncontrados);
-
-        botaoVisualizarDetalhesCaixa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        botaoVisualizarDetalhesCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/redo-32.png"))); // NOI18N
-        botaoVisualizarDetalhesCaixa.setText("Visualizar Detalhes do Caixa Selecionado");
 
         textoParaEditaloNoPainelAoLado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         textoParaEditaloNoPainelAoLado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoParaEditaloNoPainelAoLado.setText("para editá-lo no painel ao lado:");
 
+        textoDataAberturaCaixa1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        textoDataAberturaCaixa1.setText("Data Final:");
+
+        dateChooserDataFinal.setDateFormatString("dd-MM-yyyy");
+        dateChooserDataFinal.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
         javax.swing.GroupLayout painelBuscarCaixaLayout = new javax.swing.GroupLayout(painelBuscarCaixa);
         painelBuscarCaixa.setLayout(painelBuscarCaixaLayout);
         painelBuscarCaixaLayout.setHorizontalGroup(
             painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBuscarCaixaLayout.createSequentialGroup()
+                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(separadorBuscaResultado)
+                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoParaEditaloNoPainelAoLado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoCliqueNoCaixaDesejado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(painelScrollCaixasEncontrados)
+                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoDataAberturaCaixa)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                                        .addComponent(textoDataAberturaCaixa1)
+                                        .addGap(96, 96, 96)
+                                        .addComponent(dateChooserDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(51, 51, 51)
+                                .addComponent(botaoProcurarCaixa)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
             .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoParaEditaloNoPainelAoLado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(separadorBuscaResultado)
-                    .addComponent(textoCliqueNoCaixaDesejado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
-                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
-                                .addComponent(textoDataAberturaCaixa)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateChooserDataAberturaCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
-                                .addComponent(textoCaixasAbertos)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoProcurarCaixa)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(botaoVisualizarDetalhesCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(textoCaixasAbertos)
+                .addGap(18, 18, 18)
+                .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelBuscarCaixaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoCaixasAbertos, textoDataAberturaCaixa});
@@ -235,27 +270,31 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
             painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botaoProcurarCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelBuscarCaixaLayout.createSequentialGroup()
+                .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
+                        .addComponent(botaoProcurarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(36, 36, 36))
+                    .addGroup(painelBuscarCaixaLayout.createSequentialGroup()
                         .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(textoDataAberturaCaixa)
-                            .addComponent(dateChooserDataAberturaCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateChooserDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoDataAberturaCaixa1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelBuscarCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoCaixasAbertos)
-                            .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(separadorBuscaResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxCaixasAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(separadorBuscaResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoCliqueNoCaixaDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoParaEditaloNoPainelAoLado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoVisualizarDetalhesCaixa)
-                .addContainerGap())
+                .addComponent(painelScrollCaixasEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
 
         painelDetalhesCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Detalhes do Caixa"));
@@ -521,7 +560,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                             .addComponent(textoValorCredito)
                             .addComponent(textoValorDebito)
                             .addComponent(textoValorVale))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelDetalhesCaixaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoTotalCaixa, textoTotalFaturadoBalanco, textoTotalRetiradasBalanco});
@@ -644,16 +683,26 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                                     .addComponent(textoValorTotalDescontos))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoSemDescontos)))
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botaoVoltarTelaPrincipal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoVoltarTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/undo-32.png"))); // NOI18N
         botaoVoltarTelaPrincipal.setText("Voltar à Tela Principal");
+        botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarTelaPrincipalActionPerformed(evt);
+            }
+        });
 
         botaoReimprimirRelatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoReimprimirRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/check-32.png"))); // NOI18N
         botaoReimprimirRelatorio.setText("Reimprimir Relatório de Fechamento de Caixa");
+        botaoReimprimirRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoReimprimirRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -688,8 +737,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -699,8 +747,8 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelBuscarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelDetalhesCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -709,6 +757,136 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoVoltarTelaPrincipalActionPerformed
+
+    private void botaoProcurarCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarCaixaActionPerformed
+        boolean aberto = true;
+        if (comboBoxCaixasAbertos.getSelectedItem() == "Não") {
+            aberto = false;
+        }        
+        List<Caixa> listaResCaixa; 
+        
+        cDao.abreConnection();
+        listaResCaixa = cDao.listaCaixaPersonalizado(dateChooserDataInicio.getDate(), dateChooserDataFinal.getDate(), 0, aberto);        
+        cDao.fechaConnection();
+        atualizaTableModel(listaResCaixa);
+        cDao.fechaConnection();
+    }//GEN-LAST:event_botaoProcurarCaixaActionPerformed
+
+    private void botaoReimprimirRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReimprimirRelatorioActionPerformed
+        if(tabelaCaixasEncontrados.getSelectedRow() != -1 && idCaixa != null){                        
+            if(idCaixa.getEstaAberto() != 1) {
+                new Imprimir(idCaixa.getIdCaixa());
+            } else {
+                JOptionPane.showMessageDialog(this, "Não é possivel efetuar a impressão de um caixa aberto!", "Caixa Aberto", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um caixa antes de solicitar a impressão!", "Nenhum Caixa Selecionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoReimprimirRelatorioActionPerformed
+    
+    private void atualizaTableModel(List<Caixa> caixas) {        
+        tableModel = new CaixaTableModelTela(caixas);
+        tabelaCaixasEncontrados.setModel(tableModel);
+        tabelaCaixasEncontrados.getSelectionModel().addListSelectionListener(this);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(0).setMaxWidth(80);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(2).setMaxWidth(150);
+        tabelaCaixasEncontrados.getColumnModel().getColumn(3).setMaxWidth(150);        
+        tabelaCaixasEncontrados.getColumnModel().getColumn(4).setMaxWidth(150);        
+    }
+    
+    private void caixaToForm() {
+        int qtdPedidos = 0;
+        int qtdPedDinheiro = 0;
+        int qtdPedCredito = 0;
+        int qtdPedDebito = 0;
+        int qtdPedVale = 0;
+        int qtdDesconto = 0;
+        int qtdRetirada = 0;
+        int qtdCancelamento = 0;
+        double totalDesconto = 0;
+        double totalRetirada = 0;
+        double totalCancelamento = 0;
+        double totalPagoDinheiro = 0;
+        double totalPagoCredito = 0;
+        double totalPagoDebito = 0;
+        double totalPagoVale = 0;
+        
+        pDao.abreConnection();
+        idCaixa.setPedidos(pDao.listaPedidosPorCaixa(idCaixa.getIdCaixa()));
+        pDao.fechaConnection();
+        
+        dDao.abreConnection();
+        idCaixa.setDespesas(dDao.listaDespesasPorCaixa(idCaixa.getIdCaixa()));
+        dDao.fechaConnection();
+        
+        fpDao.abreConnection();             
+        FormaPagamento fp;
+        for(Pedido pedido : idCaixa.getPedidos()) {
+            qtdPedidos++;
+            fp = fpDao.listaFormaPagamentoPorId(pedido.getIdFormaPgto());            
+            if(pedido.getEstadoPedido().equals("Finalizado")){
+                if(fp.getTipoFormaPgto().equals("Dinheiro")) {
+                    qtdPedDinheiro++;
+                    totalPagoDinheiro += pedido.getSubTotPedido();
+                } else if(fp.getTipoFormaPgto().equals("Credito")) {
+                    qtdPedCredito++;
+                    totalPagoCredito += pedido.getSubTotPedido();
+                } else if(fp.getTipoFormaPgto().equals("Debito")) {
+                    qtdPedDebito++;
+                    totalPagoDebito += pedido.getSubTotPedido();
+                } else if(fp.getTipoFormaPgto().equals("Vale")) {
+                    qtdPedVale++;
+                    totalPagoVale += pedido.getSubTotPedido();
+                } 
+                
+                if(pedido.getDescPedido() > 0) {
+                    qtdDesconto++;
+                    totalDesconto += pedido.getTotPedido();
+                }  
+            } else if(pedido.getEstadoPedido().equals("Cancelado")){
+                qtdCancelamento++;
+                totalCancelamento += pedido.getTotPedido();
+            }
+        }
+        fpDao.fechaConnection();
+        
+        for(Despesa despesa : idCaixa.getDespesas()) {
+            if(despesa.getRetirada() == 1) {
+                qtdRetirada++;
+                totalRetirada += despesa.getValorDesp();
+            }
+        }
+        
+        textoValorFundoCaixa.setText(String.format("%.2f", idCaixa.getFundoCaixa()));
+        textoValorQuantidadePedidos.setText(String.format("%03d", qtdPedidos));
+        textoValorPagoComDinheiro.setText(String.format("%03d", qtdPedDinheiro));
+        textoValorPagoComCredito.setText(String.format("%03d", qtdPedCredito));
+        textoValorPagoComDebito.setText(String.format("%03d", qtdPedDebito));
+        textoValorPagoComVale.setText(String.format("%03d", qtdPedVale));
+              
+        textoValorTotalFaturadoBalanco.setText(String.format("%.2f", idCaixa.getTotalCaixa()));
+        textoValorTotalRetiradasBalanco.setText(String.format("%.2f", totalRetirada));
+        textoValorTotalCaixa.setText(String.format("%.2f", idCaixa.getTotalCaixa() - totalRetirada));
+        
+        textoValorQuantidadeDescontos.setText(String.format("%03d", qtdDesconto));
+        textoValorTotalDescontos.setText(String.format("%.2f", totalDesconto));
+        
+        textoValorTotalFaturadoFaturamento.setText(String.format("%.2f", idCaixa.getTotalCaixa()));
+        textoValorDinheiro.setText(String.format("%.2f", totalPagoDinheiro));
+        textoValorCredito.setText(String.format("%.2f", totalPagoCredito));
+        textoValorDebito.setText(String.format("%.2f", totalPagoDebito));
+        textoValorVale.setText(String.format("%.2f", totalPagoVale));
+        
+        textoValorQuantidadeRetiradas.setText(String.format("%03d", qtdRetirada));
+        textoValorTotalRetiradasRetiradas.setText(String.format("%.2f", totalRetirada));
+        
+        textoValorQuantidadeCancelamentos.setText(String.format("%03d", qtdCancelamento));
+        textoValorTotalCancelamentos.setText(String.format("%.2f", totalCancelamento));
+    }
+    
     public JButton getBotaoProcurarCaixa() {
         return botaoProcurarCaixa;
     }
@@ -742,11 +920,11 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     }
 
     public JDateChooser getDateChooserDataAberturaCaixa() {
-        return dateChooserDataAberturaCaixa;
+        return dateChooserDataInicio;
     }
 
     public void setDateChooserDataAberturaCaixa(JDateChooser dateChooserDataAberturaCaixa) {
-        this.dateChooserDataAberturaCaixa = dateChooserDataAberturaCaixa;
+        this.dateChooserDataInicio = dateChooserDataAberturaCaixa;
     }
 
     public JTable getTabelaCaixasEncontrados() {
@@ -755,15 +933,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
 
     public void setTabelaCaixasEncontrados(JTable tabelaCaixasEncontrados) {
         this.tabelaCaixasEncontrados = tabelaCaixasEncontrados;
-    }
-
-    public JButton getBotaoVisualizarDetalhesCaixa() {
-        return botaoVisualizarDetalhesCaixa;
-    }
-
-    public void setBotaoVisualizarDetalhesCaixa(JButton botaoVisualizarDetalhesCaixa) {
-        this.botaoVisualizarDetalhesCaixa = botaoVisualizarDetalhesCaixa;
-    }
+    }   
 
     public JLabel getTextoQuantidadeCancelamentos() {
         return textoQuantidadeCancelamentos;
@@ -1017,10 +1187,10 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoProcurarCaixa;
     private javax.swing.JButton botaoReimprimirRelatorio;
-    private javax.swing.JButton botaoVisualizarDetalhesCaixa;
     private javax.swing.JButton botaoVoltarTelaPrincipal;
     private javax.swing.JComboBox comboBoxCaixasAbertos;
-    private com.toedter.calendar.JDateChooser dateChooserDataAberturaCaixa;
+    private com.toedter.calendar.JDateChooser dateChooserDataFinal;
+    private com.toedter.calendar.JDateChooser dateChooserDataInicio;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelBuscarCaixa;
     private javax.swing.JPanel painelDetalhesCaixa;
@@ -1039,6 +1209,7 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     private javax.swing.JLabel textoCliqueNoCaixaDesejado;
     private javax.swing.JLabel textoCredito;
     private javax.swing.JLabel textoDataAberturaCaixa;
+    private javax.swing.JLabel textoDataAberturaCaixa1;
     private javax.swing.JLabel textoDebito;
     private javax.swing.JLabel textoDescontos;
     private javax.swing.JLabel textoDinheiro;
@@ -1090,4 +1261,15 @@ public class TelaVisualizarCaixa extends javax.swing.JDialog {
     private javax.swing.JLabel textoValorVale;
     private javax.swing.JLabel textoVisualizarCaixas;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (tabelaCaixasEncontrados.getSelectedRow() != -1) {
+            Caixa caixa = tableModel.getCaixas().get(tabelaCaixasEncontrados.getSelectedRow());            
+            if(caixa.getIdCaixa() > 0) {
+                idCaixa = caixa;
+                caixaToForm();
+            }
+        }
+    }
 }
