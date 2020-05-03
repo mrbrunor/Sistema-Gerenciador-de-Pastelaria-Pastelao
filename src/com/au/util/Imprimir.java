@@ -62,12 +62,14 @@ public class Imprimir {
     private int qtdPedCred;
     private int qtdPedDeb;
     private int qtdPedVale;
+    private int qtdPedAplicativo;
     private int qtdPedCanc;
     private int qtdPedDesc;
     private double totalDinheiro;
     private double totalCredito;
     private double totalDebito;
     private double totalVale;
+    private double totalAplicativo;
     private double totalDesp;
     private double totalCanc;
     private Properties props;
@@ -238,6 +240,8 @@ public class Imprimir {
             qtdPedDeb = 0;
             totalVale = 0;
             qtdPedVale = 0;
+            totalAplicativo =0;
+            qtdPedAplicativo = 0;
             descontoTotal = 0;
             qtdPedDesc = 0;
             totalCanc = 0;
@@ -245,7 +249,7 @@ public class Imprimir {
             FormaPagamentoDao fpDao = new FormaPagamentoDao();
             for (int i = 0; i < pedidos.size(); i++) {
                 fpDao.abreConnection();
-                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido()) && pedidos.get(i).getIdAplicativo() == 0 ) {
                     FormaPagamento fp;
                     fp = fpDao.listaFormaPagamentoPorId(pedidos.get(i).getIdFormaPgto());
 
@@ -265,7 +269,10 @@ public class Imprimir {
                     if (pedidos.get(i).getDescPedido() > 0) {
                         descontoTotal += pedidos.get(i).getDescPedido();
                         qtdPedDesc += 1;
-                    }                    
+                    }
+                } else if ("Finalizado".equals(pedidos.get(i).getEstadoPedido()) && pedidos.get(i).getIdAplicativo() != 0 ) {
+                    totalAplicativo = totalAplicativo + pedidos.get(i).getTotPedido();
+                    qtdPedAplicativo += 1;
                 } else {
                     totalCanc += pedidos.get(i).getSubTotPedido();
                     qtdPedCanc += 1;
@@ -564,11 +571,12 @@ public class Imprimir {
                     g2d.drawString(dataStr + "                          " + caixa.getFechamentoCaixa(), 6, y); y += yShift + 10;
                     g2d.drawString("Funcionário: " + caixa.getFuncionario().getNomeFunc(), 6, y); y += yShift + 10;
                     g2d.drawString("Fundo de Caixa: " + String.format("R$: %.2f", caixa.getFundoCaixa()), 6, y); y += yShift + 10;
-                    g2d.drawString("Quantidade de Pedidos: " + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale + qtdPedCanc), 6, y); y += yShift + 10;
+                    g2d.drawString("Quantidade de Pedidos: " + (qtdPedCred + qtdPedDeb + qtdPedDinheiro + qtdPedVale + qtdPedCanc + qtdPedAplicativo), 6, y); y += yShift + 10;
                     g2d.drawString("    Pagos com Dinheiro: " + qtdPedDinheiro, 6, y); y += yShift + 10;
                     g2d.drawString("    Pagos com Crédito: " + qtdPedCred, 6, y); y += yShift + 10;
                     g2d.drawString("    Pagos com Débito: " + qtdPedDeb, 6, y); y += yShift + 10;
                     g2d.drawString("    Pagos com Vale: " + qtdPedVale, 6, y); y += yShift + 10;
+                    g2d.drawString("    Pagos com Aplicativo: " + qtdPedAplicativo, 6, y); y += yShift + 10;
                     g2d.drawString("    Cancelados: " + qtdPedCanc, 6, y); y += yShift + 10;
                     g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
                     
@@ -582,6 +590,7 @@ public class Imprimir {
                     g2d.drawString("    Credito: " + String.format("R$ %.2f", totalCredito), 6, y); y += yShift + 10;
                     g2d.drawString("    Debito: " + String.format("R$ %.2f", totalDebito), 6, y); y += yShift + 10;
                     g2d.drawString("    Vale: " + String.format("R$ %.2f", totalVale), 6, y); y += yShift + 10;
+                    g2d.drawString("    Aplicativos: " + String.format("R$ %.2f", totalAplicativo), 6, y); y += yShift + 10;
                     g2d.drawString("------------------------------------------------------", 6, y); y += yShift + 10;
                     
                     y += 10;

@@ -37,11 +37,16 @@ public class Pedido {
     private double totPedido;
     private double valorRecebido;
     private int idFormaPgto;
-    private String estadoPedido;
+    private String estadoPedido;    
     private String formaConsumo;
+    private int idAplicativo;
     
     private List<ItemPedido> itempedidos = new ArrayList<>();
     private FormaPagamento formaPagamento = new FormaPagamento();
+    
+    public Pedido() {
+        idAplicativo = 0;
+    }
 
     public double getValorRecebido() {
         return valorRecebido;
@@ -153,6 +158,14 @@ public class Pedido {
 
     public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    public int getIdAplicativo() {
+        return idAplicativo;
+    }
+
+    public void setIdAplicativo(int idAplicativo) {
+        this.idAplicativo = idAplicativo;
     }
 
 }

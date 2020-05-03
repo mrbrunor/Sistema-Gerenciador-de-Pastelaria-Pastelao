@@ -55,7 +55,7 @@ public class PedidoDao {
     //CRUD
     //CREATE    
     public int adicionaPedido(Pedido novoPedido) {
-        String sql = "INSERT INTO sistemapastelao.Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPgto, estadoPedido, formaConsumo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sistemapastelao.Pedido(numPedido, dataPedido, horaPedido, idCaixa, subTotPedido, descPedido, totPedido, valorRecebido, idFormaPgto, estadoPedido, formaConsumo, idAplicativo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt;
         int resultado = 0;
 
@@ -72,6 +72,7 @@ public class PedidoDao {
             stmt.setInt(9, novoPedido.getIdFormaPgto());
             stmt.setString(10, novoPedido.getEstadoPedido());
             stmt.setString(11, novoPedido.getFormaConsumo());
+            stmt.setInt(12, novoPedido.getIdAplicativo());
 
             stmt.execute();
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -112,6 +113,7 @@ public class PedidoDao {
                 pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
                 pedido.setEstadoPedido(res.getString("estadoPedido"));
                 pedido.setFormaConsumo(res.getString("formaConsumo"));
+                pedido.setIdAplicativo(res.getInt("idAplicativo"));
                 listaResPedido.add(pedido);
             }
             res.close();
@@ -145,6 +147,7 @@ public class PedidoDao {
                 pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
                 pedido.setEstadoPedido(res.getString("estadoPedido"));
                 pedido.setFormaConsumo(res.getString("formaConsumo"));
+                pedido.setIdAplicativo(res.getInt("idAplicativo"));
                 
                 FormaPagamento fp = new FormaPagamento();
                 fp.setIdFormaPgto(res.getInt("idFormaPgto"));
@@ -188,6 +191,7 @@ public class PedidoDao {
                 pedido.setIdFormaPgto(res.getInt("idFormaPgto"));
                 pedido.setEstadoPedido(res.getString("estadoPedido"));
                 pedido.setFormaConsumo(res.getString("formaConsumo"));
+                pedido.setIdAplicativo(res.getInt("idAplicativo"));
                 listaResPedido.add(pedido);
             }
             res.close();
@@ -238,7 +242,7 @@ public class PedidoDao {
     
     //UPDATE
     public boolean atualizaPedido(Pedido novoPedido) {
-        String sql = "UPDATE sistemapastelao.Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPgto=?, estadoPedido=?, formaConsumo=? WHERE idPedido=?";
+        String sql = "UPDATE sistemapastelao.Pedido SET numPedido=?, dataPedido=?, horaPedido=?, idCaixa=?, subTotPedido=?, descPedido=?, totPedido=?, valorRecebido=?, idFormaPgto=?, estadoPedido=?, formaConsumo=?, idAplicativo=? WHERE idPedido=?";
         PreparedStatement stmt;
         boolean resultado = false;
 
@@ -255,7 +259,8 @@ public class PedidoDao {
             stmt.setInt(9, novoPedido.getIdFormaPgto());
             stmt.setString(10, novoPedido.getEstadoPedido());
             stmt.setString(11, novoPedido.getFormaConsumo());
-            stmt.setInt(12, novoPedido.getIdPedido());
+            stmt.setInt(12, novoPedido.getIdAplicativo());
+            stmt.setInt(13, novoPedido.getIdPedido());
 
             stmt.execute();
             stmt.close();

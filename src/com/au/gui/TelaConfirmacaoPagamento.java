@@ -16,9 +16,11 @@
  */
 package com.au.gui;
 
+import com.au.bean.Aplicativo;
 import com.au.bean.Caixa;
 import com.au.bean.FormaPagamento;
 import com.au.bean.Pedido;
+import com.au.dao.AplicativoDao;
 import com.au.dao.CaixaDao;
 import com.au.dao.FormaPagamentoDao;
 import com.au.util.CustomComboBoxInt;
@@ -49,6 +51,7 @@ import javax.swing.border.MatteBorder;
 public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
 
     private Pedido pedido = new Pedido();
+    private final AplicativoDao aDao = new AplicativoDao();
     private final CaixaDao cDao = new CaixaDao();
     private final PedidoDao pDao = new PedidoDao();
     private final ItemPedidoDao ipDao = new ItemPedidoDao();
@@ -57,6 +60,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private Integer idCaixa = null;
     private static boolean pagou = false;
     private List<FormaPagamento> listaResFormasPagamento;
+    private List<Aplicativo> listaResAplicativo;
     private VendaTableModel tableModelVenda;
     private final Border vermelha = new MatteBorder(1, 1, 1, 1, Color.red);
     private final Border normal;
@@ -68,6 +72,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         this.pedido.setSubTotPedido(subTotal);
         this.pedido.setTotPedido(subTotal);
         buscaFormasPagamento();
+        buscaAplicativo();
         initComponents();
         try {
             verificaNomeImpressoras();
@@ -84,6 +89,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         caixaSelecaoCC.setVisible(false);
         caixaSelecaoCD.setVisible(false);
         caixaSelecaoVR.setVisible(false);
+        caixaSelecaoAplicativo.setVisible(false);
         campoValorRecebido.setVisible(false);
         textoValorRecebido.setVisible(false);
         campoValorRecebidoVR.setVisible(false);
@@ -132,13 +138,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         botaoRadioBalcao = new javax.swing.JRadioButton();
         botaoRadioMesa = new javax.swing.JRadioButton();
-        botaoRadioViagem = new javax.swing.JRadioButton();
         campoMesa = new javax.swing.JTextField();
-        painelEstadoImpressoras = new javax.swing.JPanel();
-        textoImpressoraCaixa = new javax.swing.JLabel();
-        textoImpressoraCozinha = new javax.swing.JLabel();
-        textoNomeCaixa = new javax.swing.JLabel();
-        textoNomeCozinha = new javax.swing.JLabel();
+        botaoRadioViagem = new javax.swing.JRadioButton();
+        botaoRadioAplicativo = new javax.swing.JRadioButton();
+        caixaSelecaoAplicativo = new javax.swing.JComboBox(getFormasAplicativo());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Pastelão - Confirmação de Pedido");
@@ -440,6 +443,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                                 .addGap(6, 6, 6)
                                 .addComponent(textoValorRecebido))
                             .addComponent(campoValorRecebido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(23, 23, 23)
                 .addGroup(painelFormasDePagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelFormasDePagamentoLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -506,6 +510,19 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
         });
 
+        campoMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        campoMesa.setEnabled(false);
+        campoMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoMesaActionPerformed(evt);
+            }
+        });
+        campoMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoMesaKeyPressed(evt);
+            }
+        });
+
         buttonGroup2.add(botaoRadioViagem);
         botaoRadioViagem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         botaoRadioViagem.setText("<html><b><u>V</u></b>iagem");
@@ -520,16 +537,28 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
         });
 
-        campoMesa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        campoMesa.setEnabled(false);
-        campoMesa.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(botaoRadioAplicativo);
+        botaoRadioAplicativo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botaoRadioAplicativo.setText("<html><b><u>A</u></b>plicativo");
+        botaoRadioAplicativo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoMesaActionPerformed(evt);
+                botaoRadioAplicativoActionPerformed(evt);
             }
         });
-        campoMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+        botaoRadioAplicativo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                campoMesaKeyPressed(evt);
+                botaoRadioAplicativoKeyPressed(evt);
+            }
+        });
+
+        caixaSelecaoAplicativo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaSelecaoAplicativoActionPerformed(evt);
+            }
+        });
+        caixaSelecaoAplicativo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                caixaSelecaoAplicativoKeyPressed(evt);
             }
         });
 
@@ -537,16 +566,20 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botaoRadioBalcao)
-                .addGap(10, 10, 10)
-                .addComponent(botaoRadioMesa)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(botaoRadioBalcao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(botaoRadioMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(botaoRadioViagem)
-                .addContainerGap())
+                .addGap(43, 43, 43)
+                .addComponent(botaoRadioViagem, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoRadioAplicativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(caixaSelecaoAplicativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,51 +589,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(botaoRadioBalcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRadioMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRadioViagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        painelEstadoImpressoras.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nome das Impressoras"));
-
-        textoImpressoraCaixa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        textoImpressoraCaixa.setText("CAIXA:");
-
-        textoImpressoraCozinha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        textoImpressoraCozinha.setText("COZINHA:");
-
-        textoNomeCaixa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textoNomeCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        textoNomeCaixa.setText("ERRO");
-
-        textoNomeCozinha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textoNomeCozinha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        textoNomeCozinha.setText("ERRO");
-
-        javax.swing.GroupLayout painelEstadoImpressorasLayout = new javax.swing.GroupLayout(painelEstadoImpressoras);
-        painelEstadoImpressoras.setLayout(painelEstadoImpressorasLayout);
-        painelEstadoImpressorasLayout.setHorizontalGroup(
-            painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoImpressoraCozinha)
-                    .addComponent(textoImpressoraCaixa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoNomeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNomeCozinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        painelEstadoImpressorasLayout.setVerticalGroup(
-            painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEstadoImpressorasLayout.createSequentialGroup()
-                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoImpressoraCaixa)
-                    .addComponent(textoNomeCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(painelEstadoImpressorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoImpressoraCozinha)
-                    .addComponent(textoNomeCozinha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoRadioAplicativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(caixaSelecaoAplicativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -613,14 +605,11 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                     .addComponent(painelDadosPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelEstadoImpressoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botaoConfirmarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -631,9 +620,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelFormasDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelEstadoImpressoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoCancelarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -668,7 +655,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 valorRecebidoTemp = pedido.getTotPedido();
             }
             if (JOptionPane.showConfirmDialog(this, String.format("<html><center>Valor Recebido: R$ %.2f", valorRecebidoTemp) + String.format("<br/><font color=red><b>Troco: R$ %.2f</b><br/><br/>", valorRecebidoTemp - pedido.getTotPedido()) + "<font color=black>Deseja confirmar esse pedido?", "Confirmar Pedido", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-                criaPedido();                
+                criaPedido();
                 new Imprimir(pedido.getIdPedido(), true, true, (JDialog) this);
                 /*try {
                  new Imprime().geraComandaVenda(pedido.getIdPedido());
@@ -855,15 +842,35 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_botaoConfirmarPedidoKeyPressed
 
-    private void campoMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoMesaActionPerformed
-        botaoConfirmarPedido.requestFocus();
-    }//GEN-LAST:event_campoMesaActionPerformed
-
     private void campoMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoMesaKeyPressed
         if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
             validaHotKey(evt);
         }
     }//GEN-LAST:event_campoMesaKeyPressed
+
+    private void campoMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoMesaActionPerformed
+        botaoConfirmarPedido.requestFocus();
+    }//GEN-LAST:event_campoMesaActionPerformed
+
+    private void botaoRadioAplicativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRadioAplicativoActionPerformed
+        habilitaAplicativo();
+    }//GEN-LAST:event_botaoRadioAplicativoActionPerformed
+
+    private void botaoRadioAplicativoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoRadioAplicativoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botaoRadioValeRefeicao.doClick();
+        } else {
+            validaHotKey(evt);
+        }
+    }//GEN-LAST:event_botaoRadioAplicativoKeyPressed
+
+    private void caixaSelecaoAplicativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSelecaoAplicativoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caixaSelecaoAplicativoActionPerformed
+
+    private void caixaSelecaoAplicativoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaSelecaoAplicativoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caixaSelecaoAplicativoKeyPressed
 
     private void atualizaTableModelVenda() {
         tableModelVenda = new VendaTableModel(pedido.getItempedidos());
@@ -887,12 +894,17 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             textoValorTotal.setText(String.format("<html>Valor Total: <b>%.2f", pedido.getTotPedido()));
         }
     }
+    
+    private void buscaAplicativo() {
+        aDao.abreConnection();
+        listaResAplicativo = aDao.getLista();
+        aDao.fechaConnection();
+    }
 
     private void buscaFormasPagamento() {
         fpDao.abreConnection();
         listaResFormasPagamento = fpDao.getLista();
         fpDao.fechaConnection();
-
     }
 
     private void criaPedido() {
@@ -922,6 +934,10 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             pedido.setFormaConsumo(String.format("Mesa %02d", Integer.valueOf(campoMesa.getText())));
         } else if (botaoRadioViagem.isSelected()) {
             pedido.setFormaConsumo("Viagem");
+        } else if (botaoRadioAplicativo.isSelected()) {
+            CustomComboBoxInt ob = (CustomComboBoxInt) caixaSelecaoAplicativo.getSelectedItem();            
+            pedido.setFormaConsumo(ob.getNome());
+            pedido.setIdAplicativo(ob.getId());
         }
 
         if (botaoRadioDinheiro.isSelected()) { //Preenche o valor recebido no caso de dinheiro
@@ -950,6 +966,14 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
             }
             ipDao.fechaConnection();
         }
+    }
+
+    private CustomComboBoxInt[] getFormasAplicativo() {                
+        CustomComboBoxInt[] oItems = new CustomComboBoxInt[listaResAplicativo.size()];
+        for (int i = 0; i < listaResAplicativo.size(); i++) {
+            oItems[i] = new CustomComboBoxInt(listaResAplicativo.get(i).getNomeAplicativo(), listaResAplicativo.get(i).getIdAplicativo());
+        }
+        return oItems;
     }
 
     private CustomComboBoxInt[] getFormasDebito() {
@@ -1063,7 +1087,17 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         caixaSelecaoVR.requestFocus();
         caixaSelecaoVR.setSelectedIndex(-1);
     }
-
+    
+    public void habilitaAplicativo() {
+        limpaBordaConsumo();        
+        campoMesa.setEnabled(false);
+        campoMesa.setText("");        
+        
+        caixaSelecaoAplicativo.setVisible(true);
+        caixaSelecaoAplicativo.requestFocus();
+        caixaSelecaoAplicativo.setSelectedIndex(-1);
+    }
+    
     public void habilitaMesa(boolean valida) {
         limpaBordaConsumo();
         campoMesa.setEnabled(valida);
@@ -1074,6 +1108,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         botaoRadioBalcao.setBorderPainted(false);
         botaoRadioMesa.setBorderPainted(false);
         botaoRadioViagem.setBorderPainted(false);
+        botaoRadioAplicativo.setBorderPainted(false);
         campoMesa.setBorder(normal);
     }
 
@@ -1174,7 +1209,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
                 caixaSelecaoVR.setBorder(normal);
             }
         }
-        if (botaoRadioBalcao.isSelected() || botaoRadioMesa.isSelected() || botaoRadioViagem.isSelected()) {
+        if (botaoRadioBalcao.isSelected() || botaoRadioMesa.isSelected() || botaoRadioViagem.isSelected() || botaoRadioAplicativo.isSelected()) {
             limpaBordaConsumo();
         } else {
             valida = false;
@@ -1228,38 +1263,21 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
         pagou = aPagou;
     }
 
-    public void verificaNomeImpressoras() {        
+    public void verificaNomeImpressoras() {
         Properties props = null;
         try {
             props = ManipulaConfigs.getProp();
         } catch (IOException e) {
             System.out.println("Houve um erro ao carregar as configurações. Possíveis causas incluem arquivo de configuração danificado e/ou ausente.\n");
             e.printStackTrace();
-        }               
-        getTextoNomeCaixa().setText(props.getProperty("prop.impressora.caixa.nome"));
-        getTextoNomeCozinha().setText(props.getProperty("prop.impressora.cozinha.nome"));
-    }    
-
-    public JLabel getTextoNomeCaixa() {
-        return textoNomeCaixa;
+        }
     }
-
-    public void setTextoNomeCaixa(JLabel textoValorImpressoraCaixa) {
-        this.textoNomeCaixa = textoValorImpressoraCaixa;
-    }
-
-    public JLabel getTextoNomeCozinha() {
-        return textoNomeCozinha;
-    }
-
-    public void setTextoNomeCozinha(JLabel textoValorImpressoraCozinha) {
-        this.textoNomeCozinha = textoValorImpressoraCozinha;
-    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarPedido;
     private javax.swing.JRadioButton botaoCartaoDebito;
     private javax.swing.JButton botaoConfirmarPedido;
+    private javax.swing.JRadioButton botaoRadioAplicativo;
     private javax.swing.JRadioButton botaoRadioBalcao;
     private javax.swing.JRadioButton botaoRadioCartaoCredito;
     private javax.swing.JRadioButton botaoRadioDinheiro;
@@ -1268,6 +1286,7 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JRadioButton botaoRadioViagem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox caixaSelecaoAplicativo;
     private javax.swing.JComboBox caixaSelecaoCC;
     private javax.swing.JComboBox caixaSelecaoCD;
     private javax.swing.JComboBox caixaSelecaoVR;
@@ -1279,7 +1298,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel painelDadosPedido;
-    private javax.swing.JPanel painelEstadoImpressoras;
     private javax.swing.JPanel painelFormasDePagamento;
     private javax.swing.JTable tabelaPedido;
     private javax.swing.JLabel textoConfiraDadosPedido;
@@ -1288,10 +1306,6 @@ public class TelaConfirmacaoPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel textoIconeCD;
     private javax.swing.JLabel textoIconeDinheiro;
     private javax.swing.JLabel textoIconeVR;
-    private javax.swing.JLabel textoImpressoraCaixa;
-    private javax.swing.JLabel textoImpressoraCozinha;
-    private javax.swing.JLabel textoNomeCaixa;
-    private javax.swing.JLabel textoNomeCozinha;
     private javax.swing.JLabel textoSelecioneFormaPagamento;
     private javax.swing.JLabel textoValorRecebido;
     private javax.swing.JLabel textoValorRecebidoVR;

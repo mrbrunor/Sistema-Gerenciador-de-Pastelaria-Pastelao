@@ -140,6 +140,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         itemMenuDeslogar = new javax.swing.JMenuItem();
         itemMenuSair = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         itemMenuFormaPagamento = new javax.swing.JMenuItem();
         itemMenuFuncionarios = new javax.swing.JMenuItem();
         itemMenuIngredientes = new javax.swing.JMenuItem();
@@ -520,6 +521,14 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
         menuCadastros.setText("Cadastros");
         menuCadastros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem2.setText("Aplicativo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem2);
+
         itemMenuFormaPagamento.setText("Formas de Pagamento");
         itemMenuFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -766,7 +775,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     }//GEN-LAST:event_itemMenuVendasGeraisActionPerformed
 
     private void itemMenuRetiradaDeCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRetiradaDeCaixaActionPerformed
-        new TelaRetirada(this, true, caixa).setVisible(true);
+        new TelaRetirada(this, true, idCaixa).setVisible(true);
         campoAdicionarItem.requestFocus();
     }//GEN-LAST:event_itemMenuRetiradaDeCaixaActionPerformed
 
@@ -795,6 +804,10 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         new TelaVisualizarCaixa(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new TelaCadastrarAplicativo(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void abrirCaixa() {
         if (idCaixa == null) {
@@ -1210,6 +1223,7 @@ public class TelaVenda extends javax.swing.JFrame implements ListSelectionListen
     private javax.swing.JMenuItem itemMenuVendasGerais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;

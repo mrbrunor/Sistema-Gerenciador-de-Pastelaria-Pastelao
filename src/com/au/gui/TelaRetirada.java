@@ -45,7 +45,7 @@ public class TelaRetirada extends javax.swing.JDialog {
      * @param modal
      * @param caixa
      */
-    public TelaRetirada(java.awt.Frame parent, boolean modal, Caixa caixa) {
+    public TelaRetirada(java.awt.Frame parent, boolean modal, int idCaixa) {
         super(parent, modal);
         initComponents();
         textoErroMotivo.setVisible(false);
@@ -53,7 +53,8 @@ public class TelaRetirada extends javax.swing.JDialog {
         campoMotivo.setDocument(new LimitaDigitos((300), ""));
         campoValor.setDocument(new LimitaDigitos((7), "[^0-9\\.]"));
         normal = campoValor.getBorder();
-        this.caixa = caixa;
+        this.caixa = new Caixa();
+        caixa.setIdCaixa(idCaixa);
     }
 
     /**

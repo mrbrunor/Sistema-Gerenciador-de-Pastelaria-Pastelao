@@ -129,10 +129,12 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         textoCartaoDeCredito = new javax.swing.JLabel();
         textoCartaoDeDebito = new javax.swing.JLabel();
         textoValeRefeicao = new javax.swing.JLabel();
+        textoAplicativo = new javax.swing.JLabel();
         textoValorDinheiro = new javax.swing.JLabel();
         textoValorCartaoDeCredito = new javax.swing.JLabel();
         textoValorCartaoDeDebito = new javax.swing.JLabel();
         textoValorValeRefeicao = new javax.swing.JLabel();
+        textoValorAplicativo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         textoValorTotalFaturado = new javax.swing.JLabel();
         botaoConfirmarFechamentoDeCaixa = new javax.swing.JButton();
@@ -516,6 +518,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         textoValeRefeicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/barcode-48.png"))); // NOI18N
         textoValeRefeicao.setText(" Vale Refeição:");
 
+        textoAplicativo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        textoAplicativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/au/resources/icons/smartphone-48.png"))); // NOI18N
+        textoAplicativo.setText("Aplicativos:");
+        textoAplicativo.setPreferredSize(new java.awt.Dimension(148, 48));
+
         textoValorDinheiro.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoValorDinheiro.setText("R$: 0,00");
 
@@ -528,6 +535,9 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         textoValorValeRefeicao.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoValorValeRefeicao.setText("R$: 0,00");
 
+        textoValorAplicativo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        textoValorAplicativo.setText("R$: 0,00");
+
         textoValorTotalFaturado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textoValorTotalFaturado.setText("TOTAL FATURADO: R$ 0,00");
 
@@ -535,28 +545,30 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
         painelFaturamentos.setLayout(painelFaturamentosLayout);
         painelFaturamentosLayout.setHorizontalGroup(
             painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(painelFaturamentosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoValoresFaturados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoValorTotalFaturado, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(textoValorTotalFaturado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelFaturamentosLayout.createSequentialGroup()
                         .addGroup(painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textoCartaoDeCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoValeRefeicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoCartaoDeDebito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textoDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textoAplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelFaturamentosLayout.createSequentialGroup()
                                 .addGroup(painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(textoValorCartaoDeCredito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                                     .addComponent(textoValorValeRefeicao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textoValorCartaoDeDebito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(textoValorCartaoDeDebito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(textoValorAplicativo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(textoValorDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(textoValorDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(6, 6, 6))
         );
         painelFaturamentosLayout.setVerticalGroup(
             painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,10 +591,14 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                     .addComponent(textoValeRefeicao)
                     .addComponent(textoValorValeRefeicao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelFaturamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoAplicativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoValorAplicativo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoValorTotalFaturado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelFaturamentosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textoDinheiro, textoValorDinheiro});
@@ -703,7 +719,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                 .addGroup(painelTotalCaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoTotalCaixa)
                     .addComponent(textoValorTotalCaixa))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelFundoDeCaixa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fundo de Caixa"));
@@ -748,15 +764,20 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                         .addComponent(painelDinheiroEmCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelFaturamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(painelRetiradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(painelTotalCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(painelFundoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(painelFundoDeCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(painelTotalCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(painelRetiradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 12, Short.MAX_VALUE))))))
                     .addComponent(painelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoCancelarFechamentoDeCaixa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoConfirmarFechamentoDeCaixa)))
@@ -767,24 +788,22 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelDinheiroEmCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelFaturamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelFaturamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelFundoDeCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelRetiradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelTotalCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(painelTotalCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelDinheiroEmCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConfirmarFechamentoDeCaixa)
                     .addComponent(botaoCancelarFechamentoDeCaixa))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {painelDinheiroEmCaixa, painelFaturamentos});
 
         pack();
         setLocationRelativeTo(null);
@@ -941,10 +960,11 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
             double totalCredito = 0;
             double totalDebito = 0;
             double totalVale = 0;
+            double totalAplicativo = 0;
             FormaPagamentoDao fpDao = new FormaPagamentoDao();
             for (int i = 0; i < pedidos.size(); i++) {
                 fpDao.abreConnection();
-                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido())) {
+                if ("Finalizado".equals(pedidos.get(i).getEstadoPedido()) && pedidos.get(i).getIdAplicativo() == 0) {
                     FormaPagamento fp;
                     fp = fpDao.listaFormaPagamentoPorId(pedidos.get(i).getIdFormaPgto());
 
@@ -966,6 +986,9 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
                         qtdPedDesc += 1;
                     }
                     caixa.setTotalCaixa(caixa.getTotalCaixa() + pedidos.get(i).getTotPedido());
+                } else if ("Finalizado".equals(pedidos.get(i).getEstadoPedido()) && pedidos.get(i).getIdAplicativo() != 0) {
+                    totalAplicativo += pedidos.get(i).getTotPedido();
+                    caixa.setTotalCaixa(caixa.getTotalCaixa() + pedidos.get(i).getTotPedido());
                 } else {
                     qtdPedCanc += 1;
                 }
@@ -975,6 +998,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
             textoValorCartaoDeCredito.setText(String.format("R$: %.2f", totalCredito));
             textoValorCartaoDeDebito.setText(String.format("R$: %.2f", totalDebito));
             textoValorValeRefeicao.setText(String.format("R$: %.2f", totalVale));
+            textoValorAplicativo.setText(String.format("R$: %.2f", totalAplicativo));
         } else {
             textoValorDinheiro.setText("R$: 0,00");
             textoValorCartaoDeCredito.setText("R$: 0,00");
@@ -1039,6 +1063,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
     private javax.swing.JPanel painelRetiradas;
     private javax.swing.JPanel painelSuperior;
     private javax.swing.JPanel painelTotalCaixa;
+    private javax.swing.JLabel textoAplicativo;
     private javax.swing.JLabel textoCartaoDeCredito;
     private javax.swing.JLabel textoCartaoDeDebito;
     private javax.swing.JLabel textoCedulaCemReais;
@@ -1063,6 +1088,7 @@ public class TelaFechamentoCaixa extends javax.swing.JDialog {
     private javax.swing.JLabel textoTotalCaixa;
     private javax.swing.JLabel textoTotalRetiradas;
     private javax.swing.JLabel textoValeRefeicao;
+    private javax.swing.JLabel textoValorAplicativo;
     private javax.swing.JLabel textoValorCartaoDeCredito;
     private javax.swing.JLabel textoValorCartaoDeDebito;
     private javax.swing.JLabel textoValorDinheiro;
